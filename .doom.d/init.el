@@ -38,7 +38,7 @@
        ;;hydra
        indent-guides     ; highlighted indent columns
        (ligatures         ; ligatures and symbols to make your code pretty again
-        +fira ; fira is broken, temporarily disabled
+        ;+fira ; manually loaded in config.el
         +extra)
        minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
