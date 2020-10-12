@@ -111,6 +111,7 @@ export MANPATH="$MANPATH:$HOME/.local/man:/usr/local/man"
 export INFOPATH="$INFOPATH:$HOME/.local/info"
 export N_PREFIX="$HOME/.local"
 export FPATH="$FPATH:$HOME/.completions"
+export CHKTEXRC="$HOME"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8

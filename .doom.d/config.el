@@ -9,6 +9,7 @@
 (setq user-full-name "Ricardo Prado Cunha"
       user-mail-address "rpc01234@gmail.com")
 
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -32,6 +33,70 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-opera)
+(load-theme 'doom-opera t)
+
+;; Telephone modeline
+(custom-set-faces!
+  `(telephone-line-evil-emacs :background
+                                  ,(doom-darken (doom-color 'teal) .33))
+  `(telephone-line-evil-insert :background
+                                  ,(doom-darken (doom-color 'blue) .33))
+  `(telephone-line-evil-motion :background
+                                  ,(doom-darken (doom-color 'base7) .33))
+  `(telephone-line-evil-normal :background
+                                  ,(doom-darken (doom-color 'green) .33))
+  `(telephone-line-evil-operator :background
+                                  ,(doom-darken (doom-color 'base2) .33))
+  `(telephone-line-evil-visual :background
+                                  ,(doom-darken (doom-color 'yellow) .33))
+  `(telephone-line-evil-replace :background
+                                  ,(doom-darken (doom-color 'red) .33))
+  `(telephone-line-evil-god :background
+                                  ,(doom-darken (doom-color 'cyan) .33))
+
+  `(telephone-line-accent-active :background ,(doom-color 'grey))
+  `(mode-line-inactive :background ,(doom-color 'bg-alt)
+                       :foreground ,(doom-darken (doom-color 'fg-alt) .33))
+  `(telephone-line-accent-inactive :background
+                                    ,(doom-lighten (doom-color 'bg-alt) .03)
+                                   :foreground
+                                    ,(doom-darken (doom-color 'fg-alt) .33))
+)
+
+(telephone-line-defsegment* telephone-custom-evil-segment ()
+  "Displays current evil mode with an equal-length tag."
+  (when (bound-and-true-p evil-mode)
+    (let ((tag (cond
+                ((evil-operator-state-p)
+                 (if telephone-line-evil-use-short-tag "OP" "OPERTR"))
+                ((evil-replace-state-p)
+                 (if telephone-line-evil-use-short-tag "RE" "REPLCE"))
+                ((not (evil-visual-state-p)) (upcase (symbol-name evil-state)))
+                ((eq evil-visual-selection 'block)
+                 (if telephone-line-evil-use-short-tag "VB" "V-BLCK"))
+                ((eq evil-visual-selection 'line)
+                 (if telephone-line-evil-use-short-tag "VL" "V-LINE"))
+                (t "VISUAL"))))
+      (if telephone-line-evil-use-short-tag
+          (seq-take tag 2)
+        tag))))
+
+(setq telephone-line-lhs
+      '((evil   . (telephone-custom-evil-segment))
+        (accent . (telephone-line-vc-segment
+                   telephone-line-filesize-segment
+                   telephone-line-input-info-segment
+                   (telephone-line-projectile-buffer-segment 0 1)))
+        (nil    . (telephone-line-airline-position-segment
+                   telephone-line-process-segment))))
+(setq telephone-line-rhs
+      '((nil    . (telephone-line-misc-info-segment))
+        (accent . (telephone-line-major-mode-segment))
+        (evil   . (telephone-line-flycheck-segment
+                   telephone-line-hud-segment))))
+
+(setq telephone-line-height 23)
+(telephone-line-mode t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -63,6 +128,9 @@
       :n "X" "\"_dh"
       :n "~" "g~l")
 
+(map! :leader :desc "Open 10-day agenda"
+      "o a a" #'org-agenda-list)
+
 (setq ;; More natural split direction
       evil-split-window-below t
       evil-vsplit-window-right t
@@ -71,6 +139,9 @@
       ;; Langtool location
       langtool-language-tool-jar
       "/snap/languagetool/23/usr/bin/languagetool-commandline.jar")
+
+;; Set defuault encoding
+(set-language-environment "UTF-8")
 
 (defun school-agenda ()
   "Open tasks and agenda with schedule in a sidebar."
@@ -82,11 +153,11 @@
   ;; Split schedule with tasks
   (evil-window-vsplit nil "~/org/tasks.org")
   ;; Reduce schedule size to look like sidebar
-  (evil-window-left 1) (evil-window-set-width 37)
+  (evil-window-left 1) (evil-window-set-width 36)
   ;; Open org-agenda below tasks (and make it small)
   (evil-window-right 1)
   (evil-window-split) (org-agenda-list)
-  (evil-window-set-height 17)
+  (evil-window-set-height 19)
   ;; Return to schedule
   (evil-window-left 1))
 
@@ -94,20 +165,32 @@
 (setq fill-column 80)
 (add-hook! text-mode 'display-fill-column-indicator-mode)
 (add-hook! text-mode 'auto-fill-mode)
-;; (add-hook! text-mode 'visual-fill-column) disabled because not compatible
-;; with auto-fill-mode
+;; (add-hook! text-mode 'visual-fill-column) ; disabled because not compatible
+                                             ; with auto-fill-mode
 
 ;; Writeroom (zen mode) tweaks
 (setq writeroom-width 62)
 (add-hook! writeroom-mode-hook '(display-fill-column-indicator-mode -1))
 (add-hook! writeroom-mode-disable-hook '(display-fill-column-indicator-mode))
 
-;; Easy LaTeX preview pane
+;; LaTeX keybind tweaks
 (map! :map LaTeX-mode-map
+      ;; Easy access to preview pane
       :localleader :desc "Preview pane"
       "V" #'latex-preview-pane-mode
       :localleader :desc "Update preview pane"
-      "v" #'latex-preview-pane-update)
+      "v" #'latex-preview-pane-update
+      ;; Easy access to langtool
+      :localleader :desc "Check current buffer with langtool"
+      "C c" #'langtool-check
+      :localleader :desc "Check current buffer with langtool"
+      "C C" #'langtool-check
+      :localleader :desc "Interactively correct buffer with langtool"
+      "c" #'langtool-correct-buffer
+      :localleader :desc "End current langtool session"
+      "C C-c" #'langtool-check-done
+      :localleader :desc "Return to langtool"
+      "C-c" #'exit-recursive-edit)
 
 ;; Fix 2-wide ligatures
 (plist-put! +ligatures-extra-symbols
