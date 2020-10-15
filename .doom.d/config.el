@@ -141,7 +141,13 @@
       :n "~" "g~l")
 
 (map! :leader :desc "Open 10-day agenda"
-      "o a a" #'org-agenda-list)
+      "o a a" #'org-agenda-list
+      :leader :desc "Open school agenda"
+      "o a s" #'school-agenda)
+
+(map! :map org-mode-map
+      :localleader :desc "Set visibility to 2"
+      "TAB" (cmd! (org-shifttab 2)))
 
 (setq ;; More natural split direction
       evil-split-window-below t
@@ -150,25 +156,27 @@
       markdown-gfm-uppercase-checkbox nil
       ;; Langtool location
       langtool-language-tool-jar
-      "/snap/languagetool/23/usr/bin/languagetool-commandline.jar")
+      "/snap/languagetool/23/usr/bin/languagetool-commandline.jar"
+      ;; LaTeX list indent
+      +latex-indent-level-item-continuation 2)
 
-;; Set defuault encoding
+;; Set default encoding
 (set-language-environment "UTF-8")
 
-(defun school-agenda ()
+(defun school-agenda (&optional kill)
   "Open tasks and agenda with schedule in a sidebar."
-  (interactive)
+  (interactive (list (if (string= (buffer-name (current-buffer)) "*doom*")
+                         nil t)))
   ;; Close all current buffers
-  (+evil:kill-all-buffers nil)
+  (if kill (+evil:kill-all-buffers nil))
   ;; Open schedule in main window in read-only mode
   (evil-edit "~/org/schedule.org") (read-only-mode)
-  ;; Split schedule with tasks
-  (evil-window-vsplit nil "~/org/tasks.org")
+  ;; Split schedule with tasks and set view level
+  (evil-window-vsplit nil "~/org/tasks.org") (org-shifttab 2)
   ;; Reduce schedule size to look like sidebar
   (evil-window-left 1) (evil-window-set-width 36)
   ;; Open org-agenda below tasks (and make it small)
-  (evil-window-right 1)
-  (evil-window-split) (org-agenda-list)
+  (evil-window-right 1) (evil-window-split) (org-agenda-list)
   (evil-window-set-height 19)
   ;; Return to schedule
   (evil-window-left 1))
@@ -203,6 +211,13 @@
       "C C-c" #'langtool-check-done
       :localleader :desc "Return to langtool"
       "C-c" #'exit-recursive-edit)
+
+;; Doom dashboard
+(setcar (cdr +doom-dashboard-menu-sections)
+        `("Open school agenda" . ,(plist-put (cdr (assoc
+                                                 "Open org-agenda"
+                                                 +doom-dashboard-menu-sections))
+                                           :action #'school-agenda)))
 
 ;; Fix 2-wide ligatures
 (plist-put! +ligatures-extra-symbols
