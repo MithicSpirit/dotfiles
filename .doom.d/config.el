@@ -32,8 +32,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-opera)
-(load-theme 'doom-opera t)
+(setq doom-theme 'doom-palenight)
+(custom-set-faces! '(fringe :inherit line-number))
 
 ;; Doom modeline evil state
 (setq doom-modeline-modal-icon nil
@@ -45,7 +45,7 @@
       evil-visual-state-tag   (propertize "[Visual]")
       evil-replace-state-tag  (propertize "[Replce]")
       doom-modeline-bar-width 0
-      doom-modeline-height 23)
+      doom-modeline-height 24)
 (custom-set-faces! '(doom-modeline-bar :background nil))
 
 ;; Telephone modeline
@@ -136,33 +136,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(map! :n "x" "\"_dl"
-      :n "X" "\"_dh"
-      :n "~" "g~l")
-
-(map! :leader :desc "Open 10-day agenda"
-      "o a a" #'org-agenda-list
-      :leader :desc "Open school agenda"
-      "o a s" #'school-agenda)
-
-(map! :map org-mode-map
-      :localleader :desc "Set visibility to 2"
-      "TAB" (cmd! (org-shifttab 2)))
-
-(setq ;; More natural split direction
-      evil-split-window-below t
-      evil-vsplit-window-right t
-      ;; Consistent checkbox case in markdown
-      markdown-gfm-uppercase-checkbox nil
-      ;; Langtool location
-      langtool-language-tool-jar
-      "/snap/languagetool/23/usr/bin/languagetool-commandline.jar"
-      ;; LaTeX list indent
-      +latex-indent-level-item-continuation 2)
-
-;; Set default encoding
-(set-language-environment "UTF-8")
-
 (defun school-agenda (&optional kill)
   "Open tasks and agenda with schedule in a sidebar."
   (interactive (list (if (string= (buffer-name (current-buffer)) "*doom*")
@@ -181,36 +154,78 @@
   ;; Return to schedule
   (evil-window-left 1))
 
-;; Ruler & autofill at 80 chars
-(setq fill-column 80)
-(add-hook! text-mode 'display-fill-column-indicator-mode)
-(add-hook! text-mode 'auto-fill-mode)
+(map!
+ ;; vim keybind tweaks
+ :n "x" "\"_dl"
+ :n "X" "\"_dh"
+ :n "~" "g~l"
+
+ :leader :desc "Open 10-day agenda" "o a a" #'org-agenda-list
+ :map doom-leader-notes-map :localleader :desc "Open 10-day agenda"
+ "a" #'org-agenda-list
+
+ :leader :desc "Open Neotree" "o n" #'neotree
+ :map doom-leader-open-map :localleader :desc "Open Neotree"
+ "n" #'neotree
+ :leader :desc "Close Neotree" "o N" #'neotree-hide
+ :map doom-leader-open-map :localleader :desc "Close Neotree"
+ "N" #'neotree-hide
+
+ :leader :desc "Open school agenda" "o a s" #'school-agenda
+ :map doom-leader-notes-map :localleader :desc "Open school agenda"
+ "s" #'school-agenda
+
+ :map org-mode-map :localleader :desc "Set visibility to 2"
+ "TAB" (cmd! (org-shifttab 2))
+ ;; LaTeX keybind shortcuts
+ :map LaTeX-mode-map
+ :localleader :desc "Preview pane"
+ "V" #'latex-preview-pane-mode
+ :localleader :desc "Update preview pane"
+ "v" #'latex-preview-pane-update
+ :localleader :desc "Check current buffer with langtool"
+ "C c" #'langtool-check
+ :localleader :desc "Check current buffer with langtool"
+ "C C" #'langtool-check
+ :localleader :desc "Interactively correct buffer with langtool"
+ "c" #'langtool-correct-buffer
+ :localleader :desc "End current langtool session"
+ "C C-c" #'langtool-check-done
+ :localleader :desc "Return to langtool"
+ "C-c" #'exit-recursive-edit)
+
+(setq ;; More natural split direction
+      evil-split-window-below t
+      evil-vsplit-window-right t
+      ;; Consistent checkbox case in markdown FIXED
+      ; markdown-gfm-uppercase-checkbox nil
+      ;; Langtool location
+      langtool-language-tool-jar
+      "/snap/languagetool/23/usr/bin/languagetool-commandline.jar"
+      ;; LaTeX list indent
+      +latex-indent-level-item-continuation 2
+
+      fill-column 80
+      writeroom-width 62
+      org-ellipsis " ▼"
+      doom-themes-neotree-enable-variable-pitch nil)
+
+(custom-set-faces! `(org-ellipsis :foreground ,(doom-color 'base7))
+  `(org-scheduled-today :foreground ,(doom-darken (doom-color 'fg) .1))
+  `(org-scheduled-previously :foreground ,(doom-color 'fg)))
+
+;; Set default encoding
+(set-language-environment "UTF-8")
+
+
+;; Ruler & autofill
+(add-hook! text-mode 'display-fill-column-indicator-mode 'auto-fill-mode)
 ;; (add-hook! text-mode 'visual-fill-column) ; disabled because not compatible
                                              ; with auto-fill-mode
 
 ;; Writeroom (zen mode) tweaks
-(setq writeroom-width 62)
 (add-hook! writeroom-mode-hook '(display-fill-column-indicator-mode -1))
 (add-hook! writeroom-mode-disable-hook '(display-fill-column-indicator-mode))
-
-;; LaTeX keybind tweaks
-(map! :map LaTeX-mode-map
-      ;; Easy access to preview pane
-      :localleader :desc "Preview pane"
-      "V" #'latex-preview-pane-mode
-      :localleader :desc "Update preview pane"
-      "v" #'latex-preview-pane-update
-      ;; Easy access to langtool
-      :localleader :desc "Check current buffer with langtool"
-      "C c" #'langtool-check
-      :localleader :desc "Check current buffer with langtool"
-      "C C" #'langtool-check
-      :localleader :desc "Interactively correct buffer with langtool"
-      "c" #'langtool-correct-buffer
-      :localleader :desc "End current langtool session"
-      "C C-c" #'langtool-check-done
-      :localleader :desc "Return to langtool"
-      "C-c" #'exit-recursive-edit)
 
 ;; Doom dashboard
 (setcar (cdr +doom-dashboard-menu-sections)
@@ -221,130 +236,9 @@
 
 ;; Fix 2-wide ligatures
 (plist-put! +ligatures-extra-symbols
-  '(:map           "→"
-    :return        "↦"
-    :yield         "↤"
-    :union         "∪"
-    :tuple         "⊗"
-    :pipe          "𝔭"))
-
-;; Fix bad fira-code (can't wait for harfbuzz to be fixed!)
-(+ligatures--def-font fira
-    ("Fira Code Symbol"
-     :range '(#Xe100 . #Xe16f)
-     :url "https://github.com/tonsky/FiraCode/raw/13234c0/distr/ttf/%s"
-     :files '("FiraCode-Bold.ttf"
-              "FiraCode-Light.ttf"
-              "FiraCode-Medium.ttf"
-              "FiraCode-Regular.ttf"
-              "FiraCode-Retina.ttf"))
-  ("www"    . #Xe100)
-  ("**"     . #Xe101)
-  ("***"    . #Xe102)
-  ("**/"    . #Xe103)
-  ("*>"     . #Xe104)
-  ("*/"     . #Xe105)
-  ("\\\\"   . #Xe106)
-  ("\\\\\\" . #Xe107)
-  ("{-"     . #Xe108)
-  ("::"     . #Xe10a)
-  (":::"    . #Xe10b)
-  (":="     . #Xe10c)
-  ("!!"     . #Xe10d)
-  ("!="     . #Xe10e)
-  ("!=="    . #Xe10f)
-  ("-}"     . #Xe110)
-  ("--"     . #Xe111)
-  ("---"    . #Xe112)
-  ("-->"    . #Xe113)
-  ("->"     . #Xe114)
-  ("->>"    . #Xe115)
-  ("-<"     . #Xe116)
-  ("-<<"    . #Xe117)
-  ("-~"     . #Xe118)
-  ("#{"     . #Xe119)
-  ("#["     . #Xe11a)
-  ("##"     . #Xe11b)
-  ("###"    . #Xe11c)
-  ("####"   . #Xe11d)
-  ("#("     . #Xe11e)
-  ("#?"     . #Xe11f)
-  ("#_"     . #Xe120)
-  ("#_("    . #Xe121)
-  (".-"     . #Xe122)
-  (".="     . #Xe123)
-  (".."     . #Xe124)
-  ("..<"    . #Xe125)
-  ("..."    . #Xe126)
-  ("?="     . #Xe127)
-  ("??"     . #Xe128)
-  (";;"     . #Xe129)
-  ("/*"     . #Xe12a)
-  ("/**"    . #Xe12b)
-  ("/="     . #Xe12c)
-  ("/=="    . #Xe12d)
-  ("/>"     . #Xe12e)
-  ("//"     . #Xe12f)
-  ("///"    . #Xe130)
-  ("&&"     . #Xe131)
-  ("||"     . #Xe132)
-  ("||="    . #Xe133)
-  ("|="     . #Xe134)
-  ("|>"     . #Xe135)
-  ("^="     . #Xe136)
-  ("$>"     . #Xe137)
-  ("++"     . #Xe138)
-  ("+++"    . #Xe139)
-  ("+>"     . #Xe13a)
-  ("=:="    . #Xe13b)
-  ("=="     . #Xe13c)
-  ("==="    . #Xe13d)
-  ("==>"    . #Xe13e)
-  ("=>"     . #Xe13f)
-  ("=>>"    . #Xe140)
-  ("=<"     . #Xe141)
-  ("=<<"    . #Xe142)
-  ("=/="    . #Xe143)
-  (">-"     . #Xe144)
-  (">="     . #Xe145)
-  (">=>"    . #Xe146)
-  (">>"     . #Xe147)
-  (">>-"    . #Xe148)
-  (">>="    . #Xe149)
-  (">>>"    . #Xe14a)
-  ("<*"     . #Xe14b)
-  ("<*>"    . #Xe14c)
-  ("<|"     . #Xe14d)
-  ("<|>"    . #Xe14e)
-  ("<$"     . #Xe14f)
-  ("<$>"    . #Xe150)
-  ("<!--"   . #Xe151)
-  ("<-"     . #Xe152)
-  ("<--"    . #Xe153)
-  ("<->"    . #Xe154)
-  ("<+"     . #Xe155)
-  ("<+>"    . #Xe156)
-  ("<="     . #Xe157)
-  ("<=="    . #Xe158)
-  ("<=>"    . #Xe159)
-  ("<=<"    . #Xe15a)
-  ("<>"     . #Xe15b)
-  ("<<"     . #Xe15c)
-  ("<<-"    . #Xe15d)
-  ("<<="    . #Xe15e)
-  ("<<<"    . #Xe15f)
-  ("<~"     . #Xe160)
-  ("<~~"    . #Xe161)
-  ("</"     . #Xe162)
-  ("</>"    . #Xe163)
-  ("~@"     . #Xe164)
-  ("~-"     . #Xe165)
-  ("~="     . #Xe166)
-  ("~>"     . #Xe167)
-  ("~~"     . #Xe168)
-  ("~~>"    . #Xe169)
-  ("%%"     . #Xe16a)
-  (":"      . #Xe16c)
-  ("+"      . #Xe16d)
-  ("+"      . #Xe16e)
-  ("*"      . #Xe16f))
+            :map        "→"
+            :return     "↦"
+            :yield      "↤"
+            :union      "∪"
+            :tuple      "⊗"
+            :pipe       "𝔭")

@@ -8,7 +8,6 @@ set splitbelow
 set splitright
 set mouse=a
 
-nnoremap <C-d> :q<return>
 nnoremap Y y$
 nnoremap x "_x
 
