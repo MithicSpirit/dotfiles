@@ -87,21 +87,35 @@ fi
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git 
+	archlinux
+	autojump
 	autopep8 
 	command-not-found 
 	common-aliases 
 	copyfile 
 	dirhistory 
+	emoji
+	extract
+	fancy-ctrl-z
+	git 
+	git-auto-fetch
+	gitfast
+	github
+	gitignore
+	gnu-utils
 	node
 	npm 
+	npx
 	pip 
+	pyenv
 	python 
-	dirpersist 
-	vscode 
-	zsh-syntax-highlighting 
+	ripgrep
+	sudo
+	systemd
+	ubuntu
+	yarn
 	zsh-autosuggestions
-	autojump
+	zsh-syntax-highlighting 
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -145,6 +159,7 @@ alias mkdir="/bin/mkdir -p"
 alias md="/bin/mkdir"
 alias copy="xclip -sel clip <"
 alias doom="~/.emacs.d/bin/doom"
+alias sl="/usr/games/sl -ea"
 unalias fd
 
 alias f="/bin/fortune | /bin/cowsay"
@@ -175,8 +190,9 @@ alias pip3="/bin/python3 -m pip"
 alias tsc="npx tsc"
 alias eslint="npx eslint"
 
-alias c++="/bin/g++ -Wall -ansi"
-alias c++a="/bin/g++ -Wall -ansi -S -fverbose-asm"
+# "MITHIC" is a custom flag I use for my own debugging purposes
+alias c++="/bin/g++ -Wall -ansi -DMITHIC"
+alias c++a="/bin/g++ -Wall -ansi -DMITHIC -S -fverbose-asm"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

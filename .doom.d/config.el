@@ -46,7 +46,8 @@
       evil-replace-state-tag  (propertize "[Replce]")
       doom-modeline-bar-width 0
       doom-modeline-height 24)
-(custom-set-faces! '(doom-modeline-bar :background nil))
+(custom-set-faces! '(doom-modeline-bar :background nil)
+  `(solaire-mode-line-face :foreground ,(doom-darken (doom-color 'fg) .1)))
 
 ;; Telephone modeline
 ;(custom-set-faces!
@@ -142,10 +143,12 @@
                          nil t)))
   ;; Close all current buffers
   (if kill (+evil:kill-all-buffers nil))
+  ;; Set directory
+  (cd "~/org")
   ;; Open schedule in main window in read-only mode
-  (evil-edit "~/org/schedule.org") (read-only-mode)
+  (evil-edit "schedule.org") (read-only-mode)
   ;; Split schedule with tasks and set view level
-  (evil-window-vsplit nil "~/org/tasks.org") (org-shifttab 2)
+  (evil-window-vsplit nil "tasks.org") (org-shifttab 2)
   ;; Reduce schedule size to look like sidebar
   (evil-window-left 1) (evil-window-set-width 36)
   ;; Open org-agenda below tasks (and make it small)
@@ -153,6 +156,19 @@
   (evil-window-set-height 19)
   ;; Return to schedule
   (evil-window-left 1))
+
+(defun time-call (time-call &rest args)
+  "Time the execution of an org-mode source block"
+  (let ((start-time (float-time)))
+    (apply time-call args)
+    (message "Function call took %f seconds" (- (float-time) start-time))))
+(defun time-execute ()
+  "Execute a source block and time its execution"
+  (interactive)
+  (advice-add 'org-babel-execute-src-block-maybe :around #'time-call)
+  (funcall-interactively 'org-babel-execute-src-block-maybe)
+  (advice-remove 'org-babel-execute-src-block-maybe #'time-call))
+
 
 (map!
  ;; vim keybind tweaks
@@ -164,10 +180,10 @@
  :map doom-leader-notes-map :localleader :desc "Open 10-day agenda"
  "a" #'org-agenda-list
 
- :leader :desc "Open Neotree" "o n" #'neotree
- :map doom-leader-open-map :localleader :desc "Open Neotree"
- "n" #'neotree
- :leader :desc "Close Neotree" "o N" #'neotree-hide
+ ;; :leader :desc "Open Neotree" "o n" #'neotree
+ ;; :map doom-leader-open-map :localleader :desc "Open Neotree"
+ ;; "n" #'neotree
+ ;; :leader :desc "Close Neotree" "o N" #'neotree-hide
  :map doom-leader-open-map :localleader :desc "Close Neotree"
  "N" #'neotree-hide
 
@@ -192,7 +208,11 @@
  :localleader :desc "End current langtool session"
  "C C-c" #'langtool-check-done
  :localleader :desc "Return to langtool"
- "C-c" #'exit-recursive-edit)
+ "C-c" #'exit-recursive-edit
+
+ :map org-mode-map
+ :localleader :desc "Execute code block and time execution"
+ "C-c" #'time-execute)
 
 (setq ;; More natural split direction
       evil-split-window-below t
@@ -208,11 +228,29 @@
       fill-column 80
       writeroom-width 62
       org-ellipsis " ▼"
-      doom-themes-neotree-enable-variable-pitch nil)
+      doom-themes-neotree-enable-variable-pitch nil
+      projectile-project-search-path
+      '("~/coding/" "~/coding/practice/" "~/coding/langs" "~/source/")
+      org-agenda-dim-blocked-tasks nil)
+(setq-default indent-tabs-mode nil)
+
+(add-hook! 'python-mode-hook (setq fill-column 79))
+(add-hook! 'python-mode-disable-hook (setq fill-column 80))
+
+(add-hook! '(javascript-mode-hook
+             typescript-mode-hook
+             cpp-mode-hook)
+  (setq indent-tabs-mode t))
+(add-hook! '(javascript-mode-disable-hook
+             typescript-mode-disable-hook
+             cpp-mode-disable-hook)
+  (setq indent-tabs-mode nil))
 
 (custom-set-faces! `(org-ellipsis :foreground ,(doom-color 'base7))
   `(org-scheduled-today :foreground ,(doom-darken (doom-color 'fg) .1))
-  `(org-scheduled-previously :foreground ,(doom-color 'fg)))
+  `(org-scheduled-previously :foreground ,(doom-color 'fg))
+  '(show-paren-match :background nil)
+  )
 
 ;; Set default encoding
 (set-language-environment "UTF-8")
@@ -224,8 +262,10 @@
                                              ; with auto-fill-mode
 
 ;; Writeroom (zen mode) tweaks
-(add-hook! writeroom-mode-hook '(display-fill-column-indicator-mode -1))
-(add-hook! writeroom-mode-disable-hook '(display-fill-column-indicator-mode))
+(add-hook! writeroom-mode '(display-fill-column-indicator-mode -1))
+
+
+(add-hook! writeroom-mode-disable '(display-fill-column-indicator-mode))
 
 ;; Doom dashboard
 (setcar (cdr +doom-dashboard-menu-sections)
