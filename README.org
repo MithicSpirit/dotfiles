@@ -1,16 +1,20 @@
 #+TITLE: Dotfiles and Configs
+#+AUTHOR: MithicSpirit
+
+The dotfiles (or other forms of configuration) for applications I use or have
+used.
 
 * Configured Applications
 ** ZSH
 - =.zshrc=
 - =.p10k.zsh=
-- [[https://github.com/ohmyzsh/ohmyzsh/tree/master][=.oh-my-zsh=]]
-- [[https://github.com/zsh-users/zsh-autosuggestions/tree/master][=.oh-my-zsh-custom/plugins/zsh-autosuggestions=]]
-- [[https://github.com/zsh-users/zsh-syntax-highlighting/tree/master][=.oh-my-zsh-custom/plugins/zsh-syntax-highlighting=]]
-- [[https://github.com/romkatv/powerlevel10k/tree/master][=.oh-my-zsh-custom/themes/powerlevel10k=]]
+- =.oh-my-zsh= [[https://github.com/ohmyzsh/ohmyzsh/tree/master][Oh My Zsh]]
+- =.oh-my-zsh-custom/plugins/zsh-autosuggestions= [[https://github.com/zsh-users/zsh-autosuggestions/tree/master][Zsh Autosuggestions]]
+- =.oh-my-zsh-custom/plugins/zsh-syntax-highlighting= [[https://github.com/zsh-users/zsh-syntax-highlighting/tree/master][Zsh Syntax Highlighting]]
+- =.oh-my-zsh-custom/themes/powerlevel10k= [[https://github.com/romkatv/powerlevel10k/tree/master][Powerlevel10k]]
 
 ** EMACS
-- [[https://github.com/hlissner/doom-emacs/tree/develop][=.emacs.d=]]
+- =.emacs.d= [[https://github.com/hlissner/doom-emacs/tree/develop][Doom Emacs]]
 - =.doom.d/*=
   
 ** Miscellaneous
@@ -21,8 +25,11 @@
 - qtile: =.config/qtile/*=
 - radeon-profile: =.config/radeon-profile/*=
 
-* So what /are/ gitmodules
+* Gitmodules
 Gitmodules are basically git repositories inside other git repositories. The
 ones I use are listed in [[Configured Applications]] as hyperlinks. If you are
 cloning this repository make sure to run ~git submodule init~ to initialize
 these repositories.
+
+* Table of Contents :toc:
+#+TOC: headlines 2
