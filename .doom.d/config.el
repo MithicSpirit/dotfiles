@@ -22,18 +22,30 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq fontsize 17)
-(setq doom-font (font-spec :family "Fira Code Retina" :size fontsize)
+(setq fontsize 19)
+(setq fontface "Iosevka Mithic")
+(setq unicode-fontface "Fira Code Retina")
+(setq doom-font (font-spec :family fontface
+                           :size fontsize
+                           :antialiasing nil
+                           :weight 'book)
       doom-variable-pitch-font (font-spec :family "CMU Sans Serif"
                                           :size (truncate (* fontsize 0.8)))
-      doom-big-font (font-spec :family "Fira Code Retina"
-                               :size (truncate (* fontsize 1.3))))
+      doom-big-font (font-spec :family fontface
+                               :size (truncate (* fontsize 1.3))
+                               :antialiasing t
+                               :weight 'medium))
+(setq doom-unicode-font (font-spec :family unicode-fontface
+                                   :size fontsize
+                                   :antialiasing nil))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-palenight)
-(custom-set-faces! '(fringe :inherit line-number))
+(custom-set-faces!
+  '(fringe :inherit line-number)
+  '(font-lock-comment-face :slant italic))
 
 ;; Doom modeline evil state
 (setq doom-modeline-modal-icon nil
@@ -228,12 +240,27 @@
 
       fill-column 80
       writeroom-width 62
-      org-ellipsis " ▼"
+      org-ellipsis "▾"
       doom-themes-neotree-enable-variable-pitch nil
       projectile-project-search-path
       '("~/coding/" "~/coding/practice/" "~/coding/langs" "~/source/")
-      org-agenda-dim-blocked-tasks nil)
+      org-agenda-dim-blocked-tasks nil
+      org-agenda-tags-column 0
+      org-superstar-headline-bullets-list '(?∙))
+(after! org-fancy-priorities
+  (setq org-fancy-priorities-list '("⣿" "⣤" "⣀")))
+
+;; (after! ivy-posframe
+;;   (setf (alist-get t ivy-posframe-display-functions-alist)
+;;         #'ivy-posframe-display-at-frame-top-center)
+;;   (setq ivy-posframe-border-width 4
+;;         ivy-posframe-min-width 140
+;;         ivy-posframe-width 140
+;;         ivy-posframe-height 40))
+
 (setq-default indent-tabs-mode nil)
+
+(auto-save-visited-mode)
 
 (add-hook! 'python-mode-hook (setq fill-column 79))
 (add-hook! 'python-mode-disable-hook (setq fill-column 80))
@@ -270,10 +297,10 @@
 
 ;; Doom dashboard
 (setcar (cdr +doom-dashboard-menu-sections)
-        `("Open school agenda" . ,(plist-put (cdr (assoc
-                                                 "Open org-agenda"
-                                                 +doom-dashboard-menu-sections))
-                                           :action #'school-agenda)))
+        `("Open school agenda" .
+          ,(plist-put (cdr (assoc
+                            "Open org-agenda" +doom-dashboard-menu-sections))
+                      :action #'school-agenda)))
 
 ;; Fix 2-wide ligatures
 (plist-put! +ligatures-extra-symbols

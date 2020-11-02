@@ -25,7 +25,8 @@
        ;;ido               ; the other *other* search engine...
        (ivy               ; a search engine for love and life
         +prescient
-        ;+fuzzy
+        +fuzzy
+        ;+childframe
         +icons)
 
        :ui
@@ -36,9 +37,8 @@
        fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
-       indent-guides     ; highlighted indent columns
+       ;;indent-guides     ; highlighted indent columns
        (ligatures         ; ligatures and symbols to make your code pretty again
-        ;+fira ; manually loaded in config.el
         +extra)
        minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
@@ -73,10 +73,9 @@
        word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
-       (dired)             ; making dired pretty [functional]
-        ;+icons)
+       dired             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
-       ;;ibuffer           ; interactive buffer management
+       ibuffer           ; interactive buffer management
        undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
 
@@ -97,7 +96,7 @@
        debugger          ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
-       ;;editorconfig      ; let someone else argue about tabs vs spaces
+       editorconfig      ; let someone else argue about tabs vs spaces
        ein               ; tame Jupyter notebooks with emacs
        eval              ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
@@ -107,12 +106,12 @@
        lsp
        (magit             ; a git porcelain for Emacs
         +forge)
-       ;;make              ; run make tasks from Emacs
+       make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
-       ;;taskrunner        ; taskrunner for all your projects
+       taskrunner        ; taskrunner for all your projects
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
@@ -200,9 +199,9 @@
        ;;(wanderlust +gmail)
 
        :app
-       calendar
+       ;; calendar
        irc               ; how neckbeards socialize
-       ;;(rss +org)        ; emacs as an RSS reader
+       (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 
        :config
@@ -210,3 +209,4 @@
        (default +bindings +smartparens))
 
 (setq evil-respect-visual-line-mode t)
+(setq org-directory "~/org/")

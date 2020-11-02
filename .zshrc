@@ -159,6 +159,8 @@ alias mkdir="/bin/mkdir -p"
 alias md="/bin/mkdir"
 alias copy="xclip -sel clip <"
 alias doom="~/.emacs.d/bin/doom"
+alias dooms="~/.emacs.d/bin/doom sync && ~/.emacs.d/bin/doom doctor"
+alias doomup="~/.emacs.d/bin/doom sync && ~/.emacs.d/bin/doom upgrade && ~/.emacs.d/bin/doom clean && ~/.emacs.d/bin/doom purge -bg && ~/.emacs.d/bin/doom env && ~/.emacs.d/bin/doom compile && ~/.emacs.d/bin/doom build -r && ~/.emacs.d/bin/doom sync -pe && ~/.emacs.d/bin/doom doctor"
 alias sl="/usr/games/sl -ea"
 unalias fd
 
