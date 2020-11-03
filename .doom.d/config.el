@@ -22,22 +22,16 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
-(setq fontsize 19)
-(setq fontface "Iosevka Mithic")
-(setq unicode-fontface "Fira Code Retina")
-(setq doom-font (font-spec :family fontface
-                           :size fontsize
-                           :antialiasing nil
-                           :weight 'book)
+(setq fontsize 18)
+(setq fontface "Iosevka Mithic Book Extended")
+(setq doom-font (font-spec :family fontface :size fontsize :antialiasing nil)
       doom-variable-pitch-font (font-spec :family "CMU Sans Serif"
                                           :size (truncate (* fontsize 0.8)))
       doom-big-font (font-spec :family fontface
                                :size (truncate (* fontsize 1.3))
                                :antialiasing t
                                :weight 'medium))
-(setq doom-unicode-font (font-spec :family unicode-fontface
-                                   :size fontsize
-                                   :antialiasing nil))
+(setq doom-unicode-font doom-font)
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -49,14 +43,13 @@
 
 ;; Doom modeline evil state
 (setq doom-modeline-modal-icon nil
-      evil-emacs-state-tag    (propertize "[Emacs ]")
-      evil-insert-state-tag   (propertize "[Insert]")
-      evil-motion-state-tag   (propertize "[Motion]")
-      evil-normal-state-tag   (propertize "[Normal]")
-      evil-operator-state-tag (propertize "[Opertr]")
-      evil-visual-state-tag   (propertize "[Visual]")
-      evil-replace-state-tag  (propertize "[Replce]")
-      doom-modeline-bar-width 0
+      evil-emacs-state-tag    (propertize "❮EMACS❯ ")
+      evil-insert-state-tag   (propertize "❮INSERT❯")
+      evil-motion-state-tag   (propertize "❮MOTION❯")
+      evil-normal-state-tag   (propertize "❮NORMAL❯")
+      evil-operator-state-tag (propertize "❮OPERTR❯")
+      evil-visual-state-tag   (propertize "❮VISUAL❯")
+      evil-replace-state-tag  (propertize "❮REPLCE❯")
       doom-modeline-height 24)
 (custom-set-faces! '(doom-modeline-bar :background nil)
   `(solaire-mode-line-face :foreground ,(doom-darken (doom-color 'fg) .1)))
@@ -240,13 +233,15 @@
 
       fill-column 80
       writeroom-width 62
-      org-ellipsis "▾"
+      org-ellipsis " ▼"
       doom-themes-neotree-enable-variable-pitch nil
       projectile-project-search-path
       '("~/coding/" "~/coding/practice/" "~/coding/langs" "~/source/")
       org-agenda-dim-blocked-tasks nil
-      org-agenda-tags-column 0
-      org-superstar-headline-bullets-list '(?∙))
+      org-agenda-tags-column 0)
+
+(after! org-superstar
+  (setcar (last org-superstar-headline-bullets-list) '(?∙)))
 (after! org-fancy-priorities
   (setq org-fancy-priorities-list '("⣿" "⣤" "⣀")))
 

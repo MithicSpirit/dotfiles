@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -102,6 +102,7 @@ plugins=(
 	gitfast
 	github
 	gitignore
+	globalias
 	gnu-utils
 	node
 	npm 
@@ -115,7 +116,9 @@ plugins=(
 	ubuntu
 	yarn
 	zsh-autosuggestions
+	zsh-completions
 	zsh-syntax-highlighting 
+	zsh-history-substring-search
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -149,53 +152,56 @@ export EDITOR='nvim'
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias du="/usr/local/bin/dust"
-alias open="/bin/xdg-open"
-alias ln="/bin/ln -si"
-alias mv="/bin/mv -i"
-alias rm="/bin/trash"
-alias rmrm="/bin/rm -i"
-alias mkdir="/bin/mkdir -p"
-alias md="/bin/mkdir"
-alias copy="xclip -sel clip <"
-alias doom="~/.emacs.d/bin/doom"
-alias dooms="~/.emacs.d/bin/doom sync && ~/.emacs.d/bin/doom doctor"
-alias doomup="~/.emacs.d/bin/doom sync && ~/.emacs.d/bin/doom upgrade && ~/.emacs.d/bin/doom clean && ~/.emacs.d/bin/doom purge -bg && ~/.emacs.d/bin/doom env && ~/.emacs.d/bin/doom compile && ~/.emacs.d/bin/doom build -r && ~/.emacs.d/bin/doom sync -pe && ~/.emacs.d/bin/doom doctor"
-alias sl="/usr/games/sl -ea"
+alias -g C="| xclip -i -sel clip"
+
+alias du="dust"
+alias open="xdg-open"
+alias ln="ln -si"
+alias mv="mv -i"
+alias rm="trash"
+alias rmrm="\\rm -i"
+alias mkdir="\\mkdir -p"
+alias md="\\mkdir"
+alias copy="xclip -i -sel clip <"
+alias dooms="doom sync && doom doctor"
+alias doomup="doom sync && doom upgrade && doom clean && doom purge -bg && doom env && doom compile && doom build -r && doom sync -pe && doom doctor"
+alias sl="sl -ea"
 unalias fd
 
-alias f="/bin/fortune | /bin/cowsay"
-alias ls="/bin/ls --color=always"
+alias f="fortune | /bin/cowsay"
+alias ls="ls --color=auto"
 
-alias school="nvim -c 'edit ~/schedule.md' -c 'view' -c 'vertical split ~/agenda.md' -c 'exec \"normal \\<C-W>h\"' -c 'vertical resize 38' -c 'exec \"normal \\<C-W>l\"'"
-alias torrium='/snap/bin/chromium --proxy-server="socks5://localhost:9050" --incognito --host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE localhost"'
+alias torrium='chromium --proxy-server="socks5://localhost:9050" --incognito --host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE localhost"'
 
-alias homegit='/bin/git --git-dir=$HOME/.homegit --work-tree=$HOME'
+alias homegit='git --git-dir=$HOME/.homegit --work-tree=$HOME'
 
 unalias history
-alias h="omz_history"
-alias hs="history"
+alias h="\\omz_history"
+alias hs="\\history"
 
-alias su="/bin/sudo /bin/su"
-alias xsu="exec /bin/sudo /bin/su"
-alias aptg="/bin/sudo /bin/apt-get"
-alias dpkg="/bin/sudo /bin/dpkg"
-alias dpkgq="/bin/dpkg-query"
-alias updatedb="/bin/sudo /bin/updatedb"
-alias snap="/bin/sudo /bin/snap"
-alias visudo="/bin/sudo --preserve-env=EDITOR /sbin/visudo"
+alias su="sudo su"
+alias xsu="exec sudo su"
+alias xsh="exec ssh"
+alias aptg="\\sudo apt-get"
+alias dpkg="sudo dpkg"
+alias dpkgq="dpkg-query"
+alias updatedb="sudo updatedb"
+alias snap="sudo snap"
+alias visudo="sudo --preserve-env=EDITOR visudo"
 
-alias py="/bin/python"
-alias pip="/bin/python -m pip"
-alias pip3="/bin/python3 -m pip"
+alias py="python"
+alias pip="python -m pip"
+alias pip3="python3 -m pip"
 
 alias tsc="npx tsc"
 alias eslint="npx eslint"
 
 # "MITHIC" is a custom flag I use for my own debugging purposes
-alias c++="/bin/g++ -Wall -ansi -DMITHIC"
-alias c++a="/bin/g++ -Wall -ansi -DMITHIC -S -fverbose-asm"
+alias c++="g++ -Wall -ansi -DMITHIC"
+alias c++a="g++ -Wall -ansi -DMITHIC -S -fverbose-asm"
 
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
