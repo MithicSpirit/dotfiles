@@ -238,7 +238,8 @@
       projectile-project-search-path
       '("~/coding/" "~/coding/practice/" "~/coding/langs" "~/source/")
       org-agenda-dim-blocked-tasks nil
-      org-agenda-tags-column 0)
+      org-agenda-tags-column 0
+      all-the-icons-scale-factor 1.1)
 
 (after! org-superstar
   (setcar (last org-superstar-headline-bullets-list) '(?∙)))
