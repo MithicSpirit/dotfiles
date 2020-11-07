@@ -1,14 +1,15 @@
+# Version: 3.7.1
 [buildPlans.iosevka-custom]               # <iosevka-custom> is your plan name
 family = "Iosevka Mithic"                 # Font menu family name
 design = ["VXBU", "VXDD", "cv11", "cv08", "cv86", "VXDC",     # Customize styles
           "cv92", "VXBY", "cv51", "VXAE", "cv97", "cv19", "cv30", "cv36",
-          "cv45", "VXAH", "cv31", "cv38", "VXCK", "VXCZ", "sp-term",
-          "sp-force-monospace"]
+          "VXAH", "cv31", "cv38", "VXCK", "VXCZ", "sp-term",
+          "sp-force-monospace", "ligset-clike", "ligset-javascript"]
 # upright = ["upright-styles"]                    # Customize styles for upright
-italic = ["cv02", "VXBL", "VXBO", "VXCW", # Customize styles for italics
-          "cv06", "cv70", "cv10", "VXCQ", "VXCS", "cv85", "cv49", "VXBH", "VXDA",
-          "cv14", "VXAT", "VXBB", "VXBC", "cv18", "cv29", "cv37", "cv33",
-          "cv62"]
+italic = ["VXCL", "VXBL", "VXBO", "VXCW", # Customize styles for italics
+          "cv06", "cv70", "cv10", "VXCQ", "VXCS", "VXDS", "cv49", "VXBH", "VXDA",
+          "cv14", "VXAT", "VXBB", "VXBC", "cv18", "cv29", "cv37", "cv33", "cv90",
+          "cv62", "cv53", "cv99"]
 # oblique = ["oblique-styles"]                    # Customize styles for oblique
 # hintParams = ["-a", "sss"]        # Optional custom parameters for ttfautohint
 
