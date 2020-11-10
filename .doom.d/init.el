@@ -54,9 +54,7 @@
        ;;window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
        zen               ; distraction-free coding or writing
-       (emoji
-        +github
-        +unicode)
+       ;;emoji
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -80,7 +78,7 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       eshell            ; the elisp shell that works everywhere
+       ;;eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
        vterm             ; the best terminal emulation in Emacs
@@ -154,6 +152,7 @@
        (latex             ; writing papers in Emacs has never been so fun
         +latexmk
         +lsp
+        +cdlatex
         +fold)
        ;;lean
        ;;factor

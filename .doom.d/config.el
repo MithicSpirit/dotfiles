@@ -145,7 +145,7 @@
   '(show-paren-match :background nil)
   )
 
-;; Misc - Appearance - Utility
+;; Misc - Appearance
 (setq
  all-the-icons-scale-factor 1.1
  doom-themes-neotree-enable-variable-pitch nil
@@ -164,6 +164,8 @@
  org-agenda-tags-column 0
  delete-by-moving-to-trash t
  )
+(after! dired
+  (setq dired-listing-switches "-AlhDF --group-directories-first"))
 
 (add-hook! 'python-mode-hook (setq fill-column 79))
 (add-hook! 'python-mode-disable-hook (setq fill-column 80))
@@ -191,51 +193,57 @@
   )
 
 ;; [e]Vi[l] fixes/tweaks
-(after! evil
-  (map!
-   :n "x" "\"_dl"
-   :n "X" "\"_dh"
-   :n "~" "g~l"
-   )
-  (setq evil-split-window-below t
-        evil-vsplit-window-right t
-        )
-  )
+(map! :after evil
+      :n "x" "\"_dl"
+      :n "X" "\"_dh"
+      :n "~" "g~l"
+      )
+(setq evil-split-window-below t
+      evil-vsplit-window-right t
+      )
 
 ;; Easier to open org-agenda
-(after! org
-  (map!
-   :leader :desc "Open 10-day agenda" "o a a" #'org-agenda-list
-   :map doom-leader-notes-map :localleader :desc "Open 10-day agenda"
-   "a" #'org-agenda-list
-   ))
+(map! :after org
+      :leader :desc "Open 10-day agenda" "o a a" #'org-agenda-list
+
+      :map doom-leader-notes-map
+      :localleader :desc "Open 10-day agenda"
+      "a" #'org-agenda-list
+      )
 
 ;; LaTeX tweaks and keybinds
-(after! tex
-  (map!
-   :map LaTeX-mode-map
-   :localleader :desc "Preview pane"
-   "V" #'latex-preview-pane-mode
-   :localleader :desc "Update preview pane"
-   "v" #'latex-preview-pane-update
-   :localleader :desc "Check current buffer with langtool"
-   "C c" #'langtool-check
-   :localleader :desc "Check current buffer with langtool"
-   "C C" #'langtool-check
-   :localleader :desc "Interactively correct buffer with langtool"
-   "c" #'langtool-correct-buffer
-   :localleader :desc "End current langtool session"
-   "C C-c" #'langtool-check-done
-   :localleader :desc "Return to langtool"
-   "C-c" #'exit-recursive-edit
-   )
-  (setq +latex-indent-level-item-continuation 2)
-  )
+(map! :after tex :map LaTeX-mode-map
+ :localleader :desc "Preview pane"
+ "V" #'latex-preview-pane-mode
+ :localleader :desc "Update preview pane"
+ "v" #'latex-preview-pane-update
+ :localleader :desc "Check current buffer with langtool"
+ "C c" #'langtool-check
+ :localleader :desc "Check current buffer with langtool"
+ "C C" #'langtool-check
+ :localleader :desc "Interactively correct buffer with langtool"
+ "c" #'langtool-correct-buffer
+ :localleader :desc "End current langtool session"
+ "C C-c" #'langtool-check-done
+ :localleader :desc "Return to langtool"
+ "C-c" #'exit-recursive-edit
+ )
+(setq +latex-indent-level-item-continuation 2)
 
 ;; Writeroom tweaks
 (after! writeroom-mode (setq writeroom-width 62))
 (add-hook! writeroom-mode '(display-fill-column-indicator-mode -1))
 (add-hook! writeroom-mode-disable '(display-fill-column-indicator-mode))
+
+;; Vterm keybinds
+(map! :map vterm-mode-map :after vterm
+      :localleader :desc "Enable copy mode"
+      "c" #'vterm-copy-mode
+      )
+(map! :map vterm-copy-mode-map :after vterm
+      :localleader :desc "Disable copy mode"
+      "c" #'vterm-copy-mode
+      )
 
 
 ;;; Heavy customization
@@ -262,11 +270,11 @@
  :map doom-leader-notes-map :localleader :desc "Open school agenda"
  "s" #'school-agenda
  )
-(after! org
-  (map!
-   :map org-mode-map :localleader :desc "Set visibility to 2"
-   "TAB" (cmd! (org-shifttab 2))
-   ))
+(map!
+ :map org-mode-map :after org
+ :localleader :desc "Set visibility to 2"
+ "TAB" (cmd! (org-shifttab 2))
+ )
 
 (setcar (cdr +doom-dashboard-menu-sections)
         `("Open school agenda" .
@@ -288,12 +296,11 @@
   (funcall-interactively 'org-babel-execute-src-block-maybe)
   (advice-remove 'org-babel-execute-src-block-maybe #'time-call)
   )
-(after! org
-  (map!
-   :map org-mode-map
-   :localleader :desc "Execute code block and time execution"
-   "C-c" #'time-execute
- ))
+(map!
+ :map org-mode-map :after org
+ :localleader :desc "Execute code block and time execution"
+ "C-c" #'time-execute
+ )
 
 ;; Custom org links
 (defun org-zoom-export (full-id)

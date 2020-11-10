@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+# Plugins
+echo "Plugins:"
+cd ~/.oh-my-zsh-custom/plugins
+for i in $(ls)
+do
+    cd $i
+    git pull
+    cd ..
+done
+
+# Themes
+echo "\nThemes:"
+cd ~/.oh-my-zsh-custom/themes
+for i in $(ls)
+do
+    cd $i
+    git pull
+    cd ..
+done

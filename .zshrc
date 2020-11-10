@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Basic variables
 export PATH="$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH"
 export LANG=en_US.UTF-8
@@ -6,7 +8,8 @@ export INFOPATH="$INFOPATH:$HOME/.local/info"
 export N_PREFIX="$HOME/.local"
 export FPATH="$FPATH:$HOME/.completions"
 export CHKTEXRC="$HOME"
-export EDITOR='nvim'
+export EDITOR="nvim"
+export VISUAL="emacs27"
 
 # Zsh/ohmyzsh variables
 export ZSH="$HOME/.oh-my-zsh"
@@ -55,10 +58,10 @@ plugins=(
 
 # Init stuff
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+	. "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-source $ZSH/oh-my-zsh.sh
+. $ZSH/oh-my-zsh.sh
 
 # Aliases
 alias -g C="| xclip -i -sel clip"
@@ -74,6 +77,7 @@ alias md="\\mkdir"
 alias copy="xclip -i -sel clip <"
 alias dooms="doom sync && doom doctor"
 alias doomup="doom sync && doom upgrade && doom clean && doom purge -bg && doom env && doom compile && doom build -r && doom sync -pe && doom doctor"
+alias upcustom="~/.oh-my-zsh-custom/pull-all"
 alias sl="sl -ea"
 unalias fd
 
@@ -84,8 +88,8 @@ alias torrium='chromium --proxy-server="socks5://localhost:9050" --incognito --h
 
 alias homegit='git --git-dir=$HOME/.homegit --work-tree=$HOME'
 alias hg="homegit"
-alias hga="homegit add"
-alias hgau="homegit add --update"
+alias hganew="homegit add"
+alias hga="homegit add --update"
 alias hgs="homegit status"
 alias hgd="homegit diff"
 alias hgdd="homegit diff --cached"
@@ -117,6 +121,13 @@ alias eslint="npx eslint"
 alias c++="g++ -Wall -ansi -DMITHIC"
 alias c++a="g++ -Wall -ansi -DMITHIC -S -fverbose-asm"
 
+GLOBALIAS_FILTER_VALUES=(
+	homegit
+	sl
+	grep
+	ls
+)
+
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
@@ -125,4 +136,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ~/.p10k.zsh ]] || . ~/.p10k.zsh

@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: MLA Format
+# key: mla
+# uuid: mlacls
+# condition: (eq 1 (line-number-at-pos))
+# --
+\documentclass[mla8alt,nonotes,plainheadings,microtype]{mla}
+
+\titleformat{\section}[block]{\normalsize\bf}{\thetitle.\enspace}{0pt}{}[]
+\titleformat{\subsection}[block]{\normalsize\bf}{\thetitle.\enspace}{0pt}{}[]
+\titleformat{\subsubsection}[block]{\normalsize\bf}{\thetitle.\enspace}{0pt}{}[]
+
+\author{Ricardo Prado Cunha}
+\professor{$1}
+\course{$2}
+
+\title{$3}
+
+\begin{document}
+
+$0
+
+\end{document}
