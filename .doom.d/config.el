@@ -20,7 +20,6 @@
 
 
 ;;; Appearance
-
 ;; Fonts
 (let
     ((fontsize 18)
@@ -155,7 +154,6 @@
 
 
 ;;; Utility
-
 ;; Misc - Utility
 (setq
  display-line-numbers-type t
@@ -237,17 +235,16 @@
 
 ;; Vterm keybinds
 (map! :map vterm-mode-map :after vterm
-      :localleader :desc "Enable copy mode"
+      :localleader :desc "Toggle copy mode"
       "c" #'vterm-copy-mode
       )
 (map! :map vterm-copy-mode-map :after vterm
-      :localleader :desc "Disable copy mode"
+      :localleader :desc "Toggle copy mode"
       "c" #'vterm-copy-mode
       )
 
 
 ;;; Heavy customization
-
 ;; School agenda
 (defun school-agenda (&optional kill)
   "Open tasks and agenda with schedule in a sidebar."
@@ -278,9 +275,10 @@
 
 (setcar (cdr +doom-dashboard-menu-sections)
         `("Open school agenda" .
-          ,(plist-put (cdr (assoc
-                            "Open org-agenda" +doom-dashboard-menu-sections))
-                      :action #'school-agenda)))
+          ,(plist-put
+            (cdr (assoc "Open org-agenda" +doom-dashboard-menu-sections))
+            :action #'school-agenda
+            )))
 
 ;; Org time execute
 (defun time-call (time-call &rest args)
