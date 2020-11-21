@@ -37,7 +37,7 @@
        fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
-       ;;indent-guides     ; highlighted indent columns
+       indent-guides     ; highlighted indent columns
        (ligatures         ; ligatures and symbols to make your code pretty again
         +extra)
        minimap           ; show a map of the code on the side
@@ -51,7 +51,7 @@
        ;;unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
-       ;;window-select     ; visually switch windows
+       window-select     ; visually switch windows
        workspaces        ; tab emulation, persistence & separate workspaces
        zen               ; distraction-free coding or writing
        ;;emoji
@@ -152,7 +152,7 @@
        (latex             ; writing papers in Emacs has never been so fun
         +latexmk
         +lsp
-        +cdlatex
+        ;+cdlatex
         +fold)
        ;;lean
        ;;factor

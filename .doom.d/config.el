@@ -10,6 +10,8 @@
 ;; $PATH
 (setq
  org-directory "~/org/"
+ bookmark-default-file "~/.doom.d/bookmarks"
+ auth-sources '("~/.bak/.secrets/authinfo.gpg")
 
  langtool-language-tool-jar
  "/snap/languagetool/23/usr/bin/languagetool-commandline.jar"
@@ -26,7 +28,7 @@
      (fontface "Iosevka Mithic Book Extended")
      )
   (setq
-   doom-font (font-spec :family fontface :size fontsize :antialiasing nil)
+   doom-font (font-spec :family fontface :size fontsize)
    doom-variable-pitch-font (font-spec :family "CMU Sans Serif"
                                        :size (truncate (* fontsize 0.8))
                                        )
@@ -42,7 +44,7 @@
 (setq doom-theme 'doom-palenight)
 (custom-set-faces!
   '(fringe :inherit line-number)
-  '(font-lock-comment-face :slant italic)
+  `(font-lock-comment-face :foreground ,(doom-lighten 'base6 .1) :slant italic)
   )
 
 ;; Doom modeline
@@ -59,7 +61,14 @@
  )
 (custom-set-faces!
   '(doom-modeline-bar :background nil)
-  `(solaire-mode-line-face :foreground ,(doom-darken (doom-color 'fg) .1))
+  `(solaire-mode-line-face :foreground ,(doom-darken 'fg .1)
+                           :background ,(doom-darken 'base3 .16)
+                           )
+  `(solaire-mode-line-inactive-face :background ,(doom-darken 'base2 .1))
+  `(mode-line :foreground ,(doom-darken 'fg .1)
+                           :background ,(doom-darken 'base3 .16)
+                           )
+  `(mode-line-inactive :background ,(doom-darken 'base2 .1))
   )
 
 ;; Telephone modeline [DEFUNCT]
@@ -198,6 +207,8 @@
       )
 (setq evil-split-window-below t
       evil-vsplit-window-right t
+      evil-want-change-word-to-end nil
+      +evil-want-o/O-to-continue-comments nil
       )
 
 ;; Easier to open org-agenda
@@ -210,11 +221,11 @@
       )
 
 ;; LaTeX tweaks and keybinds
-(map! :after tex :map LaTeX-mode-map
- :localleader :desc "Preview pane"
- "V" #'latex-preview-pane-mode
- :localleader :desc "Update preview pane"
- "v" #'latex-preview-pane-update
+(map! :after tex :map latex-mode-map
+ ;; :localleader :desc "Preview pane"
+ ;; "V" #'latex-preview-pane-mode
+ ;; :localleader :desc "Update preview pane"
+ ;; "v" #'latex-preview-pane-update
  :localleader :desc "Check current buffer with langtool"
  "C c" #'langtool-check
  :localleader :desc "Check current buffer with langtool"
@@ -227,6 +238,8 @@
  "C-c" #'exit-recursive-edit
  )
 (setq +latex-indent-level-item-continuation 2)
+(remove-hook! TeX-mode #'TeX-fold-mode)
+(remove-hook! TeX-mode #'TeX-fold-buffer)
 
 ;; Writeroom tweaks
 (after! writeroom-mode (setq writeroom-width 62))
@@ -242,6 +255,17 @@
       :localleader :desc "Toggle copy mode"
       "c" #'vterm-copy-mode
       )
+
+;; Toggle ligatures
+(map! :leader :desc "Ligatures" "t L" #'prettify-symbols-mode
+
+      :map doom-leader-toggle-map
+      :localleader :desc "Ligatures"
+      "L" #'prettify-symbols-mode
+      )
+;; Larger popups
+(set-popup-rule! "^\\*doom:\\(?:v?term\\|e?shell\\)-popup"
+  :vslot -5 :height 0.46 :select t :modeline nil :quit nil :ttl nil)
 
 
 ;;; Heavy customization
@@ -301,22 +325,20 @@
  )
 
 ;; Custom org links
-(defun org-zoom-export (full-id)
-  "Takes in a `full-id' of the meeting in the format \"<id>\" or
-\"<id>&<pwd>\" and returns the join meeting URI; corresponds to
-the \"x-scheme-handler/zoommtg\" mimetype"
-  (let ((formatted (dired-string-replace-match "&" full-id "&pwd=")))
-    (concat "zoommtg://zoom.us/join?action=join&confno="
-            (if formatted formatted full-id))))
 (defun org-zoom-open (full-id)
-  "Opens the meeting corresponding to `full-id' with
-`browse-url-xdg-open'. see `org-zoom-export' for more
-information."
-  (browse-url-xdg-open (org-zoom-export full-id)))
+  "Takes in a `full-id' of the meeting in the format \"<id>\" or
+\"<id>&<pwd>\" and opens the join meeting URI with
+`browse-url-xdg-open'; corresponds to the
+\"x-scheme-handler/zoommtg\" mimetype"
+  (browse-url-xdg-open
+   (let ((formatted (dired-string-replace-match "&" full-id "&pwd=")))
+      (concat "zoommtg://zoom.us/join?action=join&confno="
+              (if formatted formatted full-id))
+      )))
 (after! org
-  (org-link-set-parameters "xdg-open"
-                           :follow #'browse-url-xdg-open
-                           :export (lambda (resource) resource))
   (org-link-set-parameters "zoom"
                            :follow #'org-zoom-open
-                           :export #'org-zoom-export))
+                           )
+  (org-link-set-parameters "xdg-open"
+                           :follow #'browse-url-xdg-open
+                           ))

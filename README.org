@@ -20,6 +20,7 @@ used.
 ** EMACS
 - =.emacs.d= [[https://github.com/hlissner/doom-emacs/tree/develop][Doom Emacs]]
 - =.doom.d/*=
+- =VISUAL=
   
 ** Miscellaneous
 - README: =README.org=
@@ -33,5 +34,5 @@ used.
 * Gitmodules
 Gitmodules are basically git repositories inside other git repositories. The
 ones I use are listed in [[Configured Applications]] as hyperlinks. If you are
-cloning this repository make sure to run ~git submodule init~ to initialize
-these repositories.
+cloning this repository make sure to run ~git submodule init~ and ~git submodule
+update~ to initialize these repositories.

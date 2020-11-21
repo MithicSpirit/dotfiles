@@ -9,7 +9,7 @@ export N_PREFIX="$HOME/.local"
 export FPATH="$FPATH:$HOME/.completions"
 export CHKTEXRC="$HOME"
 export EDITOR="nvim"
-export VISUAL="emacs27"
+export VISUAL="$HOME/VISUAL"
 
 # Zsh/ohmyzsh variables
 export ZSH="$HOME/.oh-my-zsh"
@@ -25,6 +25,7 @@ plugins=(
 	archlinux
 	autojump
 	autopep8 
+	colored-man-pages
 	command-not-found 
 	common-aliases 
 	copyfile 
@@ -57,34 +58,49 @@ plugins=(
 )
 
 # Init stuff
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-	. "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
+then
+	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-. $ZSH/oh-my-zsh.sh
+source $ZSH/oh-my-zsh.sh
 
 # Aliases
+unalias fd
+
 alias -g C="| xclip -i -sel clip"
 
-alias du="dust"
-alias open="xdg-open"
 alias ln="ln -si"
 alias mv="mv -i"
-alias rm="trash"
-alias rmrm="\\rm -i"
-alias mkdir="\\mkdir -p"
 alias md="\\mkdir"
+alias mkdir="\\mkdir -p"
+alias sl="sl -ea"
+alias rmrm="\\rm -i"
+alias ls="ls --color=auto"
+
+alias xzsh="exec zsh"
+alias xsh="exec ssh"
+alias su="sudo -i"
+alias xsu="exec sudo -i"
+alias aptg="sudo apt-get"
+alias dpkg="sudo dpkg"
+alias dpkgq="dpkg-query"
+alias updatedb="sudo updatedb"
+alias snap="sudo snap"
+alias visudo="sudo --preserve-env=EDITOR visudo"
+
+alias rm="trash"
+alias du="dust"
+alias open="xdg-open"
+alias upcustom="~/.oh-my-zsh-custom/pull-all"
+alias visual="$VISUAL"
+
 alias copy="xclip -i -sel clip <"
 alias dooms="doom sync && doom doctor"
 alias doomup="doom sync && doom upgrade && doom clean && doom purge -bg && doom env && doom compile && doom build -r && doom sync -pe && doom doctor"
-alias upcustom="~/.oh-my-zsh-custom/pull-all"
-alias sl="sl -ea"
-unalias fd
-
 alias f="fortune | /bin/cowsay"
-alias ls="ls --color=auto"
-
 alias torrium='chromium --proxy-server="socks5://localhost:9050" --incognito --host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE localhost"'
+
 
 alias homegit='git --git-dir=$HOME/.homegit --work-tree=$HOME'
 alias hg="homegit"
@@ -94,40 +110,48 @@ alias hgs="homegit status"
 alias hgd="homegit diff"
 alias hgdd="homegit diff --cached"
 alias hgc="homegit commit -S -m"
-alias hgp="read -s && (homegit push origin ; homegit push backup)"
+alias hgp="read -rs && (homegit push origin ; homegit push backup)"
 
-unalias history
 alias h="\\omz_history"
 alias hs="\\history"
 
-alias su="sudo su"
-alias xsu="exec sudo su"
-alias xsh="exec ssh"
-alias aptg="sudo apt-get"
-alias dpkg="sudo dpkg"
-alias dpkgq="dpkg-query"
-alias updatedb="sudo updatedb"
-alias snap="sudo snap"
-alias visudo="sudo --preserve-env=EDITOR visudo"
-
-alias py="python"
+py () {
+	if [[ $# -eq 0 ]]; then
+		ipython
+	else
+		python $@
+	fi
+}
 alias pip="python -m pip"
 alias pip3="python3 -m pip"
 
 alias tsc="npx tsc"
 alias eslint="npx eslint"
 
-# "MITHIC" is a custom flag I use for my own debugging purposes
-alias c++="g++ -Wall -ansi -DMITHIC"
-alias c++a="g++ -Wall -ansi -DMITHIC -S -fverbose-asm"
+alias cpp="g++ -Wall -ansi -DMITHIC"
+alias cppa="g++ -Wall -ansi -DMITHIC -S -fverbose-asm"
 
 GLOBALIAS_FILTER_VALUES=(
 	homegit
 	sl
 	grep
 	ls
+	man
+	sudo
+	\*
+	\*\*
+	\*\*/\*
+	\$VISUAL
+	torrium
+	upcustom
+	\~
+	visual
 )
 
+# Manpage coloring
+less_termcap[so]="${fg_bold[yellow]}${bg[trans]}"
+
+# Keybinds
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
@@ -136,4 +160,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-[[ ! -f ~/.p10k.zsh ]] || . ~/.p10k.zsh
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
