@@ -133,10 +133,11 @@
 ;; Custom ligatures
 (plist-put! +ligatures-extra-symbols
             :map        "→"
+            :not        "¬"
             :return     "↦"
             :yield      "↤"
             :union      "∪"
-            :tuple      "⊗"
+            ;:tuple      "⊗"
             :pipe       "𝔭")
 
 ;; Fancy org-mode
@@ -189,12 +190,14 @@
 (add-hook! '(javascript-mode-hook
              typescript-mode-hook
              cpp-mode-hook
+             sh-mode-hook
              )
   (setq indent-tabs-mode t)
   )
 (add-hook! '(javascript-mode-disable-hook
              typescript-mode-disable-hook
              cpp-mode-disable-hook
+             sh-mode-disable-hook
              )
   (setq indent-tabs-mode nil)
   )
@@ -246,7 +249,7 @@
 (add-hook! writeroom-mode '(display-fill-column-indicator-mode -1))
 (add-hook! writeroom-mode-disable '(display-fill-column-indicator-mode))
 
-;; Vterm keybinds
+;; Vterm tweaks
 (map! :map vterm-mode-map :after vterm
       :localleader :desc "Toggle copy mode"
       "c" #'vterm-copy-mode
@@ -255,6 +258,7 @@
       :localleader :desc "Toggle copy mode"
       "c" #'vterm-copy-mode
       )
+(add-hook! 'vterm-mode-hook #'evil-emacs-state)
 
 ;; Toggle ligatures
 (map! :leader :desc "Ligatures" "t L" #'prettify-symbols-mode
