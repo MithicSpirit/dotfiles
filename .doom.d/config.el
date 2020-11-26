@@ -176,7 +176,7 @@
   (setq dired-listing-switches "-AlhDF --group-directories-first"))
 
 (add-hook! 'python-mode-hook (setq fill-column 79))
-(add-hook! 'python-mode-disable-hook (setq fill-column 80))
+;;(add-hook! 'python-mode-disable-hook (setq fill-column 80))
 
 (add-hook! text-mode 'display-fill-column-indicator-mode 'auto-fill-mode)
 ;; (add-hook! text-mode 'visual-fill-column)
@@ -189,18 +189,18 @@
 (setq-default indent-tabs-mode nil)
 (add-hook! '(javascript-mode-hook
              typescript-mode-hook
-             cpp-mode-hook
+             c++-mode-hook
              sh-mode-hook
              )
   (setq indent-tabs-mode t)
   )
-(add-hook! '(javascript-mode-disable-hook
-             typescript-mode-disable-hook
-             cpp-mode-disable-hook
-             sh-mode-disable-hook
-             )
-  (setq indent-tabs-mode nil)
-  )
+;; (add-hook! '(javascript-mode-disable-hook
+;;              typescript-mode-disable-hook
+;;              cpp-mode-disable-hook
+;;              sh-mode-disable-hook
+;;              )
+;;   (setq indent-tabs-mode nil)
+;;   )
 
 ;; [e]Vi[l] fixes/tweaks
 (map! :after evil
@@ -224,7 +224,7 @@
       )
 
 ;; LaTeX tweaks and keybinds
-(map! :after tex :map latex-mode-map
+(map! :after tex :map LaTeX-mode-map
  ;; :localleader :desc "Preview pane"
  ;; "V" #'latex-preview-pane-mode
  ;; :localleader :desc "Update preview pane"
@@ -247,9 +247,9 @@
 ;; Writeroom tweaks
 (after! writeroom-mode (setq writeroom-width 62))
 (add-hook! writeroom-mode '(display-fill-column-indicator-mode -1))
-(add-hook! writeroom-mode-disable '(display-fill-column-indicator-mode))
+;; (add-hook! writeroom-mode-disable '(display-fill-column-indicator-mode))
 
-;; Vterm tweaks
+;; Vterm tweaks (also REPLs)
 (map! :map vterm-mode-map :after vterm
       :localleader :desc "Toggle copy mode"
       "c" #'vterm-copy-mode
@@ -258,7 +258,11 @@
       :localleader :desc "Toggle copy mode"
       "c" #'vterm-copy-mode
       )
-(add-hook! 'vterm-mode-hook #'evil-emacs-state)
+(add-hook! '(vterm-mode-hook +eval-repl-mode-hook)
+           #'evil-emacs-state
+           )
+(add-hook! 'vterm-copy-mode-hook #'evil-normal-state)
+;; (add-hook! 'vterm-copy-mode-disable-hook #'evil-emacs-state)
 
 ;; Toggle ligatures
 (map! :leader :desc "Ligatures" "t L" #'prettify-symbols-mode

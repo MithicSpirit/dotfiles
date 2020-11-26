@@ -112,7 +112,7 @@ alias hgs="homegit status"
 alias hgd="homegit diff"
 alias hgdd="homegit diff --cached"
 alias hgc="homegit commit -S -m"
-alias hgp="read -rs && (homegit push origin ; homegit push backup)"
+alias hgp="read -rs && homegit push origin && homegit push backup"
 
 alias h="\\omz_history"
 alias hs="\\history"
