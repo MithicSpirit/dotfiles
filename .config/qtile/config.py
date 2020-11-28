@@ -10,20 +10,20 @@ from libqtile.utils import guess_terminal
 
 # Custom constants
 MODKEY = "mod4"
-TERMINAL = guess_terminal()
-HOME = os.path.expanduser("~") + "/"
-CONFIG = HOME + ".config/qtile/"
-BROWSER = "firefox"
-VISUAL = HOME + "VISUAL"
-colors = [
-    "#292d3e",  # panel background
-    "#4e5579",  # background for current screen tab
-    "#eeffff",  # font color for group names
-    "#bb80b3",  # border line color for current tab
-    "#bb80b3",  # border line color for other tab and odd widgets
-    "#7986e7",  # color for the even widgets
-    "#e1acff",  # window name
-]
+TERMINAL = "urxvtc"
+HOME = os.path.expanduser("~")
+CONFIG = f"{HOME}/.config/qtile"
+BROWSER = "brave-nightly"
+VISUAL = f"{HOME}/VISUAL"
+# colors = [
+#     "#292d3e",  # panel background
+#     "#4e5579",  # background for current screen tab
+#     "#eeffff",  # font color for group names
+#     "#bb80b3",  # border line color for current tab
+#     "#bb80b3",  # border line color for other tab and odd widgets
+#     "#7986e7",  # color for the even widgets
+#     "#e1acff",  # window name
+# ]
 colors_dict = {
     "bg": "#292d3e",
     "fg": "#eeffff",
@@ -40,7 +40,7 @@ follow_mouse_focus = True
 dgroups_key_binder = None
 dgroups_app_rules = []
 widget_defaults = {
-    "font": "Iosevka Mithic Extended",
+    "font": "Iosevka Mithic Medium",
     "fontsize": 13,
     "padding": 4,
     "background": colors_dict["bg"],
@@ -54,7 +54,7 @@ def on_first_startup():
     Begins startup processes like daemons and the compositor. See
     `./autostart.sh`.
     """
-    subprocess.call([CONFIG + "autostart.sh"])
+    subprocess.call([f"{CONFIG}/autostart.sh"])
 
 
 # Set up widgets and screens
@@ -68,20 +68,22 @@ widgets = [
         this_current_screen_border=colors_dict["hl1"],
         this_screen_border=colors_dict["hl1"],
         highlight_color=colors_dict["hlbg"],
+        urgent_text=colors_dict["fg"],
+        urgent_border=colors_dict["hl2"],
         highlight_method="line",
         borderwidth=3,
         rounded=False,
         margin_y=3,
         margin_x=0,
     ),
-    widget.Spacer(15),
+    widget.Spacer(20),
     widget.CurrentLayoutIcon(
         foreground=colors_dict["fg"], background=colors_dict["bg"], scale=0.6, padding=0
     ),
     widget.CurrentLayout(foreground=colors_dict["fg"], background=colors_dict["bg"]),
     widget.Spacer(),
-    widget.Systray(background=colors_dict["bg"]),
-    widget.Spacer(15),
+    widget.Systray(background=colors_dict["bg"], padding=14),
+    widget.Spacer(20),
 ]
 
 sysinfo_widgets = [
@@ -94,8 +96,8 @@ sysinfo_widgets = [
                 "fmt": "{} Updates",
                 "no_update_string": "0 Updates",
                 "update_interval": 60,
-                "distro": "Ubuntu",
-                # "execute": TERMINAL + " -e sudo pacman -Syu",
+                "distro": "Arch_yay",
+                "execute": f"{TERMINAL} -e sudo pacman -Syu",
             },
         )
     ],
@@ -105,7 +107,7 @@ sysinfo_widgets = [
         (
             widget.ThermalSensor,
             {
-                "foreground_alert": colors[2],
+                "foreground_alert": colors_dict["fg"],
                 "fmt": "{}",
                 "metric": True,
                 "tag_sensor": "Tdie",
@@ -130,7 +132,7 @@ for i, widget_group in enumerate(sysinfo_widgets):
         OTHER = colors_dict["bg"]
     widgets.append(
         widget.TextBox(
-            text="", background=OTHER, foreground=COLOR, padding=0, fontsize=53
+            text="", background=OTHER, foreground=COLOR, padding=0, fontsize=23
         ),
     )
     for widget_type, kwargs in widget_group:
@@ -155,7 +157,6 @@ layouts = [
     layout.Stack(num_stacks=2, **layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
     layout.Floating(
-        **layout_theme,
         float_rules=[
             {"wmclass": "confirm"},
             {"wmclass": "dialog"},
@@ -171,15 +172,20 @@ layouts = [
             {"wname": "branchdialog"},  # gitk
             {"wname": "pinentry"},  # GPG key password entry
             {"wmclass": "ssh-askpass"},
-        ]
+        ],
+        border_focus=colors_dict["hl2"],
+        **{key: layout_theme[key] for key in layout_theme if key != "border_focus"},
     ),
 ]
 
 group_names = [
-    ("CHAT", {"layout": "monadtall", "spawn": ["discord-canary"]}),
+    (
+        "CHAT",
+        {"layout": "max", "spawn": ["discord-canary", "element-desktop-nightly"]},
+    ),
     ("AGND", {"layout": "max"}),
     ("CLAS", {"layout": "max"}),
-    ("SCHL", {"layout": "monadtall"}),
+    ("SCHL", {"layout": "stack"}),
     ("PRGM", {"layout": "monadtall"}),
     ("INET", {"layout": "max"}),
     ("MUSC", {"layout": "max", "spawn": ["deadbeef"]}),
@@ -187,18 +193,18 @@ group_names = [
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 group_apps = {
-    "CHAT": ("discord-canary", "element"),
-    "AGND": (VISUAL + ' -e "(school-agenda)"',) * 2,
+    "CHAT": ("discord-canary", "element-desktop-nightly"),
+    "AGND": (f'{VISUAL} -e "(school-agenda)"',) * 2,
     "CLAS": ("zoom", "teams"),
-    "SCHL": (VISUAL + " " + HOME + "Documents/school", "libreoffice"),
-    "PRGM": (VISUAL + " " + HOME + "coding",) * 2,
+    "SCHL": (f"{VISUAL} {HOME}/documents/school", "libreoffice"),
+    "PRGM": (f"{VISUAL} {HOME}/documents/coding",) * 2,
     "INET": (
-        BROWSER + " --new-window https://www.youtube.com/feed/subscriptions",
-        BROWSER + " --new-window https://mail.google.com/mail/u/0/",
+        f"{BROWSER} --new-window https://www.youtube.com/feed/subscriptions",
+        f"{BROWSER} --new-window https://mail.google.com/mail/u/0/",
     ),
     "MUSC": (
         "deadbeef",
-        BROWSER + " --new-window https://music.youtube.com/library/playlists",
+        f"{BROWSER} --new-window https://music.youtube.com/library/playlists",
     ),
 }
 
@@ -278,9 +284,9 @@ keys = [
         desc="Dmenu Run Launcher",
     ),
     # Layouts
-    Key([MODKEY], "Tab", layout_monadtall, desc="Set layout to monadtall"),
+    Key([MODKEY], "Tab", layout_stack, desc="Set layout to stack"),
     Key([MODKEY, "shift"], "Tab", layout_max, desc="Set layout to max"),
-    Key([MODKEY, "control"], "Tab", layout_stack, desc="Set layout to stack"),
+    Key([MODKEY, "control"], "Tab", layout_monadtall, desc="Set layout to monadtall"),
     Key([MODKEY, "shift", "control"], "Tab", layout_tile, desc="Set layout to tile"),
     Key([MODKEY, "shift"], "f", layout_floating, desc="Set layout to floating"),
     # Session control
@@ -378,19 +384,19 @@ for i, (name, kwargs) in enumerate(group_names, start=1):
                 [MODKEY],
                 str(i),
                 lazy.group[name].toscreen(),
-                desc="Switch to group " + name,
+                desc=f"Switch to group {name}",
             ),
             Key(
                 [MODKEY, "shift"],
                 str(i),
                 lazy.window.togroup(name, switch_group=True),
-                desc="Switch to & move focused window to group " + name,
+                desc=f"Switch to & move focused window to group {name}",
             ),
             Key(
                 [MODKEY, "control"],
                 str(i),
                 lazy.window.togroup(name),
-                desc="Move focused window to group " + name,
+                desc=f"Move focused window to group {name}",
             ),
         ]
     )
@@ -411,17 +417,3 @@ mouse = [
     Click([MODKEY], "Button2", lazy.window.bring_to_front()),
     Click([MODKEY, "shift"], "Button2", lazy.window.bring_to_front()),
 ]
-
-
-# Extra stuff
-last_focus = None
-
-
-@hook.subscribe.client_focus
-def up_opacity(window):
-    """
-    Reduces opacity of unfocused windows.
-    """
-    if last_focus:
-        last_focus.set_opacity(0.5)
-    window.set_opacity(1.0)

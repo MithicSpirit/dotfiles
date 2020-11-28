@@ -65,6 +65,21 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
+# Custom globalias
+# (I only want aliases, not other expressions)
+globalias() {
+   local word=${${(Az)LBUFFER}[-1]}
+   if [[ $GLOBALIAS_FILTER_VALUES[(Ie)$word] -eq 0 ]]; then
+      zle _expand_alias
+      # zle expand-word
+   fi
+   zle self-insert
+}
+zle -N globalias
+bindkey -M emacs " " globalias
+bindkey -M emacs "^ " magic-space
+bindkey -M isearch " " magic-space
+
 # Aliases
 unalias fd
 
@@ -96,6 +111,7 @@ alias upcustom="~/.oh-my-zsh-custom/pull-all"
 alias visual="$VISUAL"
 alias emacs="visual"
 alias eterm="visual -t"
+alias vi="nvim"
 
 alias copy="xclip -i -sel clip <"
 alias dooms="doom sync && doom doctor"

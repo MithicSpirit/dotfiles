@@ -1,26 +1,26 @@
 [submodule ".emacs.d"]
 	path = .emacs.d
-	url = git@github.com:hlissner/doom-emacs.git
+	url = https://github.com/hlissner/doom-emacs.git
 	branch = develop
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
-	url = git@github.com:ohmyzsh/ohmyzsh.git
+	url = https://github.com/ohmyzsh/ohmyzsh.git
 	branch = master
 [submodule ".oh-my-zsh-custom/themes/powerlevel10k"]
 	path = .oh-my-zsh-custom/themes/powerlevel10k
-	url = git@github.com:romkatv/powerlevel10k.git
+	url = https://github.com/romkatv/powerlevel10k.git
 	branch = master
 [submodule ".oh-my-zsh-custom/plugins/zsh-autosuggestions"]
 	path = .oh-my-zsh-custom/plugins/zsh-autosuggestions
-	url = git@github.com:zsh-users/zsh-autosuggestions.git
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
 	branch = master
 [submodule ".oh-my-zsh-custom/plugins/zsh-syntax-highlighting"]
 	path = .oh-my-zsh-custom/plugins/zsh-syntax-highlighting
-	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
 	branch = master
 [submodule ".oh-my-zsh-custom/plugins/zsh-history-substring-search"]
 	path = .oh-my-zsh-custom/plugins/zsh-history-substring-search
-	url = git@github.com:zsh-users/zsh-history-substring-search.git
+	url = https://github.com/zsh-users/zsh-history-substring-search.git
 [submodule ".oh-my-zsh-custom/plugins/zsh-completions"]
 	path = .oh-my-zsh-custom/plugins/zsh-completions
-	url = git@github.com:zsh-users/zsh-completions.git
+	url = https://github.com/zsh-users/zsh-completions.git

@@ -9,23 +9,24 @@
 
 ;; $PATH
 (setq
- org-directory "~/org/"
+ org-directory "~/documents/org"
  bookmark-default-file "~/.doom.d/bookmarks"
  auth-sources '("~/.bak/.secrets/authinfo.gpg")
 
- langtool-language-tool-jar
- "/snap/languagetool/23/usr/bin/languagetool-commandline.jar"
-
  projectile-project-search-path
- '("~/coding/" "~/coding/practice/" "~/coding/langs" "~/source/")
+ '("~/documents/coding"
+   "~/documents/coding/practice"
+   "~/documents/coding/langs"
+   "~/src"
+   )
  )
 
 
 ;;; Appearance
 ;; Fonts
 (let
-    ((fontsize 18)
-     (fontface "Iosevka Mithic Book Extended")
+    ((fontsize 16)
+     (fontface "Iosevka Mithic Book")
      )
   (setq
    doom-font (font-spec :family fontface :size fontsize)
@@ -138,7 +139,7 @@
             :yield      "↤"
             :union      "∪"
             ;:tuple      "⊗"
-            :pipe       "𝔭")
+            :pipe       "𝕡")
 
 ;; Fancy org-mode
 (after! org-superstar
@@ -283,7 +284,7 @@
   (interactive (list (if (string= (buffer-name (current-buffer)) "*doom*")
                          nil t)))
   (if kill (+evil:kill-all-buffers nil))
-  (cd "~/org")
+  (cd org-directory)
   (evil-edit "schedule.org") (read-only-mode)
   (evil-window-vsplit nil "tasks.org") (org-shifttab 2)
   (evil-window-left 1) (evil-window-set-width 36) ;; (schedule)
