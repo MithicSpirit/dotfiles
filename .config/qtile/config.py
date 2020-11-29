@@ -96,8 +96,9 @@ sysinfo_widgets = [
                 "fmt": "{} Updates",
                 "no_update_string": "0 Updates",
                 "update_interval": 60,
-                "distro": "Arch_yay",
+                # "distro": "Arch_yay",
                 "execute": f"{TERMINAL} -e sudo pacman -Syu",
+                "custom_command": "checkupdates+aur",
             },
         )
     ],
@@ -114,7 +115,7 @@ sysinfo_widgets = [
             },
         ),
         (widget.TextBox, {"text": "|", "padding": 0}),
-        (widget.Memory, {"format": "{MemFree} MB"}),
+        (widget.Memory, {"format": "{MemUsed} MB"}),
     ],
     [
         (
@@ -172,6 +173,7 @@ layouts = [
             {"wname": "branchdialog"},  # gitk
             {"wname": "pinentry"},  # GPG key password entry
             {"wmclass": "ssh-askpass"},
+            {"wmclass": "optifine-InstallerFrame"},
         ],
         border_focus=colors_dict["hl2"],
         **{key: layout_theme[key] for key in layout_theme if key != "border_focus"},
@@ -209,7 +211,7 @@ group_apps = {
 }
 
 
-# Set up "Key"binds
+# Set up Keybinds
 @lazy.function
 def custom_app_1(qtile):
     """
@@ -271,7 +273,7 @@ def layout_floating(qtile):
 
 
 keys = [
-    # Launching "global" programs
+    # Launching programs
     Key([MODKEY], "Return", lazy.spawn(TERMINAL), desc="Launch terminal"),
     Key([MODKEY], "a", lazy.spawn(BROWSER), desc="Launch browser window"),
     Key(
@@ -283,6 +285,19 @@ keys = [
         lazy.spawn('dmenu_run -p "Run"'),
         desc="Dmenu Run Launcher",
     ),
+    Key(
+        [MODKEY],
+        "i",
+        custom_app_1,
+        desc="Open the 1st custom program for the current group",
+    ),
+    Key(
+        [MODKEY, "shift"],
+        "i",
+        custom_app_2,
+        desc="Open the 2nd custom program for the current group",
+    ),
+    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause"), desc="Toggle pause"),
     # Layouts
     Key([MODKEY], "Tab", layout_stack, desc="Set layout to stack"),
     Key([MODKEY, "shift"], "Tab", layout_max, desc="Set layout to max"),
@@ -361,18 +376,30 @@ keys = [
         desc="Toggle fullscreen",
     ),
     Key([MODKEY], "f", lazy.window.toggle_floating(), desc="toggle floating"),
-    # Local/custom programs
+    # Screenshot
     Key(
         [MODKEY],
-        "i",
-        custom_app_1,
-        desc="Open the 1st custom program for the current group",
+        "p",
+        lazy.spawn(f"{CONFIG}/maim/full.sh"),
+        desc="Take full screenshot and store in clipboard",
+    ),
+    Key(
+        [MODKEY, "control"],
+        "p",
+        lazy.spawn(f"{CONFIG}/maim/window.sh"),
+        desc="Take screenshot of the active window and store in clipboard",
     ),
     Key(
         [MODKEY, "shift"],
-        "i",
-        custom_app_2,
-        desc="Open the 2nd custom program for the current group",
+        "p",
+        lazy.spawn(f"{CONFIG}/maim/region.sh"),
+        desc="Take screenshot of interactively selected region and store in clipboard",
+    ),
+    Key(
+        [MODKEY, "control", "shift"],
+        "p",
+        lazy.spawn(f"{CONFIG}/maim/save.sh"),
+        desc="Take full screenshot and store as file",
     ),
 ]
 

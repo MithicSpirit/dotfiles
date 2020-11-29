@@ -155,7 +155,8 @@
         +latexmk
         +lsp
         ;+cdlatex
-        +fold)
+        ;+fold
+        )
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs

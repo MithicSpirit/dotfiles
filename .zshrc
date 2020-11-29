@@ -38,7 +38,7 @@ plugins=(
 	gitfast
 	github
 	gitignore
-	globalias
+	# globalias
 	gnu-utils
 	node
 	npm 
@@ -92,6 +92,7 @@ alias mkdir="\\mkdir -p"
 alias sl="sl -ea"
 alias rmrm="\\rm -i"
 alias ls="ls --color=auto"
+alias gs="git status"
 
 alias xsh="exec zsh"
 alias xssh="exec ssh"
@@ -102,6 +103,7 @@ alias dpkg="sudo dpkg"
 alias dpkgq="dpkg-query"
 alias updatedb="sudo updatedb"
 alias snap="sudo snap"
+alias ufw="sudo ufw"
 alias visudo="sudo --preserve-env=EDITOR visudo"
 
 alias rm="trash"
@@ -114,8 +116,9 @@ alias eterm="visual -t"
 alias vi="nvim"
 
 alias copy="xclip -i -sel clip <"
-alias dooms="doom sync && doom doctor"
-alias doomup="doom sync && doom upgrade && doom clean && doom purge -bg && doom env && doom compile && doom build -r && doom sync -pe && doom doctor"
+alias dooms="doom sync ; doom doctor"
+alias doomup="doom upgrade && doom sync -p ; doom doctor"
+# "doom sync && doom upgrade && doom clean && doom purge -bg && doom env && doom compile && doom build -r && doom sync -pe && doom doctor"
 alias f="fortune | /bin/cowsay"
 alias torrium='chromium --proxy-server="socks5://localhost:9050" --incognito --host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE localhost"'
 
@@ -164,6 +167,7 @@ GLOBALIAS_FILTER_VALUES=(
 	upcustom
 	\~
 	visual
+	zshrc
 )
 
 # Manpage coloring

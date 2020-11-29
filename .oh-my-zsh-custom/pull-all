@@ -6,7 +6,7 @@ cd ~/.oh-my-zsh-custom/plugins
 for i in $(ls)
 do
     cd $i
-    git pull
+    git pull origin master
     cd ..
 done
 
@@ -16,6 +16,6 @@ cd ~/.oh-my-zsh-custom/themes
 for i in $(ls)
 do
     cd $i
-    git pull
+    git pull origin master
     cd ..
 done

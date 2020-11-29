@@ -25,7 +25,7 @@
 ;;; Appearance
 ;; Fonts
 (let
-    ((fontsize 16)
+    ((fontsize 15)
      (fontface "Iosevka Mithic Book")
      )
   (setq
@@ -287,10 +287,10 @@
   (cd org-directory)
   (evil-edit "schedule.org") (read-only-mode)
   (evil-window-vsplit nil "tasks.org") (org-shifttab 2)
-  (evil-window-left 1) (evil-window-set-width 36) ;; (schedule)
+  (evil-window-left 1) (evil-window-set-width 39) ;; (schedule)
 
   (evil-window-right 1) (evil-window-split) (org-agenda-list)
-  (evil-window-set-height 19)
+  (evil-window-set-height 23)
 
   (evil-window-left 1) ;; (schedule)
   )
