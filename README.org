@@ -16,6 +16,7 @@ used.
   [[https://github.com/zsh-users/zsh-history-substring-search/tree/master][Zsh History Substring Search]]
 - =.oh-my-zsh-custom/plugins/zsh-completions= [[https://github.com/zsh-users/zsh-completions/tree/master][Zsh Completions]]
 - =.oh-my-zsh-custom/themes/powerlevel10k= [[https://github.com/romkatv/powerlevel10k/tree/master][Powerlevel10k]]
+- =.oh-my-zsh-custom/pull-all=
 
 ** EMACS
 - =.emacs.d= [[https://github.com/hlissner/doom-emacs/tree/develop][Doom Emacs]]
@@ -24,12 +25,17 @@ used.
   
 ** Miscellaneous
 - README: =README.org=
-- TeX: =.chktexrc=
+- BetterLockScreen: =.config/betterlockscreenrc=
+- clipcat: =.config/clipcat/*=
 - htop: =.config/htop/htoprc=
+- Iosevka: =.iosevka.toml=
 - NViM: =.config/nvim/init.vim=
+- picom: =.config/picom.conf=
 - qtile: =.config/qtile/*=
 - radeon-profile: =.config/radeon-profile/*=
-- Iosevka: =.iosevka.toml=
+- TeX: =.chktexrc=
+- URxvt: =.Xresources.d/rxvt-unicode=
+- wallpapers: =.wallpapers/*=
 
 * Gitmodules
 Gitmodules are basically git repositories inside other git repositories. The

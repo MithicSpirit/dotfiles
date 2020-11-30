@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Basic variables
-export PATH="$HOME/.emacs.d/bin:$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH"
 export LANG=en_US.UTF-8
 export MANPATH="$MANPATH:$HOME/.local/man:/usr/local/man"
 export INFOPATH="$INFOPATH:$HOME/.local/info"
@@ -9,6 +9,7 @@ export N_PREFIX="$HOME/.local"
 export FPATH="$FPATH:$HOME/.completions"
 export CHKTEXRC="$HOME"
 export EDITOR="nvim"
+export SUDO_EDITOR=$EDITOR
 export VISUAL="$HOME/VISUAL"
 
 # Zsh/ohmyzsh variables
@@ -125,7 +126,6 @@ alias torrium='chromium --proxy-server="socks5://localhost:9050" --incognito --h
 
 alias homegit='git --git-dir=$HOME/.homegit --work-tree=$HOME'
 alias hg="homegit"
-alias hganew="homegit add"
 alias hga="homegit add --update"
 alias hgs="homegit status"
 alias hgd="homegit diff"

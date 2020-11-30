@@ -42,7 +42,9 @@ dgroups_app_rules = []
 widget_defaults = {
     "font": "Iosevka Mithic Medium",
     "fontsize": 13,
-    "padding": 4,
+    "padding_x": 4,
+    "padding_y": 0,
+    "margin": 0,
     "background": colors_dict["bg"],
     "foreground": colors_dict["fg"],
 }
@@ -297,7 +299,9 @@ keys = [
         custom_app_2,
         desc="Open the 2nd custom program for the current group",
     ),
+    # Misc
     Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause"), desc="Toggle pause"),
+    Key([MODKEY], "v", lazy.spawn("clipcat-menu"), desc="Open clipcat dmenu"),
     # Layouts
     Key([MODKEY], "Tab", layout_stack, desc="Set layout to stack"),
     Key([MODKEY, "shift"], "Tab", layout_max, desc="Set layout to max"),
@@ -305,7 +309,7 @@ keys = [
     Key([MODKEY, "shift", "control"], "Tab", layout_tile, desc="Set layout to tile"),
     Key([MODKEY, "shift"], "f", layout_floating, desc="Set layout to floating"),
     # Session control
-    # SESSION LOCK <???>
+    Key([MODKEY, "shift"], "q", lazy.spawn(f"{HOME}/.local/bin/betterlockscreen -l --off 15"), desc="Lock screen"),
     Key([MODKEY, "control"], "q", lazy.restart(), desc="Restart Qtile"),
     Key([MODKEY, "control", "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     # Window movement and management

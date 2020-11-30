@@ -1,5 +1,5 @@
 ! Misc
-URxvt*fading: 15
+URxvt*fading: 7
 URxvt*title: Urxvt
 URxvt*internalBorder: 1
 URxvt*borderLess: False

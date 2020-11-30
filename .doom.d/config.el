@@ -58,7 +58,7 @@
  evil-operator-state-tag (propertize "⟨OPERTR⟩")
  evil-visual-state-tag   (propertize "⟨VISUAL⟩")
  evil-replace-state-tag  (propertize "⟨REPLCE⟩")
- doom-modeline-height 28
+ doom-modeline-height 34
  )
 (custom-set-faces!
   '(doom-modeline-bar :background nil)
