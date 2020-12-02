@@ -1,15 +1,22 @@
 #!/usr/bin/env bash
 
-export QT_STYLE_OVERRIDE=breeze
+# Appearance
 picom &
-setxkbmap -option caps:swapescape -option compose:rctrl &
-lxsession &
-feh --no-fehbg --bg-fill "$HOME/.wallpapers/cyan aurora.jpg" &
+feh --no-fehbg --bg-fill "$HOME/.wallpapers/cyan aurora.jpg"
+
+# Daemons
 emacs --daemon &
-urxvtd &
 onedrive --monitor &
+thunar --daemon &
+urxvtd &
+clipcatd
+
+# Misc
+lxsession &
+setxkbmap -option caps:swapescape -option compose:rctrl &
 # xset m 0/0 0 &
 # xinput set-prop 8 295 0, 0 &
 # xinput set-prop 8 292 1 &
-xset s off &
-clipcatd &
+# xset s off
+
+sleep 2

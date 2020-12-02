@@ -8,13 +8,13 @@ URxvt*imLocale: en_US.UTF-8
 URxvt*hold: False
 
 ! Fonts (my custom build of Iosevka)
-URxvt*font: xft:Iosevka Mithic Book:size=13:antialias=true
-URxvt*boldFont: xft:Iosevka Mithic Book:size=13:antialias=true:bold
-URxvt*italicFont: xft:Iosevka Mithic Book:size=13:antialias=true:italic
-URxvt*boldItalicFont: xft:Iosevka Mithic Book:size=13:antialias=true:bold:italic
+URxvt*font: xft:Iosevka Mithic Book:size=12:antialias=true
+URxvt*boldFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold
+URxvt*italicFont: xft:Iosevka Mithic Book:size=12:antialias=true:italic
+URxvt*boldItalicFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold:italic
 
 ! Colors: palenight theme
-URxvt*background: [90]#242837
+URxvt*background: #242837
 URxvt*foreground: #eeffff
 URxvt*cursorColor: #c792ea
 

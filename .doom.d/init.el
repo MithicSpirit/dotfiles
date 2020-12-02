@@ -20,20 +20,24 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company           ; the ultimate code completion backend
+       (company           ; the ultimate code completion backend
+        +childframe
+        )
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy               ; a search engine for love and life
         +prescient
         ;+fuzzy
         ;+childframe
-        +icons)
+        +icons
+        )
 
        :ui
        ;;deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       (emoji +unicode)  ; 🙂
        fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
@@ -53,10 +57,10 @@
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
        (window-select     ; visually switch windows
         ;+switch-window
-        +numbers)
+        +numbers
+        )
        workspaces        ; tab emulation, persistence & separate workspaces
        zen               ; distraction-free coding or writing
-       ;;emoji
 
        :editor
        (evil +everywhere); come to the dark side, we have cookies
@@ -80,15 +84,18 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       ;;eshell            ; the elisp shell that works everywhere
+       eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
        ;;term              ; basic terminal emulator for Emacs
        vterm             ; the best terminal emulation in Emacs
 
        :checkers
-       syntax            ; tasing you for every semicolon you forget
+       (syntax            ; tasing you for every semicolon you forget
+        +childframe
+        )
        (spell             ; tasing you for misspelling mispelling
-        +everywhere)
+        +everywhere
+        )
        grammar           ; tasing grammar mistake every you make
 
        :tools
@@ -98,14 +105,16 @@
        ;;docker
        editorconfig      ; let someone else argue about tabs vs spaces
        ein               ; tame Jupyter notebooks with emacs
-       eval              ; run code, run (also, repls)
+       (eval +overlay)   ; run code, run (also, repls)
        ;;gist              ; interacting with github gists
        (lookup            ; navigate your code and its documentation
         +dictionary
-        +offline)
+        +offline
+        )
        lsp
        (magit             ; a git porcelain for Emacs
-        +forge)
+        +forge
+        )
        make              ; run make tasks from Emacs
        pass              ; password manager for nerds
        pdf               ; pdf enhancements
@@ -211,4 +220,4 @@
        (default +bindings +smartparens))
 
 (setq evil-respect-visual-line-mode t)
-(setq org-directory "~/org/")
+(setq org-directory "~/documents/org/")

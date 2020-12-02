@@ -38,6 +38,9 @@
                             :antialiasing t
                             :weight 'medium
                             )
+   mode-line-font (font-spec :family fontface
+                             :size (truncate (* fontsize 1.1))
+                             :antialiasing t)
    ))
 (setq doom-unicode-font doom-font)
 
@@ -67,69 +70,11 @@
                            )
   `(solaire-mode-line-inactive-face :background ,(doom-darken 'base2 .1))
   `(mode-line :foreground ,(doom-darken 'fg .1)
-                           :background ,(doom-darken 'base3 .16)
-                           )
+              :background ,(doom-darken 'base3 .16)
+              :font ,mode-line-font
+              )
   `(mode-line-inactive :background ,(doom-darken 'base2 .1))
   )
-
-;; Telephone modeline [DEFUNCT]
-;; (custom-set-faces!
-;;   `(telephone-line-evil-emacs :background
-;;                                   ,(doom-darken (doom-color 'teal) .33))
-;;   `(telephone-line-evil-insert :background
-;;                                   ,(doom-darken (doom-color 'blue) .33))
-;;   `(telephone-line-evil-motion :background
-;;                                   ,(doom-darken (doom-color 'base7) .33))
-;;   `(telephone-line-evil-normal :background
-;;                                   ,(doom-darken (doom-color 'green) .33))
-;;   `(telephone-line-evil-operator :background
-;;                                   ,(doom-darken (doom-color 'base2) .33))
-;;   `(telephone-line-evil-visual :background
-;;                                   ,(doom-darken (doom-color 'yellow) .33))
-;;   `(telephone-line-evil-replace :background
-;;                                   ,(doom-darken (doom-color 'red) .33))
-;;   `(telephone-line-evil-god :background
-;;                                   ,(doom-darken (doom-color 'cyan) .33))
-;;   `(telephone-line-accent-active :background ,(doom-color 'grey))
-;;   `(mode-line-inactive :background ,(doom-color 'bg-alt)
-;;                        :foreground ,(doom-darken (doom-color 'fg-alt) .33))
-;;   `(telephone-line-accent-inactive :background
-;;                                     ,(doom-lighten (doom-color 'bg-alt) .03)
-;;                                    :foreground
-;;                                     ,(doom-darken (doom-color 'fg-alt) .33))
-;; )
-;; (telephone-line-defsegment* telephone-custom-evil-segment ()
-;;   "Displays current evil mode with an equal-length tag."
-;;   (when (bound-and-true-p evil-mode)
-;;     (let ((tag (cond
-;;                 ((evil-operator-state-p)
-;;                  (if telephone-line-evil-use-short-tag "OP" "OPERTR"))
-;;                 ((evil-replace-state-p)
-;;                  (if telephone-line-evil-use-short-tag "RE" "REPLCE"))
-;;                 ((not (evil-visual-state-p)) (upcase (symbol-name evil-state)))
-;;                 ((eq evil-visual-selection 'block)
-;;                  (if telephone-line-evil-use-short-tag "VB" "V-BLCK"))
-;;                 ((eq evil-visual-selection 'line)
-;;                  (if telephone-line-evil-use-short-tag "VL" "V-LINE"))
-;;                 (t "VISUAL"))))
-;;       (if telephone-line-evil-use-short-tag
-;;           (seq-take tag 2)
-;;         tag))))
-;; (setq telephone-line-lhs
-;;       '((evil   . (telephone-custom-evil-segment))
-;;         (accent . (telephone-line-vc-segment
-;;                    telephone-line-filesize-segment
-;;                    telephone-line-input-info-segment
-;;                    (telephone-line-projectile-buffer-segment 0 1)))
-;;         (nil    . (telephone-line-airline-position-segment
-;;                    telephone-line-process-segment))))
-;; (setq telephone-line-rhs
-;;       '((nil    . (telephone-line-misc-info-segment))
-;;         (accent . (telephone-line-major-mode-segment))
-;;         (evil   . (telephone-line-flycheck-segment
-;;                    telephone-line-hud-segment))))
-;; (setq telephone-line-height 23)
-;; (telephone-line-mode t)
 
 ;; Custom ligatures
 (plist-put! +ligatures-extra-symbols
@@ -157,7 +102,7 @@
 
 ;; Misc - Appearance
 (setq
- all-the-icons-scale-factor 1.1
+ ;; all-the-icons-scale-factor 1.2
  doom-themes-neotree-enable-variable-pitch nil
  )
 (fringe-mode 0)
@@ -176,11 +121,13 @@
 (after! dired
   (setq dired-listing-switches "-AlhDF --group-directories-first"))
 
-(add-hook! 'python-mode-hook (setq fill-column 79))
+(add-hook! 'python-mode-hook (cmd! (setq fill-column 79)))
 ;;(add-hook! 'python-mode-disable-hook (setq fill-column 80))
 
-(add-hook! text-mode 'display-fill-column-indicator-mode 'auto-fill-mode)
-;; (add-hook! text-mode 'visual-fill-column)
+;; (add-hook! 'text-mode-hook #'(display-fill-column-indicator-mode auto-fill-mode))
+(add-hook! text-mode 'visual-fill-column)
+(global-hl-todo-mode)
+;; (add-hook! 'prog-mode-hook #'hl-todo-mode)
 
 ;; Autosaving
 (setq auto-save-visited-interval 30)
@@ -193,7 +140,7 @@
              c++-mode-hook
              sh-mode-hook
              )
-  (setq indent-tabs-mode t)
+  (cmd! (setq indent-tabs-mode t))
   )
 ;; (add-hook! '(javascript-mode-disable-hook
 ;;              typescript-mode-disable-hook
@@ -213,7 +160,14 @@
       evil-vsplit-window-right t
       evil-want-change-word-to-end nil
       +evil-want-o/O-to-continue-comments nil
+      evil-echo-state nil
       )
+
+;; Formatters
+(after! format-all
+  (set-formatter! 'black "black -q -l 79 --pyi -")
+  (set-formatter! 'clang-format "clang-format -style=GNU")
+  )
 
 ;; Easier to open org-agenda
 (map! :after org
@@ -226,28 +180,24 @@
 
 ;; LaTeX tweaks and keybinds
 (map! :after tex :map LaTeX-mode-map
- ;; :localleader :desc "Preview pane"
- ;; "V" #'latex-preview-pane-mode
- ;; :localleader :desc "Update preview pane"
- ;; "v" #'latex-preview-pane-update
- :localleader :desc "Check current buffer with langtool"
- "C c" #'langtool-check
- :localleader :desc "Check current buffer with langtool"
- "C C" #'langtool-check
- :localleader :desc "Interactively correct buffer with langtool"
- "c" #'langtool-correct-buffer
+ :localleader :desc "LaTeX Preview"
+ "v" #'TeX-view
+ :localleader :desc "Run langtool on current buffer"
+ "c r" #'langtool-check
+ :localleader :desc "Correct buffer with langtool"
+ "c c" #'langtool-correct-buffer
  :localleader :desc "End current langtool session"
- "C C-c" #'langtool-check-done
+ "c d" #'langtool-check-done
  :localleader :desc "Return to langtool"
- "C-c" #'exit-recursive-edit
+ "c e" #'exit-recursive-edit
  )
 (setq +latex-indent-level-item-continuation 2)
-(remove-hook! TeX-mode #'TeX-fold-mode)
-(remove-hook! TeX-mode #'TeX-fold-buffer)
+;; (remove-hook! TeX-mode #'TeX-fold-mode)
+;; (remove-hook! TeX-mode #'TeX-fold-buffer)
 
 ;; Writeroom tweaks
 (after! writeroom-mode (setq writeroom-width 62))
-(add-hook! writeroom-mode '(display-fill-column-indicator-mode -1))
+(add-hook! writeroom-mode (cmd! (display-fill-column-indicator-mode -1)))
 ;; (add-hook! writeroom-mode-disable '(display-fill-column-indicator-mode))
 
 ;; Vterm tweaks (also REPLs)
@@ -259,9 +209,7 @@
       :localleader :desc "Toggle copy mode"
       "c" #'vterm-copy-mode
       )
-(add-hook! '(vterm-mode-hook +eval-repl-mode-hook)
-           #'evil-emacs-state
-           )
+(add-hook! '(vterm-mode-hook +eval-repl-mode-hook) #'evil-emacs-state)
 (add-hook! 'vterm-copy-mode-hook #'evil-normal-state)
 ;; (add-hook! 'vterm-copy-mode-disable-hook #'evil-emacs-state)
 
@@ -272,9 +220,23 @@
       :localleader :desc "Ligatures"
       "L" #'prettify-symbols-mode
       )
+
 ;; Larger popups
 (set-popup-rule! "^\\*doom:\\(?:v?term\\|e?shell\\)-popup"
   :vslot -5 :height 0.46 :select t :modeline nil :quit nil :ttl nil)
+
+;; Python lsp server
+(use-package! lsp-jedi)
+(add-hook! 'python-mode-hook (cmd! (setq flycheck-disabled-checkers '(lsp))))
+(defadvice! +lsp--respect-default-checker-python-mode (orig-fn &rest args)
+  "Ensure `flycheck-checker' isn't overwritten by `lsp' in python-mode."
+  :around #'lsp-diagnostics-flycheck-enable
+  (if (eq major-mode 'python-mode)
+      (let ((old-checker flycheck-checker))
+        (apply orig-fn args)
+        (setq-local flycheck-checker old-checker))
+    (apply orig-fn args))
+  )
 
 
 ;;; Heavy customization
@@ -351,3 +313,5 @@
   (org-link-set-parameters "xdg-open"
                            :follow #'browse-url-xdg-open
                            ))
+
+

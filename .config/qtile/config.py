@@ -6,15 +6,19 @@ import subprocess
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
-from libqtile.utils import guess_terminal
+
+# import custom
 
 # Custom constants
 MODKEY = "mod4"
 TERMINAL = "urxvtc"
-HOME = os.path.expanduser("~")
+HOME = os.environ["HOME"]
 CONFIG = f"{HOME}/.config/qtile"
 BROWSER = "brave-nightly"
 VISUAL = f"{HOME}/VISUAL"
+ENVIRON_UPDATE = {
+    "QT_QPA_PLATFORMTHEME": "qt5ct",
+}
 # colors = [
 #     "#292d3e",  # panel background
 #     "#4e5579",  # background for current screen tab
@@ -48,16 +52,16 @@ widget_defaults = {
     "background": colors_dict["bg"],
     "foreground": colors_dict["fg"],
 }
-
-
 @hook.subscribe.startup_once
 def on_first_startup():
     """
     Begins startup processes like daemons and the compositor. See
-    `./autostart.sh`.
+    `./autostart.sh`. Also changes some environment variables.
     """
+    # os.environ |= ENVIRON_UPDATE  # python3.9
+    for var in ENVIRON_UPDATE:
+        os.environ[var] = ENVIRON_UPDATE[var]
     subprocess.call([f"{CONFIG}/autostart.sh"])
-
 
 # Set up widgets and screens
 widgets = [
@@ -80,9 +84,14 @@ widgets = [
     ),
     widget.Spacer(20),
     widget.CurrentLayoutIcon(
-        foreground=colors_dict["fg"], background=colors_dict["bg"], scale=0.6, padding=0
+        foreground=colors_dict["fg"],
+        background=colors_dict["bg"],
+        scale=0.6,
+        padding=0,
     ),
-    widget.CurrentLayout(foreground=colors_dict["fg"], background=colors_dict["bg"]),
+    widget.CurrentLayout(
+        foreground=colors_dict["fg"], background=colors_dict["bg"]
+    ),
     widget.Spacer(),
     widget.Systray(background=colors_dict["bg"], padding=14),
     widget.Spacer(20),
@@ -95,11 +104,11 @@ sysinfo_widgets = [
             {
                 "colour_have_updates": colors_dict["fg"],
                 "colour_no_updates": colors_dict["fg"],
-                "fmt": "{} Updates",
-                "no_update_string": "0 Updates",
+                # "fmt": "{}",
+                "no_update_string": "0",
                 "update_interval": 60,
                 # "distro": "Arch_yay",
-                "execute": f"{TERMINAL} -e sudo pacman -Syu",
+                "execute": f'{TERMINAL} -e "{CONFIG}/updateyay.sh"',
                 "custom_command": "checkupdates+aur",
             },
         )
@@ -122,7 +131,11 @@ sysinfo_widgets = [
     [
         (
             widget.Net,
-            {"interface": "enp4s0", "format": "{down} ↓ {up} ↑", "use_bits": True},
+            {
+                "interface": "enp4s0",
+                "format": "{down} ↓ {up} ↑",
+                "use_bits": True,
+            },
         ),
     ],
     [(widget.Volume, {"fmt": "Vol: {}", "device": "pulse", "step": "5"})],
@@ -135,14 +148,19 @@ for i, widget_group in enumerate(sysinfo_widgets):
         OTHER = colors_dict["bg"]
     widgets.append(
         widget.TextBox(
-            text="", background=OTHER, foreground=COLOR, padding=0, fontsize=23
+            text="",
+            background=OTHER,
+            foreground=COLOR,
+            padding=0,
+            fontsize=23,
         ),
     )
     for widget_type, kwargs in widget_group:
         widgets.append(
-            widget_type(background=COLOR, foreground=colors_dict["fg"], **kwargs)
+            widget_type(
+                background=COLOR, foreground=colors_dict["fg"], **kwargs
+            )
         )
-
 
 screens = [Screen(top=bar.Bar(widgets=widgets, opacity=0.9, size=24))]
 
@@ -169,30 +187,36 @@ layouts = [
             {"wmclass": "notification"},
             {"wmclass": "splash"},
             {"wmclass": "toolbar"},
-            {"wmclass": "confirmreset"},  # gitk
-            {"wmclass": "makebranch"},  # gitk
-            {"wmclass": "maketag"},  # gitk
-            {"wname": "branchdialog"},  # gitk
-            {"wname": "pinentry"},  # GPG key password entry
             {"wmclass": "ssh-askpass"},
             {"wmclass": "optifine-InstallerFrame"},
+            {"wmclass": "authy desktop"},
+            {"wmclass": "pinentry-gtk-2"},
+            {"wmclass": "lxpolkit"},
         ],
         border_focus=colors_dict["hl2"],
-        **{key: layout_theme[key] for key in layout_theme if key != "border_focus"},
+        **{
+            key: layout_theme[key]
+            for key in layout_theme
+            if key != "border_focus"
+        },
     ),
 ]
+floating_layout = layouts[-1]
 
 group_names = [
     (
         "CHAT",
-        {"layout": "max", "spawn": ["discord-canary", "element-desktop-nightly"]},
+        {
+            "layout": "max",
+            "spawn": ["discord-canary", "element-desktop-nightly"],
+        },
     ),
     ("AGND", {"layout": "max"}),
     ("CLAS", {"layout": "max"}),
     ("SCHL", {"layout": "stack"}),
     ("PRGM", {"layout": "monadtall"}),
     ("INET", {"layout": "max"}),
-    ("MUSC", {"layout": "max", "spawn": ["deadbeef"]}),
+    ("MUSC", {"layout": "max", "spawn": ["pavucontrol"]}),
 ]
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
@@ -212,7 +236,6 @@ group_apps = {
     ),
 }
 
-
 # Set up Keybinds
 @lazy.function
 def custom_app_1(qtile):
@@ -223,7 +246,6 @@ def custom_app_1(qtile):
     prog = group_apps[curr_group][0]
     qtile.cmd_spawn(prog)
 
-
 @lazy.function
 def custom_app_2(qtile):
     """
@@ -233,14 +255,12 @@ def custom_app_2(qtile):
     prog = group_apps[curr_group][1]
     qtile.cmd_spawn(prog)
 
-
 @lazy.function
 def layout_monadtall(qtile):
     """
     Set current layout to `monadtall`.
     """
     qtile.current_group.use_layout(0)
-
 
 @lazy.function
 def layout_max(qtile):
@@ -249,14 +269,12 @@ def layout_max(qtile):
     """
     qtile.current_group.use_layout(1)
 
-
 @lazy.function
 def layout_stack(qtile):
     """
     Set current layout to `stack`.
     """
     qtile.current_group.use_layout(2)
-
 
 @lazy.function
 def layout_tile(qtile):
@@ -265,7 +283,6 @@ def layout_tile(qtile):
     """
     qtile.current_group.use_layout(3)
 
-
 @lazy.function
 def layout_floating(qtile):
     """
@@ -273,13 +290,15 @@ def layout_floating(qtile):
     """
     qtile.current_group.use_layout(4)
 
-
 keys = [
     # Launching programs
     Key([MODKEY], "Return", lazy.spawn(TERMINAL), desc="Launch terminal"),
     Key([MODKEY], "a", lazy.spawn(BROWSER), desc="Launch browser window"),
     Key(
-        [MODKEY, "shift"], "a", lazy.spawn(VISUAL), desc="Launch graphical text editor"
+        [MODKEY, "shift"],
+        "a",
+        lazy.spawn(VISUAL),
+        desc="Launch graphical text editor",
     ),
     Key(
         [MODKEY, "shift"],
@@ -300,21 +319,58 @@ keys = [
         desc="Open the 2nd custom program for the current group",
     ),
     # Misc
-    Key([], "XF86AudioPlay", lazy.spawn("playerctl play-pause"), desc="Toggle pause"),
+    Key(
+        [],
+        "XF86AudioPlay",
+        lazy.spawn("playerctl play-pause"),
+        desc="Toggle pause",
+    ),
     Key([MODKEY], "v", lazy.spawn("clipcat-menu"), desc="Open clipcat dmenu"),
     # Layouts
     Key([MODKEY], "Tab", layout_stack, desc="Set layout to stack"),
     Key([MODKEY, "shift"], "Tab", layout_max, desc="Set layout to max"),
-    Key([MODKEY, "control"], "Tab", layout_monadtall, desc="Set layout to monadtall"),
-    Key([MODKEY, "shift", "control"], "Tab", layout_tile, desc="Set layout to tile"),
-    Key([MODKEY, "shift"], "f", layout_floating, desc="Set layout to floating"),
+    Key(
+        [MODKEY, "control"],
+        "Tab",
+        layout_monadtall,
+        desc="Set layout to monadtall",
+    ),
+    Key(
+        [MODKEY, "shift", "control"],
+        "Tab",
+        layout_tile,
+        desc="Set layout to tile",
+    ),
+    Key(
+        [MODKEY, "shift"], "f", layout_floating, desc="Set layout to floating"
+    ),
     # Session control
-    Key([MODKEY, "shift"], "q", lazy.spawn(f"{HOME}/.local/bin/betterlockscreen -l --off 15"), desc="Lock screen"),
+    Key(
+        [MODKEY, "shift"],
+        "q",
+        lazy.spawn(f"{HOME}/.local/bin/betterlockscreen -l --off 15"),
+        desc="Lock screen",
+    ),
     Key([MODKEY, "control"], "q", lazy.restart(), desc="Restart Qtile"),
-    Key([MODKEY, "control", "shift"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key(
+        [MODKEY, "control", "shift"],
+        "q",
+        lazy.shutdown(),
+        desc="Shutdown Qtile",
+    ),
     # Window movement and management
-    Key([MODKEY], "j", lazy.layout.down(), desc="Move focus up in current stack pane"),
-    Key([MODKEY], "k", lazy.layout.up(), desc="Move focus down in current stack pane"),
+    Key(
+        [MODKEY],
+        "j",
+        lazy.layout.down(),
+        desc="Move focus up in current stack pane",
+    ),
+    Key(
+        [MODKEY],
+        "k",
+        lazy.layout.up(),
+        desc="Move focus down in current stack pane",
+    ),
     Key(
         [MODKEY, "shift"],
         "j",
@@ -327,7 +383,9 @@ keys = [
         lazy.layout.shuffle_up(),
         desc="Move windows up in current stack",
     ),
-    Key([MODKEY], "h", lazy.layout.previous(), desc="Move focus to next stack"),
+    Key(
+        [MODKEY], "h", lazy.layout.previous(), desc="Move focus to next stack"
+    ),
     Key([MODKEY], "l", lazy.layout.next(), desc="Move focus to next stack"),
     Key(
         [MODKEY, "shift"],
@@ -354,7 +412,9 @@ keys = [
         lazy.layout.shrink(),
         desc="Shrink window (MonadTall), decrease number in master pane (Tile)",
     ),
-    Key([MODKEY], "m", lazy.layout.reset(), desc="normalize window size ratios"),
+    Key(
+        [MODKEY], "m", lazy.layout.reset(), desc="normalize window size ratios"
+    ),
     Key(
         [MODKEY],
         "equal",

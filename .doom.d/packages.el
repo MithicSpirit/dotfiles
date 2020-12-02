@@ -53,4 +53,66 @@
 
 ;(package! mastodon)
 
-;(package! telephone-line)
+;; (use-package! telephone-line
+;;   :config
+;;   (custom-set-faces!
+;;     `(telephone-line-evil-emacs :background
+;;                                 ,(doom-darken (doom-color 'teal) .33))
+;;     `(telephone-line-evil-insert :background
+;;                                  ,(doom-darken (doom-color 'blue) .33))
+;;     `(telephone-line-evil-motion :background
+;;                                  ,(doom-darken (doom-color 'base7) .33))
+;;     `(telephone-line-evil-normal :background
+;;                                  ,(doom-darken (doom-color 'green) .33))
+;;     `(telephone-line-evil-operator :background
+;;                                    ,(doom-darken (doom-color 'base2) .33))
+;;     `(telephone-line-evil-visual :background
+;;                                  ,(doom-darken (doom-color 'yellow) .33))
+;;     `(telephone-line-evil-replace :background
+;;                                   ,(doom-darken (doom-color 'red) .33))
+;;     `(telephone-line-evil-god :background
+;;                               ,(doom-darken (doom-color 'cyan) .33))
+;;     `(telephone-line-accent-active :background ,(doom-color 'grey))
+;;     `(mode-line-inactive :background ,(doom-color 'bg-alt)
+;;                          :foreground ,(doom-darken (doom-color 'fg-alt) .33))
+;;     `(telephone-line-accent-inactive :background
+;;                                      ,(doom-lighten (doom-color 'bg-alt) .03)
+;;                                      :foreground
+;;                                      ,(doom-darken (doom-color 'fg-alt) .33))
+;;     )
+;;   (telephone-line-defsegment*
+;;    telephone-custom-evil-segment ()
+;;    "Displays current evil mode with an equal-length tag."
+;;    (when (bound-and-true-p evil-mode)
+;;      (let ((tag (cond
+;;                  ((evil-operator-state-p)
+;;                   (if telephone-line-evil-use-short-tag "OP" "OPERTR"))
+;;                  ((evil-replace-state-p)
+;;                   (if telephone-line-evil-use-short-tag "RE" "REPLCE"))
+;;                  ((not (evil-visual-state-p)) (upcase (symbol-name evil-state)))
+;;                  ((eq evil-visual-selection 'block)
+;;                   (if telephone-line-evil-use-short-tag "VB" "V-BLCK"))
+;;                  ((eq evil-visual-selection 'line)
+;;                   (if telephone-line-evil-use-short-tag "VL" "V-LINE"))
+;;                  (t "VISUAL"))))
+;;        (if telephone-line-evil-use-short-tag
+;;            (seq-take tag 2)
+;;          tag))))
+;;   (setq telephone-line-lhs
+;;         '((evil   . (telephone-custom-evil-segment))
+;;           (accent . (telephone-line-vc-segment
+;;                      telephone-line-filesize-segment
+;;                      telephone-line-input-info-segment
+;;                      (telephone-line-projectile-buffer-segment 0 1)))
+;;           (nil    . (telephone-line-airline-position-segment
+;;                      telephone-line-process-segment))))
+;;   (setq telephone-line-rhs
+;;         '((nil    . (telephone-line-misc-info-segment))
+;;           (accent . (telephone-line-major-mode-segment))
+;;           (evil   . (telephone-line-flycheck-segment
+;;                      telephone-line-hud-segment))))
+;;   (setq telephone-line-height 23)
+;;   (telephone-line-mode t)
+;;   )
+
+(when (package! lsp-mode) (package! lsp-jedi))

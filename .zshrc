@@ -9,8 +9,8 @@ export N_PREFIX="$HOME/.local"
 export FPATH="$FPATH:$HOME/.completions"
 export CHKTEXRC="$HOME"
 export EDITOR="nvim"
-export SUDO_EDITOR=$EDITOR
 export VISUAL="$HOME/VISUAL"
+export SUDO_EDITOR=$EDITOR
 
 # Zsh/ohmyzsh variables
 export ZSH="$HOME/.oh-my-zsh"
@@ -71,8 +71,8 @@ source $ZSH/oh-my-zsh.sh
 globalias() {
    local word=${${(Az)LBUFFER}[-1]}
    if [[ $GLOBALIAS_FILTER_VALUES[(Ie)$word] -eq 0 ]]; then
-      zle _expand_alias
-      # zle expand-word
+      zle _expand_alias  # aliases
+      # zle expand-word  # non-alias expression
    fi
    zle self-insert
 }
@@ -90,10 +90,10 @@ alias ln="ln -si"
 alias mv="mv -i"
 alias md="\\mkdir"
 alias mkdir="\\mkdir -p"
-alias sl="sl -ea"
+alias sl="sl -a"
 alias rmrm="\\rm -i"
-alias ls="ls --color=auto"
 alias gs="git status"
+alias xrdb="xrdb ~/.Xresources"
 
 alias xsh="exec zsh"
 alias xssh="exec ssh"
@@ -106,6 +106,10 @@ alias updatedb="sudo updatedb"
 alias snap="sudo snap"
 alias ufw="sudo ufw"
 alias visudo="sudo --preserve-env=EDITOR visudo"
+alias svi="sudoedit"
+alias radeontop="sudo radeontop"
+alias reflector="sudo reflector --protocol https --latest 70 --sort rate \
+--save /etc/pacman.d/mirrorlist"
 
 alias rm="trash"
 alias du="dust"
@@ -116,12 +120,24 @@ alias emacs="visual"
 alias eterm="visual -t"
 alias vi="nvim"
 
+alias ls="exa"
+alias l="exa -lFbg"
+alias lS="exa -lFbs size --color-scale"
+alias la="exa -laFb"
+alias ldot="ls -ld .*"
+unalias lart
+unalias ll
+unalias lr
+unalias lrt
+unalias lsa
+alias exa="exa --color=automatic"
+
 alias copy="xclip -i -sel clip <"
 alias dooms="doom sync ; doom doctor"
 alias doomup="doom upgrade && doom sync -p ; doom doctor"
-# "doom sync && doom upgrade && doom clean && doom purge -bg && doom env && doom compile && doom build -r && doom sync -pe && doom doctor"
-alias f="fortune | /bin/cowsay"
-alias torrium='chromium --proxy-server="socks5://localhost:9050" --incognito --host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE localhost"'
+alias f="fortune | cowsay"
+alias torrium='chromium --proxy-server="socks5://localhost:9050" --incognito \
+--host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE localhost"'
 
 
 alias homegit='git --git-dir=$HOME/.homegit --work-tree=$HOME'
@@ -153,19 +169,15 @@ alias cpp="g++ -Wall -ansi -DMITHIC"
 alias cppa="g++ -Wall -ansi -DMITHIC -S -fverbose-asm"
 
 GLOBALIAS_FILTER_VALUES=(
-	homegit
-	sl
+	exa
+	f
 	grep
-	ls
+	homegit
 	man
+	sl
 	sudo
-	\*
-	\*\*
-	\*\*/\*
-	\$VISUAL
 	torrium
 	upcustom
-	\~
 	visual
 	zshrc
 )
@@ -177,9 +189,14 @@ less_termcap[so]="${fg_bold[yellow]}${bg[trans]}"
 bindkey "^[[A" history-substring-search-up
 bindkey "^[[B" history-substring-search-down
 
-# NVM stuff
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+# Clipcat
+if type clipcat-menu >/dev/null 2>&1; then
+    alias clipedit=' clipcat-menu --finder=builtin edit'
+    alias clipdel=' clipcat-menu --finder=builtin remove'
 
+    bindkey -s '^\' "^Q clipcat-menu --finder=builtin insert ^J"
+    bindkey -s '^]' "^Q clipcat-menu --finder=builtin remove ^J"
+fi
+
+# Powerlevel10k prompt
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
