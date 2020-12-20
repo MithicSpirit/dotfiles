@@ -41,7 +41,7 @@
        fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
-       indent-guides     ; highlighted indent columns
+       ;;indent-guides     ; highlighted indent columns
        (ligatures         ; ligatures and symbols to make your code pretty again
         +extra)
        minimap           ; show a map of the code on the side
@@ -178,7 +178,8 @@
        (org               ; organize your plain life in plain text
         +pretty
         +dragndrop
-        +jupyter)
+       ;+jupyter
+       )
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -195,6 +196,7 @@
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
        (sh                ; she sells {ba,z,fi}sh shells on the C xor
+        +fish
         +lsp)
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
@@ -211,7 +213,7 @@
 
        :app
        ;; calendar
-       irc               ; how neckbeards socialize
+       ;;irc               ; how neckbeards socialize
        (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 

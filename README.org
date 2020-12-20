@@ -22,20 +22,30 @@ used.
 - =.emacs.d= [[https://github.com/hlissner/doom-emacs/tree/develop][Doom Emacs]]
 - =.doom.d/*=
 - =VISUAL=
+- =.local/bin/visual=
+
+** BetterLockScreen
+- =.local/bin/betterlockscreen=
+- =.config/betterlockscreenrc=
   
 ** Miscellaneous
-- README: =README.org=
-- BetterLockScreen: =.config/betterlockscreenrc=
+- bottom: =.config/bottom/bottom.toml=
+- clang-format: =.clang-format=
 - clipcat: =.config/clipcat/*=
+- fish: =.config/fish/*=
 - htop: =.config/htop/htoprc=
 - Iosevka: =.iosevka.toml=
+- mbsync: =.mbsyncrc=
 - NViM: =.config/nvim/init.vim=
 - picom: =.config/picom.conf=
 - qtile: =.config/qtile/*=
 - radeon-profile: =.config/radeon-profile/*=
+- README: =README.org=
 - TeX: =.chktexrc=
+- twmn: =.config/twmn/twmn.conf=
 - URxvt: =.Xresources.d/rxvt-unicode=
 - wallpapers: =.wallpapers/*=
+- zathura: =.config/zathura/zathurarc=
 
 * Gitmodules
 Gitmodules are basically git repositories inside other git repositories. The

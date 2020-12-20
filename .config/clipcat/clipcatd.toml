@@ -1,7 +1,7 @@
-daemonize = true
+daemonize = false
 max_history = 100
 history_file_path = '/home/mithic/.cache/clipcat/clipcatd/db'
-log_level = 'INFO'
+log_level = 'TRACE'
 
 [monitor]
 load_current = true

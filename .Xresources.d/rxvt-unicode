@@ -1,6 +1,6 @@
 ! Misc
 URxvt*fading: 7
-URxvt*title: Urxvt
+URxvt*title: URxvt
 URxvt*internalBorder: 1
 URxvt*borderLess: False
 URxvt*cursorBlink: True
@@ -14,7 +14,8 @@ URxvt*italicFont: xft:Iosevka Mithic Book:size=12:antialias=true:italic
 URxvt*boldItalicFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold:italic
 
 ! Colors: palenight theme
-URxvt*background: #242837
+URxvt*depth: 32 ! Necessary for reduced opacity
+URxvt*background: [85]#242837
 URxvt*foreground: #eeffff
 URxvt*cursorColor: #c792ea
 

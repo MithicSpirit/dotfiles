@@ -1,0 +1,4 @@
+map u scroll half-up
+map d scroll half-down
+map p toggle_page_mode
+map P print

@@ -7,6 +7,7 @@ set smartcase
 set splitbelow
 set splitright
 set mouse=a
+set tabstop=4
 
 nnoremap Y y$
 nnoremap x "_x

@@ -1,22 +1,26 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+
+sleep 2
 
 # Appearance
-picom &
+picom --daemon
 feh --no-fehbg --bg-fill "$HOME/.wallpapers/cyan aurora.jpg"
+redshift-gtk -l geoclue2 &
 
 # Daemons
 emacs --daemon &
-onedrive --monitor &
 thunar --daemon &
-urxvtd &
-clipcatd
+urxvtd -o -f
+clipcatd --no-daemon &
+twmnd &
 
 # Misc
-lxsession &
-setxkbmap -option caps:swapescape -option compose:rctrl &
+nm-applet &
+lxsession --de=Qtile &
+setxkbmap -option caps:swapescape -option compose:rctrl
 # xset m 0/0 0 &
 # xinput set-prop 8 295 0, 0 &
 # xinput set-prop 8 292 1 &
-# xset s off
-
-sleep 2
+xset s off
+xset dpms 0 0 0
+numlockx on

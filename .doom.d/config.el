@@ -12,6 +12,7 @@
  org-directory "~/documents/org"
  bookmark-default-file "~/.doom.d/bookmarks"
  auth-sources '("~/.bak/.secrets/authinfo.gpg")
+ +mu4e-mu4e-mail-path "~/mbsync"
 
  projectile-project-search-path
  '("~/documents/coding"
@@ -24,24 +25,12 @@
 
 ;;; Appearance
 ;; Fonts
-(let
-    ((fontsize 15)
-     (fontface "Iosevka Mithic Book")
-     )
-  (setq
-   doom-font (font-spec :family fontface :size fontsize)
-   doom-variable-pitch-font (font-spec :family "CMU Sans Serif"
-                                       :size (truncate (* fontsize 0.8))
-                                       )
-   doom-big-font (font-spec :family fontface
-                            :size (truncate (* fontsize 1.3))
-                            :antialiasing t
-                            :weight 'medium
-                            )
-   mode-line-font (font-spec :family fontface
-                             :size (truncate (* fontsize 1.1))
-                             :antialiasing t)
-   ))
+(setq
+ doom-font (font-spec :family "Iosevka Mithic Book" :size 15)
+ doom-variable-pitch-font (font-spec :family "CMU Sans Serif" :size 16)
+ doom-big-font (font-spec :family "MesloLGS NF" :size 20)
+ mode-line-font (font-spec :family "Iosevka Mithic Book" :size 17)
+ )
 (setq doom-unicode-font doom-font)
 
 ;; Theme
@@ -49,6 +38,7 @@
 (custom-set-faces!
   '(fringe :inherit line-number)
   `(font-lock-comment-face :foreground ,(doom-lighten 'base6 .1) :slant italic)
+  `(line-number-current-line :foreground ,(doom-color 'yellow) :weight bold)
   )
 
 ;; Doom modeline
@@ -117,17 +107,19 @@
  org-agenda-dim-blocked-tasks nil
  org-agenda-tags-column 0
  delete-by-moving-to-trash t
+ ;; browse-url-generic-program "qutebrowser"
  )
 (after! dired
   (setq dired-listing-switches "-AlhDF --group-directories-first"))
 
 (add-hook! 'python-mode-hook (cmd! (setq fill-column 79)))
-;;(add-hook! 'python-mode-disable-hook (setq fill-column 80))
 
-;; (add-hook! 'text-mode-hook #'(display-fill-column-indicator-mode auto-fill-mode))
-(add-hook! text-mode 'visual-fill-column)
+(add-hook! 'text-mode-hook #'auto-fill-mode)
+(add-hook! 'prog-mode-hook (cmd! (display-fill-column-indicator-mode)))
 (global-hl-todo-mode)
 ;; (add-hook! 'prog-mode-hook #'hl-todo-mode)
+(add-hook! 'org-agenda-mode-hook #'doom-disable-show-paren-mode-h)
+(add-hook! 'rainbow-mode-hook (hl-line-mode (if rainbow-mode -1 +1)))
 
 ;; Autosaving
 (setq auto-save-visited-interval 30)
@@ -139,16 +131,10 @@
              typescript-mode-hook
              c++-mode-hook
              sh-mode-hook
+             fish-mode-hook
              )
   (cmd! (setq indent-tabs-mode t))
   )
-;; (add-hook! '(javascript-mode-disable-hook
-;;              typescript-mode-disable-hook
-;;              cpp-mode-disable-hook
-;;              sh-mode-disable-hook
-;;              )
-;;   (setq indent-tabs-mode nil)
-;;   )
 
 ;; [e]Vi[l] fixes/tweaks
 (map! :after evil
@@ -211,7 +197,6 @@
       )
 (add-hook! '(vterm-mode-hook +eval-repl-mode-hook) #'evil-emacs-state)
 (add-hook! 'vterm-copy-mode-hook #'evil-normal-state)
-;; (add-hook! 'vterm-copy-mode-disable-hook #'evil-emacs-state)
 
 ;; Toggle ligatures
 (map! :leader :desc "Ligatures" "t L" #'prettify-symbols-mode
@@ -238,6 +223,39 @@
     (apply orig-fn args))
   )
 
+;; Map winum window selections to not require "w" prefix
+(after! winum
+  (map! :map doom-leader-map :leader
+        "0" #'winum-select-window-0 ;; don't care about window 10+
+        "1" #'winum-select-window-1
+        "2" #'winum-select-window-2
+        "3" #'winum-select-window-3
+        "4" #'winum-select-window-4
+        "5" #'winum-select-window-5
+        "6" #'winum-select-window-6
+        "7" #'winum-select-window-7
+        "8" #'winum-select-window-8
+        "9" #'winum-select-window-9
+        ))
+
+;; Email (mu4e)
+(set-email-account!
+ "Gmail"
+ '((user-mail-address   .  "rpc01234@gmail.com")
+   (smtpmail-smtp-user  .  "rpc01234@gmail.com")
+   (mu4e-sent-folder    .  "/[Gmail].Sent")
+   (mu4e-drafts-folder  .  "/[Gmail].Drafts")
+   (mu4e-trash-folder   .  "/[Gmail].Trash")
+   (mu4e-refile-folder  .  "/[Gmail].All")
+   ))
+(use-package! mu4e-alert
+  :config
+  (setq mu4e-alert-mode-line t
+        doom-modeline-mu4e t
+        mu4e-update-interval nil
+        )
+  (mu4e-alert-enable-mode-line-display))
+
 
 ;;; Heavy customization
 ;; School agenda
@@ -245,7 +263,7 @@
   "Open tasks and agenda with schedule in a sidebar."
   (interactive (list (if (string= (buffer-name (current-buffer)) "*doom*")
                          nil t)))
-  (if kill (+evil:kill-all-buffers nil))
+  (if kill (call-interactively #'doom/kill-all-buffers))
   (cd org-directory)
   (evil-edit "schedule.org") (read-only-mode)
   (evil-window-vsplit nil "tasks.org") (org-shifttab 2)

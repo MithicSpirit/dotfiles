@@ -116,3 +116,4 @@
 ;;   )
 
 (when (package! lsp-mode) (package! lsp-jedi))
+(when (featurep! :email mu4e) (package! mu4e-alert))
