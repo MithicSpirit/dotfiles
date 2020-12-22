@@ -194,9 +194,36 @@ sysinfo_widgets = [
             widget.Net,
             {
                 "interface": "enp4s0",
-                "format": "{down}/s ↓ {up}/s ↑",
+                "format": "{down}/s ↓",
                 "use_bits": True,
                 "update_interval": 5,
+                "mouse_callbacks": {
+                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e speedtest-cli")
+                },
+            },
+        ),
+        (
+            widget.TextBox,
+            {
+                "text": "|",
+                "padding": 0,
+                "padding_x": 0,
+                "fontsize": 16,
+                "mouse_callbacks": {
+                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e speedtest-cli")
+                },
+            },
+        ),
+        (
+            widget.Net,
+            {
+                "interface": "enp4s0",
+                "format": "{up}/s ↑",
+                "use_bits": True,
+                "update_interval": 5,
+                "mouse_callbacks": {
+                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e speedtest-cli")
+                },
             },
         ),
     ],
@@ -330,7 +357,7 @@ group_apps = {
     "PRGM": (VISUAL, f"{VISUAL} {HOME}/documents/coding"),
     "INET": (
         f"{BROWSER} --new-window https://www.youtube.com/feed/subscriptions",
-        "lbry",
+        f"{BROWSER} --new-window https://odysee.com/$/following",
     ),
     "GAME": ("lutris", "steam"),
     "MUSC": (

@@ -112,7 +112,6 @@
 (after! dired
   (setq dired-listing-switches "-AlhDF --group-directories-first"))
 
-(add-hook! 'python-mode-hook (cmd! (setq fill-column 79)))
 
 (add-hook! 'text-mode-hook #'auto-fill-mode)
 (add-hook! 'prog-mode-hook (cmd! (display-fill-column-indicator-mode)))
@@ -148,12 +147,6 @@
       +evil-want-o/O-to-continue-comments nil
       evil-echo-state nil
       )
-
-;; Formatters
-(after! format-all
-  (set-formatter! 'black "black -q -l 79 --pyi -")
-  (set-formatter! 'clang-format "clang-format -style=GNU")
-  )
 
 ;; Easier to open org-agenda
 (map! :after org
@@ -210,9 +203,14 @@
 (set-popup-rule! "^\\*doom:\\(?:v?term\\|e?shell\\)-popup"
   :vslot -5 :height 0.46 :select t :modeline nil :quit nil :ttl nil)
 
-;; Python lsp server
-(use-package! lsp-jedi)
-(add-hook! 'python-mode-hook (cmd! (setq flycheck-disabled-checkers '(lsp))))
+;; Python stuff
+;; (use-package! lsp-jedi)
+(setq-hook! 'python-mode-hook
+   +format-with-lsp nil
+   +format-with 'black
+   fill-column 79
+   )
+(after! format-all (set-formatter! 'black "black -q -l 79 -"))
 (defadvice! +lsp--respect-default-checker-python-mode (orig-fn &rest args)
   "Ensure `flycheck-checker' isn't overwritten by `lsp' in python-mode."
   :around #'lsp-diagnostics-flycheck-enable

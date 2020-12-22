@@ -4,7 +4,7 @@ sleep 2
 
 # Appearance
 picom --daemon
-feh --no-fehbg --bg-fill "$HOME/.wallpapers/cyan aurora.jpg"
+feh --no-fehbg --bg-fill "$HOME/.wallpapers/snowy mountains.jpg"
 redshift-gtk -l geoclue2 &
 
 # Daemons

@@ -2,7 +2,7 @@
 export PATH="$HOME/.local/bin:$HOME/.emacs.d/bin:$PATH"
 export LANG=en_US.UTF-8
 export MANPATH="$MANPATH:$HOME/.local/man:/usr/local/man"
-export INFOPATH="$INFOPATH:$HOME/.local/info"
+export INFOPATH="$INFOPATH:$HOME/.local/info:/usr/share/info"
 export N_PREFIX="$HOME/.local"
 export CHKTEXRC="$HOME"
 export EDITOR="nvim"
@@ -97,6 +97,7 @@ alias gdd="git diff --cached"
 alias xrdb="xrdb ~/.Xresources"
 alias yay="yay --color=auto"
 alias grep="nocorrect grep --color=auto"
+alias termdown="termdown -ac 5"
 
 alias xsh="exec zsh"
 alias xssh="exec ssh"
