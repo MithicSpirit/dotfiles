@@ -455,7 +455,7 @@ keys = [
         lazy.spawn("playerctl play-pause"),
         desc="Toggle pause",
     ),
-    Key([MODKEY], "v", lazy.spawn("clipcat-menu"), desc="Open clipcat dmenu"),
+    Key([MODKEY], "v", lazy.spawn("greenclip-dmenu"), desc="Open clipboard selection menu"),
     # Key(
     #     [MODKEY],
     #     "space",

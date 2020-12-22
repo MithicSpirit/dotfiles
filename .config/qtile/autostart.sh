@@ -11,7 +11,8 @@ redshift-gtk -l geoclue2 &
 emacs --daemon &
 thunar --daemon &
 urxvtd -o -f
-clipcatd --no-daemon &
+#clipcatd --no-daemon &
+greenclip daemon &
 twmnd &
 
 # Misc
