@@ -14,6 +14,7 @@ abbr -g mkdir "mkdir -p"
 abbr -g ln "ln -si"
 abbr -g sl "sl -ae"
 abbr -g df "df -h"
+abbr -g matrix "cmatrix -ab"
 
 # Prepends
 abbr -g su "sudo -i"

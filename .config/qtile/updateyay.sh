@@ -1,16 +1,16 @@
 #!/usr/bin/env zsh
 
-echo "Main:"
 sleep 1
-checkupdates
-echo "\nAUR:"
+echo "AUR:"
 checkupdates-aur
+echo "\nMain:"
+checkupdates
 echo ""
-if [[ $(read -eq '?Proceed? [y/N] ') == "y" ]]; then
+if [[ $(read -req '?Proceed? [y/N] ') == "y" ]]; then
 	echo ""
 	yay -Syu --noconfirm --color=always &&
-	read -sk 1 '?Done [Press any key to exit]' ||
-	read -sk 1 "?Error: Exit code $? [Press any key to exit]"
+	read -rsk 1 '?Done [Press any key to exit]' ||
+	read -rsk 1 "?Error: Exit code $? [Press any key to exit]"
 else
 	echo "\nAborted"
 	sleep 1

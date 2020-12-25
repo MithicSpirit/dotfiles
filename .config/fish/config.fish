@@ -16,10 +16,14 @@ set -gx MAKEFLAGS -j 10
 # Externals
 source /usr/share/autojump/autojump.fish # j <dir> to jump
 source ~/.config/fish/aliases.fish # Many, many, many aliases
+# Cool `cd` thing
+functions -c cd __wrapped_cd
+functions -e cd
+functions -c __plugin_cd cd
+source ~/.config/fish/completions/cd.fish # Not working 😳
 
 # TODO:
 # - ez-extract function
-# - colored man pages
 # - C-z toggle
 
 # Keybinds
@@ -40,14 +44,16 @@ end
 
 bind ! bind_bang
 
-# Clipcat
-if type clipcat-menu >/dev/null 2>&1
-    alias clipedit 'clipcat-menu --finder=builtin edit'
-    alias clipdel 'clipcat-menu --finder=builtin remove'
+# Colored manpages
+set -gx LESS_TERMCAP_md (printf "\e[01;38;5;74m")
+set -gx LESS_TERMCAP_mb (printf "\033[01;31m")
+set -gx LESS_TERMCAP_me (printf "\033[0m")
 
-    bind -s '\c\\' "^Q clipcat-menu --finder=builtin insert ^J"
-    bind -s '\e]' "^Q clipcat-menu --finder=builtin remove ^J"
-end
+set -gx LESS_TERMCAP_ue (printf "\e[0m")
+set -gx LESS_TERMCAP_us (printf "\e[04;38;5;146m")
+
+set -gx LESS_TERMCAP_se (printf "\033[0m")
+set -gx LESS_TERMCAP_so (printf "\033[01;44;33m")
 
 # Prompt
 starship init fish | source

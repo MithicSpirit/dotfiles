@@ -98,6 +98,7 @@ alias xrdb="xrdb ~/.Xresources"
 alias yay="yay --color=auto"
 alias grep="nocorrect grep --color=auto"
 alias termdown="termdown -ac 5"
+alias matrix="cmatrix -ab"
 
 alias xsh="exec zsh"
 alias xssh="exec ssh"
@@ -213,15 +214,6 @@ bindkey -M menuselect "^P" up-line-or-history
 bindkey -M menuselect "^N" down-line-or-history
 bindkey -M menuselect "^F" forward-char
 bindkey -M menuselect "^B" backward-char
-
-# Clipcat
-if type clipcat-menu >/dev/null 2>&1; then
-	alias clipedit=' clipcat-menu --finder=builtin edit'
-	alias clipdel=' clipcat-menu --finder=builtin remove'
-
-	bindkey -s '^\' "^Q clipcat-menu --finder=builtin insert ^J"
-	bindkey -s '^]' "^Q clipcat-menu --finder=builtin remove ^J"
-fi
 
 # Powerlevel10k prompt
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
