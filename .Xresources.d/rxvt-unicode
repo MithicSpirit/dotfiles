@@ -15,7 +15,7 @@ URxvt*boldItalicFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold:italic
 
 ! Colors: palenight theme
 URxvt*depth: 32 ! Necessary for reduced opacity
-URxvt*background: [85]#242837
+URxvt*background: [90]#242837
 URxvt*foreground: #eeffff
 URxvt*cursorColor: #c792ea
 

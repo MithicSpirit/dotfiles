@@ -190,6 +190,7 @@
       )
 (add-hook! '(vterm-mode-hook +eval-repl-mode-hook) #'evil-emacs-state)
 (add-hook! 'vterm-copy-mode-hook #'evil-normal-state)
+;(after! vterm (setq shell-file-name "/usr/bin/fish"))
 
 ;; Toggle ligatures
 (map! :leader :desc "Ligatures" "t L" #'prettify-symbols-mode

@@ -194,7 +194,7 @@ sysinfo_widgets = [
             widget.Net,
             {
                 "interface": "enp4s0",
-                "format": "{down}/s ↓",
+                "format": "{down} ↓",
                 "use_bits": True,
                 "update_interval": 5,
                 "mouse_callbacks": {
@@ -218,7 +218,7 @@ sysinfo_widgets = [
             widget.Net,
             {
                 "interface": "enp4s0",
-                "format": "{up}/s ↑",
+                "format": "{up} ↑",
                 "use_bits": True,
                 "update_interval": 5,
                 "mouse_callbacks": {
@@ -331,7 +331,7 @@ group_names = [
         "CHAT",
         {
             "layout": "max",
-            "spawn": ["discord-canary", "element-desktop-nightly"],
+            "spawn": ["discord-canary", "element-desktop"],
         },
     ),
     ("AGND", {"layout": "max"}),
@@ -350,14 +350,14 @@ group_names = [
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 group_apps = {
-    "CHAT": ("discord-canary", "element-desktop-nightly"),
+    "CHAT": ("discord-canary", "element-desktop"),
     "AGND": (VISUAL, f'{VISUAL} -e "(school-agenda)"'),
     "CLAS": ("zoom", "teams"),
     "SCHL": (f"{VISUAL} {HOME}/documents/school", "libreoffice"),
     "PRGM": (VISUAL, f"{VISUAL} {HOME}/documents/coding"),
     "INET": (
-        f"{BROWSER} --new-window https://www.youtube.com/feed/subscriptions",
         f"{BROWSER} --new-window https://odysee.com/$/following",
+        f"{BROWSER} --new-window https://www.youtube.com/feed/subscriptions",
     ),
     "GAME": ("lutris", "steam"),
     "MUSC": (
@@ -422,7 +422,7 @@ def layout_floating(qtile):
 
 keys = [
     # Launching programs
-    Key([MODKEY], "Return", lazy.spawn(TERMINAL), desc="Launch terminal"),
+    Key([MODKEY], "Return", lazy.spawn(TERMINAL), desc="Launch terminal"), # FISH SHELL HERE (-e /usr/bin/fish)
     Key([MODKEY], "a", lazy.spawn(BROWSER), desc="Launch browser"),
     Key(
         [MODKEY, "shift"],
@@ -576,7 +576,7 @@ keys = [
     ),
     Key(
         [MODKEY, "shift"],
-        "n",
+        "m",
         lazy.window.toggle_fullscreen(),
         desc="Toggle fullscreen",
     ),

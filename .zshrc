@@ -97,7 +97,7 @@ alias gdd="git diff --cached"
 alias xrdb="xrdb ~/.Xresources"
 alias yay="yay --color=auto"
 alias grep="nocorrect grep --color=auto"
-alias termdown="termdown -ac 5"
+alias termdown="termdown --no-figlet -ac 5"
 alias matrix="cmatrix -ab"
 
 alias xsh="exec zsh"

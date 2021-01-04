@@ -37,6 +37,7 @@ used.
 - Iosevka: =.iosevka.toml=
 - mbsync: =.mbsyncrc=
 - NViM: =.config/nvim/init.vim=
+- OnlyOffice: =.local/bin/onlyoffice=
 - picom: =.config/picom.conf=
 - qtile: =.config/qtile/*=
 - radeon-profile: =.config/radeon-profile/*=

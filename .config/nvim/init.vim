@@ -19,3 +19,5 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <C-,> <C-w><
 nnoremap <C-.> <C-w>>
 
+command W w
+command Wsudo w !sudo tee % > /dev/null
