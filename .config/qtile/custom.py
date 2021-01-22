@@ -1,15 +1,19 @@
 """
 Custom widgets for Qtile.
 """
-import os
 from subprocess import CalledProcessError
 import psutil
 import subprocess
+import threading
+from libqtile.widget import base
+from libqtile.log_utils import logger
 
 from libqtile.widget.check_updates import CheckUpdates as OldCheckUpdates
 from libqtile.widget.cpu import CPU as OldCPU
 from libqtile.widget.memory import Memory as OldMemory
 from libqtile.widget.volume import Volume as OldVolume
+from libqtile.widget.sensors import ThermalSensor as OldThermal
+
 
 class CheckUpdates(OldCheckUpdates):
     """
@@ -21,7 +25,8 @@ class CheckUpdates(OldCheckUpdates):
         (
             "custom_command",
             None,
-            "Custom shell command for checking updates (counts the lines of the output)",
+            "Custom shell command for checking updates "
+            + "(counts the lines of the output)",
         ),
         ("update_interval", 60, "Update interval in seconds."),
         ("execute", None, "Command to execute on click"),
@@ -33,6 +38,7 @@ class CheckUpdates(OldCheckUpdates):
             "Indicator to represent reboot is required. (Ubuntu only)",
         ),
     ]
+
     def _check_updates(self):
         """
         Returns string of how many updates are available. Formatted with
@@ -45,24 +51,51 @@ class CheckUpdates(OldCheckUpdates):
                 updates = self.call_process(self.custom_command, shell=True)
                 self.subtr = 0
         except CalledProcessError:
-            return " 0 Pkg"
+            return " 0 Pkg"  # if it breaks this may be the issue
+            # updates = ""
+            # pass
         num_updates = len(updates.splitlines()) - self.subtr
         return self.format_num_updates(num_updates)
+
     def format_num_updates(self, num):
         """
         Formats the number of updates available the way *I* like!
-        Not very customizable because if you want to customize this you can just
-        change the source code.
+        Not very customizable because if you want to customize this you can
+        just change the source code.
         """
         if num == 0:
             return " 0 Pkg"
-        if num == 1:
-            return " 1 Pkg"
+        # if num == 1:
+        #     return " 1 Pkg"
         if num < 10:
             return f" {num} Pkg"
         if num < 100:
             return f"{num} Pkg"
         return "99+Pkg"
+
+    def tick(self):
+        def worker():
+            try:
+                self.qtile.call_soon_threadsafe(self.update, "...Pkg")
+                text = self.poll()
+                if self.qtile is not None:
+                    self.qtile.call_soon_threadsafe(self.update, text)
+            except:  # noqa: E722
+                logger.exception(
+                    "problem polling to update widget %s", self.name
+                )
+
+        threading.Thread(target=worker).start()
+
+    def button_press(self, x, y, button):
+        base._TextBox.button_press(self, x, y, button)
+        if button == 1 and self.execute is not None:
+            subprocess.Popen(self.execute, shell=True)
+        elif button == 3:
+            self.tick()
+        elif button == 2:
+            self.qtile.call_soon_threadsafe(self.update, " 0 Pkg")
+
 
 class CPU(OldCPU):
     """
@@ -79,6 +112,7 @@ class CPU(OldCPU):
         if load < 100:
             return f"{load:2.1f}%"
         return " 100%"
+
 
 class Memory(OldMemory):
     """
@@ -109,10 +143,12 @@ class Memory(OldMemory):
             padding += " "
         return f"{padding}{free} MB"
 
+
 BUTTON_UP = 4
 BUTTON_DOWN = 5
 BUTTON_MUTE = 1
 BUTTON_RIGHT = 3
+
 
 class Volume(OldVolume):
     """
@@ -128,6 +164,7 @@ class Volume(OldVolume):
             self.text = f" {self.volume}%"
         else:
             self.text = "100%"
+
     def button_press(self, x, y, button):
         """
         Callback when button is pressed.
@@ -176,3 +213,18 @@ class Volume(OldVolume):
                 subprocess.Popen(self.volume_app, shell=True)
 
         self.draw()
+
+
+class Thermal(OldThermal):
+    def _format_sensors_output(self, sensors_out):
+        """formats output of unix `sensors` command into a dict of
+        {<sensor_name>: (<temperature>, <temperature symbol>), ...}.
+        The temperature is rounded to the nearest integer.
+        """
+        temperature_values = {}
+        logger.info(self.sensors_temp.findall(sensors_out))
+        for name, temp, symbol in self.sensors_temp.findall(sensors_out):
+            name = name.strip()
+            temp = round(float(temp))
+            temperature_values[name] = str(temp), symbol
+        return temperature_values

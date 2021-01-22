@@ -1,8 +1,8 @@
 set nobackup
 set noswapfile
-set t_Co=256
 set number
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
+set ignorecase
 set smartcase
 set splitbelow
 set splitright

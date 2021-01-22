@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+chromium --proxy-server="socks5://localhost:9050" --incognito --host-resolver-rules="MAP * ~NOTFOUND , EXCLUDE localhost" $@

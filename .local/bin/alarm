@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+termdown --no-figlet -aBc 5 $@ &&
+	while true; do 
+			paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
+	done
+

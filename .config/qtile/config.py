@@ -4,7 +4,7 @@ My custom Qtile Configuration.
 import os
 import subprocess
 import psutil
-from libqtile.config import Key, Screen, Group, Drag, Click
+from libqtile.config import Key, Screen, Group, Drag, Click, Match
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
 import custom
@@ -32,13 +32,14 @@ ENVIRON_UPDATE = {
 colors_dict = {
     "bg": "#292d3e",
     "fg": "#eeffff",
+    "hlfg": "#c792ea",
     "hlbg": "#4e5579",
     "hl1": "#bb80b3",
     "hl2": "#7986e7",
 }
 
 # Qtile config variables
-auto_fullscreen = False
+auto_fullscreen = True
 bring_front_click = True
 cursor_warp = False
 dgroups_key_binder = None
@@ -54,7 +55,6 @@ widget_defaults = {
     "margin": 0,
     "background": colors_dict["bg"],
     "foreground": colors_dict["fg"],
-    "update_interval": 60,
 }
 extension_defaults = widget_defaults
 wmname = "LG3D"
@@ -62,13 +62,16 @@ wmname = "LG3D"
 os.environ |= ENVIRON_UPDATE  # python3.9+
 # for var in ENVIRON_UPDATE:
 #     os.environ[var] = ENVIRON_UPDATE[var]
+
+
 @hook.subscribe.startup_once
 def on_first_startup():
     """
     Begins startup processes like daemons and the compositor. See
-    `./autostart.sh`.
+    `./scripts/autostart.sh`.
     """
-    subprocess.call([f"{CONFIG}/autostart.sh"])
+    subprocess.call([f"{CONFIG}/scripts/autostart.sh"])
+
 
 # Set up widgets and screens
 widgets = [
@@ -90,17 +93,26 @@ widgets = [
         margin_y=3,
         margin_x=0,
     ),
-    widget.Spacer(16),
+    widget.Spacer(11),
     widget.CurrentLayoutIcon(
         foreground=colors_dict["fg"],
         background=colors_dict["bg"],
         scale=0.6,
+        padding=0,
+        padding_x=0,
     ),
     widget.CurrentLayout(
         foreground=colors_dict["fg"], background=colors_dict["bg"]
     ),
+    widget.Spacer(11),
+    widget.WindowName(
+        foreground=colors_dict["hlfg"], for_current_screen="True"
+    ),
     widget.Spacer(),
-    widget.Systray(background=colors_dict["bg"], padding_x=12, padding=12),
+    widget.Spacer(10),
+    widget.Systray(
+        background=colors_dict["bg"], padding=12, padding_x=12, padding_y=12
+    ),
     widget.Spacer(16),
 ]
 
@@ -112,10 +124,55 @@ sysinfo_widgets = [
                 "colour_have_updates": colors_dict["fg"],
                 "colour_no_updates": colors_dict["fg"],
                 "no_update_string": "0",
-                "execute": f'{TERMINAL} -e "{CONFIG}/updateyay.sh"',
+                "update_interval": 60 * 60,
+                "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateyay.sh"',
                 "custom_command": "checkupdates+aur",
             },
         )
+    ],
+    [
+        (
+            widget.Net,
+            {
+                "interface": "enp4s0",
+                "format": "{down} ↓",
+                "use_bits": True,
+                "update_interval": 5,
+                "mouse_callbacks": {
+                    "Button1": lambda q: q.cmd_spawn(
+                        f"{TERMINAL} -e {CONFIG}/scripts/speedtest.sh"
+                    )
+                },
+            },
+        ),
+        (
+            widget.TextBox,
+            {
+                "text": "|",
+                "padding": 0,
+                "padding_x": 0,
+                "fontsize": 16,
+                "mouse_callbacks": {
+                    "Button1": lambda q: q.cmd_spawn(
+                        f"{TERMINAL} -e {CONFIG}/scripts/speedtest.sh"
+                    )
+                },
+            },
+        ),
+        (
+            widget.Net,
+            {
+                "interface": "enp4s0",
+                "format": "{up} ↑",
+                "use_bits": True,
+                "update_interval": 5,
+                "mouse_callbacks": {
+                    "Button1": lambda q: q.cmd_spawn(
+                        f"{TERMINAL} -e {CONFIG}/scripts/speedtest.sh"
+                    )
+                },
+            },
+        ),
     ],
     [
         (
@@ -146,12 +203,13 @@ sysinfo_widgets = [
                 "mouse_callbacks": {
                     "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e btm -b")
                 },
+                "update_interval": 30,
             },
         ),
     ],
     [
         (
-            widget.ThermalSensor,
+            custom.Thermal,
             {
                 "foreground_alert": colors_dict["fg"],
                 "fmt": "{}",
@@ -176,7 +234,7 @@ sysinfo_widgets = [
             },
         ),
         (
-            widget.ThermalSensor,
+            custom.Thermal,
             {
                 "foreground_alert": colors_dict["fg"],
                 "fmt": "{}",
@@ -185,44 +243,6 @@ sysinfo_widgets = [
                 "update_interval": 10,
                 "mouse_callbacks": {
                     "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e btm")
-                },
-            },
-        ),
-    ],
-    [
-        (
-            widget.Net,
-            {
-                "interface": "enp4s0",
-                "format": "{down} ↓",
-                "use_bits": True,
-                "update_interval": 5,
-                "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e speedtest-cli")
-                },
-            },
-        ),
-        (
-            widget.TextBox,
-            {
-                "text": "|",
-                "padding": 0,
-                "padding_x": 0,
-                "fontsize": 16,
-                "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e speedtest-cli")
-                },
-            },
-        ),
-        (
-            widget.Net,
-            {
-                "interface": "enp4s0",
-                "format": "{up} ↑",
-                "use_bits": True,
-                "update_interval": 5,
-                "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e speedtest-cli")
                 },
             },
         ),
@@ -250,7 +270,7 @@ sysinfo_widgets = [
         ),
         (
             widget.Clock,
-            {"format": "%a, %b %d", "update_interval": 60},
+            {"format": "%a, %b %d, %Y", "update_interval": 60},
         ),
         (widget.Spacer, {"length": 3}),
     ],
@@ -279,7 +299,7 @@ for i, widget_group in enumerate(sysinfo_widgets):
 
 screens = [
     Screen(
-        top=bar.Bar(widgets=widgets, opacity=1, size=24, margin=[0, 0, 3, 0]),
+        top=bar.Bar(widgets=widgets, opacity=.9, size=24, margin=[0, 0, 3, 0]),
         bottom=bar.Gap(3),
         left=bar.Gap(3),
         right=bar.Gap(3),
@@ -295,57 +315,51 @@ layout_theme = {
 }
 
 layouts = [
-    layout.MonadTall(**layout_theme | {"margin": 4}),
+    layout.MonadTall(change_size=15, **layout_theme | {"margin": 4}),
     layout.Max(**layout_theme),
     layout.Stack(num_stacks=2, **layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
-    layout.Floating(
-        float_rules=[
-            {"wmclass": "confirm"},
-            {"wmclass": "dialog"},
-            {"wmclass": "download"},
-            {"wmclass": "error"},
-            {"wmclass": "file_progress"},
-            {"wmclass": "notification"},
-            {"wmclass": "splash"},
-            {"wmclass": "toolbar"},
-            {"wmclass": "ssh-askpass"},
-            {"wmclass": "optifine-InstallerFrame"},
-            {"wmclass": "authy desktop"},
-            {"wmclass": "pinentry-gtk-2"},
-            {"wmclass": "lxpolkit"},
-            {"wmclass": "org.gnome.Characters"},
-            # {"wmclass": "zoom", "wname": "Settings"},
-            {"wname": "Picture in picture"},
-            {"wname": "Steam Guard - Computer Authorization Required"},
-            {"wmclass": "redshift-gtk"},
-            {"wmclass": "epicgameslauncher.exe"},
-        ],
-        **layout_theme | {"border_focus": colors_dict["hl2"]},
-    ),
 ]
-floating_layout = layouts[-1]
+floating_layout = layout.Floating(
+    float_rules=[
+        {"wmclass": "confirm"},
+        {"wmclass": "dialog"},
+        {"wmclass": "download"},
+        {"wmclass": "error"},
+        {"wmclass": "file_progress"},
+        {"wmclass": "notification"},
+        {"wmclass": "splash"},
+        {"wmclass": "toolbar"},
+        {"wmclass": "ssh-askpass"},
+        {"wmclass": "optifine-InstallerFrame"},
+        {"wmclass": "authy desktop"},
+        {"wmclass": "pinentry-gtk-2"},
+        {"wmclass": "lxpolkit"},
+        {"wmclass": "org.gnome.Characters"},
+        # {"wmclass": "zoom", "wname": "Settings"},
+        {"wname": "Picture in picture"},
+        {"wname": "Steam Guard - Computer Authorization Required"},
+        {"wmclass": "redshift-gtk"},
+        {"wmclass": "epicgameslauncher.exe"},
+    ],
+    **layout_theme | {"border_focus": colors_dict["hl2"]},
+)
 
 group_names = [
     (
         "CHAT",
         {
             "layout": "max",
-            "spawn": ["discord-canary", "element-desktop"],
+            "spawn": ["discord-canary", "signal-desktop"],
         },
     ),
     ("AGND", {"layout": "max"}),
     ("CLAS", {"layout": "max"}),
     ("SCHL", {"layout": "monadtall"}),
     ("PRGM", {"layout": "monadtall"}),
-    ("INET", {"layout": "monadtall"}),
-    ("GAME", {"layout": "max", "spawn": ["radeon-profile"]}),
-    (
-        "MUSC",
-        {
-            "layout": "monadtall",
-        },
-    ),
+    ("INET", {"layout": "monadtall", "spawn": ["qbittorrent"]}),
+    ("GAME", {"layout": "max", "spawn": ["steam -silent"]}),
+    ("MUSC", {"layout": "monadtall"}),
 ]
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
@@ -366,63 +380,55 @@ group_apps = {
     ),
 }
 
+
 # Set up Keybinds
 @lazy.function
 def custom_app_1(qtile):
-    """
-    Open the 1st program in `group_apps` based on the current group.
-    """
     curr_group = qtile.current_group.name
     prog = group_apps[curr_group][0]
     qtile.cmd_spawn(prog)
 
+
 @lazy.function
 def custom_app_2(qtile):
-    """
-    Open the 2st program in `group_apps` based on the current group.
-    """
     curr_group = qtile.current_group.name
     prog = group_apps[curr_group][1]
     qtile.cmd_spawn(prog)
 
+
 @lazy.function
 def layout_monadtall(qtile):
-    """
-    Set current layout to `monadtall`.
-    """
     qtile.current_group.use_layout(0)
+
 
 @lazy.function
 def layout_max(qtile):
-    """
-    Set current layout to `max`.
-    """
     qtile.current_group.use_layout(1)
+
 
 @lazy.function
 def layout_stack(qtile):
-    """
-    Set current layout to `stack`.
-    """
     qtile.current_group.use_layout(2)
+
 
 @lazy.function
 def layout_tile(qtile):
-    """
-    Set current layout to `tile`.
-    """
     qtile.current_group.use_layout(3)
+
 
 @lazy.function
 def layout_floating(qtile):
-    """
-    Set current layout to `floating`.
-    """
     qtile.current_group.use_layout(4)
+
 
 keys = [
     # Launching programs
-    Key([MODKEY], "Return", lazy.spawn(TERMINAL), desc="Launch terminal"), # FISH SHELL HERE (-e /usr/bin/fish)
+    Key(
+        [MODKEY],
+        "Return",
+        lazy.spawn(f"{TERMINAL} -e /usr/bin/fish"),
+        desc="Launch terminal",
+    ),
     Key([MODKEY], "a", lazy.spawn(BROWSER), desc="Launch browser"),
     Key(
         [MODKEY, "shift"],
@@ -455,7 +461,12 @@ keys = [
         lazy.spawn("playerctl play-pause"),
         desc="Toggle pause",
     ),
-    Key([MODKEY], "v", lazy.spawn("greenclip-dmenu"), desc="Open clipboard selection menu"),
+    Key(
+        [MODKEY],
+        "v",
+        lazy.spawn("greenclip-dmenu"),
+        desc="Open clipboard selection menu",
+    ),
     # Key(
     #     [MODKEY],
     #     "space",
@@ -476,9 +487,6 @@ keys = [
         "Tab",
         layout_tile,
         desc="Set layout to tile",
-    ),
-    Key(
-        [MODKEY, "shift"], "f", layout_floating, desc="Set layout to floating"
     ),
     # Session control
     Key(
@@ -545,13 +553,15 @@ keys = [
         [MODKEY],
         "period",
         lazy.layout.grow(),
-        desc="Expand window (MonadTall), increase number in master pane (Tile)",
+        desc="Expand window (MonadTall), "
+        + "increase number in master pane (Tile)",
     ),
     Key(
         [MODKEY],
         "comma",
         lazy.layout.shrink(),
-        desc="Shrink window (MonadTall), decrease number in master pane (Tile)",
+        desc="Shrink window (MonadTall), "
+        + "decrease number in master pane (Tile)",
     ),
     Key(
         [MODKEY], "m", lazy.layout.reset(), desc="Normalize window size ratios"
@@ -560,13 +570,15 @@ keys = [
         [MODKEY],
         "equal",
         lazy.layout.increase_nmaster(),
-        desc="Expand window (MonadTall), increase number in master pane (Tile)",
+        desc="Expand window (MonadTall), "
+        + "increase number in master pane (Tile)",
     ),
     Key(
         [MODKEY],
         "minus",
         lazy.layout.decrease_nmaster(),
-        desc="Shrink window (MonadTall), decrease number in master pane (Tile)",
+        desc="Shrink window (MonadTall), "
+        + "decrease number in master pane (Tile)",
     ),
     Key(
         [MODKEY],
@@ -585,48 +597,50 @@ keys = [
     Key(
         [MODKEY],
         "p",
-        lazy.spawn(f"{CONFIG}/maim/full.sh"),
+        lazy.spawn(f"{CONFIG}/scripts/maim-full.sh"),
         desc="Take full screenshot and store in clipboard",
     ),
     Key(
         [MODKEY, "control"],
         "p",
-        lazy.spawn(f"{CONFIG}/maim/window.sh"),
+        lazy.spawn(f"{CONFIG}/scripts/maim-window.sh"),
         desc="Take screenshot of the active window and store in clipboard",
     ),
     Key(
         [MODKEY, "shift"],
         "p",
-        lazy.spawn(f"{CONFIG}/maim/region.sh"),
-        desc="Take screenshot of interactively selected region and store in clipboard",
+        lazy.spawn(f"{CONFIG}/scripts/maim-region.sh"),
+        desc="Take screenshot of interactively selected region and store in "
+        + "clipboard",
     ),
     Key(
         [MODKEY, "control", "shift"],
         "p",
-        lazy.spawn(f"{CONFIG}/maim/save.sh"),
+        lazy.spawn(f"{CONFIG}/scripts/maim-save.sh"),
         desc="Take full screenshot and store as file",
     ),
 ]
 
 # Group keybinds
-for i, (name, kwargs) in enumerate(group_names, start=1):
+for i, (name, kwargs) in enumerate(group_names, start=0):
+    i = "grave" if i == 0 else str(i)
     keys.extend(
         [
             Key(
                 [MODKEY],
-                str(i),
+                i,
                 lazy.group[name].toscreen(),
                 desc=f"Switch to group {name}",
             ),
             Key(
                 [MODKEY, "shift"],
-                str(i),
+                i,
                 lazy.window.togroup(name, switch_group=True),
                 desc=f"Switch to and move focused window to group {name}",
             ),
             Key(
                 [MODKEY, "control"],
-                str(i),
+                i,
                 lazy.window.togroup(name),
                 desc=f"Move focused window to group {name}",
             ),
@@ -651,31 +665,36 @@ mouse = [
 ]
 
 # Window swallowing
-# SWALLOW_PARENT = {"URxvt"}
-# NO_SWALLOW_CHILD = {"Event Tester"}
-# @hook.subscribe.client_new
-# def _swallow(window):
-#     if window.name in NO_SWALLOW_CHILD:
-#         return
-#     pid = window.window.get_net_wm_pid()
-#     ppid = psutil.Process(pid).ppid()
-#     cpids = {
-#         c.window.get_net_wm_pid(): wid
-#         for wid, c in window.qtile.windows_map.items()
-#     }
-#     for i in range(5):
-#         if not ppid:
-#             return
-#         if ppid in cpids:
-#             parent = window.qtile.windows_map.get(cpids[ppid])
-#             if parent.name not in SWALLOW_PARENT:
-#                 return
-#             parent.minimized = True
-#             window.parent = parent
-#             return
-#         ppid = psutil.Process(ppid).ppid()
+SWALLOW_PARENT = {Match(wm_class="URxvt")}
+NO_SWALLOW_CHILD = {Match(title="Event Tester")}
 
-# @hook.subscribe.client_killed
-# def _unswallow(window):
-#     if hasattr(window, "parent"):
-#         window.parent.minimized = False
+
+@hook.subscribe.client_new
+def _swallow(window):
+    for i in NO_SWALLOW_CHILD:
+        if i.compare(window):
+            return
+    pid = window.window.get_net_wm_pid()
+    ppid = psutil.Process(pid).ppid()
+    cpids = {
+        c.window.get_net_wm_pid(): wid
+        for wid, c in window.qtile.windows_map.items()
+    }
+    for _ in range(5):
+        if not ppid:
+            return
+        if ppid in cpids:
+            parent = window.qtile.windows_map.get(cpids[ppid])
+            for i in SWALLOW_PARENT:
+                if i.compare(parent.window):
+                    window.parent = parent
+                    parent.minimized = True
+                    return
+            return
+        ppid = psutil.Process(ppid).ppid()
+
+
+@hook.subscribe.client_killed
+def _unswallow(window):
+    if hasattr(window, "parent"):
+        window.parent.minimized = False

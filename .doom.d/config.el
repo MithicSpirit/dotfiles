@@ -27,8 +27,8 @@
 ;; Fonts
 (setq
  doom-font (font-spec :family "Iosevka Mithic Book" :size 15)
- doom-variable-pitch-font (font-spec :family "CMU Sans Serif" :size 16)
- doom-big-font (font-spec :family "MesloLGS NF" :size 20)
+ doom-variable-pitch-font (font-spec :family "Overpass" :size 16)
+ doom-big-font (font-spec :family "Inconsolata" :size 20)
  mode-line-font (font-spec :family "Iosevka Mithic Book" :size 17)
  )
 (setq doom-unicode-font doom-font)
@@ -90,6 +90,26 @@
   '(show-paren-match :background nil)
   )
 
+;; Emojify
+(after! emojify
+  (setq
+   emojify-point-entered-behaviour 'uncover
+   emojify-emoji-set "twemoji-v2-22"
+   emojify-program-contexts '(comments string)
+   )
+  (defun +emojify-ignore-emoji (text _beg _end)
+    "Prevents `emojify' from displaying certain emojis. This must
+  be added to `emojify-inhibit-functions' to work."
+    (if (or
+         (string= text "↕")
+         (string= text "✔")
+         (string= text "✖")
+         )
+        't 'nil
+        ))
+  (push #'+emojify-ignore-emoji (cdr (last emojify-inhibit-functions)))
+  )
+
 ;; Misc - Appearance
 (setq
  ;; all-the-icons-scale-factor 1.2
@@ -107,10 +127,14 @@
  org-agenda-dim-blocked-tasks nil
  org-agenda-tags-column 0
  delete-by-moving-to-trash t
+ lsp-auto-guess-root t
  ;; browse-url-generic-program "qutebrowser"
  )
 (after! dired
   (setq dired-listing-switches "-AlhDF --group-directories-first"))
+(after! persp-mode
+  (setq persp-emacsclient-init-frame-behaviour-override "main")
+  )
 
 
 (add-hook! 'text-mode-hook #'auto-fill-mode)
@@ -158,21 +182,28 @@
       )
 
 ;; LaTeX tweaks and keybinds
+(defun +tex-insert-quote (force)
+  "Basically `TeX-insert-quote' but closing actually works (it
+  skips any quotes present)"
+  (interactive "*P")
+  (if (and (not force) (string= "''" (buffer-substring (point) (+ 2 (point)))))
+      (forward-char 2)
+    (TeX-insert-quote force)
+    ))
 (map! :after tex :map LaTeX-mode-map
- :localleader :desc "LaTeX Preview"
- "v" #'TeX-view
- :localleader :desc "Run langtool on current buffer"
- "c r" #'langtool-check
- :localleader :desc "Correct buffer with langtool"
- "c c" #'langtool-correct-buffer
- :localleader :desc "End current langtool session"
- "c d" #'langtool-check-done
- :localleader :desc "Return to langtool"
- "c e" #'exit-recursive-edit
+      (:localleader
+       :desc "LaTeX Preview" "v" #'TeX-view
+       :desc "Run langtool on current buffer" "c r" #'langtool-check
+       :desc "Correct buffer with langtool" "c c" #'langtool-correct-buffer
+       :desc "End current langtool session" "c d" #'langtool-check-done
+       :desc "Return to langtool" "c e" #'exit-recursive-edit
+       )
+      (
+       :i :desc "Insert the appropriate quotation marks for LaTeX"
+       "\"" #'+tex-insert-quote
+       )
  )
 (setq +latex-indent-level-item-continuation 2)
-;; (remove-hook! TeX-mode #'TeX-fold-mode)
-;; (remove-hook! TeX-mode #'TeX-fold-buffer)
 
 ;; Writeroom tweaks
 (after! writeroom-mode (setq writeroom-width 62))
@@ -190,7 +221,7 @@
       )
 (add-hook! '(vterm-mode-hook +eval-repl-mode-hook) #'evil-emacs-state)
 (add-hook! 'vterm-copy-mode-hook #'evil-normal-state)
-;(after! vterm (setq shell-file-name "/usr/bin/fish"))
+(after! vterm (setq vterm-shell "/usr/bin/fish"))
 
 ;; Toggle ligatures
 (map! :leader :desc "Ligatures" "t L" #'prettify-symbols-mode
@@ -260,24 +291,41 @@
 ;; School agenda
 (defun school-agenda (&optional kill)
   "Open tasks and agenda with schedule in a sidebar."
-  (interactive (list (if (string= (buffer-name (current-buffer)) "*doom*")
-                         nil t)))
+  (interactive
+   (list (if (string= (buffer-name (current-buffer)) "*doom*") 'nil 't))
+   )
   (if kill (call-interactively #'doom/kill-all-buffers))
   (cd org-directory)
   (evil-edit "schedule.org") (read-only-mode)
   (evil-window-vsplit nil "tasks.org") (org-shifttab 2)
-  (evil-window-left 1) (evil-window-set-width 39) ;; (schedule)
+  (evil-window-left 1) (evil-window-set-width 39) ;; schedule
 
   (evil-window-right 1) (evil-window-split) (org-agenda-list)
   (evil-window-set-height 23)
 
-  (evil-window-left 1) ;; (schedule)
+  (evil-window-left 1) ;; schedule
+  )
+(defun =school-agenda (&optional reset)
+  "Open workspace for `school-agenda', or switch to one if it
+  already exists. If prefix `reset' is non-`nil', the workspace
+  is reset (all current buffers/windows are killed)."
+  (interactive "P")
+  (let ((exists (+workspace-exists-p "*agenda*")))
+    (+workspace-switch "*agenda*" 't)
+    (when (or (not exists) reset)
+        (school-agenda reset)
+      )
+    )
   )
 
 (map!
- :leader :desc "Open school agenda" "o a s" #'school-agenda
- :map doom-leader-notes-map :localleader :desc "Open school agenda"
- "s" #'school-agenda
+ :leader :desc "Open school agenda" "o a s" #'=school-agenda
+ :map doom-leader-notes-map :localleader
+ :desc "Open school agenda" "S" #'=school-agenda
+
+ :leader :desc "Replace current workspace with agenda" "o a S" #'school-agenda
+ :map doom-leader-notes-map :localleader
+ :desc "Replace current workspace with agenda" "S" #'school-agenda
  )
 (map!
  :map org-mode-map :after org
@@ -289,7 +337,7 @@
         `("Open school agenda" .
           ,(plist-put
             (cdr (assoc "Open org-agenda" +doom-dashboard-menu-sections))
-            :action #'school-agenda
+            :action #'=school-agenda
             )))
 
 ;; Org time execute

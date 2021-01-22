@@ -1,7 +1,7 @@
 ! Misc
 URxvt*fading: 7
 URxvt*title: URxvt
-URxvt*internalBorder: 1
+URxvt*internalBorder: 2
 URxvt*borderLess: False
 URxvt*cursorBlink: True
 URxvt*imLocale: en_US.UTF-8
@@ -15,6 +15,7 @@ URxvt*boldItalicFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold:italic
 
 ! Colors: palenight theme
 URxvt*depth: 32 ! Necessary for reduced opacity
+URxvt*intensityStyles: False
 URxvt*background: [90]#242837
 URxvt*foreground: #eeffff
 URxvt*cursorColor: #c792ea
@@ -47,5 +48,5 @@ URxvt*scrollBar_right: True
 URxvt*scrollTtyOutput: False
 URxvt*scrollWithBuffer: True
 URxvt*scrollTtyKeypress: True
-URxvt*saveLines: 9999
+URxvt*saveLines: 131071
 URxvt*mouseWheelScrollPage: False

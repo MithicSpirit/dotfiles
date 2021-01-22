@@ -1,10 +1,17 @@
 #+TITLE: Dotfiles and Configs
 #+AUTHOR: MithicSpirit
+#+PROPERTY: header-args :eval never
+#+ATTR_LATEX: :float multicolumn
 
 The dotfiles (or other forms of configuration) for applications I use or have
 used.
 
-* Configured Applications
+* Configurations
+** Scripts
+- =.local/bin/alarm=
+- =.local/bin/reflector-default=
+- =.local/bin/torrium=
+
 ** ZSH
 - =.zshrc=
 - =.p10k.zsh=
@@ -21,7 +28,6 @@ used.
 ** EMACS
 - =.emacs.d= [[https://github.com/hlissner/doom-emacs/tree/develop][Doom Emacs]]
 - =.doom.d/*=
-- =VISUAL=
 - =.local/bin/visual=
 
 ** BetterLockScreen
@@ -33,9 +39,11 @@ used.
 - clang-format: =.clang-format=
 - clipcat: =.config/clipcat/*=
 - fish: =.config/fish/*=
+- GameMode: =.config/gamemode.ini=
 - htop: =.config/htop/htoprc=
 - Iosevka: =.iosevka.toml=
 - mbsync: =.mbsyncrc=
+- mpv: =.config/mpv/mpv.conf=
 - NViM: =.config/nvim/init.vim=
 - OnlyOffice: =.local/bin/onlyoffice=
 - picom: =.config/picom.conf=
@@ -53,3 +61,22 @@ Gitmodules are basically git repositories inside other git repositories. The
 ones I use are listed in [[Configured Applications]] as hyperlinks. If you are
 cloning this repository make sure to run ~git submodule init~ and ~git submodule
 update~ to initialize these repositories.
+
+* Install Guide
+(In case I need to restore these and I forget how to)
+#+begin_src sh
+mkdir ~/.homegit
+cd ~/.homegit
+git clone --bare https://github.com/MithicSpirit/dotfiles.git
+cd ~
+git --git-dir=$HOME/.homegit --work-tree=$HOME checkout --force
+git --git-dir=$HOME/.homegit --work-tree=$HOME config \
+    --local status.showUntrackedFiles no
+git --git-dir=$HOME/.homegit --work-tree=$HOME submodule init
+git --git-dir=$HOME/.homegit --work-tree=$HOME submodule update
+# Restart zsh/fish, set up ssh, register with GitHub and GitLab
+git --git-dir=$HOME/.homegit --work-tree=$HOME remote add backup \
+    git@gitlab.com:MithicSpirit/dotfiles.git
+git --git-dir=$HOME/.homegit --work-tree=$HOME remote set-url origin \
+    git@github.com:MithicSpirit/dotfiles.git
+#+end_src

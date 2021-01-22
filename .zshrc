@@ -8,7 +8,7 @@ export CHKTEXRC="$HOME"
 export EDITOR="nvim"
 export VISUAL="visual"
 export SUDO_EDITOR=$EDITOR
-export MAKEFLAGS="-j 10"
+export MAKEFLAGS="-j10"
 
 # Zsh/ohmyzsh variables
 export ZSH="$HOME/.oh-my-zsh"
@@ -82,6 +82,7 @@ bindkey -M isearch " " magic-space
 
 # Aliases
 
+alias -g G="| rg"
 alias -g C="| xclip -i -sel clip"
 
 alias ln="ln -si"
@@ -102,7 +103,7 @@ alias matrix="cmatrix -ab"
 
 alias xsh="exec zsh"
 alias xssh="exec ssh"
-alias su="sudo -i"
+alias su="sudo su"
 alias xsu="exec sudo -i"
 alias aptg="sudo apt-get"
 alias dpkg="sudo dpkg"
@@ -113,8 +114,7 @@ alias ufw="sudo ufw"
 alias visudo="sudo --preserve-env=EDITOR visudo"
 alias svi="sudoedit"
 alias radeontop="sudo radeontop -cT"
-alias reflect="sudo reflector --protocol https --latest 200 --sort rate \
---save /etc/pacman.d/mirrorlist --verbose"
+alias reflect="reflector-default"
 alias killall="nocorrect killall"
 
 alias rm="trash"
@@ -124,16 +124,18 @@ alias htop="btm -b"
 alias bot="btm"
 alias open="xdg-open"
 # alias upzsh="omz update ; ~/.oh-my-zsh-custom/pull-all"
-alias emacs="visual"
+alias emacs="devour visual"
 alias eterm="visual -t"
 alias vi="nvim"
 alias vim="nvim"
 alias scim="sc-im"
+alias v="bat"
+alias dev="devour"
 
 alias ls="exa"
 alias l="exa -lFbg"
 alias lS="exa -lFbs size --color-scale"
-alias la="exa -laFb"
+alias la="exa -laFbg"
 alias ldot="ls -ld .*"
 unalias lart
 unalias ll

@@ -24,7 +24,7 @@ AlwaysBreakBeforeMultilineStrings: false
 AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: true
 BinPackParameters: true
-BitFieldColonSpacing: After
+# BitFieldColonSpacing: After
 BraceWrapping:
   AfterCaseLabel:  true
   AfterClass:      true
