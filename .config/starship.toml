@@ -1,0 +1,190 @@
+format = """
+[↦](bold) $status$character$cmd_duration
+
+  $directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$hg_branch\
+$username\
+$hostname\
+$jobs\
+$shlvl\
+$time\
+$kubernetes\
+$docker_context\
+$cmake\
+$dart\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$kotlin\
+$nim\
+$ocaml\
+$perl\
+$php\
+$purescript\
+$ruby\
+$rust\
+$swift\
+$terraform\
+$zig\
+$nix_shell\
+$conda\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$env_var\
+$crystal\
+$lua\
+$battery
+with ${custom.shell}\
+$python\
+$nodejs
+[❯](green) ${custom.cursor}"""
+#(\n with \
+#$python\
+#$nodejs\
+#)
+add_newline = false
+
+
+[character]
+success_symbol = '[✔](green)'
+error_symbol = '[✖](red)'
+disabled = false
+
+[status]
+format = '[$status]($style) '
+style = 'bold red'
+disabled = false
+
+[cmd_duration]
+min_time = 2_500
+format = '[|](bold) took [$duration]($style)'
+style = 'bold yellow'
+show_notifications = true
+min_time_to_notify = 120_000
+disabled = false
+
+
+
+[directory]
+format = '[$path]($style)[$read_only]($read_only_style) '
+style = 'cyan'
+read_only = ' ✕'
+read_only_style = 'bold red'
+truncation_length = 5
+truncate_to_repo = true
+truncation_symbol = '…/'
+disabled = false
+
+[git_branch]
+format = '[|](bold) on ([$remote_name]($style) )[$symbol$branch]($style) '
+symbol = ' '
+style = 'bold purple'
+only_attached = false
+disabled = false
+
+[git_commit]
+format = '\([$hash $tag]($style)\) '
+tag_symbol = ''
+style = 'green'
+disabled = false
+
+[git_state]
+format = 'while [$state]($style) (\([$progress_current/$progress_total]($style)\))'
+rebase = 'RBS'
+merge = 'MRG'
+revert = 'RVR'
+cherry-picking = 'CHR'
+bisect = 'BSC'
+am = 'AML'
+am_or_rebase = 'A/R'
+style = 'bold dimmed red'
+disabled = false
+
+[git_status]
+format = '(\[[$all_status$ahead_behind]($style)\] )'
+conflicted = '='
+ahead = '↑'
+behind = '↓'
+diverged = '⇕'
+untracked = '?'
+stashed = '\$'
+modified = '!'
+staged = '+'
+renamed = '»'
+deleted = '-'
+style = 'bold dimmed cyan'
+disabled = false
+
+[username]
+format = '[|](bold) as [$user]($style) '
+style_root = 'bold red'
+style_user = 'dimmed green'
+disabled = false
+
+[hostname]
+format = 'at [$hostname]($style) '
+trim_at = ''
+style = 'dimmed green'
+
+[shlvl]
+threshold = 2
+format = '[|](bold) $symbol [$shlvl]($style) '
+symbol = '↕'
+disabled = false
+
+[jobs]
+threshold = 2
+format = '[|](bold) $symbol [$number]($style) '
+symbol = '+ '
+style = 'dimmed blue'
+disabled = true
+
+[time]
+format = '[|](bold) at [$time]($style)'
+style = 'bright-yellow'
+disabled = false
+
+
+
+[custom.shell]
+command = 'echo $STARSHIP_SHELL'
+description = 'Current shell'
+style = 'bold underline blue'
+format = '[$output]($style) '
+when = 'true'
+symbol = ''
+disabled = false
+
+[python]
+format = '[${symbol}${pyenv_prefix}${version}( \($virtualenv\))]($style) '
+style = 'bright-blue'
+symbol = 'py '
+disabled = false
+
+[nodejs]
+format = '[$symbol$version]($style) '
+symbol = "node "
+style = "green"
+not_capable_style = "bold red"
+disabled = false
+
+
+[custom.cursor]
+command = 'echo \e\[5 q'
+description = 'Uses line cursor'
+style = 'none'
+format = '$output'
+when = 'true'
+symbol = ''
+disabled = false

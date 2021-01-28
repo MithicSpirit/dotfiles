@@ -51,6 +51,7 @@ used.
 - qtile: =.config/qtile/*=
 - radeon-profile: =.config/radeon-profile/*=
 - README: =README.org=
+- Starship: =.config/starship.toml=
 - TeX: =.chktexrc=
 - twmn: =.config/twmn/twmn.conf=
 - URxvt: =.Xresources.d/rxvt-unicode=
