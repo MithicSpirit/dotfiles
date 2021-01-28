@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 
-sleep 1
-echo "AUR:"
-checkupdates-aur
-echo "\nMain:"
+echo "Main:"
 checkupdates
+echo "\nAUR:"
+#checkupdates-aur
+paru -Qua
 echo ""
 if [[ $(read -req '?Proceed? [y/N] ') == "y" ]]; then
 	echo ""

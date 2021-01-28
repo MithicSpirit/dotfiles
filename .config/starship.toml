@@ -181,7 +181,7 @@ disabled = false
 
 
 [custom.cursor]
-command = 'echo \e\[5 q'
+command = "printf '\\e[5 q'"
 description = 'Uses line cursor'
 style = 'none'
 format = '$output'

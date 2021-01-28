@@ -13,7 +13,7 @@ export MAKEFLAGS="-j10"
 # Zsh/ohmyzsh variables
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_CUSTOM="$HOME/.oh-my-zsh-custom"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+#ZSH_THEME="powerlevel10k/powerlevel10k"
 HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
@@ -218,9 +218,6 @@ bindkey -M menuselect "^F" forward-char
 bindkey -M menuselect "^B" backward-char
 
 # Powerlevel10k prompt
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# Beam cursor shape
-#preexec () { echo -ne '\e[5 q' }
-#preexec 
-
+#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Starship prompt
+eval "$(starship init zsh)"

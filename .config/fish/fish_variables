@@ -50,6 +50,7 @@ SETUVAR _fish_abbr_h:history
 SETUVAR _fish_abbr_hg:homegit
 SETUVAR _fish_abbr_hga:homegit\x20add\x20\x2d\x2dupdate
 SETUVAR _fish_abbr_hgc:homegit\x20commit\x20\x2dS\x20\x2dm
+SETUVAR _fish_abbr_hgco:homegit\x20checkout\x20\x2d\x2dforce
 SETUVAR _fish_abbr_hgd:homegit\x20diff
 SETUVAR _fish_abbr_hgdd:homegit\x20diff\x20\x2d\x2dcached
 SETUVAR _fish_abbr_hgp:confirm\x20\x26\x26\x20homegit\x20push\x20origin\x20\x26\x26\x20homegit\x20push\x20backup
