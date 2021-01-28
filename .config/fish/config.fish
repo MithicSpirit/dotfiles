@@ -9,7 +9,6 @@ source /usr/share/autojump/autojump.fish
 functions -c cd __wrapped_cd
 functions -e cd
 functions -c __plugin_cd cd
-source ~/.config/fish/completions/cd.fish
 
 # Keybinds
 bind \cd exit

@@ -11,8 +11,6 @@ SETUVAR --export LESS_TERMCAP_so:\x1b\x5b3\x3b33m
 SETUVAR --export LESS_TERMCAP_ue:\x1b\x5b0m
 SETUVAR --export LESS_TERMCAP_us:\x1b\x5b4\x3b34m
 SETUVAR --export MAKEFLAGS:\x2dj10
-SETUVAR --export SUDO_EDITOR:nvim
-SETUVAR --export VISUAL:visual
 SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr__2B_:cd\x20\x2b1
 SETUVAR _fish_abbr__2D_:cd\x20\x2d1
@@ -54,7 +52,7 @@ SETUVAR _fish_abbr_hga:homegit\x20add\x20\x2d\x2dupdate
 SETUVAR _fish_abbr_hgc:homegit\x20commit\x20\x2dS\x20\x2dm
 SETUVAR _fish_abbr_hgd:homegit\x20diff
 SETUVAR _fish_abbr_hgdd:homegit\x20diff\x20\x2d\x2dcached
-SETUVAR _fish_abbr_hgp:read\x20\x2drs\x20\x26\x26\x20homegit\x20push\x20origin\x20\x26\x26\x20homegit\x20push\x20backup
+SETUVAR _fish_abbr_hgp:confirm\x20\x26\x26\x20homegit\x20push\x20origin\x20\x26\x26\x20homegit\x20push\x20backup
 SETUVAR _fish_abbr_hgrm:homegit\x20restore\x20\x2d\x2dstaged
 SETUVAR _fish_abbr_hgs:homegit\x20status
 SETUVAR _fish_abbr_htop:btm\x20\x2db
@@ -74,6 +72,7 @@ SETUVAR _fish_abbr_paccl:sudo\x20pacman\x20\x2dSc
 SETUVAR _fish_abbr_pacin:sudo\x20pacman\x20\x2dS
 SETUVAR _fish_abbr_pacind:sudo\x20pacman\x20\x2dS\x20\x2d\x2dasdeps
 SETUVAR _fish_abbr_pacinf:pacman\x20\x2dSi
+SETUVAR _fish_abbr_pacl:paru\x20\x2dSc
 SETUVAR _fish_abbr_pacli:pacman\x20\x2dQi
 SETUVAR _fish_abbr_pacll:pacman\x20\x2dQe
 SETUVAR _fish_abbr_pacls:pacman\x20\x2dQs
@@ -88,8 +87,27 @@ SETUVAR _fish_abbr_pacrl:pacman\x20\x2dSe
 SETUVAR _fish_abbr_pacrmorph:sudo\x20pacman\x20\x2dRs\x20\x28pacman\x20\x2dQtdq\x29
 SETUVAR _fish_abbr_pacrs:pacman\x20\x2dSs
 SETUVAR _fish_abbr_pacupg:sudo\x20pacman\x20\x2dSyu
+SETUVAR _fish_abbr_pain:paru\x20\x2dS
+SETUVAR _fish_abbr_paind:paru\x20\x2dS\x20\x2d\x2dasdeps
+SETUVAR _fish_abbr_painf:paru\x20\x2dSi
+SETUVAR _fish_abbr_pali:paru\x20\x2dQi
+SETUVAR _fish_abbr_pall:paru\x20\x2dQ
+SETUVAR _fish_abbr_pals:paru\x20\x2dQs
+SETUVAR _fish_abbr_pamd:paru\x20\x2dD\x20\x2d\x2dasdeps
+SETUVAR _fish_abbr_pame:paru\x20\x2dD\x20\x2d\x2dasexplicit
+SETUVAR _fish_abbr_pamm:paru\x20\x2dD\x20\x2d\x2dasexplicit
+SETUVAR _fish_abbr_paorph:paru\x20\x2dQtd
+SETUVAR _fish_abbr_pare:paru\x20\x2dR
+SETUVAR _fish_abbr_parem:paru\x20\x2dRns
+SETUVAR _fish_abbr_pari:paru\x20\x2dSi
+SETUVAR _fish_abbr_parl:paru\x20\x2dSe
+SETUVAR _fish_abbr_parmorph:paru\x20\x2dYc
+SETUVAR _fish_abbr_pars:paru\x20\x2dSs
+SETUVAR _fish_abbr_pary:paru
+SETUVAR _fish_abbr_paupg:paru\x20\x2dSyu
 SETUVAR _fish_abbr_pip:python\x20\x2dm\x20pip
 SETUVAR _fish_abbr_pip3:python3\x20\x2dm\x20pip
+SETUVAR _fish_abbr_ps:procs
 SETUVAR _fish_abbr_py:python
 SETUVAR _fish_abbr_radeontop:sudo\x20radeontop\x20\x2dcT
 SETUVAR _fish_abbr_reflect:reflector\x2ddefault

@@ -144,12 +144,6 @@ class Memory(OldMemory):
         return f"{padding}{free} MB"
 
 
-BUTTON_UP = 4
-BUTTON_DOWN = 5
-BUTTON_MUTE = 1
-BUTTON_RIGHT = 3
-
-
 class Volume(OldVolume):
     """
     Displays default audio output volume.
@@ -169,7 +163,7 @@ class Volume(OldVolume):
         """
         Callback when button is pressed.
         """
-        if button == BUTTON_DOWN:
+        if button == 5:
             if self.volume_down_command is not None:
                 subprocess.call(self.volume_down_command, shell=True)
             else:
@@ -182,7 +176,7 @@ class Volume(OldVolume):
                 self.volume = max(self.volume - self.step, 0)
                 self._update_drawer()
                 # self.bar.draw()
-        elif button == BUTTON_UP:
+        elif button == 4:
             if self.volume_up_command is not None:
                 subprocess.call(self.volume_up_command, shell=True)
             else:
@@ -195,7 +189,7 @@ class Volume(OldVolume):
                 self.volume = min(self.volume + self.step, 100)
                 self._update_drawer()
                 # self.bar.draw()
-        elif button == BUTTON_MUTE:
+        elif button == 2:
             if self.mute_command is not None:
                 subprocess.call(self.mute_command, shell=True)
             else:
@@ -208,7 +202,7 @@ class Volume(OldVolume):
                 self.volume = -1
                 self._update_drawer()
                 # self.bar.draw()
-        elif button == BUTTON_RIGHT:
+        elif button == 1:
             if self.volume_app is not None:
                 subprocess.Popen(self.volume_app, shell=True)
 

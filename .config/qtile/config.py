@@ -11,7 +11,7 @@ import custom
 
 # Custom constants
 MODKEY = "mod4"
-TERMINAL = "urxvtc"
+TERMINAL = "alacritty"
 HOME = os.environ["HOME"]
 CONFIG = f"{HOME}/.config/qtile"
 BROWSER = "brave-nightly"
@@ -75,7 +75,7 @@ def on_first_startup():
 
 # Set up widgets and screens
 widgets = [
-    widget.Spacer(3),
+    #widget.Spacer(3),
     widget.GroupBox(
         fontsize=12,
         foreground=colors_dict["fg"],
@@ -125,7 +125,7 @@ sysinfo_widgets = [
                 "colour_no_updates": colors_dict["fg"],
                 "no_update_string": "0",
                 "update_interval": 60 * 60,
-                "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateyay.sh"',
+                "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateparu.sh"',
                 "custom_command": "checkupdates+aur",
             },
         )
@@ -299,7 +299,9 @@ for i, widget_group in enumerate(sysinfo_widgets):
 
 screens = [
     Screen(
-        top=bar.Bar(widgets=widgets, opacity=.9, size=24, margin=[0, 0, 3, 0]),
+        top=bar.Bar(
+            widgets=widgets, opacity=0.86, size=24, margin=[0, 0, 3, 0]
+        ),
         bottom=bar.Gap(3),
         left=bar.Gap(3),
         right=bar.Gap(3),
@@ -354,7 +356,7 @@ group_names = [
         },
     ),
     ("AGND", {"layout": "max"}),
-    ("CLAS", {"layout": "max"}),
+    ("CLAS", {"layout": "monadtall"}),
     ("SCHL", {"layout": "monadtall"}),
     ("PRGM", {"layout": "monadtall"}),
     ("INET", {"layout": "monadtall", "spawn": ["qbittorrent"]}),
@@ -550,6 +552,12 @@ keys = [
         [MODKEY, "shift"], "x", lazy.window.kill(), desc="Close active window"
     ),
     Key(
+        [MODKEY, "control"],
+        "x",
+        lazy.spawn("xkill"),
+        desc="Launch xkill to close a program",
+    ),
+    Key(
         [MODKEY],
         "period",
         lazy.layout.grow(),
@@ -665,7 +673,7 @@ mouse = [
 ]
 
 # Window swallowing
-SWALLOW_PARENT = {Match(wm_class="URxvt")}
+SWALLOW_PARENT = {Match(wm_class="URxvt"), Match(wm_class="Alacritty")}
 NO_SWALLOW_CHILD = {Match(title="Event Tester")}
 
 

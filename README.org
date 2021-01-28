@@ -35,6 +35,7 @@ used.
 - =.config/betterlockscreenrc=
   
 ** Miscellaneous
+- Alacritty: =.config/alacritty.yml=
 - bottom: =.config/bottom/bottom.toml=
 - clang-format: =.clang-format=
 - clipcat: =.config/clipcat/*=
@@ -67,7 +68,7 @@ update~ to initialize these repositories.
 #+begin_src sh
 mkdir ~/.homegit
 cd ~/.homegit
-git clone --bare https://github.com/MithicSpirit/dotfiles.git
+git clone --bare https://github.com/MithicSpirit/dotfiles.git .
 cd ~
 git --git-dir=$HOME/.homegit --work-tree=$HOME checkout --force
 git --git-dir=$HOME/.homegit --work-tree=$HOME config \
