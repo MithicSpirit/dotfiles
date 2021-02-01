@@ -60,7 +60,7 @@ SETUVAR _fish_abbr_htop:btm\x20\x2db
 SETUVAR _fish_abbr_ipy:ipython
 SETUVAR _fish_abbr_l:exa\x20\x2dlFbg
 SETUVAR _fish_abbr_lS:exa\x20\x2dlFbs\x20size\x20\x2d\x2dcolor\x2dscale
-SETUVAR _fish_abbr_la:exa\x20\x2dlaFb
+SETUVAR _fish_abbr_la:exa\x20\x2dlaFbg
 SETUVAR _fish_abbr_ldot:ls\x20\x2dld\x20\x2e\x2a
 SETUVAR _fish_abbr_ln:ln\x20\x2dsi
 SETUVAR _fish_abbr_ls:exa

@@ -56,6 +56,7 @@ used.
 - twmn: =.config/twmn/twmn.conf=
 - URxvt: =.Xresources.d/rxvt-unicode=
 - wallpapers: =.wallpapers/*=
+- Xterm: =.Xresources.d/xterm=
 - zathura: =.config/zathura/zathurarc=
 
 * Gitmodules

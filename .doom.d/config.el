@@ -79,6 +79,8 @@
 ;; Fancy org-mode
 (after! org-superstar
   (setcar (last org-superstar-headline-bullets-list) '(?∙))
+  (setcar (cdr org-superstar-item-bullet-alist) '(?+ . ?→))
+  (org-superstar-restart)
   )
 (after! org-fancy-priorities
   (setq org-fancy-priorities-list '("⣿" "⣶" "⣤" "⣀"))

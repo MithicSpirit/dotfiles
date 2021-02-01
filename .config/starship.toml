@@ -49,10 +49,6 @@ with ${custom.shell}\
 $python\
 $nodejs
 [❯](green) ${custom.cursor}"""
-#(\n with \
-#$python\
-#$nodejs\
-#)
 add_newline = false
 
 
@@ -123,7 +119,7 @@ modified = '!'
 staged = '+'
 renamed = '»'
 deleted = '-'
-style = 'bold dimmed cyan'
+style = 'bold cyan'
 disabled = false
 
 [username]
@@ -168,7 +164,7 @@ disabled = false
 
 [python]
 format = '[${symbol}${pyenv_prefix}${version}( \($virtualenv\))]($style) '
-style = 'bright-blue'
+style = 'yellow'
 symbol = 'py '
 disabled = false
 
