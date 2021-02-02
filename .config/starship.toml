@@ -74,7 +74,7 @@ disabled = false
 
 [directory]
 format = '[$path]($style)[$read_only]($read_only_style) '
-style = 'cyan'
+style = 'blue'
 read_only = ' ✕'
 read_only_style = 'bold red'
 truncation_length = 5

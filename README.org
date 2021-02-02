@@ -11,6 +11,7 @@ used.
 - =.local/bin/alarm=
 - =.local/bin/reflector-default=
 - =.local/bin/torrium=
+- =.local/bin/checkupdates=
 
 ** ZSH
 - =.zshrc=

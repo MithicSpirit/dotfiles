@@ -75,7 +75,7 @@ def on_first_startup():
 
 # Set up widgets and screens
 widgets = [
-    #widget.Spacer(3),
+    # widget.Spacer(3),
     widget.GroupBox(
         fontsize=12,
         foreground=colors_dict["fg"],
@@ -126,7 +126,7 @@ sysinfo_widgets = [
                 "no_update_string": "0",
                 "update_interval": 60 * 60,
                 "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateparu.sh"',
-                "custom_command": "checkupdates+aur",
+                "custom_command": "checkupdates ; paru -Qua ; true",
             },
         )
     ],

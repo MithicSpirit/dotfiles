@@ -37,6 +37,7 @@ SETUVAR _fish_abbr_gaa:git\x20add\x20\x2d\x2dall
 SETUVAR _fish_abbr_gau:git\x20add\x20\x2d\x2dupdate
 SETUVAR _fish_abbr_gb:git\x20branch
 SETUVAR _fish_abbr_gc:git\x20commit
+SETUVAR _fish_abbr_gcl:git\x20clone
 SETUVAR _fish_abbr_gd:git\x20diff
 SETUVAR _fish_abbr_gdd:git\x20diff\x20\x2d\x2dcached
 SETUVAR _fish_abbr_gdl:git\x20diff\x20HEAD\x7e
@@ -53,6 +54,7 @@ SETUVAR _fish_abbr_hgc:homegit\x20commit\x20\x2dS\x20\x2dm
 SETUVAR _fish_abbr_hgco:homegit\x20checkout\x20\x2d\x2dforce
 SETUVAR _fish_abbr_hgd:homegit\x20diff
 SETUVAR _fish_abbr_hgdd:homegit\x20diff\x20\x2d\x2dcached
+SETUVAR _fish_abbr_hgl:homegit\x20pull\x20\x2d\x2drecurse\x2dsubmodules\x20\x2d\x2drebase\x3dtrue
 SETUVAR _fish_abbr_hgp:confirm\x20\x26\x26\x20homegit\x20push\x20origin\x20\x26\x26\x20homegit\x20push\x20backup
 SETUVAR _fish_abbr_hgrm:homegit\x20restore\x20\x2d\x2dstaged
 SETUVAR _fish_abbr_hgs:homegit\x20status
