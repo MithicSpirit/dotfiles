@@ -1,6 +1,5 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
-SETUVAR --export BAT_THEME:OneHalfDark
 SETUVAR --export CHKTEXRC:/home/mithic
 SETUVAR --export EDITOR:nvim
 SETUVAR --export LANG:en_US\x2eUTF\x2d8
@@ -124,7 +123,7 @@ SETUVAR _fish_abbr_top:btm\x20\x2db
 SETUVAR _fish_abbr_tsc:npx\x20tsc
 SETUVAR _fish_abbr_ufw:sudo\x20ufw
 SETUVAR _fish_abbr_updb:sudo\x20updatedb
-SETUVAR _fish_abbr_v:bat\x20\x2dp\x20\x2d\x2dtabs\x204
+SETUVAR _fish_abbr_v:bat
 SETUVAR _fish_abbr_vi:nvim
 SETUVAR _fish_abbr_vim:nvim
 SETUVAR _fish_abbr_visudo:sudo\x20\x2d\x2dpreserve\x2denv\x3dEDITOR\x20visudo

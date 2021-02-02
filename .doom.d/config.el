@@ -243,6 +243,7 @@
    +format-with-lsp nil
    +format-with 'black
    fill-column 79
+   flycheck-checker 'python-flake8
    )
 (after! format-all (set-formatter! 'black "black -q -l 79 -"))
 (defadvice! +lsp--respect-default-checker-python-mode (orig-fn &rest args)

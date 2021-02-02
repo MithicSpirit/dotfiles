@@ -37,6 +37,7 @@ used.
   
 ** Miscellaneous
 - Alacritty: =.config/alacritty.yml=
+- Bat: =.config/bat/config=
 - bottom: =.config/bottom/bottom.toml=
 - clang-format: =.clang-format=
 - clipcat: =.config/clipcat/*=
