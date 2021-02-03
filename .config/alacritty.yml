@@ -217,19 +217,19 @@ colors:
   # Search colors
   #
   # Colors used for the search bar and match highlighting.
-  #search:
+  search:
     # Allowed values are CellForeground and CellBackground, which reference the
     # affected cell, or hexadecimal colors like #ff00ff.
-    #matches:
-    #  foreground: '#000000'
-    #  background: '#ffffff'
-    #focused_match:
-    #  foreground: CellBackground
-    #  background: CellForeground
+    matches:
+      foreground: '#ffcb6b'
+      background: CellBackground
+    focused_match:
+      foreground: CellBackground
+      background: '#ffcb6b'
 
-    #bar:
-    #  background: '#c5c8c6'
-    #  foreground: '#1d1f21'
+    bar:
+      background: '#ffcb6b'
+      foreground: '#1c1f2b'
 
   # Line indicator
   #
@@ -237,9 +237,9 @@ colors:
   # search and vi mode.
   #
   # By default, these will use the opposing primary color.
-  #line_indicator:
-  #  foreground: None
-  #  background: None
+  line_indicator:
+    foreground: '#1c1f2b'
+    background: '#c792ea'
 
   # Selection colors
   #
@@ -247,9 +247,9 @@ colors:
   #
   # Allowed values are CellForeground and CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
-  #selection:
-  #  text: CellBackground
-  #  background: CellForeground
+  selection:
+    text: CellBackground
+    background: CellForeground
 
   # Normal colors
   normal:
@@ -348,13 +348,13 @@ bell:
 # The value `0.0` is completely transparent and `1.0` is opaque.
 background_opacity: 0.86
 
-#selection:
+selection:
   # This string contains all characters that are used as separators for
   # "semantic words" in Alacritty.
-  #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
   # When set to `true`, selected text will be copied to the primary clipboard.
-  #save_to_clipboard: false
+  save_to_clipboard: false
 
 cursor:
   # Cursor style
@@ -418,10 +418,10 @@ live_config_reload: true
 #
 # Directory the shell is started in. If this is unset, or `None`, the working
 # directory of the parent process will be used.
-#working_directory: None
+working_directory: None
 
 # Send ESC (\x1b) before characters when alt is pressed.
-#alt_send_esc: true
+alt_send_esc: false
 
 mouse:
   # Click settings
@@ -701,8 +701,8 @@ key_bindings:
   # Vi Mode
   - { key: Space,  mods: Shift|Control, mode: Vi|~Search, action: ScrollToBottom          }
   - { key: Space,  mods: Shift|Control, mode: ~Search,    action: ToggleViMode            }
-  - { key: Escape, mods: Alt,           mode: Vi|~Search, action: ScrollToBottom          }
-  - { key: Escape, mods: Alt,           mode: ~Search,    action: ToggleViMode            }
+  - { key: Escape, mods: Alt,           mode: Vi|~Search, action: ScrollToBottom          }#
+  - { key: Escape, mods: Alt,           mode: ~Search,    action: ToggleViMode            }#
   - { key: Escape,                      mode: Vi|~Search, action: ClearSelection          }
   - { key: I,                           mode: Vi|~Search, action: ScrollToBottom          }
   - { key: I,                           mode: Vi|~Search, action: ToggleViMode            }
@@ -715,6 +715,8 @@ key_bindings:
   - { key: F,      mods: Control,       mode: Vi|~Search, action: ScrollPageDown          }
   - { key: U,      mods: Control,       mode: Vi|~Search, action: ScrollHalfPageUp        }
   - { key: D,      mods: Control,       mode: Vi|~Search, action: ScrollHalfPageDown      }
+  - { key: U,                           mode: Vi|~Search, action: ScrollHalfPageUp        }#
+  - { key: D,                           mode: Vi|~Search, action: ScrollHalfPageDown      }#
   - { key: Y,                           mode: Vi|~Search, action: Copy                    }
   - { key: Y,                           mode: Vi|~Search, action: ClearSelection          }
   - { key: Copy,                        mode: Vi|~Search, action: ClearSelection          }
@@ -802,10 +804,10 @@ key_bindings:
 
 debug:
   # Display the time it takes to redraw each frame.
-  #render_timer: false
+  render_timer: false
 
   # Keep the log file after quitting Alacritty.
-  #persistent_logging: false
+  persistent_logging: true
 
   # Log level
   #
@@ -819,4 +821,4 @@ debug:
   log_level: Info
 
   # Print all received window events.
-  #print_events: false
+  print_events: false

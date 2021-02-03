@@ -18,7 +18,7 @@ SETUVAR _fish_abbr_bot:btm
 SETUVAR _fish_abbr_c:cal\x20\x2d3
 SETUVAR _fish_abbr_copy:xclip\x20\x2di\x20\x2dsel\x20clip
 SETUVAR _fish_abbr_cp:cp\x20\x2dir
-SETUVAR _fish_abbr_cpp:g\x2b\x2b\x20\x2dWall\x20\x2dansi\x20\x2dDMITHIC
+SETUVAR _fish_abbr_cpp:g\x2b\x2b\x20\x2dWall\x20\x2dstd\x3dgnu\x2b\x2b17\x20\x2dDMITHIC
 SETUVAR _fish_abbr_cppa:g\x2b\x2b\x20\x2dWall\x20\x2dansi\x20\x2dDMITHIC\x20\x2dS\x20\x2dfverbose\x2dasm
 SETUVAR _fish_abbr_dev:devour
 SETUVAR _fish_abbr_df:df\x20\x2dh
@@ -40,8 +40,10 @@ SETUVAR _fish_abbr_gcl:git\x20clone
 SETUVAR _fish_abbr_gd:git\x20diff
 SETUVAR _fish_abbr_gdd:git\x20diff\x20\x2d\x2dcached
 SETUVAR _fish_abbr_gdl:git\x20diff\x20HEAD\x7e
+SETUVAR _fish_abbr_gf:git\x20fetch
 SETUVAR _fish_abbr_gl:git\x20pull
 SETUVAR _fish_abbr_gp:git\x20push
+SETUVAR _fish_abbr_gpp:g\x2b\x2b
 SETUVAR _fish_abbr_grep:grep\x20\x2di
 SETUVAR _fish_abbr_gs:git\x20status
 SETUVAR _fish_abbr_gst:git\x20stash
@@ -164,7 +166,7 @@ SETUVAR fish_color_host:normal
 SETUVAR fish_color_host_remote:yellow
 SETUVAR fish_color_match:normal
 SETUVAR fish_color_normal:normal
-SETUVAR fish_color_operator:cyan
+SETUVAR fish_color_operator:blue
 SETUVAR fish_color_param:blue
 SETUVAR fish_color_quote:brgreen
 SETUVAR fish_color_redirection:purple

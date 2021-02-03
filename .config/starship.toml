@@ -58,8 +58,10 @@ error_symbol = '[✖](red)'
 disabled = false
 
 [status]
-format = '[$status]($style) '
+format = '[$status( \($signal_name\))]($style) '
 style = 'bold red'
+recognize_signal_code = true
+map_symbol = true
 disabled = false
 
 [cmd_duration]
@@ -78,7 +80,7 @@ style = 'blue'
 read_only = ' ✕'
 read_only_style = 'bold red'
 truncation_length = 5
-truncate_to_repo = true
+truncate_to_repo = false
 truncation_symbol = '…/'
 disabled = false
 
@@ -90,9 +92,11 @@ only_attached = false
 disabled = false
 
 [git_commit]
-format = '\([$hash $tag]($style)\) '
+format = '\([$hash( $tag)]($style)\) '
 tag_symbol = ''
 style = 'green'
+only_detached = false
+tag_disabled = false
 disabled = false
 
 [git_state]
@@ -155,34 +159,34 @@ disabled = false
 
 [custom.shell]
 command = 'echo $STARSHIP_SHELL'
+format = '[$output]($style)'
 description = 'Current shell'
 style = 'bold underline cyan'
-format = '[$output]($style) '
 when = 'true'
 symbol = ''
 disabled = false
 
 [python]
-format = '[${symbol}${pyenv_prefix}${version}( \($virtualenv\))]($style) '
+format = ', [${symbol}${pyenv_prefix}${version}( \($virtualenv\))]($style)'
 style = 'yellow'
 symbol = 'py '
 disabled = false
 
 [nodejs]
-format = '[$symbol$version]($style) '
+format = ', [$symbol$version]($style)'
 symbol = "node "
 style = "green"
 not_capable_style = "bold red"
 disabled = false
 
 [lua]
-format = '[$symbol$version]($style) '
+format = ', [$symbol$version]($style)'
 symbol = "lua "
 style = "blue"
 disabled = false
 
 [java]
-format = '[$symbol$version]($style) '
+format = ', [$symbol$version]($style)'
 symbol = "java "
 style = "bright-red"
 disabled = false
