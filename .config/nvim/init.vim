@@ -21,4 +21,6 @@ nnoremap <C-,> <C-w><
 nnoremap <C-.> <C-w>>
 
 command W w
+command Q q
+command Wq wq
 command Wsudo w !sudo tee % > /dev/null

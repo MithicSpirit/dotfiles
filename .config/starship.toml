@@ -69,7 +69,7 @@ min_time = 2_500
 format = '[|](bold) took [$duration]($style)'
 style = 'bold yellow'
 show_notifications = true
-min_time_to_notify = 120_000
+min_time_to_notify = 90_000
 disabled = false
 
 

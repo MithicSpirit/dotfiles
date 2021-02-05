@@ -314,10 +314,11 @@ layout_theme = {
     "margin": 2,
     "border_focus": colors_dict["hl1"],
     "border_normal": colors_dict["bg"],
+    "ratio": 0.5,
 }
 
 layouts = [
-    layout.MonadTall(change_size=15, **layout_theme | {"margin": 4}),
+    layout.MonadTall(change_ratio=0.04, **layout_theme | {"margin": 4}),
     layout.Max(**layout_theme),
     layout.Stack(num_stacks=2, **layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
@@ -360,7 +361,13 @@ group_names = [
     ("SCHL", {"layout": "monadtall"}),
     ("PRGM", {"layout": "monadtall"}),
     ("INET", {"layout": "monadtall", "spawn": ["qbittorrent"]}),
-    ("GAME", {"layout": "max", "spawn": ["steam -silent"]}),
+    (
+        "GAME",
+        {
+            "layout": "max",
+            # "spawn": ["steam -silent"]
+        },
+    ),
     ("MUSC", {"layout": "monadtall"}),
 ]
 groups = [Group(name, **kwargs) for name, kwargs in group_names]

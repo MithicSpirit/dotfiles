@@ -106,6 +106,7 @@
          (string= text "↕")
          (string= text "✔")
          (string= text "✖")
+         (string= text "™")
          )
         't 'nil
         ))
