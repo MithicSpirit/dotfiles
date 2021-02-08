@@ -26,9 +26,7 @@
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        (ivy               ; a search engine for love and life
-        +prescient
-        ;+fuzzy
-        ;+childframe
+        ;+prescient
         +icons
         )
 
@@ -214,6 +212,7 @@
        :app
        calendar
        ;;irc               ; how neckbeards socialize
+       ;;everywhere        ; *leave* Emacs!? You must be joking
        (rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
 

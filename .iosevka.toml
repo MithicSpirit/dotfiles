@@ -1,137 +1,123 @@
-# Version: 4.0.0
-[buildPlans.iosevka-custom]
+# v5.0.0-rc.1
+### Configuration
+[buildPlans.iosevka-mithic]
 family = "Iosevka Mithic"
 spacing = "term"
 serifs = "sans"
 
-  [buildPlans.iosevka-custom.variants]
+  [buildPlans.iosevka-mithic.variants]
   inherits = "ss05"
 
-    [buildPlans.iosevka-custom.variants.design]
-    f = "flat-hook"
-    g = "doublestorey"
-    l = "serifed-tailed"
+    [buildPlans.iosevka-mithic.variants.design]
+    capital-g = "toothed-serifless-hooked"
+    capital-k = "straight"
+    f = "flat-hook-crossbar-at-x-height"
+    g = "double-storey"
+    k = "straight"
     t = "flat-hook"
-    z = "standard"
-    asterisk = "low"
+    eszet = "sulzbacher"
+    capital-gamma = "motion-serifed"
+    lower-iota = "flat-tailed"
+    lower-lambda = "straight"
+    one = "base"
+    two = "curly-neck"
+    four = "closed"
+    nine = "open-contour"
     underscore = "high"
     paragraph-sign = "high"
     caret = "low"
-    paren = "normal"
+    brace = "straight"
+    number-sign = "upright"
     ampersand = "closed"
     at = "threefold"
     dollar = "open"
-    bar = "natural-slope"
     lig-ltgteq = "flat"
 
-    [buildPlans.iosevka-custom.variants.italic]
-    capital-j = "serifless"
-    a = "singlestorey-earless-corner-tailed"
+    [buildPlans.iosevka-mithic.variants.italic]
+    a = "single-storey-earless-corner-tailed"
     b = "toothless-corner"
     d = "toothless-corner"
     g = "earless-corner"
     i = "serifed-flat-tailed"
+    k = "cursive"
     l = "serifed-flat-tailed"
     p = "earless-corner"
     q = "earless-corner"
     r = "serifless"
-    t = "flat-hook"
     u = "toothless-corner"
-    w = "straight"
     y = "cursive"
     zero = "dotted"
     one = "nobase"
     six = "straight-bar"
     nine = "straight-bar"
     underscore = "above-baseline"
-    number-sign = "upright"
     ampersand = "upper-open"
     percent = "dots"
     bar = "force-upright"
 
-[buildPlans.iosevka-custom.weights.thin]
+  [buildPlans.iosevka-mithic.ligations]
+  inherits = "dlig"
+
+[buildPlans.iosevka-mithic.weights.thin]
 shape = 100
 menu = 100
 css = 100
 
-[buildPlans.iosevka-custom.weights.extralight]
+[buildPlans.iosevka-mithic.weights.extralight]
 shape = 200
 menu = 200
 css = 200
 
-[buildPlans.iosevka-custom.weights.light]
+[buildPlans.iosevka-mithic.weights.light]
 shape = 300
 menu = 300
 css = 300
 
-[buildPlans.iosevka-custom.weights.regular]
+[buildPlans.iosevka-mithic.weights.regular]
 shape = 400
 menu = 400
 css = 400
 
-[buildPlans.iosevka-custom.weights.book]
+[buildPlans.iosevka-mithic.weights.book]
 shape = 450
 menu = 450
 css = 450
 
-[buildPlans.iosevka-custom.weights.medium]
+[buildPlans.iosevka-mithic.weights.medium]
 shape = 500
 menu = 500
 css = 500
 
-[buildPlans.iosevka-custom.weights.semibold]
+[buildPlans.iosevka-mithic.weights.semibold]
 shape = 600
 menu = 600
 css = 600
 
-[buildPlans.iosevka-custom.weights.bold]
+[buildPlans.iosevka-mithic.weights.bold]
 shape = 700
 menu = 700
 css = 700
 
-[buildPlans.iosevka-custom.weights.extrabold]
+[buildPlans.iosevka-mithic.weights.extrabold]
 shape = 800
 menu = 800
 css = 800
 
-[buildPlans.iosevka-custom.weights.heavy]
+[buildPlans.iosevka-mithic.weights.heavy]
 shape = 900
 menu = 900
 css = 900
 
-[buildPlans.iosevka-custom.widths.normal]
+[buildPlans.iosevka-mithic.widths.normal]
 shape = 576
 menu = 5
 css = "normal"
 
-###################################################################################################
-# Compatibility Ligatures
-# Certain applications like Emacs does not support proper programming liagtures provided by
-# OpenType, but can support ligatures provided by PUA codepoints. Therefore you can edit the
-# following section to build PUA characters that are generated from the OpenType ligatures.
-# Remove this section when compatibility ligatures are not needed.
 
-# [[buildPlans.iosevka-custom.compatibility-ligatures]]
-# unicode = 57600 # 0xE100
-# featureTag = 'calt'
-# sequence = '<*>'
-
-# End compatibility ligatures section
-###################################################################################################
-
-###################################################################################################
-# Metric overrides
-# Certain metrics like line height (leading) could be overridden in your build plan file.
-# Edit the values to change the metrics. Remove this section when overriding is not needed.
-
-# [buildPlans.iosevka-custom.metric-override]
-# leading = 1250
-# winMetricAscenderPad = 0
-# winMetricDescenderPad = 0
-# powerlineScaleY = 1
-# powerlineScaleX = 1
-# powerlineShiftY = 0
-# powerlineShiftX = 0
-
-# End metric override section
-###################################################################################################
+### Building font
+# - Everything (TTF + Web Font):
+#   npm run build -- contents::iosevka-mithic
+# - TTF (hinted):
+#   npm run build -- ttf::iosevka-mithic
+# - Unhinted TTF:
+#   npm run build -- ttf-unhinted::iosevka-mithic

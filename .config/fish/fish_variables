@@ -76,7 +76,7 @@ SETUVAR _fish_abbr_paccl:sudo\x20pacman\x20\x2dSc
 SETUVAR _fish_abbr_pacin:sudo\x20pacman\x20\x2dS
 SETUVAR _fish_abbr_pacind:sudo\x20pacman\x20\x2dS\x20\x2d\x2dasdeps
 SETUVAR _fish_abbr_pacinf:pacman\x20\x2dSi
-SETUVAR _fish_abbr_pacl:paru\x20\x2dSc
+SETUVAR _fish_abbr_pacl:paru\x20\x2dc
 SETUVAR _fish_abbr_pacli:pacman\x20\x2dQi
 SETUVAR _fish_abbr_pacll:pacman\x20\x2dQe
 SETUVAR _fish_abbr_pacls:pacman\x20\x2dQs
@@ -152,6 +152,7 @@ SETUVAR _fish_abbr_yarl:yay\x20\x2dSe
 SETUVAR _fish_abbr_yarmorph:yay\x20\x2dYc
 SETUVAR _fish_abbr_yars:yay\x20\x2dSs
 SETUVAR _fish_abbr_yaupg:yay\x20\x2dSyu
+SETUVAR _fish_abbr_ytdl:youtube\x2ddl
 SETUVAR fish_color_autosuggestion:grey
 SETUVAR fish_color_cancel:normal
 SETUVAR fish_color_command:green

@@ -1,10 +1,11 @@
 # Basic variables
-set -px PATH $HOME/.local/bin $HOME/.emacs.d/bin
-set -px MANPATH $HOME/.local/man /usr/local/man /usr/share/man $MANPATH
-set -px INFOPATH $HOME/.local/info $INFOPATH
+set -px PATH "$HOME/.local/bin" "$HOME/.emacs.d/bin" "/usr/lib/ccache/bin"
+set -px MANPATH "$HOME/.local/man" "/usr/local/man" "/usr/share/man"
+set -px INFOPATH "$HOME/.local/info"
 
 # Externals
-source /usr/share/autojump/autojump.fish
+[ -e "/usr/share/autojump/autojump.fish" ] &&
+	source "/usr/share/autojump/autojump.fish"
 # Cool `cd` thing
 functions -c cd __wrapped_cd
 functions -e cd
@@ -16,13 +17,13 @@ bind \cz fg "commandline -f repaint"
 bind \cq "commandline | xclip -i -r -sel clip" "commandline -r ''"
 
 function bind_bang
-    switch (commandline -t)
-        case "!"
-            commandline -t $history[1]
-            commandline -f repaint
-        case "*"
-            commandline -i !
-    end
+	switch (commandline -t)
+		case "!"
+			commandline -t $history[1]
+			commandline -f repaint
+		case "*"
+			commandline -i !
+	end
 end
 bind "!" bind_bang
 

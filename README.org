@@ -50,6 +50,7 @@ used.
 - NViM: =.config/nvim/init.vim=
 - OnlyOffice: =.local/bin/onlyoffice=
 - picom: =.config/picom.conf=
+- profile: =.profile=
 - qtile: =.config/qtile/*=
 - radeon-profile: =.config/radeon-profile/*=
 - README: =README.org=

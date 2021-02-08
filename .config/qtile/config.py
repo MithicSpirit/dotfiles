@@ -18,6 +18,7 @@ BROWSER = "brave-nightly"
 VISUAL = "visual"
 ENVIRON_UPDATE = {
     "PATH": f"{HOME}/.local/bin:{HOME}/.emacs.d/bin:{os.environ['PATH']}",
+    "EDITOR": "nvim",
     "QT_QPA_PLATFORMTHEME": "qt5ct",
 }
 # colors = [
@@ -59,7 +60,7 @@ widget_defaults = {
 extension_defaults = widget_defaults
 wmname = "LG3D"
 
-os.environ |= ENVIRON_UPDATE  # python3.9+
+# os.environ |= ENVIRON_UPDATE  # python3.9+
 # for var in ENVIRON_UPDATE:
 #     os.environ[var] = ENVIRON_UPDATE[var]
 
@@ -318,7 +319,9 @@ layout_theme = {
 }
 
 layouts = [
-    layout.MonadTall(change_ratio=0.04, **layout_theme | {"margin": 4}),
+    layout.MonadTall(
+        change_ratio=0.04, min_ratio=0.22, **layout_theme | {"margin": 4}
+    ),
     layout.Max(**layout_theme),
     layout.Stack(num_stacks=2, **layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
@@ -353,7 +356,7 @@ group_names = [
         "CHAT",
         {
             "layout": "max",
-            "spawn": ["discord-canary", "signal-desktop"],
+            "spawn": ["discord-canary", "discord-ptb", "signal-desktop"],
         },
     ),
     ("AGND", {"layout": "max"}),
@@ -373,19 +376,21 @@ group_names = [
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 group_apps = {
-    "CHAT": ("discord-canary", "element-desktop"),
-    "AGND": (VISUAL, f'{VISUAL} -e "(school-agenda)"'),
-    "CLAS": ("zoom", "teams"),
-    "SCHL": (f"{VISUAL} {HOME}/documents/school", "libreoffice"),
-    "PRGM": (VISUAL, f"{VISUAL} {HOME}/documents/coding"),
+    "CHAT": ("discord-canary", "discord-ptb", "signal-desktop"),
+    "AGND": (VISUAL, f'{VISUAL} -e "(school-agenda)"', "false"),
+    "CLAS": ("zoom", "teams", "false"),
+    "SCHL": (f"{VISUAL} {HOME}/documents/school", "libreoffice", "teams"),
+    "PRGM": (VISUAL, f"{VISUAL} {HOME}/documents/coding", "false"),
     "INET": (
         f"{BROWSER} --new-window https://odysee.com/$/following",
         f"{BROWSER} --new-window https://www.youtube.com/feed/subscriptions",
+        "false",
     ),
-    "GAME": ("lutris", "steam"),
+    "GAME": ("lutris", "steam", "heroic"),
     "MUSC": (
         f"{BROWSER} --new-window https://music.youtube.com/library/playlists",
         "deadbeef",
+        "false",
     ),
 }
 
@@ -504,7 +509,7 @@ keys = [
         lazy.spawn(f"{HOME}/.local/bin/betterlockscreen -l --off 15"),
         desc="Lock screen",
     ),
-    Key([MODKEY, "control"], "q", lazy.restart(), desc="Restart Qtile"),
+    # Key([MODKEY, "control"], "q", lazy.restart(), desc="Restart Qtile"),
     Key(
         [MODKEY, "control", "shift"],
         "q",
