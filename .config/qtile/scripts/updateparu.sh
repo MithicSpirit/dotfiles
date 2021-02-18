@@ -12,7 +12,7 @@ if [[ $OPTION == "y" || $OPTION == "Y" ]]; then
 	read -rsk 1 '?Done [Press any key to exit]' ||
 	read -rsk 1 "?Error: Exit code $? [Press any key to exit]"
 elif [[ $OPTION == "m" || $OPTION == "M" ]]; then
-	paru -Syu &&
+	nice -n20 paru -Syu &&
 	read -rsk 1 '?Done [Press any key to exit]' ||
 	read -rsk 1 "?Error: Exit code $? [Press any key to exit]"
 elif [[ $OPTION == "r" || $OPTION == "R" ]]; then

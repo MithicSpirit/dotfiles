@@ -12,6 +12,7 @@ used.
 - =.local/bin/reflector-default=
 - =.local/bin/torrium=
 - =.local/bin/checkupdates=
+- =.local/bin/chalkboard=
 
 ** ZSH
 - =.zshrc=
@@ -26,7 +27,7 @@ used.
 - =.oh-my-zsh-custom/themes/powerlevel10k= [[https://github.com/romkatv/powerlevel10k/tree/master][Powerlevel10k]]
 - =.oh-my-zsh-custom/pull-all=
 
-** EMACS
+** Emacs
 - =.emacs.d= [[https://github.com/hlissner/doom-emacs/tree/develop][Doom Emacs]]
 - =.doom.d/*=
 - =.local/bin/visual=
@@ -47,7 +48,7 @@ used.
 - Iosevka: =.iosevka.toml=
 - mbsync: =.mbsyncrc=
 - mpv: =.config/mpv/mpv.conf=
-- NViM: =.config/nvim/init.vim=
+- Nvim: =.config/nvim/init.vim=
 - OnlyOffice: =.local/bin/onlyoffice=
 - picom: =.config/picom.conf=
 - profile: =.profile=

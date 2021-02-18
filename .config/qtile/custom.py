@@ -28,7 +28,7 @@ class CheckUpdates(OldCheckUpdates):
             "Custom shell command for checking updates "
             + "(counts the lines of the output)",
         ),
-        ("update_interval", 60, "Update interval in seconds."),
+        ("update_interval", 60 * 60, "Update interval in seconds."),
         ("execute", None, "Command to execute on click"),
         ("colour_no_updates", "ffffff", "Colour when there's no updates."),
         ("colour_have_updates", "ffffff", "Colour when there are updates."),
@@ -89,9 +89,9 @@ class CheckUpdates(OldCheckUpdates):
 
     def button_press(self, x, y, button):
         base._TextBox.button_press(self, x, y, button)
-        if button == 1 and self.execute is not None:
-            subprocess.Popen(self.execute, shell=True)
-        elif button == 3:
+        # if button == 1 and self.execute is not None:
+        #     subprocess.Popen(self.execute, shell=True)
+        if button == 3:
             self.tick()
         elif button == 2:
             self.qtile.call_soon_threadsafe(self.update, " 0 Pkg")

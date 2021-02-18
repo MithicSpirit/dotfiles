@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+krita --nosplash --template "$HOME/.local/share/krita/templates/Design Templates/Chalkboard.desktop"

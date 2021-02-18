@@ -16,11 +16,6 @@ HOME = os.environ["HOME"]
 CONFIG = f"{HOME}/.config/qtile"
 BROWSER = "brave-nightly"
 VISUAL = "visual"
-ENVIRON_UPDATE = {
-    "PATH": f"{HOME}/.local/bin:{HOME}/.emacs.d/bin:{os.environ['PATH']}",
-    "EDITOR": "nvim",
-    "QT_QPA_PLATFORMTHEME": "qt5ct",
-}
 # colors = [
 #     "#292d3e",  # panel background
 #     "#4e5579",  # background for current screen tab
@@ -59,10 +54,6 @@ widget_defaults = {
 }
 extension_defaults = widget_defaults
 wmname = "LG3D"
-
-# os.environ |= ENVIRON_UPDATE  # python3.9+
-# for var in ENVIRON_UPDATE:
-#     os.environ[var] = ENVIRON_UPDATE[var]
 
 
 @hook.subscribe.startup_once
@@ -328,25 +319,33 @@ layouts = [
 ]
 floating_layout = layout.Floating(
     float_rules=[
-        {"wmclass": "confirm"},
-        {"wmclass": "dialog"},
-        {"wmclass": "download"},
-        {"wmclass": "error"},
-        {"wmclass": "file_progress"},
-        {"wmclass": "notification"},
-        {"wmclass": "splash"},
-        {"wmclass": "toolbar"},
-        {"wmclass": "ssh-askpass"},
-        {"wmclass": "optifine-InstallerFrame"},
-        {"wmclass": "authy desktop"},
-        {"wmclass": "pinentry-gtk-2"},
-        {"wmclass": "lxpolkit"},
-        {"wmclass": "org.gnome.Characters"},
-        # {"wmclass": "zoom", "wname": "Settings"},
-        {"wname": "Picture in picture"},
-        {"wname": "Steam Guard - Computer Authorization Required"},
-        {"wmclass": "redshift-gtk"},
-        {"wmclass": "epicgameslauncher.exe"},
+        *layout.Floating.default_float_rules,
+        Match(wm_class="confirm"),
+        Match(wm_class="dialog"),
+        Match(wm_class="download"),
+        Match(wm_class="error"),
+        Match(wm_class="file_progress"),
+        Match(wm_class="notification"),
+        Match(wm_class="splash"),
+        Match(wm_class="toolbar"),
+        Match(wm_class="ssh-askpass"),
+        Match(wm_class="optifine-InstallerFrame"),
+        Match(wm_class="authy desktop"),
+        Match(wm_class="pinentry-gtk-2"),
+        Match(wm_class="lxpolkit"),
+        Match(wm_class="org.gnome.Characters"),
+        Match(wm_class="zoom", title="Settings"),
+        Match(title="Picture in picture"),
+        Match(title="Steam Guard - Computer Authorization Required"),
+        Match(wm_class="redshift-gtk"),
+        Match(wm_class="epicgameslauncher.exe"),
+        Match(role="GtkFileChooserDialog"),
+        Match(wm_class="confirmreset"),
+        Match(wm_class="makebranch"),
+        Match(wm_class="maketag"),
+        Match(title="branchdialog"),
+        Match(title="pinentry"),
+        Match(title="zoom_linux_float_video_window"),
     ],
     **layout_theme | {"border_focus": colors_dict["hl2"]},
 )
@@ -364,13 +363,7 @@ group_names = [
     ("SCHL", {"layout": "monadtall"}),
     ("PRGM", {"layout": "monadtall"}),
     ("INET", {"layout": "monadtall", "spawn": ["qbittorrent"]}),
-    (
-        "GAME",
-        {
-            "layout": "max",
-            # "spawn": ["steam -silent"]
-        },
-    ),
+    ("GAME", {"layout": "max"}),
     ("MUSC", {"layout": "monadtall"}),
 ]
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
