@@ -16,16 +16,7 @@ HOME = os.environ["HOME"]
 CONFIG = f"{HOME}/.config/qtile"
 BROWSER = "brave-nightly"
 VISUAL = "visual"
-# colors = [
-#     "#292d3e",  # panel background
-#     "#4e5579",  # background for current screen tab
-#     "#eeffff",  # font color for group names
-#     "#bb80b3",  # border line color for current tab
-#     "#bb80b3",  # border line color for other tab and odd widgets
-#     "#7986e7",  # color for the even widgets
-#     "#e1acff",  # window name
-# ]
-colors_dict = {
+colors = {
     "bg": "#292d3e",
     "fg": "#eeffff",
     "hlfg": "#c792ea",
@@ -49,8 +40,8 @@ widget_defaults = {
     "padding_y": 0,
     "padding": 5,
     "margin": 0,
-    "background": colors_dict["bg"],
-    "foreground": colors_dict["fg"],
+    "background": colors["bg"],
+    "foreground": colors["fg"],
 }
 extension_defaults = widget_defaults
 wmname = "LG3D"
@@ -70,15 +61,15 @@ widgets = [
     # widget.Spacer(3),
     widget.GroupBox(
         fontsize=12,
-        foreground=colors_dict["fg"],
-        active=colors_dict["fg"],
-        inactive=colors_dict["fg"],
-        background=colors_dict["bg"],
-        this_current_screen_border=colors_dict["hl1"],
-        this_screen_border=colors_dict["hl1"],
-        highlight_color=colors_dict["hlbg"],
-        urgent_text=colors_dict["fg"],
-        urgent_border=colors_dict["hl2"],
+        foreground=colors["fg"],
+        active=colors["fg"],
+        inactive=colors["fg"],
+        background=colors["bg"],
+        this_current_screen_border=colors["hl1"],
+        this_screen_border=colors["hl1"],
+        highlight_color=colors["hlbg"],
+        urgent_text=colors["fg"],
+        urgent_border=colors["hl2"],
         highlight_method="line",
         borderwidth=3,
         rounded=False,
@@ -87,25 +78,23 @@ widgets = [
     ),
     widget.Spacer(11),
     widget.CurrentLayoutIcon(
-        foreground=colors_dict["fg"],
-        background=colors_dict["bg"],
+        foreground=colors["fg"],
+        background=colors["bg"],
         scale=0.6,
         padding=0,
         padding_x=0,
     ),
-    widget.CurrentLayout(
-        foreground=colors_dict["fg"], background=colors_dict["bg"]
-    ),
+    widget.CurrentLayout(foreground=colors["fg"], background=colors["bg"]),
     widget.Spacer(11),
     widget.WindowName(
-        foreground=colors_dict["hlfg"],
+        foreground=colors["hlfg"],
         for_current_screen="True",
         format="{state}{name}",
     ),
     widget.Spacer(),
     widget.Spacer(10),
     widget.Systray(
-        background=colors_dict["bg"], padding=12, padding_x=12, padding_y=12
+        background=colors["bg"], padding=12, padding_x=12, padding_y=12
     ),
     widget.Spacer(16),
 ]
@@ -115,8 +104,8 @@ sysinfo_widgets = [
         (
             custom.CheckUpdates,
             {
-                "colour_have_updates": colors_dict["fg"],
-                "colour_no_updates": colors_dict["fg"],
+                "colour_have_updates": colors["fg"],
+                "colour_no_updates": colors["fg"],
                 "no_update_string": "0",
                 "update_interval": 60 * 60,
                 "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateparu.sh"',
@@ -205,7 +194,7 @@ sysinfo_widgets = [
         (
             custom.Thermal,
             {
-                "foreground_alert": colors_dict["fg"],
+                "foreground_alert": colors["fg"],
                 "fmt": "{}",
                 "metric": True,
                 "tag_sensor": "Tdie",
@@ -230,7 +219,7 @@ sysinfo_widgets = [
         (
             custom.Thermal,
             {
-                "foreground_alert": colors_dict["fg"],
+                "foreground_alert": colors["fg"],
                 "fmt": "{}",
                 "metric": True,
                 "tag_sensor": "edge",
@@ -270,10 +259,10 @@ sysinfo_widgets = [
     ],
 ]
 for i, widget_group in enumerate(sysinfo_widgets):
-    COLOR = colors_dict["hl1"] if i % 2 == 0 else colors_dict["hl2"]
-    OTHER = colors_dict["hl2"] if i % 2 == 0 else colors_dict["hl1"]
+    COLOR = colors["hl1"] if i % 2 == 0 else colors["hl2"]
+    OTHER = colors["hl2"] if i % 2 == 0 else colors["hl1"]
     if i == 0:
-        OTHER = colors_dict["bg"]
+        OTHER = colors["bg"]
     widgets.append(
         widget.TextBox(
             text="",
@@ -286,9 +275,7 @@ for i, widget_group in enumerate(sysinfo_widgets):
     )
     for widget_type, kwargs in widget_group:
         widgets.append(
-            widget_type(
-                background=COLOR, foreground=colors_dict["fg"], **kwargs
-            )
+            widget_type(background=COLOR, foreground=colors["fg"], **kwargs)
         )
 
 screens = [
@@ -306,8 +293,8 @@ screens = [
 layout_theme = {
     "border_width": 2,
     "margin": 2,
-    "border_focus": colors_dict["hl1"],
-    "border_normal": colors_dict["bg"],
+    "border_focus": colors["hl1"],
+    "border_normal": colors["bg"],
     "ratio": 0.5,
 }
 
@@ -350,7 +337,7 @@ floating_layout = layout.Floating(
         Match(title="zoom_linux_float_video_window"),
         Match(wm_class="zoom", title="zoom"),
     ],
-    **layout_theme | {"border_focus": colors_dict["hl2"]},
+    **layout_theme | {"border_focus": colors["hl2"]},
 )
 
 group_names = [
