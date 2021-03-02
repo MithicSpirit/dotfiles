@@ -1,0 +1,30 @@
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8-emacs; mode: lisp-data -*-
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("Starship Configuration"
+ (filename . "~/.config/starship.toml")
+ (front-context-string . "[character]\nsucc")
+ (rear-context-string)
+ (position . 1))
+("Fish Configuration"
+ (filename . "~/.config/fish/config.fish")
+ (front-context-string . "# Basic variable")
+ (rear-context-string)
+ (position . 1))
+("Zsh Configuration"
+ (filename . "~/.zshrc")
+ (front-context-string . "#!/usr/bin/env z")
+ (rear-context-string)
+ (position . 1))
+("School"
+ (filename . "~/documents/school/2020-2021/")
+ (front-context-string . "  /home/mithic/d")
+ (rear-context-string)
+ (position . 1))
+("Qtile Configuration"
+ (filename . "~/.config/qtile/config.py")
+ (front-context-string . "\"\"\"\nMy custom Qt")
+ (rear-context-string)
+ (position . 1))
+)

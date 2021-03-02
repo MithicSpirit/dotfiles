@@ -27,5 +27,8 @@ function bind_bang
 end
 bind "!" bind_bang
 
+set --unexport LINES
+set --unexport COLUMNS
+
 # Prompt
 starship init fish | source

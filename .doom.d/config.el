@@ -139,7 +139,6 @@
   (setq persp-emacsclient-init-frame-behaviour-override "main")
   )
 
-
 (add-hook! 'text-mode-hook #'auto-fill-mode)
 (add-hook! 'prog-mode-hook (cmd! (display-fill-column-indicator-mode)))
 (global-hl-todo-mode)

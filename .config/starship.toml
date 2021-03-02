@@ -14,7 +14,6 @@ $shlvl\
 $time\
 $kubernetes\
 $docker_context\
-$cmake\
 $dart\
 $dotnet\
 $elixir\
@@ -47,7 +46,8 @@ with ${custom.shell}\
 $python\
 $nodejs\
 $lua\
-$java
+$java\
+$cmake
 [❯](green) ${custom.cursor}"""
 add_newline = false
 
@@ -189,6 +189,12 @@ disabled = false
 format = ', [$symbol$version]($style)'
 symbol = "java "
 style = "bright-red"
+disabled = false
+
+[cmake]
+format = ', [$symbol$version]($style)'
+symbol = "CMake "
+style = "bright-blue"
 disabled = false
 
 

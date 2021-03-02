@@ -28,3 +28,4 @@
 --tabs=4
 --style=numbers,changes
 --theme=OneHalfDark
+--pager="less"

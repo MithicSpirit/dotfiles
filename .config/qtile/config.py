@@ -6,7 +6,7 @@ import subprocess
 import psutil
 from libqtile.config import Key, Screen, Group, Drag, Click, Match
 from libqtile.command import lazy
-from libqtile import layout, bar, widget, hook
+from libqtile import layout, bar, widget, hook, qtile
 import custom
 
 # Custom constants
@@ -36,7 +36,7 @@ colors_dict = {
 
 # Qtile config variables
 auto_fullscreen = True
-bring_front_click = True
+bring_front_click = "floating_only"
 cursor_warp = False
 dgroups_key_binder = None
 dgroups_app_rules = []
@@ -98,7 +98,9 @@ widgets = [
     ),
     widget.Spacer(11),
     widget.WindowName(
-        foreground=colors_dict["hlfg"], for_current_screen="True"
+        foreground=colors_dict["hlfg"],
+        for_current_screen="True",
+        format="{state}{name}",
     ),
     widget.Spacer(),
     widget.Spacer(10),
@@ -131,7 +133,7 @@ sysinfo_widgets = [
                 "use_bits": True,
                 "update_interval": 5,
                 "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(
+                    "Button1": lambda: qtile.cmd_spawn(
                         f"{TERMINAL} -e {CONFIG}/scripts/speedtest.sh"
                     )
                 },
@@ -145,7 +147,7 @@ sysinfo_widgets = [
                 "padding_x": 0,
                 "fontsize": 16,
                 "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(
+                    "Button1": lambda: qtile.cmd_spawn(
                         f"{TERMINAL} -e {CONFIG}/scripts/speedtest.sh"
                     )
                 },
@@ -159,7 +161,7 @@ sysinfo_widgets = [
                 "use_bits": True,
                 "update_interval": 5,
                 "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(
+                    "Button1": lambda: qtile.cmd_spawn(
                         f"{TERMINAL} -e {CONFIG}/scripts/speedtest.sh"
                     )
                 },
@@ -173,7 +175,7 @@ sysinfo_widgets = [
                 "format": "{load_percent}%",
                 "update_interval": 10,
                 "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e btm -b")
+                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm -b")
                 },
             },
         ),
@@ -185,7 +187,7 @@ sysinfo_widgets = [
                 "padding_x": 0,
                 "fontsize": 16,
                 "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e btm -b")
+                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm -b")
                 },
             },
         ),
@@ -193,7 +195,7 @@ sysinfo_widgets = [
             custom.Memory,
             {
                 "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e btm -b")
+                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm -b")
                 },
                 "update_interval": 30,
             },
@@ -209,7 +211,7 @@ sysinfo_widgets = [
                 "tag_sensor": "Tdie",
                 "update_interval": 10,
                 "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e btm")
+                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm")
                 },
             },
         ),
@@ -221,7 +223,7 @@ sysinfo_widgets = [
                 "padding_x": 0,
                 "fontsize": 16,
                 "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e btm")
+                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm")
                 },
             },
         ),
@@ -234,7 +236,7 @@ sysinfo_widgets = [
                 "tag_sensor": "edge",
                 "update_interval": 10,
                 "mouse_callbacks": {
-                    "Button1": lambda q: q.cmd_spawn(f"{TERMINAL} -e btm")
+                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm")
                 },
             },
         ),
@@ -346,6 +348,7 @@ floating_layout = layout.Floating(
         Match(title="branchdialog"),
         Match(title="pinentry"),
         Match(title="zoom_linux_float_video_window"),
+        Match(wm_class="zoom", title="zoom"),
     ],
     **layout_theme | {"border_focus": colors_dict["hl2"]},
 )
@@ -358,7 +361,7 @@ group_names = [
             "spawn": ["discord-canary", "discord-ptb", "signal-desktop"],
         },
     ),
-    ("AGND", {"layout": "max"}),
+    ("AGND", {"layout": "monadtall"}),
     ("CLAS", {"layout": "monadtall"}),
     ("SCHL", {"layout": "monadtall"}),
     ("PRGM", {"layout": "monadtall"}),
@@ -370,7 +373,7 @@ groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 group_apps = {
     "CHAT": ("discord-canary", "discord-ptb", "signal-desktop"),
-    "AGND": (VISUAL, f'{VISUAL} -e "(school-agenda)"', "false"),
+    "AGND": (VISUAL, f'{VISUAL} -e "(=school-agenda)"', "false"),
     "CLAS": ("zoom", "teams", "false"),
     "SCHL": (f"{VISUAL} {HOME}/documents/school", "libreoffice", "teams"),
     "PRGM": (VISUAL, f"{VISUAL} {HOME}/documents/coding", "false"),
@@ -636,7 +639,9 @@ keys = [
 
 # Group keybinds
 for i, (name, kwargs) in enumerate(group_names, start=0):
-    i = "grave" if i == 0 else str(i)
+    if i > 10:
+        break
+    i = "grave" if i == 0 else "0" if i == 10 else str(i)
     keys.extend(
         [
             Key(
@@ -678,8 +683,16 @@ mouse = [
 ]
 
 # Window swallowing
-SWALLOW_PARENT = {Match(wm_class="URxvt"), Match(wm_class="Alacritty")}
-NO_SWALLOW_CHILD = {Match(title="Event Tester")}
+SWALLOW_PARENT = {
+    Match(wm_class="urxvt"),
+    Match(wm_class="Alacritty"),
+}
+NO_SWALLOW_CHILD = {
+    Match(title="Event Tester"),
+    Match(wm_class="qutebrowser"),
+    Match(wm_class="urxvt"),
+    Match(wm_class="Alacritty"),
+}
 
 
 @hook.subscribe.client_new
@@ -699,11 +712,11 @@ def _swallow(window):
         if ppid in cpids:
             parent = window.qtile.windows_map.get(cpids[ppid])
             for i in SWALLOW_PARENT:
-                if i.compare(parent.window):
+                # if i.compare(parent.window):
+                if i.compare(parent):
                     window.parent = parent
                     parent.minimized = True
                     return
-            return
         ppid = psutil.Process(ppid).ppid()
 
 

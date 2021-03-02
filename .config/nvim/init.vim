@@ -4,14 +4,20 @@ set number
 set clipboard+=unnamedplus
 set ignorecase
 set smartcase
+set mouse=a
+set lazyredraw
+
 set splitbelow
 set splitright
-set mouse=a
+
 set tabstop=4
-set lazyredraw
+set softtabstop=4
+set shiftwidth=4
 
 nnoremap Y y$
 nnoremap x "_x
+nnoremap ~ g~l
+nnoremap <ESC> :noh<CR>
 
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
@@ -24,3 +30,4 @@ command W w
 command Q q
 command Wq wq
 command Wsudo w !sudo tee % > /dev/null
+

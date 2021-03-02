@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+# unset LINES COLUMNS
+
 echo "Main:"
 checkupdates
 echo "\nAUR:"
@@ -8,7 +10,7 @@ echo ""
 read -rk 1 'OPTION?Proceed? [y/m/r/N] '
 echo ""
 if [[ $OPTION == "y" || $OPTION == "Y" ]]; then
-	paru -Syu --noconfirm &&
+	nice -n20 paru -Syu --noconfirm &&
 	read -rsk 1 '?Done [Press any key to exit]' ||
 	read -rsk 1 "?Error: Exit code $? [Press any key to exit]"
 elif [[ $OPTION == "m" || $OPTION == "M" ]]; then
@@ -16,7 +18,7 @@ elif [[ $OPTION == "m" || $OPTION == "M" ]]; then
 	read -rsk 1 '?Done [Press any key to exit]' ||
 	read -rsk 1 "?Error: Exit code $? [Press any key to exit]"
 elif [[ $OPTION == "r" || $OPTION == "R" ]]; then
-	paru -Syu --noconfirm --repo &&
+	nice -n20 paru -Syu --noconfirm --repo &&
 	read -rsk 1 '?Done [Press any key to exit]' ||
 	read -rsk 1 "?Error: Exit code $? [Press any key to exit]"
 else

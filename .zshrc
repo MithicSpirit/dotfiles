@@ -9,6 +9,7 @@ export EDITOR="nvim"
 export VISUAL="visual"
 export SUDO_EDITOR=$EDITOR
 export MAKEFLAGS="-j10"
+unset COLUMNS LINES
 
 # Zsh/ohmyzsh variables
 export ZSH="$HOME/.oh-my-zsh"

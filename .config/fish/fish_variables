@@ -1,5 +1,6 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export CARGO_BUILD_JOBS:8
 SETUVAR --export CHKTEXRC:/home/mithic
 SETUVAR --export EDITOR:nvim
 SETUVAR --export LANG:en_US\x2eUTF\x2d8
@@ -10,6 +11,8 @@ SETUVAR --export LESS_TERMCAP_so:\x1b\x5b3\x3b33m
 SETUVAR --export LESS_TERMCAP_ue:\x1b\x5b0m
 SETUVAR --export LESS_TERMCAP_us:\x1b\x5b4\x3b34m
 SETUVAR --export MAKEFLAGS:\x2dj10
+SETUVAR --export MANPAGER:less
+SETUVAR --export PAGER:bat
 SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr__2B_:cd\x20\x2b1
 SETUVAR _fish_abbr__2D_:cd\x20\x2d1
@@ -23,7 +26,8 @@ SETUVAR _fish_abbr_cppa:g\x2b\x2b\x20\x2dWall\x20\x2dansi\x20\x2dDMITHIC\x20\x2d
 SETUVAR _fish_abbr_dev:devour
 SETUVAR _fish_abbr_df:df\x20\x2dh
 SETUVAR _fish_abbr_dooms:doom\x20sync\x20\x3b\x20doom\x20doctor
-SETUVAR _fish_abbr_doomup:doom\x20upgrade\x20\x26\x26\x20doom\x20sync\x20\x2dp\x20\x3b\x20doom\x20doctor
+SETUVAR _fish_abbr_doomup:doom\x20upgrade\x20\x26\x26\x20doom\x20compile\x20\x2dc\x20\x26\x26\x20doom\x20sync\x20\x2dp\x20\x3b\x20doom\x20doctor
+SETUVAR _fish_abbr_dopen:devour\x20xdg\x2dopen
 SETUVAR _fish_abbr_du:dust
 SETUVAR _fish_abbr_emacs:devour\x20visual
 SETUVAR _fish_abbr_eslint:npx\x20eslint
@@ -37,11 +41,14 @@ SETUVAR _fish_abbr_gau:git\x20add\x20\x2d\x2dupdate
 SETUVAR _fish_abbr_gb:git\x20branch
 SETUVAR _fish_abbr_gc:git\x20commit
 SETUVAR _fish_abbr_gcl:git\x20clone
+SETUVAR _fish_abbr_gco:git\x20checkout
 SETUVAR _fish_abbr_gd:git\x20diff
 SETUVAR _fish_abbr_gdd:git\x20diff\x20\x2d\x2dcached
 SETUVAR _fish_abbr_gdl:git\x20diff\x20HEAD\x7e
 SETUVAR _fish_abbr_gf:git\x20fetch
+SETUVAR _fish_abbr_ggc:git\x20gc\x20\x2d\x2dprune\x3dnow
 SETUVAR _fish_abbr_gl:git\x20pull
+SETUVAR _fish_abbr_glg:git\x20log
 SETUVAR _fish_abbr_gp:git\x20push
 SETUVAR _fish_abbr_gpp:g\x2b\x2b
 SETUVAR _fish_abbr_grep:grep\x20\x2di
@@ -62,7 +69,7 @@ SETUVAR _fish_abbr_hgs:homegit\x20status
 SETUVAR _fish_abbr_htop:btm\x20\x2db
 SETUVAR _fish_abbr_ipy:ipython
 SETUVAR _fish_abbr_l:exa\x20\x2dlFbg
-SETUVAR _fish_abbr_lS:exa\x20\x2dlFbs\x20size\x20\x2d\x2dcolor\x2dscale
+SETUVAR _fish_abbr_lS:exa\x20\x2dlaFbgs\x20size\x20\x2d\x2dcolor\x2dscale
 SETUVAR _fish_abbr_la:exa\x20\x2dlaFbg
 SETUVAR _fish_abbr_ldot:ls\x20\x2dld\x20\x2e\x2a
 SETUVAR _fish_abbr_ln:ln\x20\x2dsi
@@ -71,12 +78,12 @@ SETUVAR _fish_abbr_matrix:cmatrix\x20\x2dab
 SETUVAR _fish_abbr_md:mkdir
 SETUVAR _fish_abbr_mkdir:mkdir\x20\x2dp
 SETUVAR _fish_abbr_mv:mv\x20\x2di
-SETUVAR _fish_abbr_open:devour\x20xdg\x2dopen
+SETUVAR _fish_abbr_open:xdg\x2dopen
 SETUVAR _fish_abbr_paccl:sudo\x20pacman\x20\x2dSc
 SETUVAR _fish_abbr_pacin:sudo\x20pacman\x20\x2dS
 SETUVAR _fish_abbr_pacind:sudo\x20pacman\x20\x2dS\x20\x2d\x2dasdeps
 SETUVAR _fish_abbr_pacinf:pacman\x20\x2dSi
-SETUVAR _fish_abbr_pacl:paru\x20\x2dc
+SETUVAR _fish_abbr_pacl:paru\x20\x2dSc
 SETUVAR _fish_abbr_pacli:pacman\x20\x2dQi
 SETUVAR _fish_abbr_pacll:pacman\x20\x2dQe
 SETUVAR _fish_abbr_pacls:pacman\x20\x2dQs
@@ -105,7 +112,7 @@ SETUVAR _fish_abbr_pare:paru\x20\x2dR
 SETUVAR _fish_abbr_parem:paru\x20\x2dRns
 SETUVAR _fish_abbr_pari:paru\x20\x2dSi
 SETUVAR _fish_abbr_parl:paru\x20\x2dSe
-SETUVAR _fish_abbr_parmorph:paru\x20\x2dYc
+SETUVAR _fish_abbr_parmorph:paru\x20\x2dc
 SETUVAR _fish_abbr_pars:paru\x20\x2dSs
 SETUVAR _fish_abbr_pary:paru
 SETUVAR _fish_abbr_paupg:paru\x20\x2dSyu
@@ -123,6 +130,8 @@ SETUVAR _fish_abbr_su:sudo\x20\x2di
 SETUVAR _fish_abbr_svi:sudoedit
 SETUVAR _fish_abbr_top:btm\x20\x2db
 SETUVAR _fish_abbr_tsc:npx\x20tsc
+SETUVAR _fish_abbr_tun:tungsten
+SETUVAR _fish_abbr_tung:tungsten
 SETUVAR _fish_abbr_ufw:sudo\x20ufw
 SETUVAR _fish_abbr_updb:sudo\x20updatedb
 SETUVAR _fish_abbr_v:bat
@@ -152,7 +161,7 @@ SETUVAR _fish_abbr_yarl:yay\x20\x2dSe
 SETUVAR _fish_abbr_yarmorph:yay\x20\x2dYc
 SETUVAR _fish_abbr_yars:yay\x20\x2dSs
 SETUVAR _fish_abbr_yaupg:yay\x20\x2dSyu
-SETUVAR _fish_abbr_ytdl:youtube\x2ddl
+SETUVAR _fish_abbr_yt:youtube\x2ddl
 SETUVAR fish_color_autosuggestion:grey
 SETUVAR fish_color_cancel:normal
 SETUVAR fish_color_command:green

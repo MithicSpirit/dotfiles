@@ -40,6 +40,8 @@ used.
 - Alacritty: =.config/alacritty.yml=
 - Bat: =.config/bat/config=
 - bottom: =.config/bottom/bottom.toml=
+- broot: =.config/broot/conf.toml=
+- ccache: =.config/ccache/ccache.conf=
 - clang-format: =.clang-format=
 - clipcat: =.config/clipcat/*=
 - fish: =.config/fish/*=
@@ -50,10 +52,14 @@ used.
 - mpv: =.config/mpv/mpv.conf=
 - Nvim: =.config/nvim/init.vim=
 - OnlyOffice: =.local/bin/onlyoffice=
+- paru: =.config/paru/paru.conf=
 - picom: =.config/picom.conf=
 - profile: =.profile=
 - qtile: =.config/qtile/*=
+- qutebrowser: =.config/qutebrowser/*=
 - radeon-profile: =.config/radeon-profile/*=
+- redshift: =.config/redshift.conf=
+- rofi: =.config/rofi/*=
 - README: =README.org=
 - Starship: =.config/starship.toml=
 - TeX: =.chktexrc=
