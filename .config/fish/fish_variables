@@ -12,7 +12,7 @@ SETUVAR --export LESS_TERMCAP_ue:\x1b\x5b0m
 SETUVAR --export LESS_TERMCAP_us:\x1b\x5b4\x3b34m
 SETUVAR --export MAKEFLAGS:\x2dj10
 SETUVAR --export MANPAGER:less
-SETUVAR --export PAGER:bat
+SETUVAR --export PAGER:bat\x20\x2dpp
 SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr__2B_:cd\x20\x2b1
 SETUVAR _fish_abbr__2D_:cd\x20\x2d1
@@ -115,6 +115,7 @@ SETUVAR _fish_abbr_parl:paru\x20\x2dSe
 SETUVAR _fish_abbr_parmorph:paru\x20\x2dc
 SETUVAR _fish_abbr_pars:paru\x20\x2dSs
 SETUVAR _fish_abbr_pary:paru
+SETUVAR _fish_abbr_paste:xclip\x20\x2do\x20\x2dsel\x20clip\x20\x3e
 SETUVAR _fish_abbr_paupg:paru\x20\x2dSyu
 SETUVAR _fish_abbr_pip:python\x20\x2dm\x20pip
 SETUVAR _fish_abbr_pip3:python3\x20\x2dm\x20pip
