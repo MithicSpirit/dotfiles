@@ -29,7 +29,6 @@ xset s 0 0
 xset dpms 0 0 0
 numlockx on
 radeon-profile &
-bitwarden-desktop &
 
 sleep .5
 notify-send "Welcome"
