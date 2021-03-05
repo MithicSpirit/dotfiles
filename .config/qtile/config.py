@@ -684,6 +684,10 @@ NO_SWALLOW_CHILD = {
 
 @hook.subscribe.client_new
 def _swallow(window):
+    """
+    Minimize parent windows (in `SWALLOW_PARENT`) once a child window
+    (not in `NO_SWALLOW_CHILD`) is spawned.
+    """
     for i in NO_SWALLOW_CHILD:
         if i.compare(window):
             return
@@ -709,5 +713,8 @@ def _swallow(window):
 
 @hook.subscribe.client_killed
 def _unswallow(window):
+    """
+    Unminimize parent windows once the child window closes.
+    """
     if hasattr(window, "parent"):
         window.parent.minimized = False

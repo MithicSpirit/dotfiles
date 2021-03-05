@@ -42,7 +42,7 @@ plugins=(
 	gnu-utils
 	node
 	npm 
-	npx
+	# npx
 	pip 
 	pyenv
 	python 
