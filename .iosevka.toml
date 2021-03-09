@@ -1,4 +1,4 @@
-# v5.0.0
+# v5.0.5
 
 ### Building font
 # - Everything (TTF + Web Font):
@@ -66,6 +66,22 @@ serifs = "sans"
 
   [buildPlans.iosevka-mithic.ligations]
   inherits = "clike"
+  disables = [
+    "brace-bar",
+    "brack-bar",
+    "connected-hyphen-as-solid-line",
+  ]
+  enables = [
+    "arrow",
+    "arrow2",
+    "tildeeq",
+    "slasheq",
+    "html-comment",
+    "connected-underscore",
+    "connected-number-sign",
+    "connected-tilde-as-wave",
+    "connected-hyphen-as-semi-dashed-line",
+  ]
 
 [buildPlans.iosevka-mithic.weights.thin]
 shape = 100

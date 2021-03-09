@@ -4,7 +4,7 @@ User rpc01234@gmail.com
 PassCmd "gpg -dq ~/.bak/.secrets/gmail-app.gpg"
 AuthMechs LOGIN
 SSLType IMAPS
-SSLVersions SSLv3
+#SSLVersions SSLv3
 CertificateFile ~/.local/share/ca-certificates/imap.gmail.com
 
 # THEN WE SPECIFY THE LOCAL AND REMOTE STORAGE
@@ -31,51 +31,51 @@ Inbox ~/mbsync/inbox
 # 3 "DIR" TO MATCH DIR
 
 Channel gmail-inbox
-Master :gmail-remote:
-Slave :gmail-local:
+Far :gmail-remote:
+Near :gmail-local:
 Patterns "INBOX"
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-trash
-Master :gmail-remote:"[Gmail]/Trash"
-Slave :gmail-local:"[Gmail].Trash"
+Far :gmail-remote:"[Gmail]/Trash"
+Near :gmail-local:"[Gmail].Trash"
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-sent
-Master :gmail-remote:"[Gmail]/Sent Mail"
-Slave :gmail-local:"[Gmail].Sent"
+Far :gmail-remote:"[Gmail]/Sent Mail"
+Near :gmail-local:"[Gmail].Sent"
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-all
-Master :gmail-remote:"[Gmail]/All Mail"
-Slave :gmail-local:"[Gmail].All"
+Far :gmail-remote:"[Gmail]/All Mail"
+Near :gmail-local:"[Gmail].All"
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-starred
-Master :gmail-remote:"[Gmail]/Starred"
-Slave :gmail-local:"[Gmail].Starred"
+Far :gmail-remote:"[Gmail]/Starred"
+Near :gmail-local:"[Gmail].Starred"
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-important
-Master :gmail-remote:"[Gmail]/Important"
-Slave :gmail-local:"[Gmail].Important"
+Far :gmail-remote:"[Gmail]/Important"
+Near :gmail-local:"[Gmail].Important"
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-drafts
-Master :gmail-remote:"[Gmail]/Drafts"
-Slave :gmail-local:"[Gmail].Drafts"
+Far :gmail-remote:"[Gmail]/Drafts"
+Near :gmail-local:"[Gmail].Drafts"
 Create Both
 Expunge Both
 SyncState *
