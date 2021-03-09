@@ -25,7 +25,6 @@ $julia\
 $kotlin\
 $nim\
 $ocaml\
-$perl\
 $php\
 $purescript\
 $ruby\
@@ -47,7 +46,8 @@ $python\
 $nodejs\
 $lua\
 $java\
-$cmake
+$cmake\
+$perl
 [❯](green) ${custom.cursor}"""
 add_newline = false
 
@@ -195,6 +195,12 @@ disabled = false
 format = ', [$symbol$version]($style)'
 symbol = "CMake "
 style = "bright-blue"
+disabled = false
+
+[perl]
+format = ', [$symbol$version]($style)'
+symbol = "Pl "
+style = "bright-yellow"
 disabled = false
 
 
