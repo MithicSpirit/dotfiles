@@ -92,7 +92,7 @@ only_attached = false
 disabled = false
 
 [git_commit]
-format = '\([$hash( $tag)]($style)\) '
+format = '\([$hash($tag)]($style)\) '
 tag_symbol = ''
 style = 'green'
 only_detached = false
@@ -153,7 +153,7 @@ disabled = true
 [time]
 format = '[|](bold) at [$time]($style)'
 style = 'bright-yellow'
-disabled = false
+disabled = true
 
 
 

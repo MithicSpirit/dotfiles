@@ -17,14 +17,11 @@ set shiftwidth=4
 nnoremap Y y$
 nnoremap x "_x
 nnoremap ~ g~l
+nnoremap s <NOP>
 nnoremap <ESC> :noh<CR>
 
-nnoremap <C-j> <C-w><C-j>
-nnoremap <C-k> <C-w><C-k>
-nnoremap <C-l> <C-w><C-l>
-nnoremap <C-h> <C-w><C-h>
-nnoremap <C-,> <C-w><
-nnoremap <C-.> <C-w>>
+nnoremap <C-w>, <C-w><
+nnoremap <C-w>. <C-w>>
 
 command W w
 command Q q
