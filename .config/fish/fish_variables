@@ -49,6 +49,7 @@ SETUVAR _fish_abbr_gf:git\x20fetch
 SETUVAR _fish_abbr_ggc:git\x20gc\x20\x2d\x2dprune\x3dnow
 SETUVAR _fish_abbr_gl:git\x20pull
 SETUVAR _fish_abbr_glg:git\x20log
+SETUVAR _fish_abbr_gllg:git\x20log\x20HEAD\x2e\x2eorigin/master
 SETUVAR _fish_abbr_gp:git\x20push
 SETUVAR _fish_abbr_gpp:g\x2b\x2b
 SETUVAR _fish_abbr_gr:git\x20remote\x20\x2dv
@@ -74,6 +75,7 @@ SETUVAR _fish_abbr_lS:exa\x20\x2dlaFbgs\x20size\x20\x2d\x2dcolor\x2dscale
 SETUVAR _fish_abbr_la:exa\x20\x2dlaFbg
 SETUVAR _fish_abbr_ldot:ls\x20\x2dld\x20\x2e\x2a
 SETUVAR _fish_abbr_ln:ln\x20\x2dsi
+SETUVAR _fish_abbr_lr:exa\x20\x2dlaFbgR
 SETUVAR _fish_abbr_ls:exa
 SETUVAR _fish_abbr_matrix:cmatrix\x20\x2dab
 SETUVAR _fish_abbr_md:mkdir

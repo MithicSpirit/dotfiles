@@ -1,4 +1,4 @@
-# v5.0.5
+# v5.0.6
 
 ### Building font
 # - Everything (TTF + Web Font):
@@ -80,7 +80,7 @@ serifs = "sans"
     "connected-underscore",
     "connected-number-sign",
     "connected-tilde-as-wave",
-    "connected-hyphen-as-semi-dashed-line",
+    #"connected-hyphen-as-semi-dashed-line", # broken?
   ]
 
 [buildPlans.iosevka-mithic.weights.thin]

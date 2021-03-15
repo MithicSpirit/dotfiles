@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# unset LINES COLUMNS
+unset LINES COLUMNS
 
 echo "Main:"
 checkupdates
