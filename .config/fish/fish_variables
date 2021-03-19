@@ -49,7 +49,7 @@ SETUVAR _fish_abbr_gf:git\x20fetch
 SETUVAR _fish_abbr_ggc:git\x20gc\x20\x2d\x2dprune\x3dnow
 SETUVAR _fish_abbr_gl:git\x20pull
 SETUVAR _fish_abbr_glg:git\x20log
-SETUVAR _fish_abbr_gllg:git\x20log\x20HEAD\x2e\x2eorigin/master
+SETUVAR _fish_abbr_gllg:git\x20log\x20HEAD\x2e\x2eorigin
 SETUVAR _fish_abbr_gp:git\x20push
 SETUVAR _fish_abbr_gpp:g\x2b\x2b
 SETUVAR _fish_abbr_gr:git\x20remote\x20\x2dv
@@ -127,7 +127,9 @@ SETUVAR _fish_abbr_radeontop:sudo\x20radeontop\x20\x2dcT
 SETUVAR _fish_abbr_reflect:reflector\x2ddefault
 SETUVAR _fish_abbr_rm:trash
 SETUVAR _fish_abbr_rmrm:rm\x20\x2di
+SETUVAR _fish_abbr_sc:sudo\x20systemctl
 SETUVAR _fish_abbr_scim:sc\x2dim
+SETUVAR _fish_abbr_scu:systemctl\x20\x2d\x2duser
 SETUVAR _fish_abbr_sl:sl\x20\x2dae
 SETUVAR _fish_abbr_su:sudo\x20\x2di
 SETUVAR _fish_abbr_svi:sudoedit

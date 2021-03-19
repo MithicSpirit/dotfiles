@@ -108,7 +108,7 @@
          (string= text "✖")
          (string= text "™")
          )
-        't 'nil
+        t nil
         ))
   (push #'+emojify-ignore-emoji (cdr (last emojify-inhibit-functions)))
   )
@@ -295,7 +295,7 @@
 (defun school-agenda (&optional kill)
   "Open tasks and agenda with schedule in a sidebar."
   (interactive
-   (list (if (string= (buffer-name (current-buffer)) "*doom*") 'nil 't))
+   (list (if (string= (buffer-name (current-buffer)) "*doom*") nil t))
    )
   (if kill (call-interactively #'doom/kill-all-buffers))
   (cd org-directory)
@@ -314,7 +314,7 @@
   is reset (all current buffers/windows are killed)."
   (interactive "P")
   (let ((exists (+workspace-exists-p "*agenda*")))
-    (+workspace-switch "*agenda*" 't)
+    (+workspace-switch "*agenda*" t)
     (when (or (not exists) reset)
         (school-agenda reset)
       )

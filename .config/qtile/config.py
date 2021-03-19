@@ -345,7 +345,7 @@ group_names = [
         "CHAT",
         {
             "layout": "max",
-            "spawn": ["discord-canary", "discord-ptb", "signal-desktop"],
+            "spawn": ["discord-canary", "discord-ptb"],
         },
     ),
     ("AGND", {"layout": "monadtall"}),
