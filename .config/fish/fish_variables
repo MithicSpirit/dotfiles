@@ -111,6 +111,8 @@ SETUVAR _fish_abbr_pamd:paru\x20\x2dD\x20\x2d\x2dasdeps
 SETUVAR _fish_abbr_pame:paru\x20\x2dD\x20\x2d\x2dasexplicit
 SETUVAR _fish_abbr_pamm:paru\x20\x2dD\x20\x2d\x2dasexplicit
 SETUVAR _fish_abbr_paorph:paru\x20\x2dQtd
+SETUVAR _fish_abbr_paown:paru\x20\x2dQo
+SETUVAR _fish_abbr_paownl:paru\x20\x2dQl
 SETUVAR _fish_abbr_pare:paru\x20\x2dR
 SETUVAR _fish_abbr_parem:paru\x20\x2dRns
 SETUVAR _fish_abbr_pari:paru\x20\x2dSi
@@ -133,6 +135,7 @@ SETUVAR _fish_abbr_scu:systemctl\x20\x2d\x2duser
 SETUVAR _fish_abbr_sl:sl\x20\x2dae
 SETUVAR _fish_abbr_su:sudo\x20\x2di
 SETUVAR _fish_abbr_svi:sudoedit
+SETUVAR _fish_abbr_t:tuxi
 SETUVAR _fish_abbr_top:btm\x20\x2db
 SETUVAR _fish_abbr_tsc:npx\x20tsc
 SETUVAR _fish_abbr_tun:tungsten
@@ -143,7 +146,7 @@ SETUVAR _fish_abbr_v:bat
 SETUVAR _fish_abbr_vi:nvim
 SETUVAR _fish_abbr_vim:nvim
 SETUVAR _fish_abbr_visudo:sudo\x20\x2d\x2dpreserve\x2denv\x3dEDITOR\x20visudo
-SETUVAR _fish_abbr_xrdb:xrdb\x20\x7e/\x2eXresources
+SETUVAR _fish_abbr_xrdb:xrdb\x20\x7e/\x2econfig/xresources/Xresources
 SETUVAR _fish_abbr_xsh:exec\x20fish
 SETUVAR _fish_abbr_xssh:exec\x20ssh
 SETUVAR _fish_abbr_xsu:exec\x20sudo\x20\x2di

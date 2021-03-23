@@ -345,7 +345,7 @@ group_names = [
         "CHAT",
         {
             "layout": "max",
-            "spawn": ["discord-canary", "discord-ptb"],
+            "spawn": ["discord-canary", "discord-ptb", "signal-desktop-beta"],
         },
     ),
     ("AGND", {"layout": "monadtall"}),
@@ -359,7 +359,7 @@ group_names = [
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 group_apps = {
-    "CHAT": ("discord-canary", "discord-ptb", "signal-desktop"),
+    "CHAT": ("discord-canary", "discord-ptb", "signal-desktop-beta"),
     "AGND": (VISUAL, f'{VISUAL} -e "(=school-agenda)"', "false"),
     "CLAS": ("zoom", "teams", "false"),
     "SCHL": (f"{VISUAL} {HOME}/documents/school", "libreoffice", "teams"),

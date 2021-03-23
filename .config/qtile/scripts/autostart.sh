@@ -11,9 +11,10 @@ feh --no-fehbg --bg-fill "$HOME/.wallpapers/snowy mountains.jpg"
 #redshift-gtk -l geoclue2 -b 0.95:0.9 -t 6400K:4000K &
 
 # Daemons
+/usr/lib/geoclue-2.0/demos/agent &
 #emacs --daemon &
 thunar --daemon &
-urxvtd -o -f
+#urxvtd -o -f
 #greenclip daemon &
 #twmnd &
 play-with-mpv &
