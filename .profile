@@ -3,7 +3,8 @@ export EDITOR="nvim"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export TERMINAL="alacritty"
 export PYTHONTRACEMALLOC=1
-export RXVT_SOCKET="$XDG_RUNTIME_DIR"/urxvtd
+export RXVT_SOCKET="$XDG_RUNTIME_DIR/urxvtd"
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"

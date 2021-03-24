@@ -61,7 +61,9 @@ used.
 - redshift: =.config/redshift.conf=
 - rofi: =.config/rofi/*=
 - README: =README.org=
+- SSH: =.ssh/config=
 - Starship: =.config/starship.toml=
+- SystemD: =.config/systemd/user/*=
 - TeX: =.chktexrc=
 - twmn: =.config/twmn/twmn.conf=
 - URxvt: =.Xresources.d/rxvt-unicode=

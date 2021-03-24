@@ -41,7 +41,7 @@ $openstack\
 $env_var\
 $crystal\
 $battery
-with ${custom.shell}\
+with $shell\
 $python\
 $nodejs\
 $lua\
@@ -157,13 +157,15 @@ disabled = true
 
 
 
-[custom.shell]
-command = 'echo $STARSHIP_SHELL'
-format = '[$output]($style)'
-description = 'Current shell'
-style = 'bold underline cyan'
-when = 'true'
-symbol = ''
+[shell]
+format = '[$indicator](bold underline cyan)'
+fish_indicator = "fish"
+zsh_indicator = "zsh"
+bash_indicator = "bash"
+powershell_indicator = "powershell"
+ion_indicator  = "ion"
+elvish_indicator = "elvish"
+tcsh_indicator = "tcsh"
 disabled = false
 
 [python]

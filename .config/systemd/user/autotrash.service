@@ -1,0 +1,6 @@
+[Unit]
+Description=Empty trash
+
+[Service]
+Type=oneshot
+ExecStart="/usr/bin/autotrash" -d 8 -t

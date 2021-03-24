@@ -75,7 +75,6 @@ serifs = "sans"
     "arrow",
     "arrow2",
     "tildeeq",
-    "slasheq",
     "html-comment",
     "connected-underscore",
     "connected-number-sign",

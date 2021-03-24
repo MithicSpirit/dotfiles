@@ -464,12 +464,6 @@ keys = [
         lazy.spawn("greenclip-dmenu"),
         desc="Open clipboard selection menu",
     ),
-    # Key(
-    #     [MODKEY],
-    #     "space",
-    #     keyboard_switch_layout,
-    #     desc="Switch keyboard layout",
-    # ),
     # Layouts
     Key([MODKEY], "Tab", layout_stack, desc="Set layout to stack"),
     Key([MODKEY, "shift"], "Tab", layout_max, desc="Set layout to max"),
