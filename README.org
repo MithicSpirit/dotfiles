@@ -85,15 +85,12 @@ cd ~/.homegit
 git clone --bare https://github.com/MithicSpirit/dotfiles.git .
 cd ~
 git --git-dir=$HOME/.homegit --work-tree=$HOME checkout --force
-git --git-dir=$HOME/.homegit --work-tree=$HOME config \
-    --local status.showUntrackedFiles no
+git --git-dir=$HOME/.homegit --work-tree=$HOME config --local status.showUntrackedFiles no
 git --git-dir=$HOME/.homegit --work-tree=$HOME submodule init
 git --git-dir=$HOME/.homegit --work-tree=$HOME submodule update
 # Restart zsh/fish, set up ssh, register with GitHub and GitLab. After the
 # restart, because of aliases, you may also replace `git
-# --git-dir=$HOME/.homegit --worktree=$HOME` with just `homegit`.
-git --git-dir=$HOME/.homegit --work-tree=$HOME remote add backup \
-    git@gitlab.com:MithicSpirit/dotfiles.git
-git --git-dir=$HOME/.homegit --work-tree=$HOME remote set-url origin \
-    git@github.com:MithicSpirit/dotfiles.git
+# --git-dir=$HOME/.homegit --worktree=$HOME' with just `homegit'.
+git --git-dir=$HOME/.homegit --work-tree=$HOME remote add backup git@gitlab.com:MithicSpirit/dotfiles.git
+git --git-dir=$HOME/.homegit --work-tree=$HOME remote set-url origin git@github.com:MithicSpirit/dotfiles.git
 #+end_src
