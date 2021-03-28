@@ -1,7 +1,6 @@
 function __complete_omf_cd
     function __resolve_dot_path
-        echo $argv | \
-            sed -e 's@^\.$@:@;s@^\.\([^\.]\)@:\1@g;s@\([^\.]\)\.$@\1:@g' \
+        echo $argv | sed -e 's@^\.$@:@;s@^\.\([^\.]\)@:\1@g;s@\([^\.]\)\.$@\1:@g' \
             -e 's@\([^\.]\)\.\([^\.]\)@\1:\2@g' \
             -e 's@\([^\.]\)\.\([^\.]\)@\1:\2@g' \
             -e 's@\.\{2\}\(\.*\)@::\1@g' \
@@ -10,8 +9,7 @@ function __complete_omf_cd
     end
 
     function __resolve_home_path
-        echo $argv | \
-            sed -e "s@^~@$HOME@"
+        echo $argv | sed -e "s@^~@$HOME@"
     end
 
     function __resolve_fancy_path
@@ -21,7 +19,7 @@ function __complete_omf_cd
     function __get_basepath
         set -l __base (echo $argv | rev | cut -d/ -s -f2- | rev)
         if string match -qr '^/' "$argv"; and test -z $__base
-            echo '/'
+            echo /
         else
             echo $__base
         end
@@ -41,8 +39,7 @@ function __complete_omf_cd
 
     function __list_and_filter
         if test -d $argv[1]
-            command ls -a $argv[1] | __filter_directory $argv[1] | \
-                command grep -e (echo $argv[2] | sed -e 's@\.@\\\.@g' -e 's@^@\^@')
+            command ls -a $argv[1] | __filter_directory $argv[1] | command grep -ie (echo $argv[2] | sed -e 's@\.@\\\.@g' -e 's@^@\^@')
         end
     end
 
@@ -95,7 +92,7 @@ function __complete_omf_cd
 
         if test -z "$basepath"
             __list_all_candidate $resolved_path
-        else if test "$basepath" = '/'
+        else if test "$basepath" = /
             __list_all_candidate $resolved_path | sed "s@^@/@"
         else
             __list_all_candidate $resolved_path | sed "s@^@$basepath/@"

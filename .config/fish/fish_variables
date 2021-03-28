@@ -21,8 +21,9 @@ SETUVAR _fish_abbr_bot:btm
 SETUVAR _fish_abbr_c:cal\x20\x2d3
 SETUVAR _fish_abbr_copy:xclip\x20\x2di\x20\x2dsel\x20clip
 SETUVAR _fish_abbr_cp:cp\x20\x2dir
-SETUVAR _fish_abbr_cpp:g\x2b\x2b\x20\x2dWall\x20\x2dstd\x3dgnu\x2b\x2b17\x20\x2dDMITHIC
+SETUVAR _fish_abbr_cpp:g\x2b\x2b\x20\x2dO0\x20\x2dg\x20\x2dDDEBUG\x20\x2dWall
 SETUVAR _fish_abbr_cppa:g\x2b\x2b\x20\x2dWall\x20\x2dansi\x20\x2dDMITHIC\x20\x2dS\x20\x2dfverbose\x2dasm
+SETUVAR _fish_abbr_cppr:g\x2b\x2b\x20\x2dO2\x20\x2ds\x20\x2dDNDEBUG\x20\x2dmarch\x3dnative\x20\x2dmtune\x3dnative
 SETUVAR _fish_abbr_dev:devour
 SETUVAR _fish_abbr_df:df\x20\x2dh
 SETUVAR _fish_abbr_dooms:doom\x20sync\x20\x3b\x20doom\x20doctor
@@ -125,6 +126,7 @@ SETUVAR _fish_abbr_paupg:paru\x20\x2dSyu
 SETUVAR _fish_abbr_pip:python\x20\x2dm\x20pip
 SETUVAR _fish_abbr_pip3:python3\x20\x2dm\x20pip
 SETUVAR _fish_abbr_ps:procs
+SETUVAR _fish_abbr_r:ranger
 SETUVAR _fish_abbr_radeontop:sudo\x20radeontop\x20\x2dcT
 SETUVAR _fish_abbr_reflect:reflector\x2ddefault
 SETUVAR _fish_abbr_rm:trash

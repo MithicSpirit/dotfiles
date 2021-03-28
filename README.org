@@ -58,6 +58,7 @@ used.
 - qtile: =.config/qtile/*=
 - qutebrowser: =.config/qutebrowser/*=
 - radeon-profile: =.config/radeon-profile/*=
+- ranger: =.config/ranger/*=
 - redshift: =.config/redshift.conf=
 - rofi: =.config/rofi/*=
 - README: =README.org=

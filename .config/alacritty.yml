@@ -809,7 +809,7 @@ debug:
   render_timer: false
 
   # Keep the log file after quitting Alacritty.
-  persistent_logging: true
+  persistent_logging: false
 
   # Log level
   #

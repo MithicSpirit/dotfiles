@@ -5,6 +5,7 @@ export TERMINAL="alacritty"
 export PYTHONTRACEMALLOC=1
 export RXVT_SOCKET="$XDG_RUNTIME_DIR/urxvtd"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+export PYGMENTIZE_STYLE="vim"
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"

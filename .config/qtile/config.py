@@ -336,6 +336,7 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),
         Match(title="zoom_linux_float_video_window"),
         Match(wm_class="zoom", title="zoom"),
+        Match(wm_class="flameshot"),
     ],
     **layout_theme | {"border_focus": colors["hl2"]},
 )
