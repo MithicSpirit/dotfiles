@@ -111,6 +111,7 @@ SETUVAR _fish_abbr_pals:paru\x20\x2dQs
 SETUVAR _fish_abbr_pamd:paru\x20\x2dD\x20\x2d\x2dasdeps
 SETUVAR _fish_abbr_pame:paru\x20\x2dD\x20\x2d\x2dasexplicit
 SETUVAR _fish_abbr_pamm:paru\x20\x2dD\x20\x2d\x2dasexplicit
+SETUVAR _fish_abbr_pamo:paru\x20\x2dD\x20\x2d\x2dasdeps
 SETUVAR _fish_abbr_paorph:paru\x20\x2dQtd
 SETUVAR _fish_abbr_paown:paru\x20\x2dQo
 SETUVAR _fish_abbr_paownl:paru\x20\x2dQl

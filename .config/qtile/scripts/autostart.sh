@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # Xrandr (I plan on moving this to system config in /etc soon™)
-xrandr --output HDMI-A-0 --mode 1920x1080 --rate 60.00
+#xrandr --output HDMI-A-0 --mode 1920x1080 --rate 60.00
 
 sleep 1.5
 
@@ -12,7 +12,7 @@ feh --no-fehbg --bg-fill "$HOME/.wallpapers/snowy mountains.jpg" &
 xrdb ~/.config/xresources/Xresources &
 
 # Daemons
-/usr/lib/geoclue-2.0/demos/agent &
+#/usr/lib/geoclue-2.0/demos/agent &
 #emacs --daemon &
 thunar --daemon &
 #urxvtd -o -f &
@@ -23,8 +23,8 @@ flameshot &
 
 # Misc
 nm-applet &
-lxsession --de=Qtile &
-setxkbmap -option caps:swapescape -option compose:rctrl &
+#lxsession --de=Qtile &
+setxkbmap -option caps:swapescape &
 #xset m 0/0 0 &
 #xinput set-prop 8 295 0, 0 &
 #xinput set-prop 8 292 1 &

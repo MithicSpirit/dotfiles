@@ -492,7 +492,8 @@ keys = [
         [MODKEY, "control", "shift"],
         "q",
         lazy.shutdown(),
-        desc="Close Qtile",
+        lazy.spawn("xfce4-session-logout --logout --fast"),
+        desc="Close Qtile and XFCE",
     ),
     # Window movement and management
     Key(
