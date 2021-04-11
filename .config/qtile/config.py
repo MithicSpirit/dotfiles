@@ -366,7 +366,8 @@ group_apps = {
     "SCHL": (f"{VISUAL} {HOME}/documents/school", "libreoffice", "teams"),
     "PRGM": (VISUAL, f"{VISUAL} {HOME}/documents/coding", "false"),
     "INET": (
-        f"{BROWSER} --new-window https://odysee.com/$/following",
+        #f"{BROWSER} --new-window https://odysee.com/$/following",
+        "lbry",
         f"{BROWSER} --new-window https://www.youtube.com/feed/subscriptions",
         "false",
     ),

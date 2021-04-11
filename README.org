@@ -14,7 +14,7 @@ used.
 - =.local/bin/checkupdates=
 - =.local/bin/chalkboard=
 
-** ZSH
+** Zsh
 - =.zshrc=
 - =.p10k.zsh=
 - =.oh-my-zsh= [[https://github.com/ohmyzsh/ohmyzsh/tree/master][Oh My Zsh]]
@@ -32,26 +32,27 @@ used.
 - =.doom.d/*=
 - =.local/bin/visual=
 
-** BetterLockScreen
+** Betterlockscreen
 - =.local/bin/betterlockscreen=
 - =.config/betterlockscreenrc=
   
 ** Miscellaneous
-- Alacritty: =.config/alacritty.yml=
-- Bat: =.config/bat/config=
+- alacritty: =.config/alacritty.yml=
+- bat: =.config/bat/config=
 - bottom: =.config/bottom/bottom.toml=
 - broot: =.config/broot/conf.toml=
 - ccache: =.config/ccache/ccache.conf=
 - clang-format: =.clang-format=
 - clipcat: =.config/clipcat/*=
 - fish: =.config/fish/*=
-- GameMode: =.config/gamemode.ini=
+- flameshot: =.config/flameshot/flameshot.ini=
+- gamemode: =.config/gamemode.ini=
 - htop: =.config/htop/htoprc=
-- Iosevka: =.iosevka.toml=
+- iosevka: =.iosevka.toml=
 - mbsync: =.mbsyncrc=
 - mpv: =.config/mpv/mpv.conf=
-- Nvim: =.config/nvim/init.vim=
-- OnlyOffice: =.local/bin/onlyoffice=
+- nvim: =.config/nvim/init.vim=
+- onlyoffice: =.local/bin/onlyoffice=
 - paru: =.config/paru/paru.conf=
 - picom: =.config/picom.conf=
 - profile: =.profile=
@@ -59,17 +60,17 @@ used.
 - qutebrowser: =.config/qutebrowser/*=
 - radeon-profile: =.config/radeon-profile/*=
 - ranger: =.config/ranger/*=
+- readme: =README.org=
 - redshift: =.config/redshift.conf=
 - rofi: =.config/rofi/*=
-- README: =README.org=
-- SSH: =.ssh/config=
-- Starship: =.config/starship.toml=
-- SystemD: =.config/systemd/user/*=
-- TeX: =.chktexrc=
+- ssh: =.ssh/config=
+- starship: =.config/starship.toml=
+- systemd: =.config/systemd/user/*=
+- tex: =.chktexrc=
 - twmn: =.config/twmn/twmn.conf=
-- URxvt: =.Xresources.d/rxvt-unicode=
+- urxvt: =.Xresources.d/rxvt-unicode=
 - wallpapers: =.wallpapers/*=
-- Xterm: =.Xresources.d/xterm=
+- xterm: =.Xresources.d/xterm=
 - zathura: =.config/zathura/zathurarc=
 
 * Gitmodules

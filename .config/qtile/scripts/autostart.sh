@@ -12,7 +12,7 @@ feh --no-fehbg --bg-fill "$HOME/.wallpapers/snowy mountains.jpg" &
 xrdb ~/.config/xresources/Xresources &
 
 # Daemons
-#/usr/lib/geoclue-2.0/demos/agent &
+/usr/lib/geoclue-2.0/demos/agent &
 #emacs --daemon &
 thunar --daemon &
 #urxvtd -o -f &
@@ -20,6 +20,9 @@ thunar --daemon &
 #twmnd &
 play-with-mpv &
 flameshot &
+/usr/lib/xfce-polkit/xfce-polkit &
+#start-pulseaudio-x11 &
+/opt/LBRY/lbry --hidden &
 
 # Misc
 nm-applet &

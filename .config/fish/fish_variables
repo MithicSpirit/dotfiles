@@ -27,7 +27,7 @@ SETUVAR _fish_abbr_cppr:g\x2b\x2b\x20\x2dO2\x20\x2ds\x20\x2dDNDEBUG\x20\x2dmarch
 SETUVAR _fish_abbr_dev:devour
 SETUVAR _fish_abbr_df:df\x20\x2dh
 SETUVAR _fish_abbr_dooms:doom\x20sync\x20\x3b\x20doom\x20doctor
-SETUVAR _fish_abbr_doomup:doom\x20upgrade\x20\x26\x26\x20doom\x20compile\x20\x2dc\x20\x26\x26\x20doom\x20sync\x20\x2dp\x20\x3b\x20doom\x20doctor
+SETUVAR _fish_abbr_doomup:doom\x20upgrade\x20\x26\x26\x20doom\x20sync\x20\x2dp\x20\x3b\x20doom\x20doctor
 SETUVAR _fish_abbr_dopen:devour\x20xdg\x2dopen
 SETUVAR _fish_abbr_du:dust
 SETUVAR _fish_abbr_emacs:devour\x20visual
@@ -82,7 +82,9 @@ SETUVAR _fish_abbr_matrix:cmatrix\x20\x2dab
 SETUVAR _fish_abbr_md:mkdir
 SETUVAR _fish_abbr_mkdir:mkdir\x20\x2dp
 SETUVAR _fish_abbr_mv:mv\x20\x2di
+SETUVAR _fish_abbr_o:xdg\x2dopen
 SETUVAR _fish_abbr_open:xdg\x2dopen
+SETUVAR _fish_abbr_pa:paru
 SETUVAR _fish_abbr_paccl:sudo\x20pacman\x20\x2dSc
 SETUVAR _fish_abbr_pacin:sudo\x20pacman\x20\x2dS
 SETUVAR _fish_abbr_pacind:sudo\x20pacman\x20\x2dS\x20\x2d\x2dasdeps
@@ -124,8 +126,10 @@ SETUVAR _fish_abbr_pars:paru\x20\x2dSs
 SETUVAR _fish_abbr_pary:paru
 SETUVAR _fish_abbr_paste:xclip\x20\x2do\x20\x2dsel\x20clip\x20\x3e
 SETUVAR _fish_abbr_paupg:paru\x20\x2dSyu
+SETUVAR _fish_abbr_ping:gping
 SETUVAR _fish_abbr_pip:python\x20\x2dm\x20pip
 SETUVAR _fish_abbr_pip3:python3\x20\x2dm\x20pip
+SETUVAR _fish_abbr_ppy:pypy3
 SETUVAR _fish_abbr_ps:procs
 SETUVAR _fish_abbr_r:ranger
 SETUVAR _fish_abbr_radeontop:sudo\x20radeontop\x20\x2dcT
