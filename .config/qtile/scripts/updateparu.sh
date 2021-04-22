@@ -10,15 +10,15 @@ echo ""
 read -rk 1 'OPTION?Proceed? [y/m/r/N] '
 echo ""
 if [[ $OPTION == "y" || $OPTION == "Y" ]]; then
-	nice -n20 paru -Syu --noconfirm &&
+	time nice -n20 paru -Syu --noconfirm &&
 	read -rsk 1 '?Done [Press any key to exit]' ||
 	read -rsk 1 "?Error: Exit code $? [Press any key to exit]"
 elif [[ $OPTION == "m" || $OPTION == "M" ]]; then
-	nice -n20 paru -Syu &&
+	time nice -n20 paru -Syu &&
 	read -rsk 1 '?Done [Press any key to exit]' ||
 	read -rsk 1 "?Error: Exit code $? [Press any key to exit]"
 elif [[ $OPTION == "r" || $OPTION == "R" ]]; then
-	nice -n20 paru -Syu --noconfirm --repo &&
+	time nice -n20 paru -Syu --noconfirm --repo &&
 	read -rsk 1 '?Done [Press any key to exit]' ||
 	read -rsk 1 "?Error: Exit code $? [Press any key to exit]"
 else

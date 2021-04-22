@@ -12,7 +12,7 @@ SETUVAR --export LESS_TERMCAP_ue:\x1b\x5b0m
 SETUVAR --export LESS_TERMCAP_us:\x1b\x5b4\x3b34m
 SETUVAR --export MAKEFLAGS:\x2dj10
 SETUVAR --export MANPAGER:less
-SETUVAR --export PAGER:bat\x20\x2dp
+SETUVAR --export PAGER:bat\x1e\x2dp
 SETUVAR __fish_initialized:3100
 SETUVAR _fish_abbr__2B_:cd\x20\x2b1
 SETUVAR _fish_abbr__2D_:cd\x20\x2d1

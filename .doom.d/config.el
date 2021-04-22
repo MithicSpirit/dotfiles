@@ -12,6 +12,7 @@
  org-directory "~/documents/org"
  bookmark-default-file "~/.doom.d/bookmarks"
  auth-sources '("~/.bak/.secrets/authinfo.gpg")
+ browse-url-generic-program "qutebrowser"
  +mu4e-mu4e-mail-path "~/mbsync"
 
  projectile-project-search-path

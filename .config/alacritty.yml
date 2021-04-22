@@ -341,8 +341,8 @@ bell:
   command:
     program: paplay
     args: 
-    - "/usr/share/sounds/freedesktop/stereo/message.oga"
-    - "--volume=15000"
+    - "/usr/share/sounds/freedesktop/stereo/message-new-instant.oga"
+    - "--volume=8000"
 
 # Background opacity
 #
