@@ -6,93 +6,30 @@
 The dotfiles (or other forms of configuration) for applications I use or have
 used.
 
-* Configurations
-** Scripts
-- =.local/bin/alarm=
-- =.local/bin/reflector-default=
-- =.local/bin/torrium=
-- =.local/bin/checkupdates=
-- =.local/bin/chalkboard=
-
-** Zsh
-- =.zshrc=
-- =.p10k.zsh=
-- =.oh-my-zsh= [[https://github.com/ohmyzsh/ohmyzsh/tree/master][Oh My Zsh]]
-- =.oh-my-zsh-custom/plugins/zsh-autosuggestions= [[https://github.com/zsh-users/zsh-autosuggestions/tree/master][Zsh Autosuggestions]]
-- =.oh-my-zsh-custom/plugins/zsh-syntax-highlighting=
-  [[https://github.com/zsh-users/zsh-syntax-highlighting/tree/master][Zsh Syntax Highlighting]]
-- =.oh-my-zsh-custom/plugins/zsh-history-substring-search=
-  [[https://github.com/zsh-users/zsh-history-substring-search/tree/master][Zsh History Substring Search]]
-- =.oh-my-zsh-custom/plugins/zsh-completions= [[https://github.com/zsh-users/zsh-completions/tree/master][Zsh Completions]]
-- =.oh-my-zsh-custom/themes/powerlevel10k= [[https://github.com/romkatv/powerlevel10k/tree/master][Powerlevel10k]]
-- =.oh-my-zsh-custom/pull-all=
-
-** Emacs
-- =.emacs.d= [[https://github.com/hlissner/doom-emacs/tree/develop][Doom Emacs]]
-- =.doom.d/*=
-- =.local/bin/visual=
-
-** Betterlockscreen
-- =.local/bin/betterlockscreen=
-- =.config/betterlockscreenrc=
-  
-** Miscellaneous
-- alacritty: =.config/alacritty.yml=
-- bat: =.config/bat/config=
-- bottom: =.config/bottom/bottom.toml=
-- broot: =.config/broot/conf.toml=
-- ccache: =.config/ccache/ccache.conf=
-- clang-format: =.clang-format=
-- clipcat: =.config/clipcat/*=
-- fish: =.config/fish/*=
-- flameshot: =.config/flameshot/flameshot.ini=
-- gamemode: =.config/gamemode.ini=
-- htop: =.config/htop/htoprc=
-- iosevka: =.iosevka.toml=
-- mbsync: =.mbsyncrc=
-- mpv: =.config/mpv/mpv.conf=
-- nvim: =.config/nvim/init.vim=
-- onlyoffice: =.local/bin/onlyoffice=
-- paru: =.config/paru/paru.conf=
-- picom: =.config/picom.conf=
-- profile: =.profile=
-- qtile: =.config/qtile/*=
-- qutebrowser: =.config/qutebrowser/*=
-- radeon-profile: =.config/radeon-profile/*=
-- ranger: =.config/ranger/*=
-- readme: =README.org=
-- redshift: =.config/redshift.conf=
-- rofi: =.config/rofi/*=
-- ssh: =.ssh/config=
-- starship: =.config/starship.toml=
-- systemd: =.config/systemd/user/*=
-- tex: =.chktexrc=
-- twmn: =.config/twmn/twmn.conf=
-- urxvt: =.Xresources.d/rxvt-unicode=
-- wallpapers: =.wallpapers/*=
-- xterm: =.Xresources.d/xterm=
-- zathura: =.config/zathura/zathurarc=
-
-* Gitmodules
-Gitmodules are basically git repositories inside other git repositories. The
-ones I use are listed in [[Configured Applications]] as hyperlinks. If you are
-cloning this repository make sure to run ~git submodule init~ and ~git submodule
-update~ to initialize these repositories.
-
 * Install Guide
 (In case I need to restore these and I forget how to)
 #+begin_src sh
 mkdir ~/.homegit
-cd ~/.homegit
-git clone --bare https://github.com/MithicSpirit/dotfiles.git .
+git clone --bare https://github.com/MithicSpirit/dotfiles.git .homegit
 cd ~
 git --git-dir=$HOME/.homegit --work-tree=$HOME checkout --force
 git --git-dir=$HOME/.homegit --work-tree=$HOME config --local status.showUntrackedFiles no
-git --git-dir=$HOME/.homegit --work-tree=$HOME submodule init
-git --git-dir=$HOME/.homegit --work-tree=$HOME submodule update
 # Restart zsh/fish, set up ssh, register with GitHub and GitLab. After the
 # restart, because of aliases/abbreviations, you may also replace `git
 # --git-dir=$HOME/.homegit --worktree=$HOME' with just `homegit'.
 git --git-dir=$HOME/.homegit --work-tree=$HOME remote add backup git@gitlab.com:MithicSpirit/dotfiles.git
 git --git-dir=$HOME/.homegit --work-tree=$HOME remote set-url origin git@github.com:MithicSpirit/dotfiles.git
+#+end_src
+
+** Doom Emacs
+#+begin_src sh
+git clone --depth=1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+doom install
+#+end_src
+
+** Vis
+#+begin_src sh
+cd ~/.config/vis
+mkdir plugins
+git clone --depth=1 https://github.com/erf/vis-plug.git plugins/vis-plug
 #+end_src
