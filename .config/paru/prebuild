@@ -1,0 +1,44 @@
+#!/usr/bin/env zsh
+
+# Reset gpg timer
+dd if=/dev/zero count=0 status=none | gpg --clearsign > /dev/null
+
+issue_found=0
+# Automatic issue resolution
+info_when_match () {
+	if [[ "$PKGBASE" =~ "$1" ]]; then
+		issue_found=1
+		echo -ne '\e[38;5;10m\e[1mINFO:\e[0m '
+		echo -e "$2"
+		return 0
+	fi
+	return 1
+}
+#info_when_match 'linux-xanmod*' \
+#	"Xanmod kernel package detected for \`$PKGBASE\`; copying config file..." &&
+#	( cp ~/.config/linux-xanmod/myconfig . )
+
+# Check for issues that may require manual intervention
+grep_check () {
+	local grep_printout
+	grep_printout="$(grep --color=always "$1" PKGBUILD)"
+	if [[ "$?" == 0 ]]; then
+		issue_found=1
+		echo -ne '\e[38;5;11m\e[1mWARNING:\e[0m '
+		echo -e "\`$1\` found for PKGBUILD \`$PKGBASE\`\n$2"
+		echo "$grep_printout"
+		echo ''
+	fi
+}
+grep_check ninja 'Please set the necessary flags (`-j7`).'
+grep_check flutter \
+	'Please take ownership of /opt/flutter (`sudo chown -R $USER:$USER /opt/flutter`).'
+grep_check systemd 'Please check if further action is necessary to “detect” systemd.'
+
+# Wait for user input if any issue was found
+if [[ "$issue_found" != 0 ]]; then
+	while true; do read -rt 0 -sk 1 || break; done
+	read -rsk 1 '?Issues found [Press any key to continue]'
+	echo ''
+fi
+exit 0
