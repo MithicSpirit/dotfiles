@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+
+if [ "$1" = "math" ]; then
+	echo 'Enabling “math” mode'
+	xinput set-prop 12 321 3040 -7600 15200 7600
+	xinput set-prop 12 322 1
+	notify-send 'Wacom “math” mode enabled.'
+elif [ "$1" = "margin" ]; then
+	echo 'Enablin “margin” mode'
+	xinput set-prop 12 321 760 475 14440 9025
+	xinput set-prop 12 322 0
+	notify-send 'Wacom “margin” mode enabled.'
+else
+	echo "Resetting"
+	xinput set-prop 12 321 0 0 15200 9500
+	xinput set-prop 12 322 0
+	notify-send 'Wacom mode reset.'
+fi

@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+greenclip print | sed '/^$/d' | dmenu -l 20 -p "Clipboard" -c -bw 3 | xargs -r -d'\n' -I '{}' greenclip print '{}'

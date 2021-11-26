@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+/usr/bin/= "" --dmenu=dmenu -- -bw 3 -c -l 3
