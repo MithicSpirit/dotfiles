@@ -4,21 +4,28 @@
     <ExecProfiles/>
     <FanProfiles>
         <fanProfile name="default">
-            <step temperature="30" speed="45"/>
-            <step temperature="36" speed="47"/>
-            <step temperature="42" speed="54"/>
-            <step temperature="49" speed="65"/>
-            <step temperature="54" speed="80"/>
-            <step temperature="60" speed="100"/>
+            <step temperature="35" speed="45"/>
+            <step temperature="41" speed="47"/>
+            <step temperature="47" speed="54"/>
+            <step temperature="54" speed="65"/>
+            <step temperature="59" speed="80"/>
+            <step temperature="65" speed="100"/>
         </fanProfile>
     </FanProfiles>
-    <Plots/>
+    <Plots>
+        <plot name="Graph" enabled="1" background="#383c4a">
+            <axis align="left" enabled="1" unit="0" ticks="6" penStyle="1" penWidth="1" penColor="#c01c28"/>
+            <serie align="left" id="0" color="#e01b24"/>
+            <axis align="right" enabled="1" unit="2" ticks="7" penStyle="1" penWidth="1" penColor="#1c71d8"/>
+            <serie align="right" id="6" color="#3584e4"/>
+        </plot>
+    </Plots>
     <TopbarItems>
         <topbarItem type="0" primaryValueId="0" primaryColor="#000000" secondaryValueIdEnabled="1" secondaryValueId="1" secondaryColor="#000000" pieMaxValue="100"/>
-        <topbarItem type="1" primaryValueId="6" primaryColor="#000000" secondaryValueIdEnabled="0" secondaryValueId="-28616429" secondaryColor="#000000" pieMaxValue="100"/>
-        <topbarItem type="2" primaryValueId="13" primaryColor="#0000ff" secondaryValueIdEnabled="0" secondaryValueId="-28616429" secondaryColor="#000000" pieMaxValue="100"/>
-        <topbarItem type="2" primaryValueId="10" primaryColor="#ff0000" secondaryValueIdEnabled="0" secondaryValueId="-28616429" secondaryColor="#000000" pieMaxValue="100"/>
-        <topbarItem type="2" primaryValueId="11" primaryColor="#ffff00" secondaryValueIdEnabled="0" secondaryValueId="-28616429" secondaryColor="#000000" pieMaxValue="100"/>
+        <topbarItem type="1" primaryValueId="6" primaryColor="#000000" secondaryValueIdEnabled="0" secondaryValueId="-248" secondaryColor="#000000" pieMaxValue="100"/>
+        <topbarItem type="2" primaryValueId="13" primaryColor="#0000ff" secondaryValueIdEnabled="0" secondaryValueId="-248" secondaryColor="#000000" pieMaxValue="100"/>
+        <topbarItem type="2" primaryValueId="10" primaryColor="#ff0000" secondaryValueIdEnabled="0" secondaryValueId="-248" secondaryColor="#000000" pieMaxValue="100"/>
+        <topbarItem type="2" primaryValueId="11" primaryColor="#ffff00" secondaryValueIdEnabled="0" secondaryValueId="-248" secondaryColor="#000000" pieMaxValue="100"/>
     </TopbarItems>
     <OcProfiles/>
 </auxStuff>

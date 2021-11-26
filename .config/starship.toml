@@ -28,7 +28,6 @@ $ocaml\
 $php\
 $purescript\
 $ruby\
-$rust\
 $swift\
 $terraform\
 $zig\
@@ -44,12 +43,16 @@ $battery
 with $shell\
 $python\
 $nodejs\
+$rust\
 $lua\
 $java\
 $cmake\
 $perl
 [❯](green) ${custom.cursor}"""
 add_newline = false
+
+scan_timeout=25
+command_timeout=200
 
 
 [character]
@@ -92,7 +95,7 @@ only_attached = false
 disabled = false
 
 [git_commit]
-format = '\([$hash($tag)]($style)\) '
+format = '\([$hash(-$tag)]($style)\) '
 tag_symbol = ''
 style = 'green'
 only_detached = false
@@ -129,13 +132,13 @@ disabled = false
 [username]
 format = '[|](bold) as [$user]($style) '
 style_root = 'bold red'
-style_user = 'green'
+style_user = 'bold green'
 disabled = false
 
 [hostname]
 format = 'at [$hostname]($style) '
 trim_at = ''
-style = 'green'
+style = 'bold green'
 
 [shlvl]
 threshold = 2
@@ -176,9 +179,15 @@ disabled = false
 
 [nodejs]
 format = ', [$symbol$version]($style)'
-symbol = "node "
-style = "green"
-not_capable_style = "bold red"
+symbol = 'node '
+style = 'green'
+not_capable_style = 'bold red'
+disabled = false
+
+[rust]
+format = ', [$symbol$version]($style)'
+symbol = 'rust '
+style = 'red'
 disabled = false
 
 [lua]
@@ -195,13 +204,13 @@ disabled = false
 
 [cmake]
 format = ', [$symbol$version]($style)'
-symbol = "CMake "
+symbol = "cmake "
 style = "bright-blue"
 disabled = false
 
 [perl]
 format = ', [$symbol$version]($style)'
-symbol = "Pl "
+symbol = "perl "
 style = "bright-yellow"
 disabled = false
 

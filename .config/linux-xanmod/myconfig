@@ -1,0 +1,9 @@
+scripts/config --enable CONFIG_ZSWAP_DEFAULT_ON
+
+scripts/config --enable CONFIG_DRM_AMDGPU_SI
+scripts/config --enable CONFIG_DRM_AMDGPU_CIK
+
+scripts/config --enable CONFIG_BLK_DEV_INITRD
+scripts/config --enable CONFIG_MICROCODE
+scripts/config --enable CONFIG_MICROCODE_INTEL
+scripts/config --enable CONFIG_MICROCODE_AMD

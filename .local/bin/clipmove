@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+xclip -o -selection primary | xclip -i -selection clipboard

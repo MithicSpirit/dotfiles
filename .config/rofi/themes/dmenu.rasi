@@ -7,7 +7,7 @@
     prompt-font:                "Iosevka Mithic Bold 11";
     prompt-background:          #4e5579;
     prompt-foreground:          #c792ea;
-    prompt-padding:             2px 6px;
+    prompt-padding:             2px 10px;
     selected-normal-background: #4e5579;
     selected-normal-foreground: #eeffff;
 }

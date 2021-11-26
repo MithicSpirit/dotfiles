@@ -28,3 +28,4 @@ command Q q
 command Wq wq
 command Wsudo w !sudo tee % > /dev/null
 
+autocmd VimLeave * set guicursor=a:ver20

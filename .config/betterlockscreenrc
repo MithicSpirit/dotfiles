@@ -1,4 +1,18 @@
-# configuration file for betterlockscreen
+# ~/.config/betterlockscreenrc
+
+display_on=0
+span_image=false
+lock_timeout=15
+fx_list=(dim blur dimblur pixel dimpixel color)
+dim_level=40
+blur_level=1
+pixel_scale=10,1000
+solid_color=333333
+wallpaper_cmd="feh --bg-fill"
+quiet=false
+# i3lockcolor_bin="i3lock-color" # Manually set command for i3lock-color
+
+lockargs+="--ignore-empty-password"
 
 insidecolor=00000000
 ringcolor=292d3eff
@@ -13,7 +27,18 @@ verifcolor=eeffffff
 
 insidewrongcolor=00000000
 ringwrongcolor=ff5370ff
+wrongcolor=ff5370ff
+modifcolor=ff5370ff
 
 timecolor=eeffffff
 datecolor=eeffffff
 loginbox=292d3e00
+
+greetercolor=eeffffff
+layoutcolor=eeffffff
+bgcolor=000000ff
+
+
+locktext="Type password to unlock..."
+time_format="%H:%M:%S"
+font="Overpass"

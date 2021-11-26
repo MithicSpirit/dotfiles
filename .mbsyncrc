@@ -18,8 +18,8 @@ Account gmail
 
 # LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p Maildir/gmail)
 MaildirStore gmail-local
-Path ~/mbsync/
-Inbox ~/mbsync/inbox
+Path ~/.local/share/mbsync/
+Inbox ~/.local/share/mbsync/inbox
 
 # CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
 #

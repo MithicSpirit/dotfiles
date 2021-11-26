@@ -1,0 +1,41 @@
+#!/usr/bin/env python3
+
+from collections import OrderedDict
+from subprocess import Popen, PIPE
+from sys import exit as exit_
+from os import execvp
+
+
+def main():
+    options = OrderedDict()
+    options["0. Lock"] = ["betterlockscreen", "-l", "--", "--ignore-empty-password"]
+    options["1. Log off"] = ["systemctl", "--user", "exit"]
+    options["2. Shut down"] = ["systemctl", "poweroff"] #⏻
+    options["3. Restart"] = ["systemctl", "reboot"]
+    options["4. Suspend"] = ["systemctl", "suspend"]
+
+    sel = dmenu(options.keys())
+    cmd = options[sel]
+    print(cmd)
+    execvp(cmd[0], cmd)
+
+
+def dmenu(opts):
+    d = Popen(
+        ["dmenu", "-bw", "3", "-c", "-R", "-l", "7", "-p", "Power"],
+        stdout=PIPE,
+        stdin=PIPE,
+        stderr=PIPE,
+    )
+    out = d.communicate(str.join("\n", opts).encode())
+    if out[1] or d.returncode:
+        exit_(1)
+
+    res = out[0].decode().strip()
+    if res not in opts:
+        exit_(2)
+    return res
+
+
+if __name__ == "__main__":
+    main()

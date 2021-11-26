@@ -4,7 +4,8 @@ My custom Qtile Configuration.
 import os
 import subprocess
 import psutil
-from libqtile.config import Key, Screen, Group, Drag, Click, Match
+import re
+from libqtile.config import Key, Screen, Group, Drag, Click, Match, Rule
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook, qtile
 import custom
@@ -14,7 +15,7 @@ MODKEY = "mod4"
 TERMINAL = "alacritty"
 HOME = os.environ["HOME"]
 CONFIG = f"{HOME}/.config/qtile"
-BROWSER = "brave-nightly"
+BROWSER = "librewolf"
 VISUAL = "visual"
 colors = {
     "bg": "#292d3e",
@@ -30,11 +31,11 @@ auto_fullscreen = True
 bring_front_click = "floating_only"
 cursor_warp = False
 dgroups_key_binder = None
-dgroups_app_rules = []
-focus_on_window_activation = "smart"
+dgroups_app_rules: list[Rule] = []
+focus_on_window_activation = "urgent"
 follow_mouse_focus = True
 widget_defaults = {
-    "font": "Iosevka Mithic Medium",
+    "font": "Iosevka Mithic",
     "fontsize": 13,
     "padding_x": 5,
     "padding_y": 0,
@@ -44,7 +45,7 @@ widget_defaults = {
     "foreground": colors["fg"],
 }
 extension_defaults = widget_defaults
-wmname = "LG3D"
+wmname = "Qtile"
 
 
 @hook.subscribe.startup_once
@@ -109,7 +110,7 @@ sysinfo_widgets = [
                 "no_update_string": "0",
                 "update_interval": 60 * 60,
                 "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateparu.sh"',
-                "custom_command": "checkupdates ; paru -Qua ; true",
+                "custom_command": "checkupdates ; paru -Qua | grep -v '\[ignored\]' ; true",
             },
         )
     ],
@@ -197,7 +198,7 @@ sysinfo_widgets = [
                 "foreground_alert": colors["fg"],
                 "fmt": "{}",
                 "metric": True,
-                "tag_sensor": "Tdie",
+                "tag_sensor": "Tctl",
                 "update_interval": 10,
                 "mouse_callbacks": {
                     "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm")
@@ -281,7 +282,10 @@ for i, widget_group in enumerate(sysinfo_widgets):
 screens = [
     Screen(
         top=bar.Bar(
-            widgets=widgets, opacity=0.86, size=24, margin=[0, 0, 3, 0]
+            widgets=widgets,
+            opacity=0.86,
+            size=24,
+            margin=[0, 0, 3, 0],
         ),
         bottom=bar.Gap(3),
         left=bar.Gap(3),
@@ -291,7 +295,7 @@ screens = [
 
 # Set up layouts and groups
 layout_theme = {
-    "border_width": 2,
+    "border_width": 3,
     "margin": 2,
     "border_focus": colors["hl1"],
     "border_normal": colors["bg"],
@@ -300,23 +304,15 @@ layout_theme = {
 
 layouts = [
     layout.MonadTall(
-        change_ratio=0.04, min_ratio=0.22, **layout_theme | {"margin": 4}
+        change_ratio=0.04, min_ratio=0.41, **layout_theme | {"margin": 4}
     ),
-    layout.Max(**layout_theme),
+    layout.Max(**layout_theme | {"margin": 0}),
     layout.Stack(num_stacks=2, **layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
 ]
 floating_layout = layout.Floating(
     float_rules=[
         *layout.Floating.default_float_rules,
-        Match(wm_class="confirm"),
-        Match(wm_class="dialog"),
-        Match(wm_class="download"),
-        Match(wm_class="error"),
-        Match(wm_class="file_progress"),
-        Match(wm_class="notification"),
-        Match(wm_class="splash"),
-        Match(wm_class="toolbar"),
         Match(wm_class="ssh-askpass"),
         Match(wm_class="optifine-InstallerFrame"),
         Match(wm_class="authy desktop"),
@@ -325,9 +321,9 @@ floating_layout = layout.Floating(
         Match(wm_class="org.gnome.Characters"),
         Match(wm_class="zoom", title="Settings"),
         Match(title="Picture in picture"),
-        Match(title="Steam Guard - Computer Authorization Required"),
+        # Match(title="Steam Guard - Computer Authorization Required"),
         Match(wm_class="redshift-gtk"),
-        Match(wm_class="epicgameslauncher.exe"),
+        # Match(wm_class="epicgameslauncher.exe"),
         Match(role="GtkFileChooserDialog"),
         Match(wm_class="confirmreset"),
         Match(wm_class="makebranch"),
@@ -335,8 +331,14 @@ floating_layout = layout.Floating(
         Match(title="branchdialog"),
         Match(title="pinentry"),
         Match(title="zoom_linux_float_video_window"),
-        Match(wm_class="zoom", title="zoom"),
+        # Match(wm_class="zoom", title="zoom"),
+        Match(
+            func=lambda client: ("zoom" == client.name)
+            and ("zoom" == client.window.get_wm_class()[0])
+        ),
         Match(wm_class="flameshot"),
+        Match(wm_class="yad"),
+        Match(wm_class="qalculate-gtk"),
     ],
     **layout_theme | {"border_focus": colors["hl2"]},
 )
@@ -346,54 +348,87 @@ group_names = [
         "CHAT",
         {
             "layout": "max",
-            "spawn": ["discord-canary", "discord-ptb", "signal-desktop-beta"],
+            "spawn": [
+                "nice -n2 discord-canary",
+                "nice -n2 discord-ptb",
+                "nice -n2 signal-desktop-beta",
+            ],
         },
     ),
     ("AGND", {"layout": "monadtall"}),
     ("CLAS", {"layout": "monadtall"}),
     ("SCHL", {"layout": "monadtall"}),
     ("PRGM", {"layout": "monadtall"}),
-    ("INET", {"layout": "monadtall", "spawn": ["qbittorrent"]}),
+    (
+        "INET",
+        {
+            "layout": "monadtall",
+            "spawn": ["nice -n3 qbittorrent", "nice -n2 lbry"],
+        },
+    ),
     ("GAME", {"layout": "max"}),
     ("MUSC", {"layout": "monadtall"}),
+    ("SLAD", {"layout": "monadtall", "spawn": ["nice -n1 salad", "radeon-profile"]}),
 ]
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 group_apps = {
-    "CHAT": ("discord-canary", "discord-ptb", "signal-desktop-beta"),
-    "AGND": (VISUAL, f'{VISUAL} -e "(=school-agenda)"', "false"),
-    "CLAS": ("zoom", "teams", "false"),
-    "SCHL": (f"{VISUAL} {HOME}/documents/school", "libreoffice", "teams"),
-    "PRGM": (VISUAL, f"{VISUAL} {HOME}/documents/coding", "false"),
-    "INET": (
-        #f"{BROWSER} --new-window https://odysee.com/$/following",
-        "lbry",
-        f"{BROWSER} --new-window https://www.youtube.com/feed/subscriptions",
+    "CHAT": (
+        "nice -n2 discord-canary",
+        "nice -n2 discord-ptb",
+        "nice -n2 signal-desktop-beta",
+        "nice -n2 element-desktop",
+    ),
+    "AGND": (
+        VISUAL,
+        f'{VISUAL} -e "(=school-agenda)"',
+        f'{VISUAL} -e "(=mu4e)"',
         "false",
     ),
-    "GAME": ("lutris", "steam", "heroic"),
+    "CLAS": ("nice -n5 zoom", "nice -n5 teams", "false"),
+    "SCHL": (
+        f"{VISUAL} {HOME}/documents/school",
+        "libreoffice",
+        "nice -n5 teams",
+        "false",
+    ),
+    "PRGM": (VISUAL, f"{VISUAL} {HOME}/documents/coding", "false", "false"),
+    "INET": (
+        "nice -n2 lbry",
+        f"{BROWSER} --new-window https://www.youtube.com/feed/subscriptions",
+        "nice -n5 mailspring",
+        f"{BROWSER} --new-window https://odysee.com/$/following",
+    ),
+    "GAME": ("lutris", "steam", "heroic", "false"),
     "MUSC": (
         f"{BROWSER} --new-window https://music.youtube.com/library/playlists",
         "deadbeef",
-        "false",
+        "audiotube",
+        "false"
     ),
+    "SLAD": ("nice -n1 salad", "radeon-profile", f"nice -n20 {TERMINAL} -e sh", "false"),
 }
 
 
 # Set up Keybinds
-@lazy.function
-def custom_app_1(qtile):
-    curr_group = qtile.current_group.name
-    prog = group_apps[curr_group][0]
-    qtile.cmd_spawn(prog)
+def custom_app(num):
+    @lazy.function
+    def launch_app(qtile):
+        curr_group = qtile.current_group.name
+        prog = group_apps[curr_group][num - 1]
+        qtile.cmd_spawn(prog)
+    return launch_app
 
 
-@lazy.function
-def custom_app_2(qtile):
-    curr_group = qtile.current_group.name
-    prog = group_apps[curr_group][1]
-    qtile.cmd_spawn(prog)
-
+def layout_change(layout):
+    layouts = {
+        "monadtall": 0,
+        "max": 1,
+        "stack": 2,
+        "tile": 3,
+    }
+    layout_num = layouts[layout]
+    return lazy.function(lambda q: q.current_group.use_layout(layout_num))
 
 @lazy.function
 def layout_monadtall(qtile):
@@ -415,11 +450,6 @@ def layout_tile(qtile):
     qtile.current_group.use_layout(3)
 
 
-@lazy.function
-def layout_floating(qtile):
-    qtile.current_group.use_layout(4)
-
-
 keys = [
     # Launching programs
     Key(
@@ -436,6 +466,12 @@ keys = [
         desc="Launch file manager",
     ),
     Key(
+        [MODKEY, "control"],
+        "a",
+        lazy.spawn("doom everywhere"),
+        desc='Launch "emacs-everywhere" frame',
+    ),
+    Key(
         [MODKEY, "shift"],
         "Return",
         lazy.spawn('dmenu_run -p "Run"'),
@@ -444,14 +480,26 @@ keys = [
     Key(
         [MODKEY],
         "i",
-        custom_app_1,
+        custom_app(1),
         desc="Launch the 1st custom program for the current group",
     ),
     Key(
         [MODKEY, "shift"],
         "i",
-        custom_app_2,
+        custom_app(2),
         desc="Launch the 2nd custom program for the current group",
+    ),
+    Key(
+        [MODKEY, "control"],
+        "i",
+        custom_app(3),
+        desc="Launch the 3rd custom program for the current group",
+    ),
+    Key(
+        [MODKEY, "control", "shift"],
+        "i",
+        custom_app(4),
+        desc="Launch the 4th custom program for the current group",
     ),
     # Misc
     Key(
@@ -463,8 +511,14 @@ keys = [
     Key(
         [MODKEY],
         "v",
-        lazy.spawn("greenclip-dmenu"),
+        lazy.spawn("dmenu-greenclip"),
         desc="Open clipboard selection menu",
+    ),
+    Key(
+        [MODKEY, "shift"],
+        "space",
+        lazy.spawn("dmenu-xkb"),
+        desc="Open keyboard layout selection menu",
     ),
     # Layouts
     Key([MODKEY], "Tab", layout_stack, desc="Set layout to stack"),
@@ -485,16 +539,17 @@ keys = [
     Key(
         [MODKEY, "shift"],
         "q",
-        lazy.spawn(f"{HOME}/.local/bin/betterlockscreen -l --off 15"),
+        lazy.spawn("/usr/bin/betterlockscreen -l -- --ignore-empty-password"),
         desc="Lock screen",
     ),
     # Key([MODKEY, "control"], "q", lazy.restart(), desc="Restart Qtile"),
     Key(
         [MODKEY, "control", "shift"],
         "q",
-        lazy.shutdown(),
-        lazy.spawn("xfce4-session-logout --logout --fast"),
-        desc="Close Qtile and XFCE",
+        # lazy.shutdown(),
+        # lazy.spawn("xfce4-session-logout"),
+        lazy.spawn("dmenu-shutdown"),
+        desc="Spawns dmenu script for logging off or shutting down",
     ),
     # Window movement and management
     Key(
@@ -597,7 +652,8 @@ keys = [
     Key(
         [MODKEY],
         "p",
-        lazy.spawn(f"{CONFIG}/scripts/maim-full.sh"),
+        # lazy.spawn(f"{CONFIG}/scripts/maim-full.sh"),
+        lazy.spawn("flameshot full --clipboard"),
         desc="Take full screenshot and store in clipboard",
     ),
     Key(
@@ -609,15 +665,25 @@ keys = [
     Key(
         [MODKEY, "shift"],
         "p",
-        lazy.spawn(f"{CONFIG}/scripts/maim-region.sh"),
-        desc="Take screenshot of interactively selected region and store in "
-        + "clipboard",
+        # lazy.spawn(f"{CONFIG}/scripts/maim-region.sh"),
+        # desc="Take screenshot of interactively selected region and store in "
+        # + "clipboard",
+        lazy.spawn("flameshot gui"),
+        desc="Interactively select region to take screenshot of with Flameshot",
     ),
     Key(
         [MODKEY, "control", "shift"],
         "p",
-        lazy.spawn(f"{CONFIG}/scripts/maim-save.sh"),
-        desc="Take full screenshot and store as file",
+        # lazy.spawn(f"{CONFIG}/scripts/maim-save.sh"),
+        # desc="Take full screenshot and store as file",
+        lazy.spawn("flameshot launcher"),
+        desc="Launch the Flameshot launcher for better screenshot control",
+    ),
+    Key(
+        [MODKEY, "mod1"], # mod1=alt
+        "p",
+        lazy.spawn("replay-sorcery save"),
+        desc="Save current replay sorcery recording",
     ),
 ]
 

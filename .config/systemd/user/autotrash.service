@@ -1,5 +1,6 @@
 [Unit]
 Description=Empty trash
+Documentation=https://github.com/bneijt/autotrash
 
 [Service]
 Type=oneshot

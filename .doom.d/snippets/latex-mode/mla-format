@@ -2,10 +2,10 @@
 # name: MLA Format
 # key: mla
 # uuid: mlacls
-# condition: (eq 1 (line-number-at-pos))
+# condition: (and (eq 1 (line-number-at-pos)))
 # --
 \documentclass[mla8alt,nonotes,plainheadings,microtype]{mla}
-\usepackage{verbatim}
+\usepackage{verbatim,newtxmath}
 
 \titleformat{\section}[block]{\normalsize\bf}{\thetitle.\enspace}{0pt}{}[]
 \titleformat{\subsection}[block]{\normalsize\bf}{\thetitle.\enspace}{0pt}{}[]

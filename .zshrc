@@ -6,7 +6,6 @@ export INFOPATH="$INFOPATH:$HOME/.local/info:/usr/share/info"
 export N_PREFIX="$HOME/.local"
 export CHKTEXRC="$HOME"
 export EDITOR="nvim"
-export VISUAL="visual"
 export SUDO_EDITOR=$EDITOR
 export MAKEFLAGS="-j10"
 unset COLUMNS LINES
@@ -103,6 +102,7 @@ alias termdown="termdown --no-figlet -ac 5"
 alias matrix="cmatrix -ab"
 
 alias xsh="exec zsh"
+alias xfish="exec fish"
 alias xssh="exec ssh"
 alias su="sudo su"
 alias xsu="exec sudo -i"
