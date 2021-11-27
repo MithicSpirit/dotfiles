@@ -1,0 +1,63 @@
+#!/hint/zsh
+
+# Built-in configuration tool:
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _oldlist _expand _complete _ignored _match _prefix
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[._-/]=** r:|=**' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*'
+zstyle ':completion:*' original false
+zstyle ':completion:*' verbose true
+zstyle :compinstall filename '/home/mithic/.config/zsh/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.config/zsh/histfile
+HISTSIZE=9999
+SAVEHIST=9999
+setopt extendedglob
+unsetopt beep nomatch notify
+bindkey -e
+# End of lines configured by zsh-newuser-install
+
+# Plugins
+zmodload zsh/complist
+PLUGINPATH="$ZDOTDIR/plugins"
+PLUGINS=(
+    "/usr/share/autojump/autojump.zsh"
+    "~/.autojump/share/autojump/autojump.zsh"
+    "$PLUGINPATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    "$PLUGINPATH/zsh-completions/zsh-completions.plugin.zsh"
+    "$PLUGINPATH/zsh-history-substring-search/zsh-history-substring-search.zsh"
+    "$PLUGINPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    "$PLUGINPATH/globalias.zsh"
+    "$ZDOTDIR/aliases.zsh"
+)
+for i in $PLUGINS; do [[ -f $i ]] && source $i; done
+
+# Keybinds
+bindkey "^z" fg
+bindkey "^P" history-substring-search-up
+bindkey "^N" history-substring-search-down
+bindkey "^[p" up-line-or-history
+bindkey "^[n" down-line-or-history
+bindkey "^[e" edit-command-line
+bindkey -M menuselect "^P" up-line-or-history
+bindkey -M menuselect "^N" down-line-or-history
+bindkey -M menuselect "^F" forward-char
+bindkey -M menuselect "^B" backward-char
+
+# Misc
+unset LINES COLUMNS # Can fix some bugs
+command -v starship &>/dev/null && eval "$(starship init zsh)" # Starship prompt
+__escape_aliases # See globalias
+
+# Emacs vterm
+[[ "$INSIDE_EMACS" = 'vterm' && \
+    -n ${EMACS_VTERM_PATH} && \
+    -f "$PLUGINPATH/emacs-vterm.zsh"\
+    ]] && source "$PLUGINPATH/emacs-vterm.zsh"
+
+true # prevent above error codes from affecting prompt
