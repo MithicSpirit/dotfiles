@@ -31,11 +31,11 @@ export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
-LESS_TERMCAP_md="$(echo -en '\e[1;35m')"; export LESS_TERMCAP_md
-LESS_TERMCAP_so="$(echo -en '\e[3;33m')"; export LESS_TERMCAP_so
-LESS_TERMCAP_us="$(echo -en '\e[4;34m')"; export LESS_TERMCAP_us
-LESS_TERMCAP_me="$(echo -en '\e[0m')"; export LESS_TERMCAP_me
-LESS_TERMCAP_se="$(echo -en '\e[0m')"; export LESS_TERMCAP_se
-LESS_TERMCAP_ue="$(echo -en '\e[0m')"; export LESS_TERMCAP_ue
+LESS_TERMCAP_md="$(echo '\033[1;35m')"; export LESS_TERMCAP_md
+LESS_TERMCAP_so="$(echo '\033[3;33m')"; export LESS_TERMCAP_so
+LESS_TERMCAP_us="$(echo '\033[4;34m')"; export LESS_TERMCAP_us
+LESS_TERMCAP_me="$(echo '\033[0m')"; export LESS_TERMCAP_me
+LESS_TERMCAP_se="$(echo '\033[0m')"; export LESS_TERMCAP_se
+LESS_TERMCAP_ue="$(echo '\033[0m')"; export LESS_TERMCAP_ue
 
 unset LINES COLUMNS

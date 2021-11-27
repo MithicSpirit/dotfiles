@@ -14,6 +14,7 @@ zle -N __expandalias
 __globalias() {
     zle __expandalias
     zle self-insert
+    zle autosuggest-fetch
 }
 zle -N __globalias
 __globalias_newline() {
