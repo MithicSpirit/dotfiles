@@ -12,7 +12,7 @@ export XDG_CONFIG_DIRS="/etc/xdg:$XDG_CONFIG_DIRS"
 
 export BATDIFF_USE_DELTA="true"
 export CARGO_BUILD_JOBS="8"
-export CHKTEXRC="/home/mithic"
+export CHKTEXRC="/home/mithic/.config"
 export GOPATH="$HOME/.local/share/go"
 export GTK_MODULES="$GTK_MODULES:gtk-vector-screenshot"
 export INFOPATH="$HOME/.local/info:$INFOPATH"
@@ -30,11 +30,11 @@ export SCCACHE_CACHE_SIZE="6G"
 export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-export LESS_TERMCAP_md='\e[1;35m'
-export LESS_TERMCAP_so='\e[3;33m'
-export LESS_TERMCAP_us='\e[4;34m'
-export LESS_TERMCAP_me='\e[0m'
-export LESS_TERMCAP_se='\e[0m'
-export LESS_TERMCAP_ue='\e[0m'
+export LESS_TERMCAP_md="$(echo -en '\e[1;35m')"
+export LESS_TERMCAP_so="$(echo -en '\e[3;33m')"
+export LESS_TERMCAP_us="$(echo -en '\e[4;34m')"
+export LESS_TERMCAP_me="$(echo -en '\e[0m')"
+export LESS_TERMCAP_se="$(echo -en '\e[0m')"
+export LESS_TERMCAP_ue="$(echo -en '\e[0m')"
 
 unset LINES COLUMNS

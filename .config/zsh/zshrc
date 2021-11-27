@@ -8,13 +8,13 @@ zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[._-/]=** r:|=**' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*'
 zstyle ':completion:*' original false
 zstyle ':completion:*' verbose true
-zstyle :compinstall filename '/home/mithic/.config/zsh/.zshrc'
+zstyle :compinstall filename "$ZDOTDIR/.zshrc"
 
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.config/zsh/histfile
+HISTFILE="$ZDOTDIR/histfile"
 HISTSIZE=9999
 SAVEHIST=9999
 setopt extendedglob
@@ -31,11 +31,20 @@ PLUGINS=(
     "$PLUGINPATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
     "$PLUGINPATH/zsh-completions/zsh-completions.plugin.zsh"
     "$PLUGINPATH/zsh-history-substring-search/zsh-history-substring-search.zsh"
-    "$PLUGINPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     "$PLUGINPATH/globalias.zsh"
     "$ZDOTDIR/aliases.zsh"
+    "$PLUGINPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 )
 for i in $PLUGINS; do [[ -f $i ]] && source $i; done
+
+# Plugin Config
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=12'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[bracket-level-3]='fg=green'
+ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=blue'
+unset ZSH_HIGHLIGHT_STYLES[bracket-level-5]
 
 # Keybinds
 bindkey "^z" fg
@@ -55,9 +64,30 @@ command -v starship &>/dev/null && eval "$(starship init zsh)" # Starship prompt
 __escape_aliases # See globalias
 
 # Emacs vterm
-[[ "$INSIDE_EMACS" = 'vterm' && \
-    -n ${EMACS_VTERM_PATH} && \
-    -f "$PLUGINPATH/emacs-vterm.zsh"\
-    ]] && source "$PLUGINPATH/emacs-vterm.zsh"
+[[ "$INSIDE_EMACS" = 'vterm' &&
+    -n ${EMACS_VTERM_PATH} &&
+    -f "${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh" ]] &&
+    source "${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh"
+
+# Linux TTY
+if [[ "$TERM" = "linux" ]]; then
+    echo -en "\e]P01C1F2B" #black
+    echo -en "\e]P1FF5370" #darkred
+    echo -en "\e]P2C3E88D" #darkgreen
+    echo -en "\e]P3FFCB6B" #brown
+    echo -en "\e]P482AAFF" #darkblue
+    echo -en "\e]P5C792EA" #darkmagenta
+    echo -en "\e]P689DDFF" #darkcyan
+    echo -en "\e]P7A6ACCD" #lightgrey
+    echo -en "\e]P8545760" #darkgrey
+    echo -en "\e]P9FF7E93" #red
+    echo -en "\e]PAD2EDA9" #green
+    echo -en "\e]PBFFD890" #yellow
+    echo -en "\e]PCA1BFFF" #blue
+    echo -en "\e]PDD5ADEF" #magenta
+    echo -en "\e]PEA6E5FF" #cyan
+    echo -en "\e]PFBCC0D9" #white
+    clear
+fi
 
 true # prevent above error codes from affecting prompt
