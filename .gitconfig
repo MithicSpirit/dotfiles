@@ -1,0 +1,31 @@
+[user]
+	email = rpc01234@gmail.com
+	name = MithicSpirit
+	signingKey = FEA8F724F2800E40
+[commit]
+	gpgSign = true
+[gpg]
+	program = gpg
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
+[github]
+	user = MithicSpirit
+[credential]
+	helper = --get
+	helper = --get
+	helper = cache
+	helper = cache
+[gc]
+	autoDetach = true
+	autoDetach = false
+	autoDetach = false
+	autoDetach = false
+[pager]
+	diff = bat
+	show = bat
+	log = bat
+	reflog = bat
+[branch]
+	autoSetupMerge = true
