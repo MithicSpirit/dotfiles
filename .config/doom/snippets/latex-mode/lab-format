@@ -1,0 +1,142 @@
+# -*- mode: snippet -*-
+# name: Lab Writeup
+# key: labw
+# uuid: labwriteup
+# condition: (eq 1 (line-number-at-pos))
+# --
+\documentclass[11pt]{article}
+
+\usepackage{
+  amsmath,
+  physics,
+  geometry,
+  pgfplots,
+  siunitx,
+  graphicx,
+  float,
+  hyperref,
+}
+
+\geometry{
+  paper=letterpaper,
+  vmargin=1in,
+  hmargin=1.3in,
+}
+
+\pgfplotsset{compat=newest}
+\tikzset{every plot/.style={prefix=plotcache/}}
+
+\usepgfplotslibrary{colorbrewer}
+
+\usepgfplotslibrary{external}
+\tikzsetexternalprefix{plotcache/}
+
+\hypersetup{
+  hidelinks,
+  breaklinks=true,
+}
+
+\sisetup{
+  add-decimal-zero = false,
+  group-digits = integer,
+  exponent-product = \cdot,
+  input-product = *,
+  output-product = \cdot,
+  quotient-mode = fraction,
+  number-angle-product = \,,
+  arc-separator = \:,
+  per-mode = symbol-or-fraction,
+  bracket-unit-denominator = false,
+  sticky-per = true,
+  number-unit-product = \ ,
+  exponent-to-prefix = false,
+  locale = US,
+}
+\newcommand{\SIexp}[2]{\SI[parse-numbers=false]{#1}{#2}}
+
+\title{$1}
+\author{$2}
+
+\begin{document}
+
+\maketitle
+\vspace{3\baselineskip}
+\tableofcontents
+
+\section{Purpose}\label{purp}
+
+$0%% TODO: Purpose
+\typeout{TODO: Purpose}
+
+\section{Materials}\label{mat}
+\begin{itemize}
+  %% TODO: Materials
+  \item \typeout{TODO: Materials}
+\end{itemize}
+
+\section{Procedure}\label{proc}
+\begin{enumerate}
+  %% TODO: Procedure
+  \item \typeout{TODO: Procedure}
+\end{enumerate}
+
+\section{Diagram}\label{diag}
+\begin{figure}[H]
+  \begin{noindent}
+    \begin{center}
+      %% TODO: Diagram
+      \typeout{TODO: Diagram}
+    \end{center}
+  \end{noindent}
+  %% TODO: \caption{}
+  \label{diag:diag}
+\end{figure}
+
+\section{Data}\label{data}
+\begin{table}[H]
+  \begin{noindent}
+    \begin{center}
+      %% TODO: Data
+      \typeout{TODO: Data}
+      %% TODO: \caption{}
+      \label{data:table}
+    \end{center}
+  \end{noindent}
+\end{table}
+
+\section{Calculations}\label{calc}
+%% TODO: Calculations
+\typeout{Calculations}
+
+\section{Graph Data}\label{gdata}
+\begin{table}[H]
+  \begin{noindent}
+    \begin{center}
+      %% TODO: Graph Data
+      \typeout{TODO: Graph Data}
+      %% TODO: \caption{}
+      \label{gdata:table}
+    \end{center}
+  \end{noindent}
+\end{table}
+
+\pagebreak
+\section{Graphs}\label{grap}
+\begin{figure}[H]
+  \begin{center}
+    \begin{noindent}
+      %% TODO: Graph
+      \typeout{TODO: Graph}
+      %% TODO: \caption{}
+      \label{grap:graph}
+    \end{noindent}
+  \end{center}
+\end{figure}
+\vspace{\fill}
+
+\section{Conclusion}\label{conc}
+
+%% TODO: Conclusion
+\typeout{TODO: Conclusion}
+
+\end{document}

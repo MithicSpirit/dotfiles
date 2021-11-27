@@ -21,7 +21,7 @@ git --git-dir=$HOME/.homegit --work-tree=$HOME remote set-url origin git@github.
 
 ** Doom Emacs
 #+begin_src sh
-git clone --depth=1 https://github.com/hlissner/doom-emacs.git ~/.emacs.d
+git clone --depth=1 https://github.com/hlissner/doom-emacs.git ~/.config/emacs
 doom install
 #+end_src
 

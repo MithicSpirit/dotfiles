@@ -1,4 +1,3 @@
 .homegit
 
-.emacs.d
-.oh-my-zsh
+.config/emacs
