@@ -33,3 +33,12 @@ cd ~/.config/vis
 mkdir plugins
 git clone --depth=1 https://github.com/erf/vis-plug.git plugins/vis-plug
 #+end_src
+
+** Zsh
+#+begin_src sh
+cd ~/.config/zsh/plugins
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions
+git clone --depth=1 https://github.com/zsh-users/zsh-completions
+git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search
+git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting
+#+end_src
