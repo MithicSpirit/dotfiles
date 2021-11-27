@@ -38,6 +38,7 @@ PLUGINS=(
 for i in $PLUGINS; do [[ -f $i ]] && source $i; done
 
 # Plugin Config
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=12'

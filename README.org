@@ -9,7 +9,6 @@ used.
 * Install Guide
 (In case I need to restore these and I forget how to)
 #+begin_src sh
-mkdir ~/.homegit
 git clone --bare https://github.com/MithicSpirit/dotfiles.git .homegit
 cd ~
 git --git-dir=$HOME/.homegit --work-tree=$HOME checkout --force

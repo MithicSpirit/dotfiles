@@ -455,7 +455,7 @@ keys = [
     Key(
         [MODKEY],
         "Return",
-        lazy.spawn(f"{TERMINAL} -e /usr/bin/fish"),
+        lazy.spawn(TERMINAL),
         desc="Launch terminal",
     ),
     Key([MODKEY], "a", lazy.spawn(BROWSER), desc="Launch browser"),

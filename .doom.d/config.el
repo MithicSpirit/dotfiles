@@ -273,8 +273,7 @@ This must be added to `emojify-inhibit-functions' to work."
   (add-hook! 'vterm-copy-mode-hook
     (if vterm-copy-mode (evil-motion-state) (evil-emacs-state))))
     
-(setq vterm-shell "/usr/bin/fish"
-      vterm-always-compile-module t
+(setq vterm-always-compile-module t
       vterm-use-vterm-prompt-detection-method t)
       
 ;; Toggle ligatures

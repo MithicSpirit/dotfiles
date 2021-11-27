@@ -179,7 +179,7 @@ SETUVAR _fish_abbr_xsh:exec\x20fish
 SETUVAR _fish_abbr_xssh:exec\x20ssh
 SETUVAR _fish_abbr_xsu:exec\x20sudo\x20\x2di
 SETUVAR _fish_abbr_yt:youtube\x2ddl
-SETUVAR dirprev:/home/mithic/\x2eoh\x2dmy\x2dzsh/lib\x1e/home/mithic/\x2econfig/zsh/plugins\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic\x1e/usr/share/zsh/functions\x1e/home/mithic\x1e/home/mithic/\x2eoh\x2dmy\x2dzsh\x1e/home/mithic\x1e/home/mithic/\x2econfig/zsh\x1e/home/mithic\x1e/home/mithic/\x2eoh\x2dmy\x2dzsh\x1e/home/mithic/\x2eoh\x2dmy\x2dzsh\x2dcustom\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic/\x2eoh\x2dmy\x2dzsh\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic/\x2econfig\x1e/home/mithic/\x2econfig/zsh\x1e/home/mithic/\x2econfig/zsh/plugins
+SETUVAR dirprev:/home/mithic/\x2eoh\x2dmy\x2dzsh\x1e/home/mithic\x1e/home/mithic/\x2econfig/zsh\x1e/home/mithic\x1e/home/mithic/\x2eoh\x2dmy\x2dzsh\x1e/home/mithic/\x2eoh\x2dmy\x2dzsh\x2dcustom\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic/\x2eoh\x2dmy\x2dzsh\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic\x1e/home/mithic/\x2econfig\x1e/home/mithic/\x2econfig/zsh\x1e/home/mithic/\x2econfig/zsh/plugins\x1e/home/mithic\x1e/tmp\x1e/tmp/\x2ehomegit\x1e/home/mithic\x1e/home/mithic/\x2econfig/qtile\x1e/home/mithic/\x2eemacs\x2ed\x1e/home/mithic
 SETUVAR fish_color_autosuggestion:brwhite
 SETUVAR fish_color_cancel:normal
 SETUVAR fish_color_command:green
