@@ -22,7 +22,7 @@ git --git-dir=$HOME/.homegit --work-tree=$HOME remote set-url origin git@github.
 
 ** Doom Emacs
 #+begin_src sh
-git clone --depth=1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+git clone --depth=1 https://github.com/hlissner/doom-emacs.git ~/.emacs.d
 doom install
 #+end_src
 
@@ -36,8 +36,8 @@ git clone --depth=1 https://github.com/erf/vis-plug.git plugins/vis-plug
 ** Zsh
 #+begin_src sh
 cd ~/.config/zsh/plugins
-git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions
-git clone --depth=1 https://github.com/zsh-users/zsh-completions
-git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search
-git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git
+git clone --depth=1 https://github.com/zsh-users/zsh-completions.git
+git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git
+git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
 #+end_src
