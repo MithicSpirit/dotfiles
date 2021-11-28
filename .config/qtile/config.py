@@ -259,6 +259,23 @@ sysinfo_widgets = [
         (widget.Spacer, {"length": 3}),
     ],
 ]
+if os.path.exists("/sys/class/power_supply/BAT1"):  # battery
+    sysinfo_widgets.insert(
+        -1,
+        [
+            (
+                widget.Battery,
+                {
+                    "discharge_char": "v",
+                    "battery": "1",
+                    "format": "Bat: {char} {percent:2.0%}",
+                    "low_percentage": -1,
+                    "update_interval": 60,
+                    "notify_below": 0.35,
+                },
+            ),
+        ],
+    )
 for i, widget_group in enumerate(sysinfo_widgets):
     COLOR = colors["hl1"] if i % 2 == 0 else colors["hl2"]
     OTHER = colors["hl2"] if i % 2 == 0 else colors["hl1"]
