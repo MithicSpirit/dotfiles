@@ -1,7 +1,7 @@
 alias -g \
     C='| xclip -i -sel c' \
     G='| rg' \
-    P='| $PAGER' \
+    P="| $PAGER" \
     NOP='&>/dev/null'
 
 alias \
