@@ -116,50 +116,6 @@ sysinfo_widgets = [
     ],
     [
         (
-            widget.Net,
-            {
-                "interface": "enp4s0",
-                "format": "{down} ↓",
-                "use_bits": True,
-                "update_interval": 5,
-                "mouse_callbacks": {
-                    "Button1": lambda: qtile.cmd_spawn(
-                        f"{TERMINAL} -e {CONFIG}/scripts/speedtest.sh"
-                    )
-                },
-            },
-        ),
-        (
-            widget.TextBox,
-            {
-                "text": "|",
-                "padding": 0,
-                "padding_x": 0,
-                "fontsize": 16,
-                "mouse_callbacks": {
-                    "Button1": lambda: qtile.cmd_spawn(
-                        f"{TERMINAL} -e {CONFIG}/scripts/speedtest.sh"
-                    )
-                },
-            },
-        ),
-        (
-            widget.Net,
-            {
-                "interface": "enp4s0",
-                "format": "{up} ↑",
-                "use_bits": True,
-                "update_interval": 5,
-                "mouse_callbacks": {
-                    "Button1": lambda: qtile.cmd_spawn(
-                        f"{TERMINAL} -e {CONFIG}/scripts/speedtest.sh"
-                    )
-                },
-            },
-        ),
-    ],
-    [
-        (
             custom.CPU,
             {
                 "format": "{load_percent}%",
