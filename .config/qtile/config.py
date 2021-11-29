@@ -215,7 +215,7 @@ sysinfo_widgets = [
         (widget.Spacer, {"length": 3}),
     ],
 ]
-if os.path.exists("/sys/class/power_supply/BAT1"):  # battery
+if os.path.exists("/sys/class/power_supply/BAT1"):
     sysinfo_widgets.insert(
         -1,
         [
@@ -223,8 +223,8 @@ if os.path.exists("/sys/class/power_supply/BAT1"):  # battery
                 widget.Battery,
                 {
                     "discharge_char": "v",
-                    "battery": "1",
-                    "format": "Bat: {char} {percent:2.0%}",
+                    "battery": "BAT1",
+                    "format": "Bat: {percent:2.0%} {char}",
                     "low_percentage": -1,
                     "update_interval": 60,
                     "notify_below": 0.35,
