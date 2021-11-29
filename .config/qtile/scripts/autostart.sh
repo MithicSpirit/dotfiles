@@ -27,7 +27,7 @@ startup() {
 	/usr/lib/xfce-polkit/xfce-polkit &
 	#start-pulseaudio-x11 &
 	#nice -n2 /opt/LBRY/lbry --hidden &
-	replay-sorcery &
+	[[ "$NO_REPLAY_SORCERY" != "true" ]] && replay-sorcery &
 
 	# Misc
 	nm-applet &

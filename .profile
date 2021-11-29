@@ -39,3 +39,5 @@ LESS_TERMCAP_se="$(echo '\033[0m')"; export LESS_TERMCAP_se
 LESS_TERMCAP_ue="$(echo '\033[0m')"; export LESS_TERMCAP_ue
 
 unset LINES COLUMNS
+
+[ -f "$HOME/.profile_custom" ] && source "$HOME/.profile_custom"
