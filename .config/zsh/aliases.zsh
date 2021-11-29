@@ -78,9 +78,9 @@ command -v git &>/dev/null && alias \
     gf='git fetch' \
     gid='git rev-parse HEAD' \
     gl='git pull' \
-    gld='git diff HEAD..${u}' \
+    gld='git diff HEAD..@{u}' \
     glg='git log' \
-    gllg='git log HEAD..${u}' \
+    gllg='git log HEAD..@{u}' \
     gp='git push' \
     gr='git remote -v' \
     grm='git restore' \
