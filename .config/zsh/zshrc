@@ -28,6 +28,7 @@ PLUGINPATH="$ZDOTDIR/plugins"
 PLUGINS=(
     "/usr/share/autojump/autojump.zsh"
     "~/.autojump/share/autojump/autojump.zsh"
+    "/usr/share/doc/pkgfile/command-not-found.zsh"
     "$PLUGINPATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
     "$PLUGINPATH/zsh-completions/zsh-completions.plugin.zsh"
     "$PLUGINPATH/zsh-history-substring-search/zsh-history-substring-search.zsh"
@@ -72,22 +73,25 @@ __escape_aliases # See globalias
 
 # Linux TTY
 if [[ "$TERM" = "linux" ]]; then
-    echo -en "\e]P01C1F2B" #black
-    echo -en "\e]P1FF5370" #darkred
-    echo -en "\e]P2C3E88D" #darkgreen
-    echo -en "\e]P3FFCB6B" #brown
-    echo -en "\e]P482AAFF" #darkblue
-    echo -en "\e]P5C792EA" #darkmagenta
-    echo -en "\e]P689DDFF" #darkcyan
-    echo -en "\e]P7A6ACCD" #lightgrey
-    echo -en "\e]P8545760" #darkgrey
-    echo -en "\e]P9FF7E93" #red
-    echo -en "\e]PAD2EDA9" #green
-    echo -en "\e]PBFFD890" #yellow
-    echo -en "\e]PCA1BFFF" #blue
-    echo -en "\e]PDD5ADEF" #magenta
-    echo -en "\e]PEA6E5FF" #cyan
-    echo -en "\e]PFBCC0D9" #white
+	clear () {
+        echo -en "\e]P01C1F2B" #black
+        echo -en "\e]P1FF5370" #darkred
+        echo -en "\e]P2C3E88D" #darkgreen
+        echo -en "\e]P3FFCB6B" #brown
+        echo -en "\e]P482AAFF" #darkblue
+        echo -en "\e]P5C792EA" #darkmagenta
+        echo -en "\e]P689DDFF" #darkcyan
+        echo -en "\e]P7A6ACCD" #lightgrey
+        echo -en "\e]P8545760" #darkgrey
+        echo -en "\e]P9FF7E93" #red
+        echo -en "\e]PAD2EDA9" #green
+        echo -en "\e]PBFFD890" #yellow
+        echo -en "\e]PCA1BFFF" #blue
+        echo -en "\e]PDD5ADEF" #magenta
+        echo -en "\e]PEA6E5FF" #cyan
+        echo -en "\e]PFBCC0D9" #white
+        command clear
+    }
     clear
 fi
 
