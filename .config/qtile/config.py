@@ -224,7 +224,7 @@ if os.path.exists("/sys/class/power_supply/BAT1"):
                 {
                     "discharge_char": "v",
                     "battery": "BAT1",
-                    "format": "Bat: {char} {percent:2.0%}",
+                    "format": "Bat: {percent:2.0%} {char}",
                     "low_percentage": -1,
                     "update_interval": 60,
                     "notify_below": 0.35,
