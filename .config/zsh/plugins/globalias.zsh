@@ -1,4 +1,4 @@
-__expandalias() {
+__expand_alias_custom () {
     # Get last word to the left of the cursor:
     # (z) splits into words using shell parsing
     # (A) makes it an array even if there's only one element
@@ -9,23 +9,23 @@ __expandalias() {
         zle _expand_alias
         #zle expand-word # don't want non-aliases
     fi
-}
-zle -N __expandalias
-__globalias() {
-    zle __expandalias
+}; zle -N expand-alias-custom __expand_alias_custom
+
+__globalias () {
+    zle expand-alias-custom
     zle self-insert
     zle autosuggest-fetch
-}
-zle -N __globalias
+}; zle -N globalias __globalias
+
 __globalias_newline() {
-    zle __expandalias
+    zle expand-alias-custom
     zle accept-line
-}
-zle -N __globalias_newline
+}; zle -N globalias-newline __globalias_newline
+
 
 # space expands all aliases, including global
-bindkey -M emacs " " __globalias
-bindkey -M viins " " __globalias
+bindkey -M emacs " " globalias
+bindkey -M viins " " globalias
 
 # control-space to make a normal space
 bindkey -M emacs "^ " magic-space
@@ -35,8 +35,8 @@ bindkey -M viins "^ " magic-space
 bindkey -M isearch " " magic-space
 
 # also apply to RET
-bindkey -M emacs "^M" __globalias_newline
-bindkey -M viins "^M" __globalias_newline
+bindkey -M emacs "^M" globalias-newline
+bindkey -M viins "^M" globalias-newline
 
 # Escape aliases to prevent double-expansion
 __escape_aliases() {
