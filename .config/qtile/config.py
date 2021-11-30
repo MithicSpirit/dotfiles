@@ -228,6 +228,7 @@ if os.path.exists("/sys/class/power_supply/BAT1"):
                     "low_percentage": -1,
                     "update_interval": 60,
                     "notify_below": 0.35,
+                    "show_short_text": False,
                 },
             ),
         ],
