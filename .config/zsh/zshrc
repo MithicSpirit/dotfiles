@@ -70,6 +70,7 @@ bindkey -M menuselect "^F" forward-char
 bindkey -M menuselect "^B" backward-char
 
 # Misc
+WORDCHARS="_-.~=!#$%^()<>&"
 unset LINES COLUMNS # Can fix some bugs
 command -v starship &>/dev/null && eval "$(starship init zsh)" # Starship prompt
 __escape_aliases # See globalias
