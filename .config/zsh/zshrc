@@ -73,7 +73,7 @@ __escape_aliases # See globalias
 
 # Linux TTY
 if [[ "$TERM" = "linux" ]]; then
-	clear () {
+	function clear () {
         echo -en "\e]P01C1F2B" #black
         echo -en "\e]P1FF5370" #darkred
         echo -en "\e]P2C3E88D" #darkgreen
@@ -90,7 +90,7 @@ if [[ "$TERM" = "linux" ]]; then
         echo -en "\e]PDD5ADEF" #magenta
         echo -en "\e]PEA6E5FF" #cyan
         echo -en "\e]PFBCC0D9" #white
-        command clear
+        tput clear
     }
     clear
 fi
