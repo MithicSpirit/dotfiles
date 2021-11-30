@@ -25,6 +25,7 @@ export PAGER="bat -p"
 export PYGMENTIZE_STYLE="vim"
 export PYTHONTRACEMALLOC=1
 export QT_QPA_PLATFORMTHEME="qt5ct"
+export RIPGREP_CONFIG_PATH="$HOME/.config/rg.conf"
 export RUSTC_WRAPPER="sccache"
 export RXVT_SOCKET="$XDG_RUNTIME_DIR/urxvtd"
 export SCCACHE_CACHE_SIZE="6G"
