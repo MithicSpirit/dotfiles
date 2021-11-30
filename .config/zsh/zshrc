@@ -65,15 +65,9 @@ unset LINES COLUMNS # Can fix some bugs
 command -v starship &>/dev/null && eval "$(starship init zsh)" # Starship prompt
 __escape_aliases # See globalias
 
-# Emacs vterm
-[[ "$INSIDE_EMACS" = 'vterm' &&
-    -n ${EMACS_VTERM_PATH} &&
-    -f "${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh" ]] &&
-    source "${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh"
-
 # Linux TTY
 if [[ "$TERM" = "linux" ]]; then
-	function clear () {
+    clear () {
         echo -en "\e]P01C1F2B" #black
         echo -en "\e]P1FF5370" #darkred
         echo -en "\e]P2C3E88D" #darkgreen
@@ -93,6 +87,15 @@ if [[ "$TERM" = "linux" ]]; then
         tput clear
     }
     clear
+fi
+
+# Emacs vterm
+if [[ "$INSIDE_EMACS" = 'vterm' && -n ${EMACS_VTERM_PATH} &&
+          -f "${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh" ]]; then
+    source "${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh"
+    __clear_vterm="${aliases[clear]}"
+    unalias clear
+    clear () { eval "$__clear_vterm" }
 fi
 
 true # prevent above error codes from affecting prompt
