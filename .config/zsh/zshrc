@@ -49,12 +49,18 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=blue'
 unset ZSH_HIGHLIGHT_STYLES[bracket-level-5]
 
 # Keybinds
+__autoload_bindkey () {
+    local new_func="${@[-1]}"
+    autoload "$new_func"
+    zle -N "$new_func"
+    bindkey "$@"
+}
 bindkey "^z" fg
 bindkey "^P" history-substring-search-up
 bindkey "^N" history-substring-search-down
 bindkey "^[p" up-line-or-history
 bindkey "^[n" down-line-or-history
-bindkey "^[e" edit-command-line
+__autoload_bindkey "^[e" edit-command-line
 bindkey -M menuselect "^P" up-line-or-history
 bindkey -M menuselect "^N" down-line-or-history
 bindkey -M menuselect "^F" forward-char
