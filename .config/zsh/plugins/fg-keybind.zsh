@@ -1,10 +1,6 @@
 __fg_widget () {
-    if [[ "${#BUFFER}" = 0 ]]; then
-        BUFFER="fg"
-        zle accept-line
-    else
-        zle push-input
-        zle clear-screen
-    fi
+    [[ "${#BUFFER}" != "0" ]] && zle push-input
+    BUFFER="fg"
+    zle accept-line
 }
 zle -N fg __fg_widget
