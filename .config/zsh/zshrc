@@ -1,14 +1,16 @@
 #!/hint/zsh
 
-# Built-in configuration tool:
+## Built-in configuration tools:
 # The following lines were added by compinstall
 
 zstyle ':completion:*' completer _oldlist _expand _complete _ignored _match _prefix
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' 'r:|[._-/]=** r:|=**' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'l:|=* r:|=*'
+zstyle ':completion:*' menu select=0
 zstyle ':completion:*' original false
+zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle ':completion:*' verbose true
-zstyle :compinstall filename "$ZDOTDIR/.zshrc"
+zstyle :compinstall filename '/home/mithic/.config/zsh/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -33,6 +35,7 @@ PLUGINS=(
     "$PLUGINPATH/zsh-completions/zsh-completions.plugin.zsh"
     "$PLUGINPATH/zsh-history-substring-search/zsh-history-substring-search.zsh"
     "$PLUGINPATH/globalias.zsh"
+    "$PLUGINPATH/fg-keybind.zsh"
     "$ZDOTDIR/aliases.zsh"
     "$PLUGINPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 )
@@ -49,12 +52,18 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-4]='fg=blue'
 unset ZSH_HIGHLIGHT_STYLES[bracket-level-5]
 
 # Keybinds
-bindkey "^z" fg
+__autoload_bindkey () {
+    local new_func="${@[-1]}"
+    autoload "$new_func"
+    zle -N "$new_func"
+    bindkey "$@"
+}
+bindkey "^Z" fg
 bindkey "^P" history-substring-search-up
 bindkey "^N" history-substring-search-down
 bindkey "^[p" up-line-or-history
 bindkey "^[n" down-line-or-history
-bindkey "^[e" edit-command-line
+__autoload_bindkey "^[e" edit-command-line
 bindkey -M menuselect "^P" up-line-or-history
 bindkey -M menuselect "^N" down-line-or-history
 bindkey -M menuselect "^F" forward-char
