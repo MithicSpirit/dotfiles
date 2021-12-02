@@ -60,7 +60,7 @@ alias \
     xsh='exec zsh' \
     xssh='exec ssh' \
     xsu='exec sudo -i' \
-    yt='youtube-dl'
+    yt='yt-dlp'
 
 command -v git &>/dev/null && alias \
     g='git' \
