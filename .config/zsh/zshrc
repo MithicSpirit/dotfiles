@@ -69,6 +69,10 @@ bindkey -M menuselect "^N" down-line-or-history
 bindkey -M menuselect "^F" forward-char
 bindkey -M menuselect "^B" backward-char
 
+# Options
+setopt auto_pushd # Push new dirs onto dirstack automatically
+unsetopt flow_control # Allows ^Q and ^S to work
+
 # Misc
 WORDCHARS="_-.~=!#$%^()<>&"
 unset LINES COLUMNS # Can fix some bugs
