@@ -201,6 +201,8 @@
 
     enable_recursive_icon_lookup=true
 
+    icon_theme="Arc,breeze-dark,elementary,hicolor,Adwaita"
+
     ### History ###
 
     # Should a notification popped up from history be sticky or timeout
