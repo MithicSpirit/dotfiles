@@ -20,12 +20,14 @@ git --git-dir=$HOME/.homegit --work-tree=$HOME remote set-url origin git@github.
 #+end_src
 
 ** Doom Emacs
+Execute =~/.local/share/setup/doom.sh= or run the following
 #+begin_src sh
 git clone --depth=1 https://github.com/hlissner/doom-emacs.git ~/.config/emacs
 doom install
 #+end_src
 
 ** Vis
+Execute =~/.local/share/setup/vis.sh= or run the following
 #+begin_src sh
 cd ~/.config/vis
 mkdir plugins
@@ -33,6 +35,7 @@ git clone --depth=1 https://github.com/erf/vis-plug.git plugins/vis-plug
 #+end_src
 
 ** Zsh
+Execute =~/.local/share/setup/zsh.sh= or run the following
 #+begin_src sh
 cd ~/.config/zsh/plugins
 git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git
