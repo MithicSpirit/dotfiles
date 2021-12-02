@@ -23,9 +23,9 @@
 	autoDetach = false
 	autoDetach = false
 [pager]
-	diff = bat
-	show = bat
-	log = bat
-	reflog = bat
+	diff = bat -p
+	show = bat -p
+	log = bat -p
+	reflog = bat -p
 [branch]
 	autoSetupMerge = true
