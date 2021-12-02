@@ -19,6 +19,7 @@ __globalias () {
 
 __globalias_newline() {
     zle expand-alias-custom
+    zle autosuggest-clear
     zle accept-line
 }; zle -N globalias-newline __globalias_newline
 
