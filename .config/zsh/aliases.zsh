@@ -18,6 +18,7 @@ alias \
     eterm='emacs -nw' \
     ffupload='ffsend upload -vd 20 -e 7d' \
     gpp='g++' \
+    h='history 1' \
     htop='btm -b' \
     l='exa -lFbg' \
     lS='exa -laFbgs --color=scale' \
