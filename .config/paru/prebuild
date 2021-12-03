@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # Reset gpg timer
-dd if=/dev/zero count=0 status=none | gpg --clearsign > /dev/null
+GPG_TTY="$(tty)" gpg -o /dev/null --clearsign /dev/null
 
 issue_found=0
 # Automatic issue resolution
