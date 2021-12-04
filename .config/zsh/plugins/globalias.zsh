@@ -42,6 +42,7 @@ bindkey -M emacs "^M" globalias-newline
 bindkey -M viins "^M" globalias-newline
 
 # Escape aliases to prevent double-expansion
+zmodload zsh/parameter
 __escape_aliases() {
     for name expansion in "${(@kv)aliases}"; do
         local word=${${(Az)expansion}[1]}

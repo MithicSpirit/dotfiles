@@ -25,7 +25,19 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 
 # Plugins
-zmodload zsh/complist
+MODULES=(
+    "zsh/complist"
+    "zsh/mapfile"
+    "zsh/mathfunc"
+    "zsh/parameter"
+    "zsh/termcap"
+    "zsh/terminfo"
+    "zsh/zle"
+    "zsh/zleparameter"
+)
+for i in $MODULES; do zmodload $i; done
+[[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
+
 PLUGINPATH="$ZDOTDIR/plugins"
 PLUGINS=(
     "/usr/share/autojump/autojump.zsh"
@@ -74,8 +86,9 @@ bindkey -M menuselect "^F" forward-char
 bindkey -M menuselect "^B" backward-char
 
 # Options
-setopt auto_pushd # Push new dirs onto dirstack automatically
+setopt auto_pushd # Push new dirs sonto dirstack automatically
 unsetopt flow_control # Allows ^Q and ^S to work
+setopt auto_continue # Automatically CONT disowned jobs
 
 # Misc
 WORDCHARS="_-.~=!#$%^()<>&"
