@@ -3,13 +3,15 @@ __expand_alias_custom () {
     # (z) splits into words using shell parsing
     # (A) makes it an array even if there's only one element
     local word=${${(Az)LBUFFER}[-1]}
-    if [[ ${LBUFFER[-1]} != ' '  &&
-        $GLOBALIAS_FILTER_VALUES[(Ie)$word] -eq 0
+    if [[ "${LBUFFER[-1]}" != " "  &&
+        "${word[1]}" != '\' &&
+        "$GLOBALIAS_FILTER_VALUES[(Ie)$word]" = 0
         ]]; then
         zle _expand_alias
         #zle expand-word # don't want non-aliases
     fi
 }; zle -N expand-alias-custom __expand_alias_custom
+GLOBALIAS_FILTER_VALUES=()
 
 __globalias () {
     zle expand-alias-custom
@@ -19,9 +21,9 @@ __globalias () {
 
 __globalias_newline() {
     zle expand-alias-custom
-    zle autosuggest-clear
     zle accept-line
 }; zle -N globalias-newline __globalias_newline
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(globalias-newline)
 
 
 # space expands all aliases, including global

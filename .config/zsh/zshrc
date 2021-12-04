@@ -42,7 +42,11 @@ PLUGINS=(
 for i in $PLUGINS; do [[ -f $i ]] && source $i; done
 
 # Plugin Config
+ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=7'
+ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=("${(@)ZSH_AUTOSUGGEST_ACCEPT_WIDGETS:#forward-char}")
+ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(forward-char)
+
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=12'
