@@ -29,3 +29,5 @@
 	reflog = bat -p
 [branch]
 	autoSetupMerge = true
+[advice]
+	addEmptyPathspec = false
