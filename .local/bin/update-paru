@@ -13,6 +13,7 @@ success() {
 	clear_input
 	notify-send "Update done" "Success"
 	read -rsk 1 '?Done [Press any key to exit]'
+	echo
 	exit 0
 }
 
@@ -25,6 +26,7 @@ fail() {
 		[[ "$(read -re "?[Type \`exit\` to exit] ")" =~ ".*[Ee][Xx][Ii][Tt].*" ]] && 
 			break
 	done
+	echo
 	exit $errorcode
 }
 
@@ -54,5 +56,6 @@ elif [[ $OPTION == "a" || $OPTION == "A" ]]; then
 else
 	echo -n "Aborted"
 	sleep 1
+	echo
 	exit 1
 fi
