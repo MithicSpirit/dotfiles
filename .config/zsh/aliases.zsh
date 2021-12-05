@@ -50,7 +50,7 @@ alias \
     ufw='sudo ufw' \
     updb='sudo updatedb' \
     v='bat' \
-    venv='source venv/bin/activate.zsh' \
+    venv='source venv/bin/activate' \
     vi='vis' \
     vidiff='nvim -d' \
     vim='vis' \
