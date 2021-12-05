@@ -75,7 +75,7 @@
             :return     "↦"
             :yield      "↤"
             :union      "∪"
-            ;:tuple      "⊗"
+            :tuple      "⊗"
             :pipe       "𝕡")
 
 ;; Fancy org-mode
