@@ -61,12 +61,11 @@ style = 'bold green'
 disabled = false
 
 [custom.cursor]
-command = "printf '\\e[5 q'"
+command = "printf '\\033[5 q'"
 description = 'Sets terminal cursor to line'
-style = 'none'
 format = '$output'
 when = 'true'
-symbol = ''
+shell = 'sh'
 disabled = false
 
 
@@ -103,23 +102,20 @@ style = 'bold cyan'
 disabled = false
 
 [git_branch]
-format = '[$symbol$branch]($style)( [$remote_branch]($style)) [|](bold) '
-symbol = ' '
+format = '[ $branch]($style)( [$remote_branch]($style)) [|](bold) '
 style = 'bold purple'
 truncation_length="10"
 only_attached = false
 disabled = false
 
 [hg_branch]
-format = '[$symbol$branch]($style) [|](bold) '
-symbol = ' '
+format = '[ $branch]($style) [|](bold) '
 style = 'bold bright-purple'
 truncation_length="10"
 disabled = false
 
 [jobs]
-format = '[$symbol$number]($style) [|](bold) '
-symbol = '+'
+format = '[$number ↺]($style) [|](bold) '
 style = 'bold bright-blue'
 symbol_threshold = 1
 number_threshold = 1
@@ -127,19 +123,17 @@ disabled = false
 
 [shlvl]
 threshold = 2
-format = '[$symbol$shlvl]($style) [|](bold) '
-symbol = '↕'
+format = '[shlvl ↕]($style) [|](bold) '
 disabled = false
 
 [memory_usage]
-format = '[$ram]($style) [|](bold) '
+format = '[$ram ]($style) [|](bold) '
 style = 'bold red'
 threshold = 80
 disabled = false
 
 [battery]
-format = '[$symbol$percentage]($style) [|](bold)'
-style = 'yellow'
+format = '[$percentage ]($style) [|](bold)'
 disabled = false
 [[battery.display]]
 threshold = 20
