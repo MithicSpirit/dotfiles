@@ -22,11 +22,6 @@ scan_timeout=25
 command_timeout=200
 
 
-[character]
-success_symbol = '[✔](green)'
-error_symbol = '[✖](red)'
-disabled = false
-
 [status]
 format = '[↦](bold) [$status( \($signal_name\))]($style) [|](bold)'
 style = 'bold red'
@@ -65,18 +60,19 @@ trim_at = ''
 style = 'bold green'
 disabled = false
 
+[custom.cursor]
+command = "printf '\\e[5 q'"
+description = 'Sets terminal cursor to line'
+style = 'none'
+format = '$output'
+when = 'true'
+symbol = ''
+disabled = false
+
 
 [python]
 format = '([$virtualenv]($style) [|](bold) )'
 style = 'bold bright-yellow'
-disabled = false
-
-[git_commit]
-format = '\([$hash(-$tag)]($style)\) '
-tag_symbol = ''
-style = 'green'
-only_detached = false
-tag_disabled = false
 disabled = false
 
 [git_state]
@@ -121,18 +117,18 @@ style = 'bold bright-purple'
 truncation_length="10"
 disabled = false
 
-[shlvl]
-threshold = 2
-format = '[$symbol$shlvl]($style) [|](bold) '
-symbol = '↕'
-disabled = false
-
 [jobs]
 format = '[$symbol$number]($style) [|](bold) '
 symbol = '+'
 style = 'bold bright-blue'
 symbol_threshold = 1
 number_threshold = 1
+disabled = false
+
+[shlvl]
+threshold = 2
+format = '[$symbol$shlvl]($style) [|](bold) '
+symbol = '↕'
 disabled = false
 
 [memory_usage]
@@ -152,63 +148,4 @@ style = 'bold yellow'
 [time]
 format = '[$time]($style)'
 style = 'bright-yellow'
-disabled = false
-
-
-[shell]
-format = '[$indicator](bold underline cyan)'
-fish_indicator = "fish"
-zsh_indicator = "zsh"
-bash_indicator = "bash"
-powershell_indicator = "powershell"
-ion_indicator  = "ion"
-elvish_indicator = "elvish"
-tcsh_indicator = "tcsh"
-disabled = false
-
-[nodejs]
-format = ', [$symbol$version]($style)'
-symbol = 'node '
-style = 'green'
-not_capable_style = 'bold red'
-disabled = false
-
-[rust]
-format = ', [$symbol$version]($style)'
-symbol = 'rust '
-style = 'red'
-disabled = false
-
-[lua]
-format = ', [$symbol$version]($style)'
-symbol = "lua "
-style = "blue"
-disabled = false
-
-[java]
-format = ', [$symbol$version]($style)'
-symbol = "java "
-style = "bright-red"
-disabled = false
-
-[cmake]
-format = ', [$symbol$version]($style)'
-symbol = "cmake "
-style = "bright-blue"
-disabled = false
-
-[perl]
-format = ', [$symbol$version]($style)'
-symbol = "perl "
-style = "bright-yellow"
-disabled = false
-
-
-[custom.cursor]
-command = "printf '\\e[5 q'"
-description = 'Sets terminal cursor to line'
-style = 'none'
-format = '$output'
-when = 'true'
-symbol = ''
 disabled = false
