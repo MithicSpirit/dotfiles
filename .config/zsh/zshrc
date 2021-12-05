@@ -92,6 +92,7 @@ setopt auto_continue # Automatically CONT disowned jobs
 
 # Misc
 WORDCHARS="_-.~=!#$%^()<>&"
+ZLE_RPROMPT_INDENT=0 # Remove unnecessary padding
 unset LINES COLUMNS # Can fix some bugs
 command -v starship &>/dev/null && eval "$(starship init zsh)" # Starship prompt
 __escape_aliases # See globalias
