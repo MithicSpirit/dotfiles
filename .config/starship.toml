@@ -123,7 +123,7 @@ disabled = false
 
 [shlvl]
 threshold = 2
-format = '[shlvl ↕]($style) [|](bold) '
+format = '[$shlvl ↕]($style) [|](bold) '
 disabled = false
 
 [memory_usage]
