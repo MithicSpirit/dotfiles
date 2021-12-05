@@ -1,56 +1,23 @@
 format = """
-[↦](bold) $status$character$cmd_duration
-
-  $directory\
-$git_branch\
-$git_commit\
-$git_state\
-$git_status\
-$hg_branch\
-$username\
-$hostname\
-$jobs\
-$shlvl\
-$time\
+$status$cmd_duration$directory\
+$username$hostname\
+$singularity\
 $kubernetes\
 $docker_context\
-$dart\
-$dotnet\
-$elixir\
-$elm\
-$erlang\
-$golang\
-$helm\
-$julia\
-$kotlin\
-$nim\
-$ocaml\
-$php\
-$purescript\
-$ruby\
-$swift\
 $terraform\
-$zig\
 $nix_shell\
-$conda\
-$memory_usage\
 $aws\
 $gcloud\
 $openstack\
-$env_var\
-$crystal\
-$battery
-with $shell\
-$python\
-$nodejs\
-$rust\
-$lua\
-$java\
-$cmake\
-$perl
-[❯](green) ${custom.cursor}"""
-add_newline = false
+[❯](bold blue)[❯](bold cyan)[❯](bold green) ${custom.cursor}"""
 
+right_format = """
+$python\
+$git_state$git_status$git_branch$hg_branch\
+$jobs$shlvl$memory_usage$battery$time \
+"""
+
+add_newline = false
 scan_timeout=25
 command_timeout=200
 
@@ -61,7 +28,7 @@ error_symbol = '[✖](red)'
 disabled = false
 
 [status]
-format = '[$status( \($signal_name\))]($style) '
+format = '[↦](bold) [$status( \($signal_name\))]($style) [|](bold)'
 style = 'bold red'
 recognize_signal_code = true
 map_symbol = true
@@ -69,29 +36,39 @@ disabled = false
 
 [cmd_duration]
 min_time = 2_500
-format = '[|](bold) took [$duration]($style)'
+format = ' [$duration]($style) [|](bold)'
 style = 'bold yellow'
 show_notifications = true
 min_time_to_notify = 90_000
 disabled = false
 
-
-
 [directory]
-format = '[$path]($style)[$read_only]($read_only_style) '
+format = ' [$path]($style)[$read_only]($read_only_style) '
 style = 'blue'
 read_only = ' ✕'
 read_only_style = 'bold red'
-truncation_length = 5
+truncation_length = 6
 truncate_to_repo = false
 truncation_symbol = '…/'
 disabled = false
 
-[git_branch]
-format = '[|](bold) on ([$remote_name]($style) )[$symbol$branch]($style) '
-symbol = ' '
-style = 'bold purple'
-only_attached = false
+[username]
+format = '[|](bold) [$user]($style) '
+style_root = 'bold red'
+style_user = 'bold bright-green'
+show_always = false
+disabled = false
+
+[hostname]
+format = 'at [$hostname]($style) '
+trim_at = ''
+style = 'bold green'
+disabled = false
+
+
+[python]
+format = '([$virtualenv]($style) [|](bold) )'
+style = 'bold bright-yellow'
 disabled = false
 
 [git_commit]
@@ -129,35 +106,53 @@ deleted = '-'
 style = 'bold cyan'
 disabled = false
 
-[username]
-format = '[|](bold) as [$user]($style) '
-style_root = 'bold red'
-style_user = 'bold green'
+[git_branch]
+format = '[$symbol$branch]($style)( [$remote_branch]($style)) [|](bold) '
+symbol = ' '
+style = 'bold purple'
+truncation_length="10"
+only_attached = false
 disabled = false
 
-[hostname]
-format = 'at [$hostname]($style) '
-trim_at = ''
-style = 'bold green'
+[hg_branch]
+format = '[$symbol$branch]($style) [|](bold) '
+symbol = ' '
+style = 'bold bright-purple'
+truncation_length="10"
+disabled = false
 
 [shlvl]
 threshold = 2
-format = '[|](bold) $symbol [$shlvl]($style) '
+format = '[$symbol$shlvl]($style) [|](bold) '
 symbol = '↕'
 disabled = false
 
 [jobs]
-threshold = 2
-format = '[|](bold) $symbol [$number]($style) '
-symbol = '+ '
-style = 'blue'
-disabled = true
+format = '[$symbol$number]($style) [|](bold) '
+symbol = '+'
+style = 'bold bright-blue'
+symbol_threshold = 1
+number_threshold = 1
+disabled = false
+
+[memory_usage]
+format = '[$ram]($style) [|](bold) '
+style = 'bold red'
+threshold = 80
+disabled = false
+
+[battery]
+format = '[$symbol$percentage]($style) [|](bold)'
+style = 'yellow'
+disabled = false
+[[battery.display]]
+threshold = 20
+style = 'bold yellow'
 
 [time]
-format = '[|](bold) at [$time]($style)'
+format = '[$time]($style)'
 style = 'bright-yellow'
-disabled = true
-
+disabled = false
 
 
 [shell]
@@ -169,12 +164,6 @@ powershell_indicator = "powershell"
 ion_indicator  = "ion"
 elvish_indicator = "elvish"
 tcsh_indicator = "tcsh"
-disabled = false
-
-[python]
-format = ', [${symbol}${pyenv_prefix}${version}( \($virtualenv\))]($style)'
-style = 'yellow'
-symbol = 'py '
 disabled = false
 
 [nodejs]
@@ -217,7 +206,7 @@ disabled = false
 
 [custom.cursor]
 command = "printf '\\e[5 q'"
-description = 'Uses line cursor'
+description = 'Sets terminal cursor to line'
 style = 'none'
 format = '$output'
 when = 'true'
