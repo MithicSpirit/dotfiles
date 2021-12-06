@@ -89,10 +89,13 @@ bindkey -M menuselect "^B" backward-char
 setopt auto_pushd # Push new dirs sonto dirstack automatically
 unsetopt flow_control # Allows ^Q and ^S to work
 setopt auto_continue # Automatically CONT disowned jobs
+setopt prompt_sp # Show $PROMPT_EOL_MARK (see below) when last command missing ending EOL
 
 # Misc
 WORDCHARS="_-.~=!#$%^()<>&"
 ZLE_RPROMPT_INDENT=0 # Remove unnecessary padding
+PROMPT_EOL_MARK="$(printf '%%{\033[0m\033[7m\033[1m%%}%%#%%{\033[0m%%}')"
+  # ^ reset color before printing prompt_sp (see above)
 unset LINES COLUMNS # Can fix some bugs
 command -v starship &>/dev/null && eval "$(starship init zsh)" # Starship prompt
 __escape_aliases # See globalias
