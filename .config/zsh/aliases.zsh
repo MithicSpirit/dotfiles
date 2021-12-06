@@ -84,7 +84,8 @@ command -v git &>/dev/null && alias \
     gllg='git log HEAD..@{u}' \
     gp='git push' \
     gr='git remote -v' \
-    grm='git restore' \
+    grm='git restore --staged' \
+    grmrm='git restore' \
     gsh='git stash' \
     gst='git status' \
     hg='homegit' \
