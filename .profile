@@ -10,7 +10,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DATA_DIRS="/usr/local/share:/usr/share:$XDG_DATA_DIRS"
 export XDG_CONFIG_DIRS="/etc/xdg:$XDG_CONFIG_DIRS"
 
-export AMD_VULKAN_ICD=RADV
+export AMD_VULKAN_ICD="RADV"
 export BATDIFF_USE_DELTA="true"
 export CARGO_BUILD_JOBS="8"
 export CHKTEXRC="/home/mithic/.config"
@@ -33,7 +33,7 @@ export SCCACHE_CACHE_SIZE="6G"
 export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export STARSHIP_LOG="error"
-export VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.i686.json:/usr/share/vulkan/icd.d/radeon_icd.x86_64.json
+export VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/radeon_icd.i686.json:/usr/share/vulkan/icd.d/radeon_icd.x86_64.json"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 LESS_TERMCAP_md="$(echo '\033[1;35m')"; export LESS_TERMCAP_md
