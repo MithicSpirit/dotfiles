@@ -30,6 +30,7 @@ MODULES=(
     "zsh/mapfile"
     "zsh/mathfunc"
     "zsh/parameter"
+    "zsh/regex"
     "zsh/termcap"
     "zsh/terminfo"
     "zsh/zle"
@@ -90,6 +91,7 @@ setopt auto_pushd # Push new dirs sonto dirstack automatically
 unsetopt flow_control # Allows ^Q and ^S to work
 setopt auto_continue # Automatically CONT disowned jobs
 setopt prompt_sp # Show $PROMPT_EOL_MARK (see below) when last command missing ending EOL
+setopt HIST_REDUCE_BLANKS # Remove unnecessary blank lines from history
 
 # Misc
 WORDCHARS="_-.~=!#$%^()<>&"
