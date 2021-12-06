@@ -136,7 +136,7 @@ disabled = false
 format = '[$percentage ]($style) [|](bold)'
 disabled = false
 [[battery.display]]
-threshold = 20
+threshold = 25
 style = 'bold yellow'
 
 [time]
