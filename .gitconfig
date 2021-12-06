@@ -23,8 +23,8 @@
 	autoDetach = false
 	autoDetach = false
 [pager]
-	diff = bat -p
-	show = bat -p
+	diff = delta
+	show = delta
 	log = bat -p
 	reflog = bat -p
 [branch]
