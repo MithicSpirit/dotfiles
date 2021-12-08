@@ -133,7 +133,7 @@ threshold = 80
 disabled = false
 
 [battery]
-format = '[$percentage ]($style) [|](bold)'
+format = '[$percentage ]($style) [|](bold) '
 disabled = false
 [[battery.display]]
 threshold = 25
