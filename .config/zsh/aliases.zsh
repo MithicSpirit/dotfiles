@@ -1,5 +1,5 @@
 alias -g \
-    C='| xclip -i -sel c' \
+    C='| tee >(xclip -i -sel c) | bat -pp' \
     G='| rg' \
     P="| $PAGER" \
     NOP='&>/dev/null'
