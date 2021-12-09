@@ -17,9 +17,9 @@ $git_state$git_status$git_branch$hg_branch\
 $jobs$shlvl$memory_usage$battery$time \
 """
 
-add_newline = true
-scan_timeout = 25
-command_timeout = 200
+add_newline = false
+scan_timeout=25
+command_timeout=200
 
 
 [status]
