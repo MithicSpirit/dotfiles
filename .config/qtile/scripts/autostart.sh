@@ -30,6 +30,7 @@ startup() {
 	[[ "$NO_REPLAY_SORCERY" != "true" ]] && replay-sorcery &
 
 	# Misc
+	sxhkd &
 	nm-applet &
 	#lxsession --de=Qtile &
 	setxkbmap -option caps:escape_shifted_capslock -option compose:rctrl &

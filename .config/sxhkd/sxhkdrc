@@ -1,0 +1,8 @@
+XF86Audio{Raise,Lower}Volume
+	amixer -D pulse -q sset Master 5%{+,-}
+
+XF86AudioMute
+	amixer -D pulse -q sset Master toggle
+
+XF86MonBrightness{Up,Down}
+	xbacklight {+,-}2
