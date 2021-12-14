@@ -18,8 +18,8 @@ $jobs$shlvl$memory_usage$battery$time \
 """
 
 add_newline = false
-scan_timeout=25
-command_timeout=200
+scan_timeout = 25
+command_timeout = 200
 
 
 [status]
