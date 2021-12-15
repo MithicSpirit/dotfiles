@@ -6,6 +6,7 @@ if [ -z "$LOGGED_IN" ]; then
 	export LANG="en_US.UTF-8"
 	export TERMINAL="alacritty"
 	export BROWSER="qutebrowser"
+	export REAL_BROWSER="librewolf"
 
 	export XDG_CONFIG_HOME="$HOME/.config"; PATH="$XDG_CONFIG_HOME/emacs/bin:$PATH"
 	export XDG_CACHE_HOME="$HOME/.cache"
