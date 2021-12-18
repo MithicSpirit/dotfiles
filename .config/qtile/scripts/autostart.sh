@@ -3,6 +3,7 @@
 # Xrandr (I plan on moving this to system config in /etc soon™)
 #xrandr --output HDMI-A-0 --mode 1920x1080 --rate 60.00
 
+source ~/.profile
 
 startup() {
 	echo -n "Qtile startup at "
