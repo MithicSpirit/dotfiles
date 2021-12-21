@@ -64,7 +64,7 @@ application/vnd.sqlite3=libreoffice-base.desktop;
 application/pdf=org.pwmt.zathura-pdf-mupdf.desktop;
 text/csv=nvim.desktop;
 text/x-tex=emacsclient.desktop;nvim.desktop;
-application/zip=engrampa.desktop;
+application/zip=engrampa.desktop;org.jaspstats.JASP.desktop;
 application/x-shellscript=nvim.desktop;
 application/xml=nvim.desktop;
 text/x-matlab=nvim.desktop;
@@ -75,4 +75,3 @@ application/octet-stream=nvim.desktop;
 video/mp4=mpv.desktop;
 application/x-java-archive=engrampa.desktop;
 terminal=Alacritty.desktop;
-
