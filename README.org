@@ -51,4 +51,6 @@ such as information about the GPU.
 
 These are the currently supported custom envvars:
 - =REAL_GPU=: Set to type of GPU if a discrete one exists (or blank if one does
-  not). /E.g./: ~archimedes~: =amd=, ~apollonius~: (blank)
+  not).
+  - ~archimedes~: =amd=
+  - ~apollonius~: (blank)
