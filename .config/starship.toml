@@ -9,7 +9,7 @@ $nix_shell\
 $aws\
 $gcloud\
 $openstack\
-[❯](bold blue)[❯](bold cyan)[❯](bold green) ${custom.cursor}"""
+$sudo[❯](bold blue)[❯](bold cyan)[❯](bold green) ${custom.cursor}"""
 
 right_format = """
 $python\
@@ -58,6 +58,11 @@ disabled = false
 format = 'at [$hostname]($style) '
 trim_at = ''
 style = 'bold green'
+disabled = false
+
+[sudo]
+format = '[✦]($style)'
+style = 'bold purple'
 disabled = false
 
 [custom.cursor]
