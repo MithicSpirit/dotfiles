@@ -49,5 +49,5 @@ if [ -z "$LOGGED_IN" ]; then
 
 	unset LINES COLUMNS
 
-	[ -f "$HOME/.profile_custom" ] && source "$HOME/.profile_custom"
+	[ -f "$HOME/.profile_custom" ] && . "$HOME/.profile_custom"
 fi
