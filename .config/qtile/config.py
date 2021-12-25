@@ -222,11 +222,15 @@ if os.path.exists("/sys/class/power_supply/BAT1"):
             (
                 widget.Battery,
                 {
-                    "discharge_char": "v",
+                    "charge_char": "↑",
+                    "discharge_char": "↓",
+                    "empty_char": "!",
+                    "full_char": "¡",
+                    "unknown_char": "?",
                     "battery": "BAT1",
                     "format": "Bat: {percent:2.0%} {char}",
                     "low_percentage": -1,
-                    "update_interval": 30,
+                    "update_interval": 20,
                     "notify_below": 0.35,
                     "show_short_text": False,
                 },
