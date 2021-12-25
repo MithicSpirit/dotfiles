@@ -53,7 +53,6 @@ alias \
     venv='source venv/bin/activate' \
     vi='vis' \
     vidiff='nvim -d' \
-    vim='vis' \
     visudo='sudo --preserve-env=EDITOR visudo' \
     xalarm='exec alarm' \
     xfish='exec fish' \
