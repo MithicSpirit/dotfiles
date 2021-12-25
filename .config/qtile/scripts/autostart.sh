@@ -22,7 +22,7 @@
 	greenclip daemon >/tmp/greenclip.log &
 	flameshot &
 	/usr/lib/xfce-polkit/xfce-polkit &
-	[ "$REAL_GPU" != "" ] && replay-sorcery &
+	[ "$REAL_GPU" != "none" ] && replay-sorcery &
 	sxhkd &
 
 	# Misc

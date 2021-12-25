@@ -50,7 +50,6 @@ intended that this file includes envvars for machine-specific configuration,
 such as information about the GPU.
 
 These are the currently supported custom envvars:
-- =REAL_GPU=: Set to type of GPU if a discrete one exists (or blank if one does
-  not).
+- =REAL_GPU=: Set to type of GPU if a discrete one exists (or =none= otherwise).
   - ~archimedes~: =amd=
-  - ~apollonius~: (blank)
+  - ~apollonius~: =none=
