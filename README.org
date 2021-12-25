@@ -43,3 +43,12 @@ git clone --depth=1 https://github.com/zsh-users/zsh-completions.git
 git clone --depth=1 https://github.com/zsh-users/zsh-history-substring-search.git
 git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
 #+end_src
+
+* Custom envvars
+The =~/.profile_custom= file is sourced by =~/.profile= if it exists. It is
+intended that this file includes envvars for machine-specific configuration,
+such as information about the GPU.
+
+These are the currently supported custom envvars:
+- =REAL_GPU=: Set to type of GPU if a discrete one exists (or blank if one does
+  not). /E.g./: ~archimedes~: =amd=, ~apollonius~: (blank)
