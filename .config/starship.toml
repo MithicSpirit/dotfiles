@@ -80,7 +80,7 @@ style = 'bold bright-yellow'
 disabled = false
 
 [git_state]
-format = 'while [$state]($style) (\([$progress_current/$progress_total]($style)\))'
+format = '[$state]($style)(\([$progress_current/$progress_total]($style)\) )'
 rebase = 'RBS'
 merge = 'MRG'
 revert = 'RVR'
