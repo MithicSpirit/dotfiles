@@ -35,6 +35,7 @@ text/csv=nvim.desktop
 image/webp=sxiv.desktop
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=onlyoffice-desktopeditors.desktop
 x-scheme-handler/lbry=lbry.desktop
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=onlyoffice-desktopeditors.desktop
 
 [Added Associations]
 x-scheme-handler/http=xfce4-web-browser.desktop;
@@ -75,3 +76,4 @@ application/octet-stream=nvim.desktop;
 video/mp4=mpv.desktop;
 application/x-java-archive=engrampa.desktop;
 terminal=Alacritty.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=onlyoffice-desktopeditors.desktop;
