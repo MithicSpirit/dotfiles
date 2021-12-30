@@ -20,9 +20,9 @@ alias \
     gpp='g++' \
     h='history 1' \
     htop='btm -b' \
-    l='exa -lFbg' \
+    l='exa -lFbg --git' \
     lS='exa -laFbgs --color=scale' \
-    la='exa -laFbg' \
+    la='exa -laFbg --git' \
     ldot='exa -laFbgd .*' \
     ln='ln -si' \
     lr='exa -laFbgR' \
