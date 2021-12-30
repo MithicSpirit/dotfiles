@@ -1,4 +1,3 @@
 #!/usr/bin/env sh
 
-LD_PRELOAD=libSDLsteam.so DEBUGGER=/usr/bin/steam_sdl_injection.sh \
-	exec steam-runtime "$@"
+DEBUGGER=/usr/bin/steam_sdl_injection.sh exec steam-runtime "$@"
