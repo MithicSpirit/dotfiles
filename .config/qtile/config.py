@@ -210,7 +210,7 @@ sysinfo_widgets = [
         ),
         (
             widget.Clock,
-            {"format": "%a, %b %d, %Y", "update_interval": 60},
+            {"format": "%a, %b %d, %Y", "update_interval": 1},
         ),
         (widget.Spacer, {"length": 3}),
     ],
