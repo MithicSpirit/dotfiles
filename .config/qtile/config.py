@@ -210,7 +210,7 @@ sysinfo_widgets = [
         ),
         (
             widget.Clock,
-            {"format": "%a, %b %d, %Y", "update_interval": 60},
+            {"format": "%a, %b %d, %Y", "update_interval": 1},
         ),
         (widget.Spacer, {"length": 3}),
     ],
@@ -483,12 +483,6 @@ keys = [
         desc="Launch the 4th custom program for the current group",
     ),
     # Misc
-    Key(
-        [],
-        "XF86AudioPlay",
-        lazy.spawn("playerctl play-pause"),
-        desc="Toggle pause",
-    ),
     Key(
         [MODKEY],
         "v",

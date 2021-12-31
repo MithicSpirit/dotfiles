@@ -1,8 +1,15 @@
-XF86Audio{Raise,Lower}Volume
-	amixer -D pulse -q sset Master 5%{+,-}
+XF86AudioPlay
+	playerctl play-pause
+
+# For keyboards with mute but not playpause
+shift + XF86AudioMute
+	playerctl play-pause
 
 XF86AudioMute
 	amixer -D pulse -q sset Master toggle
 
+XF86Audio{Raise,Lower}Volume
+	amixer -D pulse -q sset Master 5%{+,-}
+
 XF86MonBrightness{Up,Down}
-	xbacklight {+,-}5
+	xbacklight {+,-}2
