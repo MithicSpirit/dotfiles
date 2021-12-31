@@ -484,12 +484,6 @@ keys = [
     ),
     # Misc
     Key(
-        [],
-        "XF86AudioPlay",
-        lazy.spawn("playerctl play-pause"),
-        desc="Toggle pause",
-    ),
-    Key(
         [MODKEY],
         "v",
         lazy.spawn("dmenu-greenclip"),
