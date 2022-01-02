@@ -61,6 +61,7 @@ ZSH_AUTOSUGGEST_ACCEPT_WIDGETS=("${(@)ZSH_AUTOSUGGEST_ACCEPT_WIDGETS:#forward-ch
 ZSH_AUTOSUGGEST_PARTIAL_ACCEPT_WIDGETS+=(forward-char)
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=magenta'
 ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=red,bold'
 ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=12'
 ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=magenta'
