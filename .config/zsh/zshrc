@@ -42,7 +42,7 @@ for i in $MODULES; do zmodload $i; done
 PLUGINPATH="$ZDOTDIR/plugins"
 PLUGINS=(
     "/usr/share/autojump/autojump.zsh"
-    "~/.autojump/share/autojump/autojump.zsh"
+    "~/.autojump/etc/profile.d/autojump.sh"
     "/usr/share/doc/pkgfile/command-not-found.zsh"
     "$PLUGINPATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
     "$PLUGINPATH/zsh-completions/zsh-completions.plugin.zsh"
