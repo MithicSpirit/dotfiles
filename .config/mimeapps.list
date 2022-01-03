@@ -77,3 +77,4 @@ video/mp4=mpv.desktop;
 application/x-java-archive=engrampa.desktop;
 terminal=Alacritty.desktop;
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=onlyoffice-desktopeditors.desktop;
+text/org=emacs.desktop;emacsclient.desktop;
