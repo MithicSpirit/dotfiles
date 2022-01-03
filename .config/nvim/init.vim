@@ -31,4 +31,16 @@ command Wsudo w !sudo tee % > /dev/null
 autocmd VimLeave * set guicursor=a:ver20
 
 call plug#begin()
+Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'arcticicestudio/nord-vim'
 call plug#end()
+
+let g:firenvim_config = { 
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'takeover': 'never',
+        \ },
+    \ }
+\ }
+
+colorscheme nord
