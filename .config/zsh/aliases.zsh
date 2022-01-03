@@ -21,7 +21,7 @@ alias \
     h='history 1' \
     htop='btm -b' \
     l='exa -lFbg --git' \
-    lS='exa -laFbgs --color=scale' \
+    lS='exa -laFbgs size --color-scale --group-directories-first' \
     la='exa -laFbg --git' \
     ldot='exa -laFbgd .*' \
     ln='ln -si' \
