@@ -623,43 +623,6 @@ keys = [
         desc="Toggle fullscreen",
     ),
     Key([MODKEY], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
-    # Screenshot
-    Key(
-        [MODKEY],
-        "p",
-        # lazy.spawn(f"{CONFIG}/scripts/maim-full.sh"),
-        lazy.spawn("flameshot full --clipboard"),
-        desc="Take full screenshot and store in clipboard",
-    ),
-    Key(
-        [MODKEY, "control"],
-        "p",
-        lazy.spawn(f"{CONFIG}/scripts/maim-window.sh"),
-        desc="Take screenshot of the active window and store in clipboard",
-    ),
-    Key(
-        [MODKEY, "shift"],
-        "p",
-        # lazy.spawn(f"{CONFIG}/scripts/maim-region.sh"),
-        # desc="Take screenshot of interactively selected region and store in "
-        # + "clipboard",
-        lazy.spawn("flameshot gui"),
-        desc="Interactively select region to take screenshot of with Flameshot",
-    ),
-    Key(
-        [MODKEY, "control", "shift"],
-        "p",
-        # lazy.spawn(f"{CONFIG}/scripts/maim-save.sh"),
-        # desc="Take full screenshot and store as file",
-        lazy.spawn("flameshot launcher"),
-        desc="Launch the Flameshot launcher for better screenshot control",
-    ),
-    Key(
-        [MODKEY, "mod1"], # mod1=alt
-        "p",
-        lazy.spawn("replay-sorcery save"),
-        desc="Save current replay sorcery recording",
-    ),
 ]
 
 # Group keybinds

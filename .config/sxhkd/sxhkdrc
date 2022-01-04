@@ -1,3 +1,4 @@
+## Media controls
 XF86AudioPlay
 	playerctl play-pause
 
@@ -11,5 +12,25 @@ XF86AudioMute
 XF86Audio{Raise,Lower}Volume
 	amixer -D pulse -q sset Master 5%{+,-}
 
+
+## Screenshot
+super + p
+	flameshot full --clipboard
+
+super + control + p
+	maim -ui "$(xdotool getactivewindow)" | xclip -sel clip -t image/png -i
+
+super + shift + p
+	flameshot-gui
+
+super + control + shift + p
+	flameshot launcher
+
+super + alt + p
+	replay-sorcery save
+
+
+## Miscellaneous
 XF86MonBrightness{Up,Down}
 	xbacklight {+,-}2
+
