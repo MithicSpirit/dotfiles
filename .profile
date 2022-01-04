@@ -2,7 +2,7 @@ if [ -z "$LOGGED_IN" ]; then
 	export LOGGED_IN="true"
 	
 	export PATH="$HOME/.local/bin:/usr/lib/ccache/bin:$PATH"
-	export EDITOR="vis"
+	export EDITOR="nvim"
 	export LANG="en_US.UTF-8"
 	export TERMINAL="alacritty"
 	export BROWSER="qutebrowser"
