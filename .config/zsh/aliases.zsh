@@ -51,7 +51,7 @@ alias \
     updb='sudo updatedb' \
     v='bat' \
     venv='source venv/bin/activate' \
-    vi='vis' \
+    vi="$EDITOR" \
     vidiff='nvim -d' \
     visudo='sudo --preserve-env=EDITOR visudo' \
     xalarm='exec alarm' \
