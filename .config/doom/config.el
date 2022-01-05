@@ -309,8 +309,8 @@ This must be added to `emojify-inhibit-functions' to work."
 
 
 ;; Company/completion
-(setq company-idle-delay 1
-      comapny-box-doc-delay 1.5)
+(setq company-idle-delay 2
+      comapny-box-doc-delay 3)
   
 
 ;; Map winum window selections to not require "w" prefix
