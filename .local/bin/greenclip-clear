@@ -2,4 +2,5 @@
 
 killall greenclip
 greenclip clear
+rm -rf /tmp/greenclip
 greenclip daemon >/tmp/greenclip.log &
