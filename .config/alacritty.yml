@@ -188,9 +188,9 @@ schemes:
   nord: &nord
     primary:
       background: '#292e38'
-      foreground: '#e4eaf6'
-      dim_foreground: '#a5abb6'
-      bright_foreground: '#eaf1fc'
+      foreground: '#f2f5fa'
+      dim_foreground: '#b9bbbf'
+      bright_foreground: '#f7faff'
     cursor:
       text: CellBackground
       cursor: '#ebcb8b'
