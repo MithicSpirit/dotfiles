@@ -26,6 +26,12 @@ git clone --depth=1 https://github.com/hlissner/doom-emacs.git ~/.config/emacs
 doom install
 #+end_src
 
+** Neovim
+Execute =~/.local/share/setup/nvim.sh= or run the following
+#+begin_src sh
+nvim -es -u ~/.config/nvim/init.vim -i NONE -c PlugInstall -c qa
+#+end_src
+
 ** Vis
 Execute =~/.local/share/setup/vis.sh= or run the following
 #+begin_src sh
