@@ -106,22 +106,40 @@ __escape_aliases # See globalias
 # Linux TTY
 if [[ "$TERM" = "linux" ]]; then
     clear () {
-        echo -en "\e]P01C1F2B" #black
-        echo -en "\e]P1FF5370" #darkred
-        echo -en "\e]P2C3E88D" #darkgreen
-        echo -en "\e]P3FFCB6B" #brown
-        echo -en "\e]P482AAFF" #darkblue
-        echo -en "\e]P5C792EA" #darkmagenta
-        echo -en "\e]P689DDFF" #darkcyan
-        echo -en "\e]P7A6ACCD" #lightgrey
-        echo -en "\e]P8545760" #darkgrey
-        echo -en "\e]P9FF7E93" #red
-        echo -en "\e]PAD2EDA9" #green
-        echo -en "\e]PBFFD890" #yellow
-        echo -en "\e]PCA1BFFF" #blue
-        echo -en "\e]PDD5ADEF" #magenta
-        echo -en "\e]PEA6E5FF" #cyan
-        echo -en "\e]PFBCC0D9" #white
+		## Nord
+        echo -en "\e]P0292E38" # black, bg
+        echo -en "\e]P1BF616A" # darkred
+        echo -en "\e]P2A3BE8C" # darkgreen
+		echo -en "\e]P3EBCB8B" # brown (darkyellow)
+        echo -en "\e]P481A1C1" # darkblue
+        echo -en "\e]P5B48EAD" # darkmagenta
+        echo -en "\e]P688C0D0" # darkcyan
+		echo -en "\e]P7F2F5FA" # lightgrey, fg
+        echo -en "\e]P864718B" # darkgrey
+        echo -en "\e]P9C76B74" # red
+        echo -en "\e]PAADC698" # green
+        echo -en "\e]PBF3D599" # yellow
+        echo -en "\e]PC8CA9C6" # blue
+        echo -en "\e]PDBC9AB5" # magenta
+        echo -en "\e]PE93BEBE" # cyan
+        echo -en "\e]PFECEFF4" # white
+		## Palenight
+        #echo -en "\e]P01C1F2B" # black
+        #echo -en "\e]P1FF5370" # darkred
+        #echo -en "\e]P2C3E88D" # darkgreen
+		#echo -en "\e]P3FFCB6B" # brown (darkyellow)
+        #echo -en "\e]P482AAFF" # darkblue
+        #echo -en "\e]P5C792EA" # darkmagenta
+        #echo -en "\e]P689DDFF" # darkcyan
+        #echo -en "\e]P7A6ACCD" # lightgrey
+        #echo -en "\e]P8545760" # darkgrey
+        #echo -en "\e]P9FF7E93" # red
+        #echo -en "\e]PAD2EDA9" # green
+        #echo -en "\e]PBFFD890" # yellow
+        #echo -en "\e]PCA1BFFF" # blue
+        #echo -en "\e]PDD5ADEF" # magenta
+        #echo -en "\e]PEA6E5FF" # cyan
+        #echo -en "\e]PFBCC0D9" # white
         tput clear
     }
     clear
