@@ -27,7 +27,6 @@ if [ -z "$LOGGED_IN" ]; then
 	export MANPATH="$HOME/.local/man:/usr/local/man:/usr/share/man:$MANPATH"
 	export MYPY_CACHE_DIR="$XDG_CACHE_HOME/mypy"
 	export PAGER="bat -p"
-	export PYGMENTIZE_STYLE="vim"
 	export PYTHONTRACEMALLOC=1
 	export QT_QPA_PLATFORMTHEME="qt5ct"
 	export RIPGREP_CONFIG_PATH="$HOME/.config/rg.conf"
