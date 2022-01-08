@@ -12,7 +12,7 @@
 	# Appearance
 	sleep 1
 	picom --experimental-backends &
-	feh --no-fehbg --bg-fill "$HOME/.wallpapers/snowy mountains.jpg" &
+	feh --no-fehbg --bg-fill "$HOME/.wallpapers/planets.jpg" &
 	redshift-gtk -l geoclue2 -b 0.95:0.9 -t 6400K:4000K &
 	xrdb ~/.config/xresources/Xresources &
 
