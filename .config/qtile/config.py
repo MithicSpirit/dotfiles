@@ -76,6 +76,7 @@ widgets = [
         rounded=False,
         margin_y=3,
         margin_x=0,
+        disable_drag=True,
     ),
     widget.Spacer(11),
     widget.CurrentLayoutIcon(
