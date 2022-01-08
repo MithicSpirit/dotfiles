@@ -36,6 +36,8 @@ image/webp=sxiv.desktop
 application/vnd.openxmlformats-officedocument.wordprocessingml.document=onlyoffice-desktopeditors.desktop
 x-scheme-handler/lbry=lbry.desktop
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=onlyoffice-desktopeditors.desktop
+inode/directory=pcmanfm.desktop
+x-scheme-handler/trash=pcmanfm.desktop
 
 [Added Associations]
 x-scheme-handler/http=xfce4-web-browser.desktop;
