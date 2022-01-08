@@ -30,6 +30,12 @@ command Wq wq
 
 autocmd VimLeave * set guicursor=a:ver20
 
+
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
+
 call plug#begin()
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 Plug 'itchyny/lightline.vim'
@@ -38,6 +44,7 @@ Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
 Plug 'lambdalisue/suda.vim'
 call plug#end()
+
 
 let g:firenvim_config = { 
     \ 'localSettings': {
