@@ -27,7 +27,6 @@ nnoremap <C-w>. <C-w>>
 command W w
 command Q q
 command Wq wq
-command Wsudo w !sudo tee % >/dev/null
 
 autocmd VimLeave * set guicursor=a:ver20
 
@@ -37,6 +36,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
+Plug 'lambdalisue/suda.vim'
 call plug#end()
 
 let g:firenvim_config = { 
@@ -59,3 +59,5 @@ map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
 map gs <Plug>(easymotion-prefix)
+
+command Wsudo w suda://%
