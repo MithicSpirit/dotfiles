@@ -1,3 +1,20 @@
+## Launch programs
+super + return
+	"$TERMINAL"
+
+super + shift + return
+	dmenu_run -p "Run"
+
+super + a
+	"$REAL_BROWSER"
+
+super + shift + a
+	pcmanfm
+
+super + control + a
+	doom everywhere
+
+
 ## Media controls
 XF86AudioPlay
 	playerctl play-pause

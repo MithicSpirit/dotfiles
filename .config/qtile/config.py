@@ -436,31 +436,6 @@ keys = [
     # Launching programs
     Key(
         [MODKEY],
-        "Return",
-        lazy.spawn(TERMINAL),
-        desc="Launch terminal",
-    ),
-    Key([MODKEY], "a", lazy.spawn(BROWSER), desc="Launch browser"),
-    Key(
-        [MODKEY, "shift"],
-        "a",
-        lazy.spawn("thunar"),
-        desc="Launch file manager",
-    ),
-    Key(
-        [MODKEY, "control"],
-        "a",
-        lazy.spawn("doom everywhere"),
-        desc='Launch "emacs-everywhere" frame',
-    ),
-    Key(
-        [MODKEY, "shift"],
-        "Return",
-        lazy.spawn('dmenu_run -p "Run"'),
-        desc="Open dmenu run launcher",
-    ),
-    Key(
-        [MODKEY],
         "i",
         custom_app(1),
         desc="Launch the 1st custom program for the current group",
