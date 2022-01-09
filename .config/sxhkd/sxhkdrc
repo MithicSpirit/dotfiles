@@ -1,8 +1,8 @@
 ## Launch programs
-super + return
+super + Return
 	"$TERMINAL"
 
-super + shift + return
+super + shift + Return
 	dmenu_run -p "Run"
 
 super + a
