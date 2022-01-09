@@ -1,5 +1,5 @@
 sync_dir = "~/documents/school"
-skip_file = "~*|.~*|*.tmp|*.crdownload|*.synctex(busy)"
+skip_file = "~*|.~*|*~|*.tmp|*.crdownload|*.synctex(busy)|4913"
 monitor_interval = "120"
 # skip_dir = ""
 # log_dir = "~/.cache/onedrive-log/"
