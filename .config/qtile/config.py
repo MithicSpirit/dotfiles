@@ -17,13 +17,21 @@ HOME = os.environ["HOME"]
 CONFIG = f"{HOME}/.config/qtile"
 BROWSER = "librewolf"
 VISUAL = "visual"
-colors = {
-    "bg": "#292d3e",
-    "fg": "#eeffff",
-    "hlfg": "#c792ea",
-    "hlbg": "#4e5579",
-    "hl1": "#bb80b3",
-    "hl2": "#7986e7",
+COLORS = {
+    ## Nord
+    "bg": "#2e3440",
+    "fg": "#eceff4",
+    "hlbg": "#434c5e",
+    "hl1": "#88c0d0",
+    "hl2": "#81a1c1",
+    "hlfg": "#2e3440",
+    ## Palenight
+    # "bg": "#292d3e",
+    # "fg": "#eeffff",
+    # "hlfg": "#c792ea", # replaced with dark text
+    # "hlbg": "#4e5579",
+    # "hl1": "#bb80b3",
+    # "hl2": "#7986e7",
 }
 
 # Qtile config variables
@@ -35,14 +43,14 @@ dgroups_app_rules: list[Rule] = []
 focus_on_window_activation = "urgent"
 follow_mouse_focus = True
 widget_defaults = {
-    "font": "Iosevka Mithic",
-    "fontsize": 13,
+    "font": "Iosevka Mithic Medium",
+    "fontsize": 14,
     "padding_x": 5,
     "padding_y": 0,
     "padding": 5,
     "margin": 0,
-    "background": colors["bg"],
-    "foreground": colors["fg"],
+    "background": COLORS["bg"],
+    "foreground": COLORS["fg"],
 }
 extension_defaults = widget_defaults
 wmname = "Qtile"
@@ -62,15 +70,16 @@ widgets = [
     # widget.Spacer(3),
     widget.GroupBox(
         fontsize=12,
-        foreground=colors["fg"],
-        active=colors["fg"],
-        inactive=colors["fg"],
-        background=colors["bg"],
-        this_current_screen_border=colors["hl1"],
-        this_screen_border=colors["hl1"],
-        highlight_color=colors["hlbg"],
-        urgent_text=colors["fg"],
-        urgent_border=colors["hl2"],
+        font="Iosevka Mithic Extrabold",
+        foreground=COLORS["fg"],
+        active=COLORS["fg"],
+        inactive=COLORS["fg"],
+        background=COLORS["bg"],
+        this_current_screen_border=COLORS["hl1"],
+        this_screen_border=COLORS["hl1"],
+        highlight_color=COLORS["hlbg"],
+        urgent_text=COLORS["fg"],
+        urgent_border=COLORS["hl2"],
         highlight_method="line",
         borderwidth=3,
         rounded=False,
@@ -80,23 +89,23 @@ widgets = [
     ),
     widget.Spacer(11),
     widget.CurrentLayoutIcon(
-        foreground=colors["fg"],
-        background=colors["bg"],
+        foreground=COLORS["fg"],
+        background=COLORS["bg"],
         scale=0.6,
         padding=0,
         padding_x=0,
     ),
-    widget.CurrentLayout(foreground=colors["fg"], background=colors["bg"]),
+    widget.CurrentLayout(foreground=COLORS["fg"], background=COLORS["bg"]),
     widget.Spacer(11),
     widget.WindowName(
-        foreground=colors["hlfg"],
+        foreground=COLORS["hl1"],
         for_current_screen="True",
         format="{state}{name}",
     ),
     widget.Spacer(),
     widget.Spacer(10),
     widget.Systray(
-        background=colors["bg"], padding=12, padding_x=12, padding_y=12
+        background=COLORS["bg"], padding=12, padding_x=12, padding_y=12
     ),
     widget.Spacer(16),
 ]
@@ -106,8 +115,8 @@ sysinfo_widgets = [
         (
             custom.CheckUpdates,
             {
-                "colour_have_updates": colors["fg"],
-                "colour_no_updates": colors["fg"],
+                "colour_have_updates": COLORS["fg"],
+                "colour_no_updates": COLORS["fg"],
                 "no_update_string": "0",
                 "update_interval": 60 * 60,
                 "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateparu.sh"',
@@ -130,9 +139,8 @@ sysinfo_widgets = [
             widget.TextBox,
             {
                 "text": "|",
-                "padding": 0,
-                "padding_x": 0,
-                "fontsize": 16,
+                "padding": -4,
+                "fontsize": 18,
                 "mouse_callbacks": {
                     "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm -b")
                 },
@@ -152,7 +160,7 @@ sysinfo_widgets = [
         (
             custom.Thermal,
             {
-                "foreground_alert": colors["fg"],
+                "foreground_alert": COLORS["hlfg"],
                 "fmt": "{}",
                 "metric": True,
                 "tag_sensor": "Tctl",
@@ -166,9 +174,8 @@ sysinfo_widgets = [
             widget.TextBox,
             {
                 "text": "|",
-                "padding": 0,
-                "padding_x": 0,
-                "fontsize": 16,
+                "padding": -4,
+                "fontsize": 18,
                 "mouse_callbacks": {
                     "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm")
                 },
@@ -177,7 +184,7 @@ sysinfo_widgets = [
         (
             custom.Thermal,
             {
-                "foreground_alert": colors["fg"],
+                "foreground_alert": COLORS["hlfg"],
                 "fmt": "{}",
                 "metric": True,
                 "tag_sensor": "edge",
@@ -207,7 +214,7 @@ sysinfo_widgets = [
         ),
         (
             widget.TextBox,
-            {"text": "|", "padding": 0, "padding_x": 0, "fontsize": 16},
+            {"text": "|", "padding": -4, "fontsize": 18},
         ),
         (
             widget.Clock,
@@ -239,10 +246,10 @@ if os.path.exists("/sys/class/power_supply/BAT1"):
         ],
     )
 for i, widget_group in enumerate(sysinfo_widgets):
-    COLOR = colors["hl1"] if i % 2 == 0 else colors["hl2"]
-    OTHER = colors["hl2"] if i % 2 == 0 else colors["hl1"]
+    COLOR = COLORS["hl1"] if i % 2 == 0 else COLORS["hl2"]
+    OTHER = COLORS["hl2"] if i % 2 == 0 else COLORS["hl1"]
     if i == 0:
-        OTHER = colors["bg"]
+        OTHER = COLORS["bg"]
     widgets.append(
         widget.TextBox(
             text="",
@@ -250,12 +257,11 @@ for i, widget_group in enumerate(sysinfo_widgets):
             foreground=COLOR,
             fontsize=23,
             padding=0,
-            padding_x=0,
         ),
     )
     for widget_type, kwargs in widget_group:
         widgets.append(
-            widget_type(background=COLOR, foreground=colors["fg"], **kwargs)
+            widget_type(background=COLOR, foreground=COLORS["hlfg"], **kwargs)
         )
 
 screens = [
@@ -276,8 +282,8 @@ screens = [
 layout_theme = {
     "border_width": 3,
     "margin": 2,
-    "border_focus": colors["hl1"],
-    "border_normal": colors["bg"],
+    "border_focus": COLORS["hl1"],
+    "border_normal": COLORS["bg"],
     "ratio": 0.5,
 }
 
@@ -319,7 +325,7 @@ floating_layout = layout.Floating(
         Match(wm_class="yad"),
         Match(wm_class="qalculate-gtk"),
     ],
-    **layout_theme | {"border_focus": colors["hl2"]},
+    **layout_theme | {"border_focus": COLORS["hl2"]},
 )
 
 group_names = [
