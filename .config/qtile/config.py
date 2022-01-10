@@ -43,7 +43,7 @@ dgroups_app_rules: list[Rule] = []
 focus_on_window_activation = "urgent"
 follow_mouse_focus = True
 widget_defaults = {
-    "font": "Iosevka Mithic Medium",
+    "font": "Iosevka Mithic Semibold",
     "fontsize": 14,
     "padding_x": 5,
     "padding_y": 0,
@@ -95,11 +95,16 @@ widgets = [
         padding=0,
         padding_x=0,
     ),
-    widget.CurrentLayout(foreground=COLORS["fg"], background=COLORS["bg"]),
+    widget.CurrentLayout(
+        foreground=COLORS["fg"],
+        background=COLORS["bg"],
+        font="Iosevka Mithic Medium",
+    ),
     widget.Spacer(11),
     widget.WindowName(
         foreground=COLORS["hl1"],
         for_current_screen="True",
+        font="Iosevka Mithic Extrabold",
         format="{state}{name}",
     ),
     widget.Spacer(),
