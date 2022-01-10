@@ -51,6 +51,7 @@ widget_defaults = {
     "margin": 0,
     "background": COLORS["bg"],
     "foreground": COLORS["fg"],
+    "markup": True,
 }
 extension_defaults = widget_defaults
 wmname = "Qtile"
@@ -104,10 +105,13 @@ widgets = [
     widget.WindowName(
         foreground=COLORS["hl1"],
         for_current_screen="True",
-        font="Iosevka Mithic Extrabold",
+        font="Iosevka Mithic",
+        fmt="<b>{}</b>",
         format="{state}{name}",
+        max_chars=0,
+        width=bar.STRETCH,
     ),
-    widget.Spacer(),
+    # widget.Spacer(),
     widget.Spacer(10),
     widget.Systray(
         background=COLORS["bg"], padding=12, padding_x=12, padding_y=12
