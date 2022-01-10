@@ -361,8 +361,8 @@ group_names = [
     ("SLAD", {"layout": "monadtall", "spawn": []}),
 ]
 if os.environ["REAL_GPU"] == "amd":
-	# SLAD group
-	group_names[-1][1]["spawn"].extend(["nice -n1 salad", "radeon-profile"])
+    # SLAD group
+    group_names[-1][1]["spawn"].extend(["nice -n1 salad", "radeon-profile"])
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
 
 group_apps = {
@@ -397,9 +397,14 @@ group_apps = {
         f"{BROWSER} --new-window https://music.youtube.com/library/playlists",
         "deadbeef",
         "audiotube",
-        "false"
+        "false",
     ),
-    "SLAD": ("nice -n1 salad", "radeon-profile", f"nice -n20 {TERMINAL} -e sh", "false"),
+    "SLAD": (
+        "nice -n1 salad",
+        "radeon-profile",
+        f"nice -n20 {TERMINAL} -e sh",
+        "false",
+    ),
 }
 
 
@@ -410,6 +415,7 @@ def custom_app(num):
         curr_group = qtile.current_group.name
         prog = group_apps[curr_group][num - 1]
         qtile.cmd_spawn(prog)
+
     return launch_app
 
 
@@ -422,6 +428,7 @@ def layout_change(layout):
     }
     layout_num = layouts[layout]
     return lazy.function(lambda q: q.current_group.use_layout(layout_num))
+
 
 @lazy.function
 def layout_monadtall(qtile):
