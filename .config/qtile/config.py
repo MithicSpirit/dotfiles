@@ -368,7 +368,7 @@ group_names = [
 if os.environ["REAL_GPU"] == "amd":
     # SLAD group
     group_names[-1][1]["spawn"].extend(["nice -n1 salad", "radeon-profile"])
-groups = [Group(name, **kwargs) for name, kwargs in group_names]
+groups = [Group(name, label=f"{name}", **kwargs) for name, kwargs in group_names]
 
 group_apps = {
     "CHAT": (
