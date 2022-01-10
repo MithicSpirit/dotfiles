@@ -87,6 +87,7 @@ widgets = [
         margin_y=3,
         margin_x=0,
         disable_drag=True,
+        use_mouse_wheel=False,
     ),
     widget.Spacer(11),
     widget.CurrentLayoutIcon(
