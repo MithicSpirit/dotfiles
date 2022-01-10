@@ -68,7 +68,6 @@ def on_first_startup():
 
 # Set up widgets and screens
 widgets = [
-    # widget.Spacer(3),
     widget.GroupBox(
         fontsize=12,
         font="Iosevka Mithic Extrabold",
@@ -112,7 +111,6 @@ widgets = [
         max_chars=0,
         width=bar.STRETCH,
     ),
-    # widget.Spacer(),
     widget.Spacer(10),
     widget.Systray(
         background=COLORS["bg"], padding=12, padding_x=12, padding_y=12
@@ -316,9 +314,7 @@ floating_layout = layout.Floating(
         Match(wm_class="org.gnome.Characters"),
         Match(wm_class="zoom", title="Settings"),
         Match(title="Picture in picture"),
-        # Match(title="Steam Guard - Computer Authorization Required"),
         Match(wm_class="redshift-gtk"),
-        # Match(wm_class="epicgameslauncher.exe"),
         Match(role="GtkFileChooserDialog"),
         Match(wm_class="confirmreset"),
         Match(wm_class="makebranch"),
@@ -326,7 +322,6 @@ floating_layout = layout.Floating(
         Match(title="branchdialog"),
         Match(title="pinentry"),
         Match(title="zoom_linux_float_video_window"),
-        # Match(wm_class="zoom", title="zoom"),
         Match(
             func=lambda client: ("zoom" == client.name)
             and ("zoom" == client.window.get_wm_class()[0])
@@ -520,8 +515,6 @@ keys = [
     Key(
         [MODKEY, "control", "shift"],
         "q",
-        # lazy.shutdown(),
-        # lazy.spawn("xfce4-session-logout"),
         lazy.spawn("dmenu-shutdown"),
         desc="Spawns dmenu script for logging off or shutting down",
     ),
@@ -703,7 +696,6 @@ def _swallow(window):
         if ppid in cpids:
             parent = window.qtile.windows_map.get(cpids[ppid])
             for i in SWALLOW_PARENT:
-                # if i.compare(parent.window):
                 if i.compare(parent):
                     window.parent = parent
                     parent.minimized = True
