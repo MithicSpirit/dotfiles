@@ -10,6 +10,7 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'justinmk/vim-sneak'
 Plug 'easymotion/vim-easymotion'
 Plug 'lambdalisue/suda.vim'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 
