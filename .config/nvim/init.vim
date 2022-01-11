@@ -69,3 +69,6 @@ map T <Plug>Sneak_T
 map gs <Plug>(easymotion-prefix)
 
 command Wsudo w suda://%
+
+"let g:gitgutter_terminal_reports_focus=0
+set updatetime=500
