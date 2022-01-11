@@ -37,6 +37,8 @@ grep_check ninja 'Please set the necessary flags (`-j7`).'
 grep_check flutter \
 	'Please take ownership of /opt/flutter (`sudo chown -R $USER:$USER /opt/flutter`).'
 grep_check systemd 'Please check if further action is necessary to "detect" systemd.'
+grep_check 'git://' \
+	'Please replace the `git://` protocol on GitHub with `git+https://` protocol.'
 
 # Wait for user input if any issue was found
 if [[ "$issue_found" != 0 ]]; then
