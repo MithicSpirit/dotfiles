@@ -89,15 +89,8 @@ widgets = [
         use_mouse_wheel=False,
     ),
     widget.Spacer(11),
-    widget.CurrentLayoutIcon(
-        foreground=COLORS["fg"],
-        background=COLORS["bg"],
-        scale=0.6,
-        padding=0,
-        padding_x=0,
-    ),
     widget.CurrentLayout(
-        foreground=COLORS["fg"],
+        foreground=COLORS["hl2"],
         background=COLORS["bg"],
         font="Iosevka Mithic Medium",
     ),
