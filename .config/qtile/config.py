@@ -111,6 +111,7 @@ widgets = [
     widget.Spacer(16),
 ]
 
+PIPE_SEPARATOR_PADDING=-3
 sysinfo_widgets = [
     [
         (
@@ -140,7 +141,7 @@ sysinfo_widgets = [
             widget.TextBox,
             {
                 "text": "|",
-                "padding": -4,
+                "padding": PIPE_SEPARATOR_PADDING,
                 "fontsize": 18,
                 "mouse_callbacks": {
                     "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm -b")
@@ -175,7 +176,7 @@ sysinfo_widgets = [
             widget.TextBox,
             {
                 "text": "|",
-                "padding": -4,
+                "padding": PIPE_SEPARATOR_PADDING,
                 "fontsize": 18,
                 "mouse_callbacks": {
                     "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm")
@@ -215,7 +216,7 @@ sysinfo_widgets = [
         ),
         (
             widget.TextBox,
-            {"text": "|", "padding": -4, "fontsize": 18},
+            {"text": "|", "padding": PIPE_SEPARATOR_PADDING, "fontsize": 18},
         ),
         (
             widget.Clock,
