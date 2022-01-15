@@ -98,7 +98,8 @@ widgets = [
     widget.WindowName(
         foreground=COLORS["hl1"],
         for_current_screen="True",
-        font="Iosevka Mithic",
+        font="Overpass",
+        fontsize=15,
         fmt="<b>{}</b>",
         format="{state}{name}",
         max_chars=0,
