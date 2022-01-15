@@ -41,9 +41,6 @@ super + shift + p
 	flameshot-gui
 
 super + control + shift + p
-	flameshot launcher
-
-super + alt + p
 	replay-sorcery save
 
 
