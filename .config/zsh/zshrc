@@ -99,7 +99,7 @@ WORDCHARS="_-.~=!#$%^()<>&|"
 ZLE_RPROMPT_INDENT=0 # Remove unnecessary padding
 PROMPT_EOL_MARK="$(printf '%%{\033[0m\033[7m\033[1m%%}%%#%%{\033[0m%%}')"
   # ^ reset color before printing prompt_sp (see above)
-#unset LINES COLUMNS # Can fix some bugs
+unset LINES COLUMNS # Can fix some bugs
 command -v starship &>/dev/null && eval "$(starship init zsh)" # Starship prompt
 __escape_aliases # See globalias
 
@@ -153,5 +153,8 @@ if [[ "$INSIDE_EMACS" = 'vterm' && -n ${EMACS_VTERM_PATH} &&
     unalias clear
     clear () { eval "$__clear_vterm" }
 fi
+
+# Helper function
+openexit() { xdg-open "$@"& disown && exit 0 }
 
 true # prevent above error codes from affecting prompt
