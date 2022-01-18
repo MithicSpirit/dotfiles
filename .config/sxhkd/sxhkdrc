@@ -32,7 +32,7 @@ any + XF86Audio{Raise,Lower}Volume
 
 ## Screenshot
 super + p
-	flameshot full --clipboard
+	flameshot full
 
 super + control + p
 	maim -ui "$(xdotool getactivewindow)" | xclip -sel clip -t image/png -i
