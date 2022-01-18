@@ -1,0 +1,5 @@
+[Icon Theme]
+Name=Arc Custom
+Inherits=Arc,breeze-dark,breeze,elementary,hicolor,Adwaita
+Comment=Arc Icon theme with customized dependencies
+Directories=
