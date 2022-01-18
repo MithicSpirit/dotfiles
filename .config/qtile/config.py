@@ -112,7 +112,7 @@ widgets = [
     widget.Spacer(16),
 ]
 
-PIPE_SEPARATOR_PADDING=-3
+PIPE_SEPARATOR_PADDING = -3
 sysinfo_widgets = [
     [
         (
@@ -292,7 +292,10 @@ layout_theme = {
 
 layouts = [
     layout.MonadTall(
-        change_ratio=0.04, min_ratio=0.41, **layout_theme | {"margin": 4}
+        change_ratio=0.05,
+        min_ratio=0.25,
+        max_ratio=0.75,
+        **layout_theme | {"margin": 4},
     ),
     layout.Max(**layout_theme | {"margin": 0}),
     layout.Stack(num_stacks=2, **layout_theme),
@@ -358,7 +361,9 @@ group_names = [
 if os.environ["REAL_GPU"] == "amd":
     # SLAD group
     group_names[-1][1]["spawn"].extend(["nice -n1 salad", "radeon-profile"])
-groups = [Group(name, label=f"{name}", **kwargs) for name, kwargs in group_names]
+groups = [
+    Group(name, label=f"{name}", **kwargs) for name, kwargs in group_names
+]
 
 group_apps = {
     "CHAT": (
