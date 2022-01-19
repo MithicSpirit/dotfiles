@@ -292,9 +292,9 @@ layout_theme = {
 
 layouts = [
     layout.MonadTall(
-        change_ratio=0.05,
-        min_ratio=0.25,
-        max_ratio=0.75,
+        change_ratio=0.04,
+        min_ratio=0.26,
+        max_ratio=0.74,
         **layout_theme | {"margin": 4},
     ),
     layout.Max(**layout_theme | {"margin": 0}),
