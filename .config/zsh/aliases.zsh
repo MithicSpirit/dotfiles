@@ -162,3 +162,8 @@ command -v python &>/dev/null && command -v ipython &>/dev/null &&
         fi
     }
 
+command -v xdg-open &>/dev/null && 
+    xopen () { 
+        xdg-open "$@"& 
+        disown && exit 0 
+    }

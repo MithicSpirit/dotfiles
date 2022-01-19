@@ -154,7 +154,4 @@ if [[ "$INSIDE_EMACS" = 'vterm' && -n ${EMACS_VTERM_PATH} &&
     clear () { eval "$__clear_vterm" }
 fi
 
-# Helper function
-openexit() { xdg-open "$@"& disown && exit 0 }
-
 true # prevent above error codes from affecting prompt
