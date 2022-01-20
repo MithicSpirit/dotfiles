@@ -112,7 +112,7 @@ widgets = [
     widget.Spacer(16),
 ]
 
-PIPE_SEPARATOR_PADDING = -3
+PIPE_SEPARATOR_PADDING = -2
 sysinfo_widgets = [
     [
         (
