@@ -44,6 +44,7 @@ grep_check 'git://' \
 if [[ "$issue_found" != 0 ]]; then
 	while true; do read -rt 0 -sk 1 || break; done
 	read -rsk 1 '?Issues found [Press any key to continue]'
-	echo ''
+	echo '\n'
 fi
+echo ''
 exit 0
