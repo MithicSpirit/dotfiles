@@ -40,6 +40,15 @@ mkdir plugins
 git clone --depth=1 https://github.com/erf/vis-plug.git plugins/vis-plug
 #+end_src
 
+** Xournal++
+*WARNING*: This will reset your current Xournal++ configuration. Run with
+caution.
+
+Execute =~/.local/share/setup/xournalpp.sh= or run the following
+#+begin_src sh
+cp -i ~/.config/xournalpp/settings.bak.xml ~/.config/xournalpp/settings.xml
+#+end_src
+
 ** Zsh
 Execute =~/.local/share/setup/zsh.sh= or run the following
 #+begin_src sh
