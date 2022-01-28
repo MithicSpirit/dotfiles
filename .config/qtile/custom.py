@@ -64,14 +64,14 @@ class CheckUpdates(OldCheckUpdates):
         just change the source code.
         """
         if num == 0:
-            return " 0 Pkg"
-        # if num == 1:
-        #     return " 1 Pkg"
+            return "  0 Pkg"
         if num < 10:
-            return f" {num} Pkg"
+            return f"  {num} Pkg"
         if num < 100:
+            return f" {num} Pkg"
+        if num < 1000:
             return f"{num} Pkg"
-        return "99+Pkg"
+        return "999+Pkg"
 
     def tick(self):
         def worker():
