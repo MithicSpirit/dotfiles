@@ -41,12 +41,12 @@ if [ -z "$LOGGED_IN" ]; then
 	export XCURSOR_THEME="breeze_cursors"
 	export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
-	LESS_TERMCAP_md="$(echo '\033[1;35m')"; export LESS_TERMCAP_md
-	LESS_TERMCAP_so="$(echo '\033[3;33m')"; export LESS_TERMCAP_so
-	LESS_TERMCAP_us="$(echo '\033[4;34m')"; export LESS_TERMCAP_us
-	LESS_TERMCAP_me="$(echo '\033[0m')"; export LESS_TERMCAP_me
-	LESS_TERMCAP_se="$(echo '\033[0m')"; export LESS_TERMCAP_se
-	LESS_TERMCAP_ue="$(echo '\033[0m')"; export LESS_TERMCAP_ue
+	export LESS_TERMCAP_md="$(echo '\033[1;35m')"
+	export LESS_TERMCAP_so="$(echo '\033[3;33m')"
+	export LESS_TERMCAP_us="$(echo '\033[4;34m')"
+	export LESS_TERMCAP_me="$(echo '\033[0m')"
+	export LESS_TERMCAP_se="$(echo '\033[0m')"
+	export LESS_TERMCAP_ue="$(echo '\033[0m')"
 
 	unset LINES COLUMNS
 
