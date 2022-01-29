@@ -19,7 +19,7 @@ if [ -z "$LOGGED_IN" ]; then
 	export CARGO_BUILD_JOBS="8"
 	export CHKTEXRC="/home/mithic/.config"
 	export GOPATH="$HOME/.local/share/go"
-	export GTK_MODULES="$GTK_MODULES:gtk-vector-screenshot"
+	export GTK3_MODULES="$GTK3_MODULES:gtk-vector-screenshot"
 	export GTK_THEME=Arc-Dark
 	export GPG_TTY="$(tty)"
 	export INFOPATH="$HOME/.local/info:$INFOPATH"
