@@ -51,7 +51,7 @@ class CheckUpdates(OldCheckUpdates):
                 updates = self.call_process(self.custom_command, shell=True)
                 self.subtr = 0
         except CalledProcessError:
-            return " 0 Pkg"  # if it breaks this may be the issue
+            return "  0 Pkg"  # if it breaks this may be the issue
             # updates = ""
             # pass
         num_updates = len(updates.splitlines()) - self.subtr
@@ -76,7 +76,7 @@ class CheckUpdates(OldCheckUpdates):
     def tick(self):
         def worker():
             try:
-                self.qtile.call_soon_threadsafe(self.update, "...Pkg")
+                self.qtile.call_soon_threadsafe(self.update, "... Pkg")
                 text = self.poll()
                 if self.qtile is not None:
                     self.qtile.call_soon_threadsafe(self.update, text)
@@ -94,7 +94,7 @@ class CheckUpdates(OldCheckUpdates):
         if button == 3:
             self.tick()
         elif button == 2:
-            self.qtile.call_soon_threadsafe(self.update, " 0 Pkg")
+            self.qtile.call_soon_threadsafe(self.update, "  0 Pkg")
 
 
 class CPU(OldCPU):
