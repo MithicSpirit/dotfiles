@@ -32,6 +32,9 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 
+set listchars=tab:»\ ,nbsp:␣,trail:·,lead:·,extends:$,precedes:$
+set list
+
 nnoremap Y y$
 nnoremap x "_x
 nnoremap ~ g~l
