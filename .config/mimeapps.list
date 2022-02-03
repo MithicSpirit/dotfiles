@@ -80,3 +80,4 @@ application/x-java-archive=engrampa.desktop;
 terminal=Alacritty.desktop;
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=onlyoffice-desktopeditors.desktop;
 text/org=emacs.desktop;emacsclient.desktop;
+application/msword=onlyoffice-desktopeditors.desktop;
