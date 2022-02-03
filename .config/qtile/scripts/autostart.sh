@@ -23,7 +23,7 @@
 	flameshot &
 	/usr/lib/xfce-polkit/xfce-polkit &
 	[ "$REAL_GPU" != "none" ] && replay-sorcery &
-	sxhkd &
+	sxhkd >/tmp/sxhkd.log &
 
 	# Misc
 	sleep 1
@@ -32,7 +32,7 @@
 	xset s 0 0 &
 	xset +dpms dpms 0 0 0 &
 	numlockx on &
-	wacom margin &
+	#wacom margin &
 	mailspring --background &
 	
 	sleep 4
