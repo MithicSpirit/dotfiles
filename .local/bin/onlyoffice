@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-onlyoffice-desktopeditors --system-title-bar --force-use-tab "$@"
