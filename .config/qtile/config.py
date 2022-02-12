@@ -365,60 +365,8 @@ groups = [
     Group(name, label=f"{name}", **kwargs) for name, kwargs in group_names
 ]
 
-group_apps = {
-    "CHAT": (
-        "nice -n2 discord-canary",
-        "nice -n2 discord-ptb",
-        "nice -n2 signal-desktop-beta",
-        "nice -n2 element-desktop",
-    ),
-    "AGND": (
-        VISUAL,
-        f'{VISUAL} -e "(=school-agenda)"',
-        f'{VISUAL} -e "(=mu4e)"',
-        "false",
-    ),
-    "CLAS": ("nice -n5 zoom", "nice -n5 teams", "false"),
-    "SCHL": (
-        f"{VISUAL} {HOME}/documents/school",
-        "libreoffice",
-        "nice -n5 teams",
-        "false",
-    ),
-    "PRGM": (VISUAL, f"{VISUAL} {HOME}/documents/coding", "false", "false"),
-    "INET": (
-        "nice -n2 lbry",
-        f"{BROWSER} --new-window https://www.youtube.com/feed/subscriptions",
-        "nice -n5 mailspring",
-        f"{BROWSER} --new-window https://odysee.com/$/following",
-    ),
-    "GAME": ("lutris", "steam", "heroic", "false"),
-    "MUSC": (
-        f"{BROWSER} --new-window https://music.youtube.com/library/playlists",
-        "deadbeef",
-        "audiotube",
-        "false",
-    ),
-    "SLAD": (
-        "nice -n1 salad",
-        "radeon-profile",
-        f"nice -n20 {TERMINAL} -e sh",
-        "false",
-    ),
-}
-
 
 # Set up Keybinds
-def custom_app(num):
-    @lazy.function
-    def launch_app(qtile):
-        curr_group = qtile.current_group.name
-        prog = group_apps[curr_group][num - 1]
-        qtile.cmd_spawn(prog)
-
-    return launch_app
-
-
 def layout_change(layout):
     layouts = {
         "monadtall": 0,
@@ -450,45 +398,27 @@ def layout_tile(qtile):
     qtile.current_group.use_layout(3)
 
 
+@lazy.function
+def unfullscreen_all(qtile):
+    for i in qtile.current_group.windows:
+        i.fullscreen = False
+
+
+@lazy.function
+def unfloat_all(qtile):
+    for i in qtile.current_group.windows:
+        if i.fullscreen:
+            continue
+        i.floating = False
+
+
+@lazy.function
+def unminimize_all(qtile):
+    for i in qtile.current_group.windows:
+        i.minimized = False
+
+
 keys = [
-    # Launching programs
-    Key(
-        [MODKEY],
-        "i",
-        custom_app(1),
-        desc="Launch the 1st custom program for the current group",
-    ),
-    Key(
-        [MODKEY, "shift"],
-        "i",
-        custom_app(2),
-        desc="Launch the 2nd custom program for the current group",
-    ),
-    Key(
-        [MODKEY, "control"],
-        "i",
-        custom_app(3),
-        desc="Launch the 3rd custom program for the current group",
-    ),
-    Key(
-        [MODKEY, "control", "shift"],
-        "i",
-        custom_app(4),
-        desc="Launch the 4th custom program for the current group",
-    ),
-    # Misc
-    Key(
-        [MODKEY],
-        "v",
-        lazy.spawn("dmenu-greenclip"),
-        desc="Open clipboard selection menu",
-    ),
-    Key(
-        [MODKEY, "shift"],
-        "space",
-        lazy.spawn("dmenu-xkb"),
-        desc="Open keyboard layout selection menu",
-    ),
     # Layouts
     Key([MODKEY], "Tab", layout_stack, desc="Set layout to stack"),
     Key([MODKEY, "shift"], "Tab", layout_max, desc="Set layout to max"),
@@ -503,20 +433,6 @@ keys = [
         "Tab",
         layout_tile,
         desc="Set layout to tile",
-    ),
-    # Session control
-    Key(
-        [MODKEY, "shift"],
-        "q",
-        lazy.spawn("/usr/bin/betterlockscreen -l -- --ignore-empty-password"),
-        desc="Lock screen",
-    ),
-    # Key([MODKEY, "control"], "q", lazy.restart(), desc="Restart Qtile"),
-    Key(
-        [MODKEY, "control", "shift"],
-        "q",
-        lazy.spawn("dmenu-shutdown"),
-        desc="Spawns dmenu script for logging off or shutting down",
     ),
     # Window movement and management
     Key(
@@ -586,35 +502,59 @@ keys = [
         + "decrease number in master pane (Tile)",
     ),
     Key(
-        [MODKEY], "m", lazy.layout.reset(), desc="Normalize window size ratios"
+        [MODKEY],
+        "slash",
+        lazy.layout.reset(),
+        desc="Normalize window size ratios"
     ),
     Key(
         [MODKEY],
         "equal",
         lazy.layout.increase_nmaster(),
-        desc="Expand window (MonadTall), "
-        + "increase number in master pane (Tile)",
+        desc="Increase number in master pane (Tile)",
     ),
     Key(
         [MODKEY],
         "minus",
         lazy.layout.decrease_nmaster(),
-        desc="Shrink window (MonadTall), "
-        + "decrease number in master pane (Tile)",
+        desc="Decrease number in master pane (Tile)",
+    ),
+    Key(
+        [MODKEY],
+        "b",
+        lazy.window.toggle_fullscreen(),
+        desc="Toggle fullscreen on current active window",
+    ),
+    Key(
+        [MODKEY, "shift"],
+        "b",
+        unfullscreen_all,
+        desc="Unfullscreen all windows in current group",
     ),
     Key(
         [MODKEY],
         "n",
-        lazy.layout.maximize(),
-        desc="toggle window between minimum and maximum sizes",
+        lazy.window.toggle_floating(),
+        desc="Toggle floating on current active window",
+    ),
+    Key(
+        [MODKEY, "shift"],
+        "n",
+        unfloat_all,
+        desc="Unfloat all windows in current group",
+    ),
+    Key(
+        [MODKEY],
+        "m",
+        lazy.window.toggle_minimize(),
+        desc="Toggle minimize on current active window",
     ),
     Key(
         [MODKEY, "shift"],
         "m",
-        lazy.window.toggle_fullscreen(),
-        desc="Toggle fullscreen",
+        unminimize_all,
+        desc="Unminimize all windows in current group",
     ),
-    Key([MODKEY], "f", lazy.window.toggle_floating(), desc="Toggle floating"),
 ]
 
 # Group keybinds
@@ -710,3 +650,12 @@ def _unswallow(window):
     """
     if hasattr(window, "parent"):
         window.parent.minimized = False
+
+@hook.subscribe.client_new
+def _kde_connect(win):
+    """
+    Prevents KDE Connect Daemon pointer from creating ghost window
+    """
+    if win.name == "KDE Connect Daemon":
+        s = qtile.current_screen
+        win.cmd_static(qtile.screens.index(s), s.x, s.y, s.width, s.height)
