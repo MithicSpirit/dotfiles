@@ -18,6 +18,7 @@ if [ -z "$LOGGED_IN" ]; then
 	export BATDIFF_USE_DELTA="true"
 	export CARGO_BUILD_JOBS="8"
 	export CHKTEXRC="/home/mithic/.config"
+	export DEBUGINFOD_URLS="https://debuginfod.elfutils.org/"
 	export GOPATH="$HOME/.local/share/go"
 	export GTK3_MODULES="$GTK3_MODULES:gtk-vector-screenshot"
 	export GTK_THEME=Arc-Dark
