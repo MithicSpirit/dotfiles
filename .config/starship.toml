@@ -63,7 +63,7 @@ disabled = false
 [sudo]
 format = '[✦]($style)'
 style = 'bold purple'
-disabled = false
+disabled = true
 
 [custom.cursor]
 command = "printf '\\033[5 q'"
