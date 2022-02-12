@@ -22,10 +22,10 @@
 ;;; Appearance
 ;; Fonts
 (setq
- doom-font (font-spec :family "Iosevka Mithic" :size 16)
+ doom-font (font-spec :family "Iosevka Mithic" :size 15)
  doom-variable-pitch-font (font-spec :family "Overpass" :size 16)
- doom-big-font (font-spec :family "Inconsolata" :size 21)
- mode-line-font (font-spec :family "Iosevka Mithic" :size 19))
+ doom-big-font (font-spec :family "Inconsolata" :size 20)
+ mode-line-font (font-spec :family "Iosevka Mithic" :size 18))
 (setq doom-unicode-font (font-spec :family "Iosevka Mithic"))
 
 ;; Theme
