@@ -1,48 +1,96 @@
 ## Launch programs
 super + Return
 	"$TERMINAL"
-
 super + shift + Return
 	dmenu_run -p "Run"
 
 super + a
 	"$REAL_BROWSER"
-
 super + shift + a
 	pcmanfm
-
 super + control + a
 	doom everywhere
 
+super + v
+	dmenu-greenclip
+super + shift + space
+	dmeny-xkb
+
+super + shift + q
+	betterlockscreen -l -- --ignore-empty-password
+#super + ctrl + q
+#	qtile cmd-obj -o cmd -f restart
+super + ctrl + shift + q
+	dmenu-shutdown
+
+super + s ; super + d
+	discord-canary
+super + s ; super + shift + d
+	discord-ptb
+super + s ; super + ctrl + d
+	signal-desktop-beta
+super + s ; super + shift + ctrl + d
+	element-desktop
+
+super + s ; super + e
+	visual
+super + s ; super + shift + e
+	visual -e ~/documents/coding
+super + s ; super + ctrl + e
+	visual -e ~/documents/school
+super + s ; super + shift + ctrl + e
+	visual -e '(=school-agenda)'
+
+super + s ; super + w
+	onlyoffice
+super + s ; super + shift + w
+	nice -n5 zoom
+super + s ; super + ctrl + w
+	nice -n5 teams
+
+super + s ; super + c
+	nice -n2 lbry
+super + s ; super + shift + c
+	"$REAL_BROWSER" --new-window 'https://www.youtube.com/feed/subscriptions'
+super + s ; super + ctrl + c
+	nice -n5 mailspring
+super + s ; super + shift + ctrl + c
+	"$REAL_BROWSER" --new-window 'https://odysee.com/$/following'
+
+super + s ; super + f
+	lutris
+super + s ; super + shift + f
+	steam
+super + s ; super + ctrl + f
+	heroic
+
+super + s ; super + v
+	"$REAL_BROWSER" --new-window 'https://music.youtube.com/library/playlists'
+super + s ; super + shift + v
+	nice -n3 nuclear
+super + s ; super + ctrl + v
+	deadbeef
 
 ## Media controls
 any + XF86AudioPlay
 	playerctl play-pause
-
-# For keyboards with mute but not playpause
 shift + XF86AudioMute
+# For keyboards with mute but not playpause
 	playerctl play-pause
-
 any + XF86AudioMute
 	amixer -D pulse -q sset Master toggle
-
 any + XF86Audio{Raise,Lower}Volume
 	amixer -D pulse -q sset Master 5%{+,-}
-
 
 ## Screenshot
 super + p
 	flameshot full
-
 super + control + p
 	maim -ui "$(xdotool getactivewindow)" | xclip -sel clip -t image/png -i
-
 super + shift + p
 	flameshot-gui
-
 super + control + shift + p
 	replay-sorcery save
-
 
 ## Miscellaneous
 any + XF86MonBrightness{Up,Down}
