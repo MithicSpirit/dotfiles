@@ -14,26 +14,25 @@ Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 
-set nobackup
-set noswapfile
-set number
-set clipboard+=unnamedplus
-set ignorecase
-set smartcase
-set mouse=a
-set lazyredraw
-set noshowmode
-set cursorline
+set nobackup noswapfile lazyredraw
+set mouse=a clipboard+=unnamedplus
+set noshowmode ignorecase smartcase
+set number cursorline 
+set splitbelow splitright
+set listchars=tab:»\ ,nbsp:␣,trail:·,lead:·,extends:$,precedes:$ list
 
-set splitbelow
-set splitright
+set textwidth=80  " tw
+set colorcolumn=+1  " cc
+set tabstop=4  " ts
+set softtabstop=4  " sts
+set shiftwidth=4  " sw
+set expandtab  " et/noet
+augroup language_customizations
+    autocmd FileType javascript,typescript,c,cpp,sh,zsh,fish,conf setlocal noet
+    autocmd FileType haskell,lisp,tex,gitcommit setlocal ts=2 sts=2 sw=2
+    autocmd FileType python setlocal tw=79
+augroup END
 
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-
-set listchars=tab:»\ ,nbsp:␣,trail:·,lead:·,extends:$,precedes:$
-set list
 
 nnoremap Y y$
 nnoremap x "_x
@@ -49,7 +48,9 @@ command Wq wq
 
 autocmd VimLeave * set guicursor=a:ver20
 
+let g:tex_flavor = "latex"
 
+" Firenvim
 let g:firenvim_config = { 
     \ 'localSettings': {
         \ '.*': {
@@ -58,20 +59,26 @@ let g:firenvim_config = {
     \ }
 \ }
 
+" Lightline
 source ~/.config/nvim/lightline-conf.vim
 
+" Nord theme
 let g:nord_cursor_line_number_background = 1
 let g:nord_italic_comments = 1
 colorscheme nord
 
+" Vim sneak
 map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
 
+" Vim easymotion
 map gs <Plug>(easymotion-prefix)
 
+" Suda.vim
 command Wsudo w suda://%
 
-"let g:gitgutter_terminal_reports_focus=0
+" Vim gitgutter
 set updatetime=500
+"let g:gitgutter_terminal_reports_focus=0
