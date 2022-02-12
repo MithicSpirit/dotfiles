@@ -24,6 +24,7 @@
 	/usr/lib/xfce-polkit/xfce-polkit &
 	[ "$REAL_GPU" != "none" ] && replay-sorcery &
 	sxhkd >/tmp/sxhkd.log &
+	/usr/bin/kdeconnect-indicator &
 
 	# Misc
 	sleep 1
