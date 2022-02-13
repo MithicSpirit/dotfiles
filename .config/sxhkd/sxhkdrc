@@ -14,7 +14,7 @@ super + control + a
 super + v
 	dmenu-greenclip
 super + shift + space
-	dmeny-xkb
+	dmenu-xkb
 
 super + shift + q
 	betterlockscreen -l -- --ignore-empty-password
@@ -26,7 +26,7 @@ super + ctrl + shift + q
 super + s ; super + d
 	discord-canary
 super + s ; super + shift + d
-	discord-ptb
+	discord
 super + s ; super + ctrl + d
 	signal-desktop-beta
 super + s ; super + shift + ctrl + d
