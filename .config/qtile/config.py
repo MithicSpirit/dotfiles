@@ -338,7 +338,7 @@ group_names = [
             "layout": "max",
             "spawn": [
                 "nice -n2 discord-canary",
-                "nice -n2 discord-ptb",
+                "nice -n2 discord",
                 "nice -n2 signal-desktop-beta",
             ],
         },
