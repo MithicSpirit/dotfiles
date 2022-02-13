@@ -9,6 +9,13 @@ typeset -A options_=(
 	['4. Suspend']="$LOCK_SCREEN & systemctl suspend; wait"
 )
 
-sel="$(echo ${(@kF)options_} | sort | dmenu -bw 3 -c -R -l 7 -p "Power")"
+prompt="Power"
+entries="${(@kF)options_}"
+num="${#options_}"
 
-eval "${options_[$sel]}"
+sel="$(sort -n <<<"$entries" | dmenu -bw 3 -c -R -l "$num" -p "$prompt")"
+
+[[ -n "$sel" ]] && {
+	printf "\n-- %s --\n" "$(date)" >>/tmp/power.log
+	eval "${options_[$sel]} $1" &>>/tmp/power.log &!
+}
