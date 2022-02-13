@@ -2,4 +2,5 @@ MailReader=custom-MailReader
 WebBrowser=custom-WebBrowser
 FileManager=pcmanfm
 TerminalEmulator=custom-TerminalEmulator
+WebBrowserDismissed=true
 

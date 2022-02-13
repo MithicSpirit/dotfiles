@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Dmenu Browser
+GenericName=Web Browser
+Comment=Browse the Internet
+Keywords=Internet;WWW;Browser;Web;Explorer
+Exec=/usr/bin/env dmenu-browser %u
+Terminal=false
+Type=Application
+StartupWMClass=dmenu
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/rdf+xml;application/rss+xml;application/xhtml_xml;x-scheme-handler/ipfs;x-scheme-handler/ipns;
+X-Desktop-File-Install-Version=0.26

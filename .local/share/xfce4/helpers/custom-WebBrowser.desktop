@@ -4,8 +4,8 @@ Version=1.0
 Encoding=UTF-8
 Type=X-XFCE-Helper
 X-XFCE-Category=WebBrowser
-X-XFCE-CommandsWithParameter=/usr/bin/qutebrowser "%s"
-Icon=qutebrowser
-Name=qutebrowser
-X-XFCE-Commands=/usr/bin/qutebrowser
+X-XFCE-CommandsWithParameter=/home/mithic/.local/bin/dmenu-browser "%s"
+Icon=librewolf
+Name=Dmenu Browser
+X-XFCE-Commands=/usr/bin/librewolf
 

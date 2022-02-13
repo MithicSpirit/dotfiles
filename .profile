@@ -5,7 +5,7 @@ if [ -z "$LOGGED_IN" ]; then
 	export EDITOR="nvim"
 	export LANG="en_US.UTF-8"
 	export TERMINAL="alacritty"
-	export BROWSER="qutebrowser"
+	export BROWSER="dmenu-browser"
 	export REAL_BROWSER="librewolf"
 
 	export XDG_CONFIG_HOME="$HOME/.config"; PATH="$XDG_CONFIG_HOME/emacs/bin:$PATH"

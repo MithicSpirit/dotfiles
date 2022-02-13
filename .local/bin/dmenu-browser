@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+
+typeset -A options_=(
+	[' 0. New window']="$REAL_BROWSER --new-window"
+	[' 1. Current window']="$REAL_BROWSER"
+	[' 2. Qutebrowser']="qutebrowser"
+	[' 3. Tor Browser']="torbrowser-launcher"
+	[' 4. Chromium']="chromium"
+	[' 5. Firefox']="firefox"
+	[' 6. Brave']="brave-nightly"
+	[' 7. Librewolf']="librewolf"
+	[' 8. Nyxt']="nyxt"
+	[' 9. IceCat']="icecat"
+	['10. Vieb']="vieb"
+)
+
+prompt="Browser"
+entries="${(@kF)options_}"
+num="${#options_}"
+
+sel="$(sort -n <<<"$entries" | dmenu -bw 3 -c -R -l "$num" -p "$prompt")"
+
+[[ -n "$sel" ]] && eval "${options_[$sel]} '$1'" &>/dev/null &!
