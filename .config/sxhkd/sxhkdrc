@@ -24,13 +24,13 @@ super + ctrl + shift + q
 	dmenu-shutdown
 
 super + s ; super + d
-	discord-canary
+	nice -n2 discord-canary
 super + s ; super + shift + d
-	discord
+	nice -n2 discord
 super + s ; super + ctrl + d
-	signal-desktop-beta
+	nice -n2 signal-desktop-beta
 super + s ; super + shift + ctrl + d
-	element-desktop
+	nice -n2 element-desktop
 
 super + s ; super + e
 	visual
@@ -69,7 +69,7 @@ super + s ; super + v
 super + s ; super + shift + v
 	nice -n3 nuclear
 super + s ; super + ctrl + v
-	deadbeef
+	nice -n3 deadbeef
 
 ## Media controls
 any + XF86AudioPlay
