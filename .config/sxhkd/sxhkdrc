@@ -55,7 +55,7 @@ super + s ; super + shift + c
 super + s ; super + ctrl + c
 	nice -n5 mailspring
 super + s ; super + shift + ctrl + c
-	"$REAL_BROWSER" --new-window 'https://odysee.com/$/following'
+	nice -n3 qbittorrent
 
 super + s ; super + f
 	lutris
@@ -70,6 +70,15 @@ super + s ; super + shift + v
 	nice -n3 nuclear
 super + s ; super + ctrl + v
 	nice -n3 deadbeef
+
+super + s ; super + r
+	nice -n5 "$TERMINAL" -t btop -e btop
+super + s ; super + shift + r
+	nice -n5 "$TERMINAL" -t btm -e btm -b
+super + s ; super + ctrl + r
+	nice -n5 "$TERMINAL" -t htop -e htop
+super + s ; super + shift + ctrl + r
+	nice -n5 "$TERMINAL" -t radeontop -e sudo radeontop -cT
 
 ## Media controls
 any + XF86AudioPlay
@@ -95,4 +104,3 @@ super + control + shift + p
 ## Miscellaneous
 any + XF86MonBrightness{Up,Down}
 	xbacklight {+,-}2
-
