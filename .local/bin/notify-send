@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+if [ -n "$DISPLAY" ]; then
+	/usr/bin/notify-send "$@"
+else
+	echo "Notification:" "$@" >>"$TTY"
+fi

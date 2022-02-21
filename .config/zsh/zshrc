@@ -102,6 +102,7 @@ PROMPT_EOL_MARK="$(printf '%%{\033[0m\033[7m\033[1m%%}%%#%%{\033[0m%%}')"
 unset LINES COLUMNS # Can fix some bugs
 command -v starship &>/dev/null && eval "$(starship init zsh)" # Starship prompt
 __escape_aliases # See globalias
+export TTY
 
 # Linux TTY
 if [[ "$TERM" = "linux" ]]; then
