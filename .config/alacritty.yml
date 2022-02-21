@@ -493,8 +493,8 @@ hints:
   enabled:
    - regex: "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)\
              [^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`]+"
-     #command: xdg-open
-     action: Copy
+     command: xdg-open
+     #action: Copy
      post_processing: true
      mouse:
        enabled: true
