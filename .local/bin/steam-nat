@@ -1,4 +1,3 @@
 #!/usr/bin/env sh
 
-DEBUGGER=/usr/bin/steam_sdl_injection.sh \
-	exec steam-native "$@"
+DEBUGGER=/usr/bin/steam_sdl_injection.sh exec steam-native "$@"

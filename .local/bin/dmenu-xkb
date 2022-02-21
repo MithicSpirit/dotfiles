@@ -10,7 +10,7 @@ DEF_OPTIONS="grp:win_space_toggle,compose:rctrl,caps:escape_shifted_capslock,lv3
 def main():
     options = OrderedDict()
     options["0. Math"] = ("us,gr,il", ",,phonetic", "")
-    options["1. APL"] = ("us,apl", "", "misc:apl")
+    options["1. APL"] = ("us,apl", ",", "misc:apl")
     options["2. Greek"] = ("us,gr", ",", "")
     options["3. Hebrew"] = ("us,il", ",phonetic", "")
 
