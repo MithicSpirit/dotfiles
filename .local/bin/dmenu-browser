@@ -20,4 +20,9 @@ num="${#options_}"
 
 sel="$(sort -n <<<"$entries" | dmenu -bw 3 -c -R -l "$num" -p "$prompt")"
 
-[[ -n "$sel" ]] && eval "${options_[$sel]} '$1'" &>/dev/null &!
+[[ -n "$sel" ]] && {
+	result="${options_[$sel]}" 
+	printf "\n-- %s --\n-> $ %s %s\n<- $ %s %s\n" "$(date)" \
+		"$0" "$@" "$result" "$1" >>/tmp/browser.log
+	eval "$result '$1'" &>>/tmp/browser.log &!
+}
