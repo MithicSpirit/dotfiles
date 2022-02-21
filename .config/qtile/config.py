@@ -3,20 +3,18 @@ My custom Qtile Configuration.
 """
 import os
 import subprocess
-import psutil
+import psutil  # type: ignore
 import re
 from libqtile.config import Key, Screen, Group, Drag, Click, Match, Rule
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook, qtile
 import custom
 
-# Custom constants
+## CONSTANTS
 MODKEY = "mod4"
-TERMINAL = "alacritty"
+TERMINAL = os.environ["TERMINAL"]
 HOME = os.environ["HOME"]
 CONFIG = f"{HOME}/.config/qtile"
-BROWSER = "librewolf"
-VISUAL = "visual"
 COLORS = {
     ## Nord
     "bg": "#2e3440",
@@ -34,7 +32,7 @@ COLORS = {
     # "hl2": "#7986e7",
 }
 
-# Qtile config variables
+## VARIABLES
 auto_fullscreen = True
 bring_front_click = "floating_only"
 cursor_warp = False
@@ -56,17 +54,7 @@ widget_defaults = {
 extension_defaults = widget_defaults
 wmname = "Qtile"
 
-
-@hook.subscribe.startup_once
-def on_first_startup():
-    """
-    Begins startup processes like daemons and the compositor. See
-    `./scripts/autostart.sh`.
-    """
-    subprocess.call([f"{CONFIG}/scripts/autostart.sh"])
-
-
-# Set up widgets and screens
+## WIDGETS
 widgets = [
     widget.GroupBox(
         fontsize=12,
@@ -113,7 +101,7 @@ widgets = [
 ]
 
 PIPE_SEPARATOR_PADDING = -2
-sysinfo_widgets = [
+sysinfo_widgets: list[list[tuple]] = [
     [
         (
             custom.CheckUpdates,
@@ -134,7 +122,7 @@ sysinfo_widgets = [
                 "format": "{load_percent}%",
                 "update_interval": 10,
                 "mouse_callbacks": {
-                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm -b")
+                    "Button1": lazy.spawn(f"{TERMINAL} -e btm -b")
                 },
             },
         ),
@@ -145,7 +133,7 @@ sysinfo_widgets = [
                 "padding": PIPE_SEPARATOR_PADDING,
                 "fontsize": 18,
                 "mouse_callbacks": {
-                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm -b")
+                    "Button1": lazy.spawn(f"{TERMINAL} -t btm -e btm -b")
                 },
             },
         ),
@@ -153,7 +141,7 @@ sysinfo_widgets = [
             custom.Memory,
             {
                 "mouse_callbacks": {
-                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm -b")
+                    "Button1": lazy.spawn(f"{TERMINAL} -t btm -e btm -b")
                 },
                 "update_interval": 30,
             },
@@ -169,7 +157,7 @@ sysinfo_widgets = [
                 "tag_sensor": "Tctl",
                 "update_interval": 10,
                 "mouse_callbacks": {
-                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm")
+                    "Button1": lazy.spawn(f"{TERMINAL} -t btop -e btop")
                 },
             },
         ),
@@ -180,7 +168,7 @@ sysinfo_widgets = [
                 "padding": PIPE_SEPARATOR_PADDING,
                 "fontsize": 18,
                 "mouse_callbacks": {
-                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm")
+                    "Button1": lazy.spawn(f"{TERMINAL} -t btop -e btop")
                 },
             },
         ),
@@ -193,7 +181,7 @@ sysinfo_widgets = [
                 "tag_sensor": "edge",
                 "update_interval": 10,
                 "mouse_callbacks": {
-                    "Button1": lambda: qtile.cmd_spawn(f"{TERMINAL} -e btm")
+                    "Button1": lazy.spawn(f"{TERMINAL} -t btop -e btop")
                 },
             },
         ),
@@ -267,6 +255,7 @@ for i, widget_group in enumerate(sysinfo_widgets):
             widget_type(background=COLOR, foreground=COLORS["hlfg"], **kwargs)
         )
 
+## SCREENS
 screens = [
     Screen(
         top=bar.Bar(
@@ -281,7 +270,7 @@ screens = [
     )
 ]
 
-# Set up layouts and groups
+## LAYOUTS
 layout_theme = {
     "border_width": 3,
     "margin": 2,
@@ -319,11 +308,6 @@ floating_layout = layout.Floating(
         Match(wm_class="maketag"),
         Match(title="branchdialog"),
         Match(title="pinentry"),
-        Match(title="zoom_linux_float_video_window"),
-        Match(
-            func=lambda client: ("zoom" == client.name)
-            and ("zoom" == client.window.get_wm_class()[0])
-        ),
         Match(wm_class="flameshot"),
         Match(wm_class="yad"),
         Match(wm_class="qalculate-gtk"),
@@ -331,7 +315,8 @@ floating_layout = layout.Floating(
     **layout_theme | {"border_focus": COLORS["hl2"]},
 )
 
-group_names = [
+## GROUPS
+group_names: list[tuple[str, dict]] = [
     (
         "CHAT",
         {
@@ -340,23 +325,88 @@ group_names = [
                 "nice -n2 discord-canary",
                 "nice -n2 discord",
                 "nice -n2 signal-desktop-beta",
+                "nice -n2 element-desktop",
+            ],
+            "matches": [
+                Match(wm_class="discord"),
+                Match(wm_class="signal beta"),
+                Match(wm_class="signal"),
+                Match(wm_class="element"),
             ],
         },
     ),
     ("AGND", {"layout": "monadtall"}),
-    ("CLAS", {"layout": "monadtall"}),
-    ("SCHL", {"layout": "monadtall"}),
+    (
+        "CLAS",
+        {
+            "layout": "monadtall",
+            "matches": [
+                Match(wm_class="zoom"),
+                Match(wm_class="microsoft teams - preview"),
+            ],
+        },
+    ),
+    (
+        "SCHL",
+        {"layout": "monadtall", "matches": [Match(wm_class="DesktopEditors")]},
+    ),
     ("PRGM", {"layout": "monadtall"}),
     (
         "INET",
         {
             "layout": "monadtall",
             "spawn": ["nice -n3 qbittorrent", "nice -n2 lbry"],
+            "matches": [
+                Match(wm_class="qbittorrent"),
+                Match(wm_class="lbry"),
+                Match(wm_class="mailspring"),
+            ],
         },
     ),
-    ("GAME", {"layout": "max"}),
-    ("MUSC", {"layout": "monadtall"}),
-    ("SLAD", {"layout": "monadtall", "spawn": []}),
+    (
+        "GAME",
+        {
+            "layout": "max",
+            "matches": [
+                Match(wm_class="lutris"),
+                Match(wm_class="Steam"),
+                Match(wm_class="heroic"),
+            ],
+        },
+    ),
+    (
+        "MUSC",
+        {
+            "layout": "monadtall",
+            "matches": [
+                Match(wm_class="nuclear"),
+                Match(wm_class="deadbeef"),
+            ],
+        },
+    ),
+    (
+        "STAT",
+        {
+            "layout": "max",
+            "spawn": [
+                "nice -n5 /usr/bin/alacritty -o ipc_socket=false --class btop-spawn -t btop -e btop"
+            ],
+            "matches": [
+                Match(wm_class="btop-spawn"),
+            ],
+        },
+    ),
+    (
+        "SLAD",
+        {
+            "layout": "monadtall",
+            "spawn": [],
+            "matches": [
+                Match(wm_class="salad"),
+                Match(wm_class="radeon-profile"),
+            ],
+        },
+    ),
 ]
 if os.environ["REAL_GPU"] == "amd":
     # SLAD group
@@ -366,7 +416,7 @@ groups = [
 ]
 
 
-# Set up Keybinds
+## KEYBINDS
 def layout_change(layout):
     layouts = {
         "monadtall": 0,
@@ -403,6 +453,15 @@ def unfullscreen_all(qtile):
     for i in qtile.current_group.windows:
         i.fullscreen = False
 
+
+@lazy.function
+def toggle_floating(qtile):
+    win = qtile.current_window
+    if win.fullscreen:
+        win.fullscreen = False
+        win.floating = True
+    else:
+        win.floating = not win.floating
 
 @lazy.function
 def unfloat_all(qtile):
@@ -534,7 +593,7 @@ keys = [
     Key(
         [MODKEY],
         "n",
-        lazy.window.toggle_floating(),
+        toggle_floating,
         desc="Toggle floating on current active window",
     ),
     Key(
@@ -561,24 +620,24 @@ keys = [
 for i, (name, kwargs) in enumerate(group_names, start=0):
     if i > 10:
         break
-    i = "grave" if i == 0 else "0" if i == 10 else str(i)
+    key = "grave" if i == 0 else "0" if i == 10 else str(i)
     keys.extend(
         [
             Key(
                 [MODKEY],
-                i,
+                key,
                 lazy.group[name].toscreen(),
                 desc=f"Switch to group {name}",
             ),
             Key(
                 [MODKEY, "shift"],
-                i,
+                key,
                 lazy.window.togroup(name, switch_group=True),
                 desc=f"Switch to and move focused window to group {name}",
             ),
             Key(
                 [MODKEY, "control"],
-                i,
+                key,
                 lazy.window.togroup(name),
                 desc=f"Move focused window to group {name}",
             ),
@@ -602,7 +661,16 @@ mouse = [
     Click([MODKEY, "shift"], "Button2", lazy.window.bring_to_front()),
 ]
 
-# Window swallowing
+
+## HOOKS
+@hook.subscribe.startup_once
+def on_first_startup():
+    """
+    Begins startup processes like daemons and the compositor. See
+    `./scripts/autostart.sh`.
+    """
+    subprocess.call([f"{CONFIG}/scripts/autostart.sh"])
+
 SWALLOW_PARENT = {
     Match(wm_class="urxvt"),
     Match(wm_class="Alacritty"),
@@ -650,6 +718,7 @@ def _unswallow(window):
     """
     if hasattr(window, "parent"):
         window.parent.minimized = False
+
 
 @hook.subscribe.client_new
 def _kde_connect(win):

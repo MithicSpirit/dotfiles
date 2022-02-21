@@ -2,7 +2,7 @@
 Custom widgets for Qtile.
 """
 from subprocess import CalledProcessError
-import psutil
+import psutil  # type: ignore
 import subprocess
 import threading
 from libqtile.widget import base

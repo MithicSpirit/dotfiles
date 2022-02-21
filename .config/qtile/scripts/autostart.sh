@@ -36,6 +36,6 @@
 	#wacom margin &
 	mailspring --background &
 	
-	sleep 4
+	sleep 10
 	notify-send "Welcome" &
 } >>/tmp/qtile-autostart.log 2>&1 &
