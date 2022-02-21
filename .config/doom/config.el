@@ -222,10 +222,10 @@ This must be added to `emojify-inhibit-functions' to work."
 (map! :after tex :map LaTeX-mode-map
       (:localleader
        :desc "LaTeX Preview" "v" #'TeX-view
-       :desc "Run langtool on current buffer" "c r" #'langtool-check
-       :desc "Correct buffer with langtool" "c c" #'langtool-correct-buffer
-       :desc "End current langtool session" "c d" #'langtool-check-done
-       :desc "Return to langtool" "c e" #'exit-recursive-edit)
+       :desc "Run langtool on current buffer" "l r" #'langtool-check
+       :desc "Correct buffer with langtool" "l c" #'langtool-correct-buffer
+       :desc "End current langtool session" "l d" #'langtool-check-done
+       :desc "Return to langtool" "' e" #'exit-recursive-edit)
       (:i :desc "Insert the appropriate quotation marks for LaTeX"
        "\"" #'+tex-insert-quote))
        
