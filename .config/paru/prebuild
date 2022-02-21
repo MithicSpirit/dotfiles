@@ -35,7 +35,7 @@ grep_check () {
 }
 grep_check ninja 'Please set flags to `"$NINJAFLAGS"`.'
 grep_check flutter \
-	'Please take ownership of /opt/flutter (`sudo chown -R $USER:$USER /opt/flutter`).'
+	'Please take ownership of /opt/flutter (`sudo chown -R "$USER:$USER" /opt/flutter`).'
 grep_check systemd 'Please check if further action is necessary to "detect" systemd.'
 grep_check 'git://' \
 	'Please replace the `git://` protocol on GitHub with `git+https://` protocol.'
