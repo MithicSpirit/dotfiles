@@ -1,17 +1,20 @@
 #!/usr/bin/env zsh
 
+_copy() { xclip -in -selection clipboard <<<"$1" }
+
 typeset -A options_=(
-	[' 0. New window']="$REAL_BROWSER --new-window"
-	[' 1. Current window']="$REAL_BROWSER"
-	[' 2. Qutebrowser']="qutebrowser"
-	[' 3. Tor Browser']="torbrowser-launcher"
-	[' 4. Chromium']="chromium"
-	[' 5. Firefox']="firefox"
-	[' 6. Brave']="brave-nightly"
-	[' 7. Librewolf']="librewolf"
-	[' 8. Nyxt']="nyxt"
-	[' 9. IceCat']="icecat"
-	['10. Vieb']="vieb"
+	['0.  New window']="$REAL_BROWSER --new-window"
+	['1.  Current window']="$REAL_BROWSER"
+	['2.  Copy to clipboard']="_copy"
+	['3.  Qutebrowser']="qutebrowser"
+	['4.  Tor Browser']="torbrowser-launcher"
+	['5.  Chromium']="chromium"
+	['6.  Firefox']="firefox"
+	['7.  Brave']="brave-nightly"
+	['8.  Librewolf']="librewolf"
+	['9.  Nyxt']="nyxt"
+	['10. IceCat']="icecat"
+	['11. Vieb']="vieb"
 )
 
 prompt="Browser"
