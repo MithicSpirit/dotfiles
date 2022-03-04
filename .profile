@@ -39,6 +39,7 @@ if [ -z "$LOGGED_IN" ]; then
 	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 	export STARSHIP_LOG="error"
 	export VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/radeon_icd.i686.json:/usr/share/vulkan/icd.d/radeon_icd.x86_64.json"
+	export WINIT_X11_SCALE_FACTOR=1
 	export XCURSOR_THEME="breeze_cursors"
 	export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
