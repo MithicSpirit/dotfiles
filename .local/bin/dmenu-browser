@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-_copy() { xclip -in -selection clipboard <<<"$1" }
+_copy() { echo -n "$1" | xclip -in -selection clipboard }
 
 typeset -A options_=(
 	['0.  New window']="$REAL_BROWSER --new-window"
