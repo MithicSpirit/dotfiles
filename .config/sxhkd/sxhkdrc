@@ -35,9 +35,9 @@ super + s ; super + shift + ctrl + d
 super + s ; super + e
 	visual
 super + s ; super + shift + e
-	visual -e ~/documents/coding
+	visual ~/documents/coding
 super + s ; super + ctrl + e
-	visual -e ~/documents/school
+	visual ~/documents/school
 super + s ; super + shift + ctrl + e
 	visual -e '(=school-agenda)'
 
