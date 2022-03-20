@@ -9,7 +9,7 @@
 ;; PATHs
 (setq
  org-directory "~/documents/org"
- bookmark-default-file "~/.doom.d/bookmarks"
+ bookmark-default-file "~/.config/doom/bookmarks"
  auth-sources '("~/.bak/.secrets/authinfo.gpg")
  projectile-project-search-path '("~/documents/coding"
                                   "~/documents/coding/practice"
@@ -134,7 +134,8 @@ This must be added to `emojify-inhibit-functions' to work."
  org-agenda-tags-column 0
  delete-by-moving-to-trash t
  lsp-auto-guess-root t
- browse-url-generic-program "qutebrowser")
+ lsp-enable-suggest-server-download nil
+ browse-url-generic-program "dmenu-browser")
 (after! persp-mode
   (setq persp-emacsclient-init-frame-behaviour-override "main"))
 
@@ -184,8 +185,9 @@ This must be added to `emojify-inhibit-functions' to work."
 (map! :after evil
       :n "x" "\"_dl"
       :n "X" "\"_dh"
-      :n "~" "g~l")
-      
+      :n "~" "g~l"
+      :nv "gq" #'fill-paragraph)
+
 (setq evil-split-window-below t
       evil-vsplit-window-right t
       evil-want-change-word-to-end nil
@@ -238,9 +240,14 @@ This must be added to `emojify-inhibit-functions' to work."
  
 (setq-default TeX-engine 'luatex)
 ;(pdf-tools-install 'no-query 'skip-deps)
-(after! tex (setq tex--prettify-symbols-alist
-                  (append tex--prettify-symbols-alist '(("\\implies" . ?⇒)))))
-                  
+;(after! tex (setq tex--prettify-symbols-alist
+;                  (append tex--prettify-symbols-alist '(("\\implies" . ?⇒))))
+(after! (tex flycheck lsp-mode)
+ (add-hook! 'latex-mode-local-vars-hook :append
+   (add-hook! 'flycheck-mode-hook :local
+      (setq-local flycheck-checker 'tex-lacheck)
+      (flycheck-add-next-checker 'tex-lacheck 'lsp))))
+
 
 ;; Writeroom tweaks
 (after! writeroom-mode (setq writeroom-width 62))
@@ -309,7 +316,7 @@ This must be added to `emojify-inhibit-functions' to work."
 
 
 ;; Company/completion
-(setq company-idle-delay 'nil
+(setq company-idle-delay nil
       company-box-doc-delay 3)
   
 
