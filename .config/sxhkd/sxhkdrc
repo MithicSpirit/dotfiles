@@ -2,7 +2,7 @@
 super + Return
 	"$TERMINAL"
 super + shift + Return
-	dmenu_run -p "Run"
+	dmenu_run -p "Run" >>/tmp/dmenu-run.log
 
 super + a
 	"$REAL_BROWSER"
@@ -10,6 +10,15 @@ super + shift + a
 	pcmanfm
 super + control + a
 	doom everywhere
+
+super + e
+	visual
+super + shift + e
+	visual ~/documents/coding
+super + ctrl + e
+	visual ~/documents/school
+super + shift + ctrl + e
+	visual -e '(=school-agenda)'
 
 super + v
 	dmenu-greenclip
@@ -31,15 +40,6 @@ super + s ; super + ctrl + d
 	nice -n2 signal-desktop-beta
 super + s ; super + shift + ctrl + d
 	nice -n2 element-desktop
-
-super + s ; super + e
-	visual
-super + s ; super + shift + e
-	visual ~/documents/coding
-super + s ; super + ctrl + e
-	visual ~/documents/school
-super + s ; super + shift + ctrl + e
-	visual -e '(=school-agenda)'
 
 super + s ; super + w
 	onlyoffice
