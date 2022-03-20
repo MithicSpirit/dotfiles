@@ -81,9 +81,7 @@ class CheckUpdates(OldCheckUpdates):
                 if self.qtile is not None:
                     self.qtile.call_soon_threadsafe(self.update, text)
             except:  # noqa: E722
-                logger.exception(
-                    "problem polling to update widget %s", self.name
-                )
+                logger.exception("problem polling to update widget %s", self.name)
 
         threading.Thread(target=worker).start()
 
@@ -194,9 +192,7 @@ class Volume(OldVolume):
                 subprocess.call(self.mute_command, shell=True)
             else:
                 subprocess.call(
-                    self.create_amixer_command(
-                        "-q", "sset", self.channel, "toggle"
-                    )
+                    self.create_amixer_command("-q", "sset", self.channel, "toggle")
                 )
             if self.volume != -1:
                 self.volume = -1

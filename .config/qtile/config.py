@@ -94,36 +94,32 @@ widgets = [
         width=bar.STRETCH,
     ),
     widget.Spacer(10),
-    widget.Systray(
-        background=COLORS["bg"], padding=12, padding_x=12, padding_y=12
-    ),
+    widget.Systray(background=COLORS["bg"], padding=12, padding_x=12, padding_y=12),
     widget.Spacer(16),
 ]
 
 PIPE_SEPARATOR_PADDING = -2
 sysinfo_widgets: list[list[tuple]] = [
-    [
-        (
-            custom.CheckUpdates,
-            {
-                "colour_have_updates": COLORS["fg"],
-                "colour_no_updates": COLORS["fg"],
-                "no_update_string": "0",
-                "update_interval": 60 * 60,
-                "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateparu.sh"',
-                "custom_command": "checkupdates ; paru -Qua | grep -v '\[ignored\]' ; true",
-            },
-        )
-    ],
+#    [
+#        (
+#            custom.CheckUpdates,
+#            {
+#                "colour_have_updates": COLORS["fg"],
+#                "colour_no_updates": COLORS["fg"],
+#                "no_update_string": "0",
+#                "update_interval": 60 * 60,
+#                "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateparu.sh"',
+#                "custom_command": "checkupdates ; paru -Qua | grep -v '\[ignored\]' ; true",
+#            },
+#        )
+#    ],
     [
         (
             custom.CPU,
             {
                 "format": "{load_percent}%",
                 "update_interval": 10,
-                "mouse_callbacks": {
-                    "Button1": lazy.spawn(f"{TERMINAL} -e btm -b")
-                },
+                "mouse_callbacks": {"Button1": lazy.spawn(f"{TERMINAL} -e btm -b")},
             },
         ),
         (
@@ -324,7 +320,7 @@ group_names: list[tuple[str, dict]] = [
             "spawn": [
                 "nice -n2 discord-canary",
                 "nice -n2 discord",
-                "nice -n2 signal-desktop-beta",
+                "nice -n2 signal-desktop",
                 "nice -n2 element-desktop",
             ],
             "matches": [
@@ -411,9 +407,7 @@ group_names: list[tuple[str, dict]] = [
 if os.environ["REAL_GPU"] == "amd":
     # SLAD group
     group_names[-1][1]["spawn"].extend(["nice -n1 salad", "radeon-profile"])
-groups = [
-    Group(name, label=f"{name}", **kwargs) for name, kwargs in group_names
-]
+groups = [Group(name, label=f"{name}", **kwargs) for name, kwargs in group_names]
 
 
 ## KEYBINDS
@@ -462,6 +456,7 @@ def toggle_floating(qtile):
         win.floating = True
     else:
         win.floating = not win.floating
+
 
 @lazy.function
 def unfloat_all(qtile):
@@ -537,9 +532,7 @@ keys = [
         lazy.layout.client_to_next(),
         desc="Move window to next stack",
     ),
-    Key(
-        [MODKEY, "shift"], "x", lazy.window.kill(), desc="Close active window"
-    ),
+    Key([MODKEY, "shift"], "x", lazy.window.kill(), desc="Close active window"),
     Key(
         [MODKEY, "control"],
         "x",
@@ -550,22 +543,15 @@ keys = [
         [MODKEY],
         "period",
         lazy.layout.grow(),
-        desc="Expand window (MonadTall), "
-        + "increase number in master pane (Tile)",
+        desc="Expand window (MonadTall), " + "increase number in master pane (Tile)",
     ),
     Key(
         [MODKEY],
         "comma",
         lazy.layout.shrink(),
-        desc="Shrink window (MonadTall), "
-        + "decrease number in master pane (Tile)",
+        desc="Shrink window (MonadTall), " + "decrease number in master pane (Tile)",
     ),
-    Key(
-        [MODKEY],
-        "slash",
-        lazy.layout.reset(),
-        desc="Normalize window size ratios"
-    ),
+    Key([MODKEY], "slash", lazy.layout.reset(), desc="Normalize window size ratios"),
     Key(
         [MODKEY],
         "equal",
@@ -671,6 +657,7 @@ def on_first_startup():
     """
     subprocess.call([f"{CONFIG}/scripts/autostart.sh"])
 
+
 SWALLOW_PARENT = {
     Match(wm_class="urxvt"),
     Match(wm_class="Alacritty"),
@@ -695,8 +682,7 @@ def _swallow(window):
     pid = window.window.get_net_wm_pid()
     ppid = psutil.Process(pid).ppid()
     cpids = {
-        c.window.get_net_wm_pid(): wid
-        for wid, c in window.qtile.windows_map.items()
+        c.window.get_net_wm_pid(): wid for wid, c in window.qtile.windows_map.items()
     }
     for _ in range(5):
         if not ppid:
@@ -704,10 +690,13 @@ def _swallow(window):
         if ppid in cpids:
             parent = window.qtile.windows_map.get(cpids[ppid])
             for i in SWALLOW_PARENT:
-                if i.compare(parent):
-                    window.parent = parent
-                    parent.minimized = True
-                    return
+                try:
+                    if i.compare(parent):
+                        window.parent = parent
+                        parent.minimized = True
+                        return
+                except AttributeError:
+                    continue
         ppid = psutil.Process(ppid).ppid()
 
 
@@ -726,5 +715,11 @@ def _kde_connect(win):
     Prevents KDE Connect Daemon pointer from creating ghost window
     """
     if win.name == "KDE Connect Daemon":
+        s = qtile.current_screen
+        win.cmd_static(qtile.screens.index(s), s.x, s.y, s.width, s.height)
+
+@hook.subscribe.client_new
+def _discover_overlay(win):
+    if win.name in {"Discover Text", "Discover Voice"}:
         s = qtile.current_screen
         win.cmd_static(qtile.screens.index(s), s.x, s.y, s.width, s.height)

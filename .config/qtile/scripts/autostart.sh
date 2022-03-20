@@ -36,6 +36,8 @@
 	#wacom margin &
 	mailspring --background &
 	
-	sleep 10
+	sleep 9
+	systemctl --user restart dunst.service &
+	sleep 1
 	notify-send "Welcome" &
 } >>/tmp/qtile-autostart.log 2>&1 &
