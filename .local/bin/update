@@ -1,0 +1,542 @@
+#!/usr/bin/env zsh
+
+
+###########
+## UTILS ##
+###########
+function pager { eval "$@" | ${=PAGER:-less} }
+function now { date -u '+%Y-%m-%d@%H:%M:%S' }
+function dialog_ { dialog "$@" 3>&1 1>&2 2>&3 }
+function read_ { clear_input; read "$@" }
+function nice_ { time nice -n20 "$@" }
+
+function clear_input
+{
+	while true; do
+		read -t 0 -sk 1 || break
+	done
+	return 0
+}
+
+function proceed
+{
+	echo
+	read_ -rs '?[Press Enter to proceed]'
+	echo
+}
+
+function confirm
+{
+	read_ -r 'input?[y/n] '
+	while true; do
+		[[ "$input" =~ "[yY].*" ]] && return 0
+		[[ "$input" =~ "[nN].*" ]] && return 1
+		read_ -r 'input?Please respond with `y` or `n`: '
+	done
+}
+
+function handle_failure
+{
+	echo '\nScript failure detected!'
+	notify-send 'An issue has occured during the update'
+	while true; do
+		[[ "$(read_ -re '?[Type `ok` to continue] ')" =~ "[oO][kK]" ]] &&
+			break
+	done
+}
+
+function rm_ {
+	if command -v trash >/dev/null; then
+		echo "Removing with trash"
+		trash "$@"
+	else
+		echo "Removing with rm"
+		rm -rfv "$@"
+	fi
+}
+
+
+##########
+## MAIN ##
+##########
+function main
+{
+	while true; do
+		sel="$(dialog_ --menu 'Update' 0 0 0 \
+			'core' 'Update core system packages (pacman/AUR)' \
+			'other' 'Update other packaging systems' \
+			'misc' 'Update non-packages' \
+		)" || { clear -x; exit 0 }
+		case "$sel" in
+			core) _core;;
+			other) _other;;
+			misc) _misc;;
+			*) clear -x; exit 2;;
+		esac
+	done
+}
+
+
+#################################
+## CORE PACKAGE MANAGER (alpm) ##
+#################################
+function _core
+{
+	while true; do
+		sel="$(dialog_ --menu 'Core package manager' 0 0 0 \
+			'clean' 'Clean previous installs' \
+			'view' 'View available updates' \
+			'update' 'Run updates' \
+			'custom' 'Drop into shell in custom packages directory' \
+			'check' 'Check for potentially broken packages' \
+		)" || return 1
+		case "$sel" in
+			clean) _core_clean;;
+			view) _core_view;;
+			update) _core_update;;
+			custom) _core_custom;;
+			check) _core_check;;
+			*) return 2;;
+		esac
+	done
+}
+
+function _core_clean
+{
+	sel="$(dialog_ --checklist 'Check available updates' 0 0 0 \
+		'orphan' 'Uninstall orphaned packages' 'on' \
+		'localrepo' 'Remove unused packages from local repo' 'on' \
+		'purge' 'Purge uninstalled packages from cache' 'on' \
+	)" || return 1
+	[[ -n "$sel" ]] || return 1
+	clear -x
+	text=''
+	[[ "$sel" =~ ".*orphan.*" ]] && {
+		echo 'Orphans:'
+		paru -c
+		text+='orphan '
+		proceed
+	}
+	[[ "$sel" =~ ".*localrepo.*" ]] && {
+		echo 'Local Repo:'
+		packages="$(paru -Ll | rg -v '\[installed\]' | awk '{print $2}')"
+		if [[ -n "$packages" ]]; then
+			pager "echo '$packages'"
+			echo -n 'Are you sure you wish to uninstall these packages? '
+			confirm || return 1
+			xargs paru -Ld <<<"$packages"
+		else
+			echo 'No unused packages in local repo.'
+		fi
+		text+='localrepo '
+		proceed
+	}
+	[[ "$sel" =~ ".*purge.*" ]] && {
+		echo 'Purging:'
+		paru -Sc
+		text+='purge '
+		proceed
+	}
+	[[ -n "$text" ]] || return 2
+	return 0
+}
+
+function _core_view
+{
+	sel="$(dialog_ --checklist 'Check available updates' 0 0 0 \
+		'repos' 'Check main repos for updates' 'on' \
+		'aur' 'Check AUR for updates' 'on' \
+	)" || return 1
+	[[ -n "$sel" ]] || return 1
+	clear -x
+	text=''
+	[[ "$sel" =~ '.*repos.*' ]] && {
+		pager "
+			echo 'Main:'
+			checkupdates
+		"
+		text+='repos '
+	}
+	[[ "$sel" =~ '.*aur.*' ]] && {
+		pager "
+			echo 'AUR:'
+			paru -Qua --color=always | grep --color=never -v '\[ignored\]'
+		"
+		text+='aur '
+	}
+	proceed
+	[[ -n "$text" ]] || return 2
+	return 0
+}
+
+function _core_update
+{
+	sel="$(dialog_ --checklist 'Run updates' 0 0 0 \
+		'repos' 'Update from repos' 'on' \
+		'aur' 'Update from AUR' 'on' \
+	)" || return 1
+	[[ -n "$sel" ]] || return 1
+	clear -x
+	text=''
+	[[ "$sel" =~ '.*repos.*' ]] && {
+		[[ -n "$text" ]] && echo
+		echo "Main:"
+		sudo -v &&
+			nice_ paru -Syu --noconfirm --repo ||
+			handle_failure
+		text+='repos '
+	}
+	[[ "$sel" =~ '.*aur.*' ]] && {
+		[[ -n "$text" ]] && {
+			echo
+			( sleep 7; notify-send "AUR update pending" ) &
+		}
+		echo "AUR:"
+		sudo -v &&
+			nice_ paru -Su --aur ||
+			handle_failure
+		text+='aur '
+	}
+	proceed
+	[[ -n "$text" ]] || return 2
+	return 0
+}
+
+function _core_custom
+{
+	clear -x
+	(
+		cd "$HOME/documents/coding/aur" || exit 2
+		zsh -i
+	)
+	proceed
+}
+
+function _core_check
+{
+	clear -x
+	pager "
+		echo 'Checking packages:'
+		checkrebuild -v
+	"
+	proceed
+}
+
+
+#############################
+## OTHER PACKAGING SYSTEMS ##
+#############################
+function _other
+{
+	while true; do
+		sel="$(dialog_ --menu 'Other packaging systems' 0 0 0 \
+			'flatpak' 'Update with flatpak' \
+		)" || return 1
+		case "$sel" in
+			flatpak) _other_flatpak;;
+			*) return 2;;
+		esac
+	done
+}
+
+function _other_flatpak
+{
+	sel="$(dialog_ --checklist 'Flatpak updates' 0 0 0 \
+		'system' 'Update system packages' 'on' \
+		'user' 'Update user packages' 'on' \
+	)" || return 1
+	[[ -n "$sel" ]] || return 1
+	clear -x
+	text=''
+	[[ "$sel" =~ '.*system.*' ]] && {
+		[[ -n "$text" ]] && echo
+		echo 'System:'
+		sudo flatpak update --system
+		proceed
+		text+='system '
+	}
+	[[ "$sel" =~ '.*user.*' ]] && {
+		[[ -n "$text" ]] && echo
+		echo 'User:'
+		flatpak update --user
+		proceed
+		text+='user '
+	}
+	[[ -n "$text" ]] || return 2
+	return 0
+}
+
+
+###################
+## MISCELLANEOUS ##
+###################
+function _misc
+{
+	while true; do
+		sel="$(dialog_ --menu 'Miscellaneous non-packages' 0 0 0 \
+			'doom' 'Update Doom Emacs' \
+			'vim' 'Update vim-plug plugins' \
+			'proton' 'Update the Steam runner Proton-GE' \
+		)" || return 1
+		case "$sel" in
+			doom) _misc_doom;;
+			vim) _misc_vim;;
+			proton) _misc_proton;;
+			*) return 2;;
+		esac
+	done
+}
+
+function _misc_doom
+{
+	while true; do
+		sel="$(dialog_ --menu 'Update Doom Emacs' 0 0 0 \
+			'view' 'Check for and view updates' \
+			'update' 'Run update (doom upgrade; etc.)' \
+			'sync' 'Sync without updating (doom sync; etc.)' \
+			'doctor' 'Only run doctor without syncing or updating (doom doctor)' \
+		)" || return 1
+		case "$sel" in
+			view) _misc_doom_view;;
+			update) _misc_doom_update;;
+			sync) _misc_doom_sync;;
+			doctor) _misc_doom_doctor;;
+			*) return 2;;
+		esac
+	done
+}
+function _misc_doom_view
+{
+	clear -x
+	(
+		cd ~/.config/emacs || return 2
+		git fetch || return 2
+		git log 'HEAD..@{u}'
+	)
+	proceed
+}
+function _misc_doom_update
+{
+	clear -x
+	(
+		cd ~/.config/emacs || return 2
+		doom upgrade && doom sync -p
+		doom doctor
+	)
+	proceed
+}
+function _misc_doom_sync
+{
+	clear -x
+	(
+		cd ~/.config/emacs || return 2
+		doom sync
+		doom doctor
+	)
+	proceed
+}
+function _misc_doom_doctor
+{
+	clear -x
+	(
+		cd ~/.config/emacs || return 2
+		doom doctor
+	)
+	proceed
+}
+
+function _misc_vim
+{
+	while true; do
+		sel="$(dialog_ --menu 'Update Nvim plugins (vim-plug)' 0 0 0 \
+			'backup' 'Generate script for restoring snapshot' \
+			'self' 'Update vim-plug itself (:PlugUpgrade)' \
+			'update' 'Install and update plugins (:PlugInstall, :PlugUpdate)' \
+			'diff' 'View changes from last update (:PlugDiff)' \
+			'config' 'Open config in Nvim' \
+		)" || return 1
+		case "$sel" in
+			backup) _misc_vim_backup;;
+			self) _misc_vim_self;;
+			update) _misc_vim_update;;
+			diff) _misc_vim_diff;;
+			config) _misc_vim_config;;
+			*) return 2;;
+		esac
+	done
+}
+function _misc_vim_backup
+{
+	clear -x
+	dir="$HOME/.cache/vim-plug-snapshots"
+	mkdir -p "$dir"
+	nvim "+PlugSnapshot $dir/$(now)"
+	proceed
+}
+function _misc_vim_self
+{
+	clear -x
+	nvim '+PlugUpgrade'
+	proceed
+}
+function _misc_vim_update
+{
+	clear -x
+	nvim '+PlugInstall --sync | PlugUpdate'
+	proceed
+}
+function _misc_vim_diff
+{
+	clear -x
+	nvim '+PlugDiff'
+	proceed
+}
+function _misc_vim_config
+{
+	clear -x
+	nvim "$HOME/.config/nvim/init.vim"
+	proceed
+}
+
+function _misc_proton
+{
+	while true; do
+		sel="$(dialog_ --menu 'Update Proton-GE' 0 0 0 \
+			'backup' 'Backup current prefixes' \
+			'protonup' 'Download latest Proton-GE with protonup' \
+			'stl' 'Update stl configs to use latest Proton' \
+			'restore' 'Restore some backed-up files for supported games' \
+		)" || return 1
+		case "$sel" in
+			backup) _misc_proton_backup;;
+			protonup) _misc_proton_protonup;;
+			stl) _misc_proton_stl;;
+			restore) _misc_proton_restore;;
+			*) return 2;;
+		esac
+	done
+}
+function _misc_proton_backup
+{
+	move=''
+	dialog_ --yesno \
+		'Would you like to backup safely (nondestructive backup)?' \
+		0 0 || {
+			dialog_ --yesno \
+				'Are you sure about this? This may destroy the current prefix.' \
+				0 0 && move='yes'
+		}
+
+	clear -x
+	dir="$HOME/games/bak/steam-prefixes"
+	target="$dir/$(now)"
+	latest="$dir/latest"
+	mkdir -p "$dir"
+
+	echo "Backing up to $target"
+	if [[ "$move" == 'yes' ]]; then
+		mv -v "$HOME/games/install/steam/steamapps/compatdata" "$target"
+	else
+		cp -var "$HOME/games/install/steam/steamapps/compatdata" "$target"
+	fi
+
+	rm_ "$latest"
+	ln -sv "$target" "$latest"
+	proceed
+}
+function _misc_proton_protonup
+{
+	clear -x
+	protonup
+	proceed
+}
+function _misc_proton_stl
+{
+	clear -x
+	(
+		cd "$HOME/.config/steamtinkerlaunch/gamecfgs/id"
+		newver="$(protonup --list | sort -V | tail -n1 | cut -d' ' -f1)"
+		echo "Updating to $newver on the following files:"
+		ls *.conf ../../default_template.conf
+		sed "/^USEPROTON=/cUSEPROTON=\"$newver\"" \
+			-i *.conf ../../default_template.conf
+		proceed
+	)
+}
+function _misc_proton_restore
+{
+	sel="$(dialog_ --checklist \
+		'Select which games to restore. Only the listed games are supported' \
+		0 0 0 \
+		'warframe' 'Warframe (230410)' 'on' \
+		'gw2' 'Guild Wars 2 (2446403012)' 'on' \
+	)" || return 1
+	[[ -n "$sel" ]] || return 1
+
+	run=''
+	dialog_ --yesno \
+		'The games must be run to regenerate the prefix prior to copying over the data. Would you like for this to occur automatically?' \
+		0 0 &&
+		run='yes'
+	[[ "$run" == 'yes' ]] || {
+		dialog_ --msgbox \
+			"Please run the following games manually, then hit OK to continue.\n$sel" \
+			0 0
+		dialog_ --msgbox \
+			"Please make sure the prefixes have been generated, then hit OK." \
+			0 0
+	}
+
+	clear -x
+	text=''
+	compatdata="$HOME/games/install/steam/steamapps/compatdata"
+	backup="$HOME/games/bak/steam-prefixes/latest"
+	[[ "$sel" =~ '.*warframe.*' ]] && {
+		id=230410
+		echo "Warframe ($id):"
+		dir='pfx/drive_c/users/steamuser/AppData/Local/Warframe'
+		prefix="$compatdata/$id"
+		bak="$backup/$id"
+		mkdir -p "$prefix"
+
+		steam "steam://rungameid/$id"
+		echo "Please confirm when the game is done running."
+		proceed
+		echo "Make sure both steam and the game are closed before proceeding."
+		proceed
+
+		mkdir -p "$prefix/$dir"
+		rm_ "$prefix/$dir"
+		cp -var "$bak/$dir" "$prefix/$dir"
+
+		proceed
+		text+='warframe '
+	}
+	[[ "$sel" =~ '.*gw2.*' ]] && {
+		id=2446403012
+		echo "Guild Wars 2 ($id):"
+		dir='pfx/drive_c/Program Files/Guild Wars 2'
+		prefix="$compatdata/$id"
+		bak="$backup/$id"
+		mkdir -p "$prefix"
+
+		steam "steam://rungameid/$id"
+		echo "Please confirm when the game is done running."
+		proceed
+		echo "Make sure both steam and the game are closed before proceeding."
+		proceed
+
+		mkdir -p "$prefix/$dir"
+		rm_ "$prefix/$dir"
+		cp -var "$bak/$dir" "$prefix/$dir"
+
+		proceed
+		text+='gw2 '
+	}
+	[[ -n "$text" ]] || return 2
+	return 0
+}
+
+
+
+exec main
