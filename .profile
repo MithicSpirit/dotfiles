@@ -1,7 +1,7 @@
 if [ -z "$LOGGED_IN" ]; then
 	export LOGGED_IN="true"
 
-	export PATH="$HOME/.local/bin:$HOME/.local/bin/flatpak:/usr/lib/ccache/bin:$PATH"
+	export PATH="$HOME/.local/bin:$HOME/.local/bin/flatpak:$PATH"
 	export EDITOR="nvim"
 	export LANG="en_US.UTF-8"
 	export TERMINAL="alacritty"
@@ -28,13 +28,14 @@ if [ -z "$LOGGED_IN" ]; then
 	export MANPAGER="less"
 	export MANPATH="$HOME/.local/man:/usr/local/man:/usr/share/man:$MANPATH"
 	export MYPY_CACHE_DIR="$XDG_CACHE_HOME/mypy"
-	export PAGER="bat -p"
+	export PAGER="bat -p --paging=always"
 	export PYTHONTRACEMALLOC=1
 	export QT_QPA_PLATFORMTHEME="qt5ct"
 	export RIPGREP_CONFIG_PATH="$HOME/.config/rg.conf"
 	export RUSTC_WRAPPER="sccache"
 	export RXVT_SOCKET="$XDG_RUNTIME_DIR/urxvtd"
-	export SCCACHE_CACHE_SIZE="6G"
+	export SCCACHE_CACHE_SIZE="10G"
+	export SCCACHE_REDIS="redis://localhost:6379"
 	export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
 	export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 	export STARSHIP_LOG="error"
