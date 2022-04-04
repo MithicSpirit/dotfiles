@@ -462,5 +462,10 @@ Takes in a `full-id' of the meeting in the format \"<id>\" or
   (org-link-set-parameters "xdg-open"
                            :follow #'browse-url-xdg-open))
 
+
 ;; APL
 (use-package! gnu-apl-mode)
+
+
+;; Lilypond
+(use-package! lilypond-mode)

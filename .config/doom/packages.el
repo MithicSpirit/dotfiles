@@ -118,3 +118,5 @@
 ;(when (package! lsp-mode) (package! lsp-jedi))
 (package! elpher)
 (package! gnu-apl-mode)
+(package! lilypond
+  :recipe (:host github :repo "lilypond/lilypond" :files ("elisp/*.el")))
