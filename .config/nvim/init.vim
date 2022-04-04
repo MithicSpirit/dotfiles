@@ -1,25 +1,19 @@
+" Install plugins on first load
 autocmd VimEnter *
     \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
     \|   PlugInstall --sync | q
     \| endif
 
-call plug#begin()
-    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-    Plug 'itchyny/lightline.vim'
-    Plug 'arcticicestudio/nord-vim'
-    Plug 'justinmk/vim-sneak'
-    Plug 'easymotion/vim-easymotion'
-    Plug 'lambdalisue/suda.vim'
-    Plug 'airblade/vim-gitgutter'
-call plug#end()
-
-
+" Set some configs
 set nobackup noswapfile lazyredraw
 set mouse=a clipboard+=unnamedplus
 set noshowmode ignorecase smartcase
 set number cursorline signcolumn=yes:1
 set splitbelow splitright
 set listchars=tab:»\ ,nbsp:␣,trail:·,lead:·,extends:$,precedes:$ list
+set notimeout
+
+let mapleader=""
 
 set textwidth=80  " tw
 set colorcolumn=+1  " cc
@@ -33,7 +27,19 @@ augroup language_customizations
     autocmd FileType python setlocal tw=79
 augroup END
 
+" Load plugins
+call plug#begin()
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+    Plug 'itchyny/lightline.vim'
+    Plug 'arcticicestudio/nord-vim'
+    Plug 'justinmk/vim-sneak'
+    Plug 'easymotion/vim-easymotion'
+    Plug 'lambdalisue/suda.vim'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'whonore/Coqtail'
+call plug#end()
 
+" Bind keys
 nnoremap Y y$
 nnoremap x "_x
 nnoremap ~ g~l
@@ -41,14 +47,22 @@ nnoremap <silent> <ESC> :nohlsearch<CR>
 
 nnoremap <C-w>, <C-w><
 nnoremap <C-w>. <C-w>>
+nnoremap <silent> <C-w>t :split +terminal<CR>
 
 command W w
 command Q q
 command Wq wq
 
+" Miscellaneous
 autocmd VimLeave * set guicursor=a:ver20
-
 let g:tex_flavor = "latex"
+
+" Terminal
+augroup terminal_options
+    autocmd TermOpen * set nonumber
+    autocmd TermOpen * startinsert
+augroup END
+
 
 " Firenvim
 let g:firenvim_config = { 
