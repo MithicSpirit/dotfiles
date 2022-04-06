@@ -13,6 +13,8 @@ if [ -z "$LOGGED_IN" ]; then
 	export XDG_DATA_HOME="$HOME/.local/share"
 	export XDG_DATA_DIRS="/usr/local/share:/usr/share:$XDG_DATA_DIRS"
 	export XDG_CONFIG_DIRS="/etc/xdg:$XDG_CONFIG_DIRS"
+	. "$XDG_CONFIG_HOME/user-dirs.dirs"
+	#export XDG_{DOWNLOAD,DOCUMENTS,MUSIC,PICTURES,VIDEOS,PUBLICSHARE,DESKTOP,TEMPLATES}_DIR
 
 	export AMD_VULKAN_ICD="RADV"
 	export BATDIFF_USE_DELTA="true"
