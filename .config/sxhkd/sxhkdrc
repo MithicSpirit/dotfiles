@@ -37,7 +37,7 @@ super + s ; super + d
 super + s ; super + shift + d
 	nice -n2 discord
 super + s ; super + ctrl + d
-	nice -n2 signal-desktop-beta
+	nice -n2 signal-desktop
 super + s ; super + shift + ctrl + d
 	nice -n2 element-desktop
 
@@ -55,7 +55,7 @@ super + s ; super + shift + c
 super + s ; super + ctrl + c
 	nice -n5 mailspring
 super + s ; super + shift + ctrl + c
-	nice -n3 qbittorrent
+	nice -n3 fragments
 
 super + s ; super + f
 	lutris
