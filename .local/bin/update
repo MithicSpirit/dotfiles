@@ -4,10 +4,9 @@
 ###########
 ## UTILS ##
 ###########
-function pager { eval "$@" | ${=PAGER:-less} }
+function pager { eval "$@" | "${=PAGER:-less}" }
 function now { date -u '+%Y-%m-%d@%H:%M:%S' }
 function dialog_ { dialog "$@" 3>&1 1>&2 2>&3 }
-function read_ { clear_input; read "$@" }
 function nice_ { time nice -n20 "$@" }
 
 function clear_input
@@ -16,6 +15,11 @@ function clear_input
 		read -t 0 -sk 1 || break
 	done
 	return 0
+}
+
+function read_ {
+	clear_input
+	read "$@"
 }
 
 function proceed
@@ -38,7 +42,7 @@ function confirm
 function handle_failure
 {
 	echo '\nScript failure detected!'
-	notify-send 'An issue has occured during the update'
+	notify-send 'An issue has occurred during the update'
 	while true; do
 		[[ "$(read_ -re '?[Type `ok` to continue] ')" =~ "[oO][kK]" ]] &&
 			break
@@ -47,10 +51,10 @@ function handle_failure
 
 function rm_ {
 	if command -v trash >/dev/null; then
-		echo "Removing with trash"
+		echo "Removing $@ with trash"
 		trash "$@"
 	else
-		echo "Removing with rm"
+		echo "Removing $@ with rm -rf"
 		rm -rfv "$@"
 	fi
 }
@@ -84,15 +88,15 @@ function _core
 {
 	while true; do
 		sel="$(dialog_ --menu 'Core package manager' 0 0 0 \
-			'clean' 'Clean previous installs' \
 			'view' 'View available updates' \
+			'clean' 'Clean previous installs' \
 			'update' 'Run updates' \
 			'custom' 'Drop into shell in custom packages directory' \
 			'check' 'Check for potentially broken packages' \
 		)" || return 1
 		case "$sel" in
-			clean) _core_clean;;
 			view) _core_view;;
+			clean) _core_clean;;
 			update) _core_update;;
 			custom) _core_custom;;
 			check) _core_check;;
@@ -149,23 +153,25 @@ function _core_view
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
-	text=''
+	command=''
 	[[ "$sel" =~ '.*repos.*' ]] && {
-		pager "
+		command+="
 			echo 'Main:'
 			checkupdates
+			echo
 		"
-		text+='repos '
 	}
 	[[ "$sel" =~ '.*aur.*' ]] && {
-		pager "
+		command+="
 			echo 'AUR:'
 			paru -Qua --color=always | grep --color=never -v '\[ignored\]'
+			echo
 		"
-		text+='aur '
 	}
+	[[ -n "$command" ]] || return 2
+	command+='echo "Done"'
+	pager "$command"
 	proceed
-	[[ -n "$text" ]] || return 2
 	return 0
 }
 
@@ -494,7 +500,6 @@ function _misc_proton_restore
 	[[ "$sel" =~ '.*warframe.*' ]] && {
 		id=230410
 		echo "Warframe ($id):"
-		dir='pfx/drive_c/users/steamuser/AppData/Local/Warframe'
 		prefix="$compatdata/$id"
 		bak="$backup/$id"
 		mkdir -p "$prefix"
@@ -505,6 +510,8 @@ function _misc_proton_restore
 		echo "Make sure both steam and the game are closed before proceeding."
 		proceed
 
+		dir='pfx/drive_c/users/steamuser/AppData/Local/Warframe'
+		echo "Restoring \`$dir\` from backup"
 		mkdir -p "$prefix/$dir"
 		rm_ "$prefix/$dir"
 		cp -var "$bak/$dir" "$prefix/$dir"
@@ -515,7 +522,6 @@ function _misc_proton_restore
 	[[ "$sel" =~ '.*gw2.*' ]] && {
 		id=2446403012
 		echo "Guild Wars 2 ($id):"
-		dir='pfx/drive_c/Program Files/Guild Wars 2'
 		prefix="$compatdata/$id"
 		bak="$backup/$id"
 		mkdir -p "$prefix"
@@ -526,9 +532,15 @@ function _misc_proton_restore
 		echo "Make sure both steam and the game are closed before proceeding."
 		proceed
 
-		mkdir -p "$prefix/$dir"
-		rm_ "$prefix/$dir"
-		cp -var "$bak/$dir" "$prefix/$dir"
+		for dir in (
+			'pfx/drive_c/Program Files/Guild Wars 2'
+			'pfx/drive_c/users/steamuser/AppData/Roaming/Guild Wars 2'
+		); do
+			mkdir -p "$prefix/$dir"
+			echo "Restoring \`$dir\` from backup"
+			rm_ "$prefix/$dir"
+			cp -var "$bak/$dir" "$prefix/$dir"
+		done
 
 		proceed
 		text+='gw2 '
