@@ -21,6 +21,7 @@ if [ -z "$LOGGED_IN" ]; then
 	export CARGO_BUILD_JOBS="8"
 	export CHKTEXRC="/home/mithic/.config"
 	export DEBUGINFOD_URLS="https://debuginfod.elfutils.org/"
+	export DIALOGRC="$XDG_CONFIG_HOME/dialogrc"
 	export GOPATH="$HOME/.local/share/go"
 	export GTK3_MODULES="$GTK3_MODULES:gtk-vector-screenshot"
 	export GTK_THEME=Arc-Dark
@@ -30,7 +31,7 @@ if [ -z "$LOGGED_IN" ]; then
 	export MANPAGER="less"
 	export MANPATH="$HOME/.local/man:/usr/local/man:/usr/share/man:$MANPATH"
 	export MYPY_CACHE_DIR="$XDG_CACHE_HOME/mypy"
-	export PAGER="bat -p --paging=always"
+	export PAGER="bat -p --paging=always --theme=ansi"
 	export PYTHONTRACEMALLOC=1
 	export QT_QPA_PLATFORMTHEME="qt5ct"
 	export RIPGREP_CONFIG_PATH="$HOME/.config/rg.conf"
