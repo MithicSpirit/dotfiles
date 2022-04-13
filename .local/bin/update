@@ -4,10 +4,12 @@
 ###########
 ## UTILS ##
 ###########
+function bcursor { echo '\033[2 q' 1>&2 }
+function lcursor { echo '\033[6 q' 1>&2 }
 function pager { eval "$@" | "${=PAGER:-less}" }
 function now { date -u '+%Y-%m-%d@%H:%M:%S' }
-function dialog_ { dialog "$@" 3>&1 1>&2 2>&3 }
 function nice_ { time nice -n20 "$@" }
+function dialog_ { bcursor; dialog "$@" 3>&1 1>&2 2>&3 }
 
 function clear_input
 {
@@ -67,17 +69,129 @@ function main
 {
 	while true; do
 		sel="$(dialog_ --menu 'Update' 0 0 0 \
+			'prep' 'Prepare system for large updates' \
 			'core' 'Update core system packages (pacman/AUR)' \
 			'other' 'Update other packaging systems' \
 			'misc' 'Update non-packages' \
-		)" || { clear -x; exit 0 }
+		)" || { clear -x; lcursor; exit 0 }
 		case "$sel" in
+			prep) _prep;;
 			core) _core;;
 			other) _other;;
 			misc) _misc;;
-			*) clear -x; exit 2;;
+			*) clear -x; lcursor; exit 2;;
 		esac
 	done
+}
+
+#################
+## PREPARATION ##
+#################
+function _prep
+{
+	while true; do
+		sel="$(dialog_ --menu 'Preparation' 0 0 0 \
+			'verify' 'Verify and cache with sudo' \
+			'stop' 'Stop programs' \
+			'view' 'View processes with system monitoring tools' \
+			'shell' 'Drop down into shell' \
+		)" || return 1
+		case "$sel" in 
+			verify) _prep_verify;;
+			stop) _prep_stop;;
+			view) _prep_view;;
+			shell) _prep_shell;;
+		esac
+	done
+}
+
+function _prep_verify
+{
+	clear -x
+	lcursor
+	sudo -v
+	proceed
+}
+
+function _prep_stop
+{
+	sel="$(dialog_ --checklist 'Stop programs' 0 0 0 \
+		'emacs' 'Stop systemd emacs daemon service' 'off' \
+		'replay' 'Stop replay sorcery and -kms systemd service' 'off' \
+		'mailspring' 'Stop mailspring through flatpak' 'off' \
+	)" || return 1
+	[[ -n "$sel" ]] || return 1
+	clear -x
+	lcursor
+	text=''
+	[[ "$sel" =~ '.*emacs.*' ]] && {
+		[[ -n "$text" ]] && echo
+		echo 'Emacs:'
+		systemctl --user stop emacs.service
+		text+='emacs '
+	}
+	[[ "$sel" =~ '.*replay.*' ]] && {
+		echo 'Replay sorcery:'
+		killall -eiu "$(whoami)" -SIGINT replay-sorcery
+		sudo systemctl stop replay-sorcery-kms.service
+		text+='replay '
+	}
+	[[ "$sel" =~ '.*mailspring.*' ]] && {
+		echo 'Mailspring:'
+		flatpak kill com.getmailspring.Mailspring
+		text+='mailspring '
+	}
+	proceed
+	[[ -n "$text" ]] || return 2
+	return 0
+}
+
+function _prep_view
+{
+	while true; do
+		sel="$(dialog_ --menu 'System monitoring tools' 0 0 0 \
+			'btop' 'View with `btop`' \
+			'btm' 'View with `btm`' \
+			'htop' 'View with `htop`' \
+		)" || return 1
+		case "$sel" in 
+			btop) _prep_view_btop;;
+			btm) _prep_view_btm;;
+			htop) _prep_view_htop;;
+		esac
+	done
+}
+function _prep_view_btop
+{
+	clear -x
+	lcursor
+	btop
+	proceed
+}
+function _prep_view_btm
+{
+	clear -x
+	lcursor
+	btm -b
+	proceed
+}
+function _prep_view_htop
+{
+	clear -x
+	lcursor
+	htop
+	proceed
+}
+
+function _prep_shell
+{
+	clear -x
+	lcursor
+	(
+		cd "$HOME" || exit 2
+		exec zsh -i
+	)
+	proceed
 }
 
 
@@ -91,15 +205,17 @@ function _core
 			'view' 'View available updates' \
 			'clean' 'Clean previous installs' \
 			'update' 'Run updates' \
-			'custom' 'Drop into shell in custom packages directory' \
+			'local' 'Drop into shell in local custom packages directory' \
 			'check' 'Check for potentially broken packages' \
+			'diff' 'View .pacorig/new/save files' \
 		)" || return 1
 		case "$sel" in
 			view) _core_view;;
 			clean) _core_clean;;
 			update) _core_update;;
-			custom) _core_custom;;
+			local) _core_local;;
 			check) _core_check;;
+			diff) _core_diff;;
 			*) return 2;;
 		esac
 	done
@@ -108,12 +224,13 @@ function _core
 function _core_clean
 {
 	sel="$(dialog_ --checklist 'Check available updates' 0 0 0 \
-		'orphan' 'Uninstall orphaned packages' 'on' \
+		'orphan' 'Uninstall orphaned packages' 'off' \
 		'localrepo' 'Remove unused packages from local repo' 'on' \
-		'purge' 'Purge uninstalled packages from cache' 'on' \
+		'purge' 'Purge uninstalled packages from cache' 'off' \
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
+	lcursor
 	text=''
 	[[ "$sel" =~ ".*orphan.*" ]] && {
 		echo 'Orphans:'
@@ -153,6 +270,7 @@ function _core_view
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
+	lcursor
 	command=''
 	[[ "$sel" =~ '.*repos.*' ]] && {
 		command+="
@@ -183,10 +301,11 @@ function _core_update
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
+	lcursor
 	text=''
 	[[ "$sel" =~ '.*repos.*' ]] && {
 		[[ -n "$text" ]] && echo
-		echo "Main:"
+		echo 'Main:'
 		sudo -v &&
 			nice_ paru -Syu --noconfirm --repo ||
 			handle_failure
@@ -195,9 +314,9 @@ function _core_update
 	[[ "$sel" =~ '.*aur.*' ]] && {
 		[[ -n "$text" ]] && {
 			echo
-			( sleep 7; notify-send "AUR update pending" ) &
+			( sleep 7; notify-send 'AUR update pending' ) &
 		}
-		echo "AUR:"
+		echo 'AUR:'
 		sudo -v &&
 			nice_ paru -Su --aur ||
 			handle_failure
@@ -208,12 +327,13 @@ function _core_update
 	return 0
 }
 
-function _core_custom
+function _core_local
 {
 	clear -x
+	lcursor
 	(
 		cd "$HOME/documents/coding/aur" || exit 2
-		zsh -i
+		exec zsh -i
 	)
 	proceed
 }
@@ -221,10 +341,20 @@ function _core_custom
 function _core_check
 {
 	clear -x
+	lcursor
 	pager "
 		echo 'Checking packages:'
 		checkrebuild -v
+		echo \"\\nDone\"
 	"
+	proceed
+}
+
+function _core_diff
+{
+	clear -x
+	lcursor
+	sudo DIFFPROG='nvim -d' pacdiff
 	proceed
 }
 
@@ -253,6 +383,7 @@ function _other_flatpak
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
+	lcursor
 	text=''
 	[[ "$sel" =~ '.*system.*' ]] && {
 		[[ -n "$text" ]] && echo
@@ -301,12 +432,14 @@ function _misc_doom
 			'update' 'Run update (doom upgrade; etc.)' \
 			'sync' 'Sync without updating (doom sync; etc.)' \
 			'doctor' 'Only run doctor without syncing or updating (doom doctor)' \
+			'recomp' 'Recompile necessary modules' \
 		)" || return 1
 		case "$sel" in
 			view) _misc_doom_view;;
 			update) _misc_doom_update;;
 			sync) _misc_doom_sync;;
 			doctor) _misc_doom_doctor;;
+			recomp) _misc_doom_recomp;;
 			*) return 2;;
 		esac
 	done
@@ -314,6 +447,7 @@ function _misc_doom
 function _misc_doom_view
 {
 	clear -x
+	lcursor
 	(
 		cd ~/.config/emacs || return 2
 		git fetch || return 2
@@ -324,6 +458,7 @@ function _misc_doom_view
 function _misc_doom_update
 {
 	clear -x
+	lcursor
 	(
 		cd ~/.config/emacs || return 2
 		doom upgrade && doom sync -p
@@ -334,6 +469,7 @@ function _misc_doom_update
 function _misc_doom_sync
 {
 	clear -x
+	lcursor
 	(
 		cd ~/.config/emacs || return 2
 		doom sync
@@ -344,11 +480,37 @@ function _misc_doom_sync
 function _misc_doom_doctor
 {
 	clear -x
+	lcursor
 	(
 		cd ~/.config/emacs || return 2
 		doom doctor
 	)
 	proceed
+}
+function _misc_doom_recomp
+{
+	sel="$(dialog_ --checklist 'Recompile modules' 0 0 0 \
+		'vterm' 'Recompile vterm (vterm-module-compile)' 'on' \
+		'pdf' 'Recompile pdf tools (pdf-tools-install)' 'on' \
+	)" || return 1
+	[[ -n "$sel" ]] || return 1
+	clear -x
+	lcursor
+	text=''
+	[[ "$sel" =~ '.*vterm.*' ]] && {
+		[[ -n "$text" ]] && echo
+		echo 'Vterm:'
+		emacs -nw --eval='(vterm-module-compile)'
+		text+='vterm '
+	}
+	[[ "$sel" =~ '.*pdf.*' ]] && {
+		echo 'pdf:'
+		emacs -nw --eval='(pdf-tools-install)'
+		text+='pdf '
+	}
+	proceed
+	[[ -n "$text" ]] || return 2
+	return 0
 }
 
 function _misc_vim
@@ -374,6 +536,7 @@ function _misc_vim
 function _misc_vim_backup
 {
 	clear -x
+	lcursor
 	dir="$HOME/.cache/vim-plug-snapshots"
 	mkdir -p "$dir"
 	nvim "+PlugSnapshot $dir/$(now)"
@@ -382,24 +545,28 @@ function _misc_vim_backup
 function _misc_vim_self
 {
 	clear -x
+	lcursor
 	nvim '+PlugUpgrade'
 	proceed
 }
 function _misc_vim_update
 {
 	clear -x
+	lcursor
 	nvim '+PlugInstall --sync | PlugUpdate'
 	proceed
 }
 function _misc_vim_diff
 {
 	clear -x
+	lcursor
 	nvim '+PlugDiff'
 	proceed
 }
 function _misc_vim_config
 {
 	clear -x
+	lcursor
 	nvim "$HOME/.config/nvim/init.vim"
 	proceed
 }
@@ -434,6 +601,7 @@ function _misc_proton_backup
 		}
 
 	clear -x
+	lcursor
 	dir="$HOME/games/bak/steam-prefixes"
 	target="$dir/$(now)"
 	latest="$dir/latest"
@@ -453,12 +621,14 @@ function _misc_proton_backup
 function _misc_proton_protonup
 {
 	clear -x
+	lcursor
 	protonup
 	proceed
 }
 function _misc_proton_stl
 {
 	clear -x
+	lcursor
 	(
 		cd "$HOME/.config/steamtinkerlaunch/gamecfgs/id"
 		newver="$(protonup --list | sort -V | tail -n1 | cut -d' ' -f1)"
@@ -466,8 +636,8 @@ function _misc_proton_stl
 		ls *.conf ../../default_template.conf
 		sed "/^USEPROTON=/cUSEPROTON=\"$newver\"" \
 			-i *.conf ../../default_template.conf
-		proceed
 	)
+	proceed
 }
 function _misc_proton_restore
 {
@@ -494,6 +664,7 @@ function _misc_proton_restore
 	}
 
 	clear -x
+	lcursor
 	text=''
 	compatdata="$HOME/games/install/steam/steamapps/compatdata"
 	backup="$HOME/games/bak/steam-prefixes/latest"
@@ -532,7 +703,7 @@ function _misc_proton_restore
 		echo "Make sure both steam and the game are closed before proceeding."
 		proceed
 
-		for dir in (
+		for dir (
 			'pfx/drive_c/Program Files/Guild Wars 2'
 			'pfx/drive_c/users/steamuser/AppData/Roaming/Guild Wars 2'
 		); do
