@@ -23,10 +23,10 @@
 	autoDetach = false
 	autoDetach = false
 [pager]
-	diff = delta
-	show = delta
-	log = bat -p
-	reflog = bat -p
+	diff = bat -p --paging=always
+	show = bat -p --paging=always
+	log = bat -p --paging=always
+	reflog = bat -p --paging=always
 [branch]
 	autoSetupMerge = true
 [advice]
