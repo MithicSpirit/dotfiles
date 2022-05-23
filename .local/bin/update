@@ -242,7 +242,7 @@ function _core_clean
 		echo 'Local Repo:'
 		packages="$(paru -Ll | rg -v '\[installed\]' | awk '{print $2}')"
 		if [[ -n "$packages" ]]; then
-			pager "echo '$packages'"
+			echo "$packages"
 			echo -n 'Are you sure you wish to uninstall these packages? '
 			confirm || return 1
 			xargs paru -Ld <<<"$packages"
@@ -675,11 +675,13 @@ function _misc_proton_restore
 		bak="$backup/$id"
 		mkdir -p "$prefix"
 
-		steam "steam://rungameid/$id"
-		echo "Please confirm when the game is done running."
-		proceed
-		echo "Make sure both steam and the game are closed before proceeding."
-		proceed
+		[[ "$run" == 'yes' ]] && {
+			steam "steam://rungameid/$id"
+			echo "Please confirm when the game is done running."
+			proceed
+			echo "Make sure both steam and the game are closed before proceeding."
+			proceed
+		}
 
 		dir='pfx/drive_c/users/steamuser/AppData/Local/Warframe'
 		echo "Restoring \`$dir\` from backup"
@@ -697,11 +699,13 @@ function _misc_proton_restore
 		bak="$backup/$id"
 		mkdir -p "$prefix"
 
-		steam "steam://rungameid/$id"
-		echo "Please confirm when the game is done running."
-		proceed
-		echo "Make sure both steam and the game are closed before proceeding."
-		proceed
+		[[ "$run" == 'yes' ]] && {
+			steam "steam://rungameid/$id"
+			echo "Please confirm when the game is done running."
+			proceed
+			echo "Make sure both steam and the game are closed before proceeding."
+			proceed
+		}
 
 		for dir (
 			'pfx/drive_c/Program Files/Guild Wars 2'
