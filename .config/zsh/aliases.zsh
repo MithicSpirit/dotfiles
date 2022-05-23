@@ -14,12 +14,12 @@ alias \
     dooms='doom sync; doom doctor' \
     doomup='doom upgrade; doom sync -p; doom doctor' \
     du='dust' \
+    eemacs='emacs' \
     emacs='devour visual' \
     eterm='emacs -nw' \
     ffupload='ffsend upload -vd 20 -e 7d' \
     gpp='g++' \
     h='history 1' \
-    htop='btm -b' \
     l='exa -lFbg --git' \
     lS='exa -laFbgs size --color-scale --group-directories-first' \
     la='exa -laFbg --git' \
@@ -33,7 +33,7 @@ alias \
     open='xdg-open' \
     pacdiff='sudo DIFFPROG="nvim -d" pacdiff' \
     paste='xclip -o -sel c' \
-    ping='prettyping' \
+    pping='prettyping' \
     pip='python -m pip' \
     ppy='pypy3' \
     ps='procs' \
