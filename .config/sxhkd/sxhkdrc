@@ -5,7 +5,7 @@ super + shift + Return
 	dmenu_run -p "Run" >>/tmp/dmenu-run.log
 
 super + a
-	"$REAL_BROWSER"
+	"$REAL_BROWSER" >>/tmp/browser.log
 super + shift + a
 	pcmanfm
 super + control + a
@@ -35,10 +35,8 @@ super + ctrl + shift + q
 super + s ; super + d
 	nice -n2 discord-canary
 super + s ; super + shift + d
-	nice -n2 discord
-super + s ; super + ctrl + d
 	nice -n2 signal-desktop
-super + s ; super + shift + ctrl + d
+super + s ; super + ctrl + d
 	nice -n2 element-desktop
 
 super + s ; super + w
@@ -49,13 +47,13 @@ super + s ; super + ctrl + w
 	nice -n5 teams
 
 super + s ; super + c
-	nice -n2 lbry
+	lbry
 super + s ; super + shift + c
 	"$REAL_BROWSER" --new-window 'https://www.youtube.com/feed/subscriptions'
 super + s ; super + ctrl + c
 	nice -n5 mailspring
 super + s ; super + shift + ctrl + c
-	nice -n3 fragments
+	mpv "$(xclip -out -selection clipboard)"
 
 super + s ; super + f
 	lutris
