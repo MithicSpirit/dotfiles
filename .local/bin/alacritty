@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-/usr/bin/alacritty msg create-window --working-directory "$(pwd)" "$@" || 
-	/usr/bin/alacritty "$@"
