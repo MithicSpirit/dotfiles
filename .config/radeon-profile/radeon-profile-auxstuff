@@ -4,12 +4,12 @@
     <ExecProfiles/>
     <FanProfiles>
         <fanProfile name="default">
-            <step temperature="35" speed="45"/>
-            <step temperature="41" speed="47"/>
-            <step temperature="47" speed="54"/>
-            <step temperature="54" speed="65"/>
-            <step temperature="59" speed="80"/>
-            <step temperature="65" speed="100"/>
+            <step temperature="38" speed="45"/>
+            <step temperature="44" speed="47"/>
+            <step temperature="50" speed="54"/>
+            <step temperature="57" speed="65"/>
+            <step temperature="62" speed="80"/>
+            <step temperature="68" speed="100"/>
         </fanProfile>
     </FanProfiles>
     <Plots>
