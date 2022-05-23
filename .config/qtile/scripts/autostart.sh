@@ -8,26 +8,25 @@
 	
 	echo -n "Qtile startup at "
 	date
+
+	sleep 2
 	
 	# Appearance
-	sleep 1
 	picom --experimental-backends &
 	feh --no-fehbg --bg-fill "$HOME/.local/share/backgrounds/selected" &
 	redshift-gtk -l geoclue2 -b 0.95:0.9 -t 6400K:4000K &
 	xrdb ~/.config/xresources/Xresources &
 
 	# Daemons
-	sleep 4
 	/usr/lib/geoclue-2.0/demos/agent &
 	greenclip daemon >/tmp/greenclip.log &
 	flameshot &
 	/usr/lib/xfce-polkit/xfce-polkit &
 	[ "$REAL_GPU" != "none" ] && replay-sorcery &
-	sxhkd >/tmp/sxhkd.log &
+	sxhkd -t 1000 -r /tmp/sxhkd.log &
 	/usr/bin/kdeconnect-indicator &
 
 	# Misc
-	sleep 1
 	nm-applet &
 	xset m 0/0 0 &
 	xset s 0 0 &
@@ -36,8 +35,7 @@
 	#wacom margin &
 	mailspring --background &
 	
-	sleep 9
-	systemctl --user restart dunst.service &
-	sleep 1
+	sleep 2
+	systemctl --user restart dunst.service
 	notify-send "Welcome" &
 } >>/tmp/qtile-autostart.log 2>&1 &

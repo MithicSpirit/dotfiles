@@ -319,7 +319,7 @@ group_names: list[tuple[str, dict]] = [
             "layout": "max",
             "spawn": [
                 "nice -n2 discord-canary",
-                "nice -n2 discord",
+                #"nice -n2 discord",
                 "nice -n2 signal-desktop",
                 "nice -n2 element-desktop",
             ],
@@ -351,11 +351,10 @@ group_names: list[tuple[str, dict]] = [
         "INET",
         {
             "layout": "monadtall",
-            "spawn": ["nice -n3 qbittorrent", "nice -n2 lbry"],
+            "spawn": ["lbry"],
             "matches": [
-                Match(wm_class="qbittorrent"),
                 Match(wm_class="lbry"),
-                Match(wm_class="mailspring"),
+                Match(wm_class="fragments"),
             ],
         },
     ),
@@ -385,7 +384,7 @@ group_names: list[tuple[str, dict]] = [
         {
             "layout": "max",
             "spawn": [
-                "nice -n5 /usr/bin/alacritty -o ipc_socket=false --class btop-spawn -t btop -e btop"
+                "nice -n5 alacritty --class btop-spawn -t btop -e btop"
             ],
             "matches": [
                 Match(wm_class="btop-spawn"),
@@ -406,7 +405,7 @@ group_names: list[tuple[str, dict]] = [
 ]
 if os.environ["REAL_GPU"] == "amd":
     # SLAD group
-    group_names[-1][1]["spawn"].extend(["nice -n1 salad", "radeon-profile"])
+    group_names[-1][1]["spawn"].extend(["nice -n20 salad", "radeon-profile"])
 groups = [Group(name, label=f"{name}", **kwargs) for name, kwargs in group_names]
 
 
