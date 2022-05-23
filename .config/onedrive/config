@@ -1,6 +1,6 @@
 ## MAKE SURE TO RUN `onedrive --synchronize --resync` after modifying this file!
 sync_dir = "~/documents/school"
-skip_file = "~*|.~*|*~|*.tmp|*.crdownload|*.synctex(busy)|4913|.projectile|flycheck_"
+skip_file = "~*|.~*|*~|*.tmp|*.crdownload|*.synctex(busy)|4913|.projectile|flycheck_*|*-tmp-*"
 monitor_interval = "30"
 # skip_dir = ""
 # log_dir = "~/.cache/onedrive-log/"
