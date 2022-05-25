@@ -33,7 +33,7 @@
 	xset +dpms dpms 0 0 0 &
 	numlockx on &
 	#wacom margin &
-	mailspring --background &
+	nice -n5 evolution &
 	
 	sleep 2
 	systemctl --user restart dunst.service
