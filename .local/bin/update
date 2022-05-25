@@ -725,5 +725,5 @@ function _misc_proton_restore
 }
 
 
-
+sleep 0.1
 exec main
