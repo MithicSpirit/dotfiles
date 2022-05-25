@@ -51,7 +51,7 @@ super + s ; super + c
 super + s ; super + shift + c
 	"$REAL_BROWSER" --new-window 'https://www.youtube.com/feed/subscriptions'
 super + s ; super + ctrl + c
-	nice -n5 mailspring
+	nice -n5 evolution
 super + s ; super + shift + ctrl + c
 	mpv "$(xclip -out -selection clipboard)"
 
@@ -74,7 +74,7 @@ super + s ; super + r
 super + s ; super + shift + r
 	nice -n5 "$TERMINAL" -t btm -e btm -b
 super + s ; super + ctrl + r
-	nice -n5 "$TERMINAL" -t htop -e htop
+	nice -n5 "$TERMINAL" -t update -e update
 super + s ; super + shift + ctrl + r
 	nice -n5 "$TERMINAL" -t radeontop -e sudo radeontop -cT
 
