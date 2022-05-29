@@ -18,6 +18,7 @@ alias \
     emacs='devour visual' \
     eterm='emacs -nw' \
     ffupload='ffsend upload -vd 20 -e 7d' \
+    ghc='ghc -dynamic -Wall' \
     gpp='g++' \
     h='history 1' \
     l='exa -lFbg --git' \
