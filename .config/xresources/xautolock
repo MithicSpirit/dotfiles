@@ -1,0 +1,10 @@
+Xautolock*time: 15
+Xautolock*locker: betterlockscreen -l -- --ignore-empty-password
+
+Xautolock*notify: 120
+Xautolock*notifier: notify-send 'Locking in 5 minutes'
+
+Xautolock*corners: 000-
+Xautolock*cornersize: 4
+
+Xautolock*noclose: True

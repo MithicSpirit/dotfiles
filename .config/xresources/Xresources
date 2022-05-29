@@ -1,2 +1,3 @@
 #include "rxvt-unicode"
 #include "xterm"
+#include "xautolock"
