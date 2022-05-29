@@ -25,6 +25,7 @@
 	[ "$REAL_GPU" != "none" ] && replay-sorcery &
 	sxhkd -t 1000 -r /tmp/sxhkd.log &
 	/usr/bin/kdeconnect-indicator &
+	xautolock &
 
 	# Misc
 	nm-applet &
