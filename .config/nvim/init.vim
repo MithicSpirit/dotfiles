@@ -22,9 +22,14 @@ set softtabstop=4  " sts
 set shiftwidth=4  " sw
 set expandtab  " et/noet
 augroup language_customizations
-    autocmd FileType javascript,typescript,c,cpp,sh,zsh,fish,conf,css setlocal noet
+    autocmd FileType javascript,typescript,json,c,cpp,sh,zsh,fish,conf,css setlocal noet
     autocmd FileType haskell,lisp,tex,gitcommit setlocal ts=2 sts=2 sw=2
     autocmd FileType python setlocal tw=79
+augroup END
+
+augroup detect_language
+    autocmd BufRead,BufNewFile *.PKGBUILD set ft=PKGBUILD
+    autocmd BufRead,BufNewFile */xresources/* set ft=xdefaults
 augroup END
 
 " Load plugins
@@ -37,6 +42,7 @@ call plug#begin()
     Plug 'lambdalisue/suda.vim'
     Plug 'airblade/vim-gitgutter'
     Plug 'whonore/Coqtail'
+    Plug 'editorconfig/editorconfig-vim'
 call plug#end()
 
 " Bind keys
