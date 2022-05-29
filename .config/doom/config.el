@@ -365,61 +365,57 @@ This must be added to `emojify-inhibit-functions' to work."
 
 ;;; Heavy customization
 ;; School agenda
-(defun school-agenda (&optional kill)
-  "Open agenda setup for school.
+;;(defun school-agenda (&optional kill)
+;;  "Open agenda setup for school.
 
-Open tasks and agenda with schedule in a sidebar and the
-calendar in a background buffer."
-  (interactive
-   (list (if (string= (buffer-name (current-buffer)) "*doom*") nil t)))
-   
-  (if kill (call-interactively #'doom/kill-all-buffers))
-  (cd org-directory)
-  (evil-edit "schedule.org") (read-only-mode)
-  (evil-window-vsplit nil "calendar.org")
-  (evil-edit "tasks.org") (org-shifttab 2)
-  (evil-window-left 1) (evil-window-set-width 39) ;; schedule
-  (evil-window-right 1) (evil-window-split) (org-agenda-list) ;; agenda under tasks
-  (evil-window-set-height 23)
-  (evil-window-left 1)) ;; schedule
-  
-(defun =school-agenda (&optional reset)
-  "Wrapper for `school-agenda' with workspace support.
+;;Open tasks and agenda with schedule in a sidebar and the
+;;calendar in a background buffer."
+;;  (interactive
+;;   (list (if (string= (buffer-name (current-buffer)) "*doom*") nil t)))
 
-Open workspace for `school-agenda', or switch to one if it
-already exists. If prefix `reset' is non-`nil', the workspace is
-reset (all current buffers/windows are killed)."
-  (interactive "P")
-  (let ((exists (+workspace-exists-p "*agenda*")))
-    (+workspace-switch "*agenda*" t)
-    (when (or (not exists) reset)
-        (school-agenda reset))))
-      
-    
-  
+;;  (if kill (call-interactively #'doom/kill-all-buffers))
+;;  (cd org-directory)
+;;  (evil-edit "schedule.org") (read-only-mode)
+;;  (evil-window-vsplit nil "calendar.org")
+;;  (evil-edit "tasks.org") (org-shifttab 2)
+;;  (evil-window-left 1) (evil-window-set-width 39) ;; schedule
+;;  (evil-window-right 1) (evil-window-split) (org-agenda-list) ;; agenda under tasks
+;;  (evil-window-set-height 23)
+;;  (evil-window-left 1)) ;; schedule
 
-(map!
- :leader :desc "Open school agenda" "o a s" #'=school-agenda
- :map doom-leader-notes-map :localleader
- :desc "Open school agenda" "S" #'=school-agenda
+;;(defun =school-agenda (&optional reset)
+;;  "Wrapper for `school-agenda' with workspace support.
 
- :leader :desc "Replace current workspace with agenda" "o a S" #'school-agenda
- :map doom-leader-notes-map :localleader
- :desc "Replace current workspace with agenda" "S" #'school-agenda)
- 
-(map!
- :map org-mode-map :after org
- :localleader :desc "Set visibility to 2"
- "TAB" (cmd! (org-shifttab 2))
- :localleader :desc "Set visibility to 2"
- "<tab>" (cmd! (org-shifttab 2)))
- 
+;;Open workspace for `school-agenda', or switch to one if it
+;;already exists. If prefix `reset' is non-`nil', the workspace is
+;;reset (all current buffers/windows are killed)."
+;;  (interactive "P")
+;;  (let ((exists (+workspace-exists-p "*agenda*")))
+;;    (+workspace-switch "*agenda*" t)
+;;    (when (or (not exists) reset)
+;;        (school-agenda reset))))
 
-(setcar (cdr +doom-dashboard-menu-sections)
-        `("Open school agenda" .
-          ,(plist-put
-            (cdr (assoc "Open org-agenda" +doom-dashboard-menu-sections))
-            :action #'=school-agenda)))
+;;(map!
+;; :leader :desc "Open school agenda" "o a s" #'=school-agenda
+;; :map doom-leader-notes-map :localleader
+;; :desc "Open school agenda" "S" #'=school-agenda
+
+;; :leader :desc "Replace current workspace with agenda" "o a S" #'school-agenda
+;; :map doom-leader-notes-map :localleader
+;; :desc "Replace current workspace with agenda" "S" #'school-agenda)
+
+;;(map!
+;; :map org-mode-map :after org
+;; :localleader :desc "Set visibility to 2"
+;; "TAB" (cmd! (org-shifttab 2))
+;; :localleader :desc "Set visibility to 2"
+;; "<tab>" (cmd! (org-shifttab 2)))
+
+;;(setcar (cdr +doom-dashboard-menu-sections)
+;;        `("Open school agenda" .
+;;          ,(plist-put
+;;            (cdr (assoc "Open org-agenda" +doom-dashboard-menu-sections))
+;;            :action #'=school-agenda)))
             
 
 ;; Org time execute
