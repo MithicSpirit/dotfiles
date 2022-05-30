@@ -100,19 +100,19 @@ widgets = [
 
 PIPE_SEPARATOR_PADDING = -2
 sysinfo_widgets: list[list[tuple]] = [
-#    [
-#        (
-#            custom.CheckUpdates,
-#            {
-#                "colour_have_updates": COLORS["fg"],
-#                "colour_no_updates": COLORS["fg"],
-#                "no_update_string": "0",
-#                "update_interval": 60 * 60,
-#                "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateparu.sh"',
-#                "custom_command": "checkupdates ; paru -Qua | grep -v '\[ignored\]' ; true",
-#            },
-#        )
-#    ],
+    #    [
+    #        (
+    #            custom.CheckUpdates,
+    #            {
+    #                "colour_have_updates": COLORS["fg"],
+    #                "colour_no_updates": COLORS["fg"],
+    #                "no_update_string": "0",
+    #                "update_interval": 60 * 60,
+    #                "execute": f'{TERMINAL} -e "{CONFIG}/scripts/updateparu.sh"',
+    #                "custom_command": "checkupdates ; paru -Qua | grep -v '\[ignored\]' ; true",
+    #            },
+    #        )
+    #    ],
     [
         (
             custom.CPU,
@@ -319,7 +319,7 @@ group_names: list[tuple[str, dict]] = [
             "layout": "max",
             "spawn": [
                 "nice -n2 discord-canary",
-                #"nice -n2 discord",
+                # "nice -n2 discord",
                 "nice -n2 signal-desktop",
                 "nice -n2 element-desktop",
             ],
@@ -331,7 +331,7 @@ group_names: list[tuple[str, dict]] = [
             ],
         },
     ),
-    ("AGND", {"layout": "monadtall"}),
+    ("AGND", {"layout": "monadtall", "spawn": ["nice -n5 evolution"]}),
     (
         "CLAS",
         {
@@ -383,9 +383,7 @@ group_names: list[tuple[str, dict]] = [
         "STAT",
         {
             "layout": "max",
-            "spawn": [
-                "nice -n5 alacritty --class btop-spawn -t btop -e btop"
-            ],
+            "spawn": ["nice -n5 alacritty --class btop-spawn -t btop -e btop"],
             "matches": [
                 Match(wm_class="btop-spawn"),
             ],
@@ -716,6 +714,7 @@ def _kde_connect(win):
     if win.name == "KDE Connect Daemon":
         s = qtile.current_screen
         win.cmd_static(qtile.screens.index(s), s.x, s.y, s.width, s.height)
+
 
 @hook.subscribe.client_new
 def _discover_overlay(win):

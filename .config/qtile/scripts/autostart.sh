@@ -34,7 +34,6 @@
 	xset +dpms dpms 0 0 0 &
 	numlockx on &
 	#wacom margin &
-	nice -n5 evolution &
 	
 	sleep 2
 	systemctl --user restart dunst.service
