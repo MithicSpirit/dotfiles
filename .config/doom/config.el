@@ -2,7 +2,7 @@
 
 ;;; Basic Configuration
 (setq
- user-full-name "Ricardo Prado Cunha"
+ user-full-name "MithicSpirit"
  user-mail-address "rpc01234@gmail.com")
 (set-language-environment "UTF-8")
 
