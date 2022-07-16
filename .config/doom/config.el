@@ -11,12 +11,7 @@
  org-directory "~/documents/org"
  bookmark-default-file "~/.config/doom/bookmarks"
  auth-sources '("~/.bak/.secrets/authinfo.gpg")
- projectile-project-search-path '("~/documents/coding"
-                                  "~/documents/coding/practice"
-                                  "~/documents/coding/langs"
-                                  "~/src"))
-   
- 
+ projectile-project-search-path '("~/documents/coding" "~/src"))
 
 
 ;;; Appearance
@@ -465,3 +460,8 @@ Takes in a `full-id' of the meeting in the format \"<id>\" or
 
 ;; Lilypond
 (use-package! lilypond-mode)
+
+
+;; gitignore snippers
+(use-package! gitignore-snippets)
+(after! gitignore-snippets (gitignore-snippets-init))

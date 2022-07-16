@@ -222,4 +222,4 @@
 
 (setq evil-respect-visual-line-mode t)
 (setq org-directory "~/documents/org/")
-(setq doom-env-whitelist '("SSH_AUTH_SOCK"))
+(setq doom-env-allow '("SSH_AUTH_SOCK" "XAUTHORITY"))

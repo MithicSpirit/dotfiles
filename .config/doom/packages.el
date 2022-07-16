@@ -120,3 +120,4 @@
 (package! gnu-apl-mode)
 (package! lilypond
   :recipe (:host github :repo "lilypond/lilypond" :files ("elisp/*.el")))
+(package! gitignore-snippets)
