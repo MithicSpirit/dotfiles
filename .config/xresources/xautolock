@@ -1,6 +1,9 @@
 Xautolock*time: 15
 Xautolock*locker: betterlockscreen -l -- --ignore-empty-password
 
+Xautolock*killtime: 10
+Xautolock*killer: xset dpms force standby
+
 Xautolock*notify: 120
 Xautolock*notifier: notify-send 'Locking in 5 minutes'
 
