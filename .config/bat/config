@@ -28,4 +28,4 @@
 --tabs=4
 --style=numbers,changes
 --theme=base16
---pager="less"
+--pager="less --quiet --RAW-CONTROL-CHARS"
