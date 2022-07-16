@@ -27,6 +27,8 @@ super + shift + space
 
 super + shift + q
 	xautolock -locknow
+super + ctrl + q
+	xautolock -disable; betterlockscreen --off 0 -l -- --ignore-empty-password; xautolock -enable
 #	betterlockscreen -l -- --ignore-empty-password
 #super + ctrl + q
 #	qtile cmd-obj -o cmd -f restart
@@ -49,6 +51,7 @@ super + s ; super + ctrl + w
 
 super + s ; super + c
 	lbry
+#	"$REAL_BROWSER" --new-window 'https://odysee.com/$/following'
 super + s ; super + shift + c
 	"$REAL_BROWSER" --new-window 'https://www.youtube.com/feed/subscriptions'
 super + s ; super + ctrl + c
