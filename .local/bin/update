@@ -307,7 +307,7 @@ function _core_update
 		[[ -n "$text" ]] && echo
 		echo 'Main:'
 		sudo -v &&
-			nice_ paru -Syu --noconfirm --repo ||
+			nice_ paru -Syyuu --noconfirm --repo ||
 			handle_failure
 		text+='repos '
 	}
@@ -726,4 +726,5 @@ function _misc_proton_restore
 
 
 sleep 0.1
+unset LINES COLUMNS
 exec main
