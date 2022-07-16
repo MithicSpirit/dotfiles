@@ -19,6 +19,7 @@ alias \
     eterm='emacs -nw' \
     ffupload='ffsend upload -vd 20 -e 7d' \
     ghc='ghc -dynamic -Wall' \
+    gcc='gcc -Wall -Wextra' \
     gpp='g++' \
     h='history 1' \
     l='exa -lFbg --git' \
@@ -39,8 +40,10 @@ alias \
     ppy='pypy3' \
     ps='procs' \
     radeontop='sudo radeontop -cT' \
-    rm='trash' \
+    rm='rmtrash' \
+    rmdir='rmdirtrash' \
     rmrm='rm -i' \
+    rmrmdir='rmdir' \
     sc='systemctl' \
     scim='sc-im' \
     scu='systemctl --user' \
