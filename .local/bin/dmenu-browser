@@ -6,15 +6,16 @@ typeset -A options_=(
 	['0.  New window']="$REAL_BROWSER --new-window"
 	['1.  Current window']="$REAL_BROWSER"
 	['2.  Copy to clipboard']="_copy"
-	['3.  Qutebrowser']="qutebrowser"
-	['4.  Tor Browser']="torbrowser-launcher"
-	['5.  Chromium']="chromium"
-	['6.  Firefox']="firefox"
-	['7.  Brave']="brave-nightly"
-	['8.  Librewolf']="librewolf"
-	['9.  Nyxt']="nyxt"
-	['10. IceCat']="icecat"
-	['11. Vieb']="vieb"
+	['3.  mpv']="mpv"
+	['4.  Qutebrowser']="qutebrowser"
+	['5.  Tor Browser']="torbrowser-launcher"
+	['6.  Chromium']="chromium"
+	['7.  Firefox']="firefox"
+	['8.  Brave']="brave-nightly"
+	['9.  Librewolf']="librewolf"
+	['10.  Nyxt']="nyxt"
+	['11. IceCat']="icecat"
+	['12. Vieb']="vieb"
 )
 
 prompt="Browser"
@@ -25,7 +26,7 @@ sel="$(sort -n <<<"$entries" | dmenu -bw 3 -c -R -l "$num" -p "$prompt")"
 
 [[ -n "$sel" ]] && {
 	result="${options_[$sel]}" 
-	printf "\n-- %s --\n-> $ %s %s\n<- $ %s %s\n" "$(date)" \
-		"$0" "$@" "$result" "$1" >>/tmp/dmenu-browser.log
+	echo "\n-- $(date) --\n-> \$ $0 $@\n<- \$ $result '$1'" >>/tmp/dmenu-browser.log
+	echo "$result '$1'"
 	eval "$result '$1'" &>>/tmp/dmenu-browser.log &!
 }
