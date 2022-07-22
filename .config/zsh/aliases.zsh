@@ -13,6 +13,7 @@ alias \
     doomd='doom doctor' \
     dooms='doom sync; doom doctor' \
     doomup='doom upgrade; doom sync -p; doom doctor' \
+    dragon='dragon-drop' \
     du='dust' \
     eemacs='emacs' \
     emacs='devour visual' \
@@ -20,7 +21,7 @@ alias \
     ffupload='ffsend upload -vd 20 -e 7d' \
     ghc='ghc -dynamic -Wall' \
     gcc='gcc -Wall -Wextra' \
-    gpp='g++' \
+    gpp='g++ -Wall -Wextra' \
     h='history 1' \
     l='exa -lFbg --git' \
     lS='exa -laFbgs size --color-scale --group-directories-first' \
