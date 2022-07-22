@@ -17,14 +17,16 @@ let mapleader=""
 
 set textwidth=80  " tw
 set colorcolumn=+1  " cc
-set tabstop=4  " ts
+set tabstop=8  " ts
 set softtabstop=4  " sts
 set shiftwidth=4  " sw
 set expandtab  " et/noet
 augroup language_customizations
-    autocmd FileType javascript,typescript,json,c,cpp,sh,zsh,fish,conf,css setlocal noet
-    autocmd FileType haskell,lisp,tex,gitcommit setlocal ts=2 sts=2 sw=2
-    autocmd FileType python setlocal tw=79
+    autocmd FileType
+        \ javascript,typescript,json,c,cpp,sh,zsh
+        \ setlocal noet sts=8 sw=8
+    autocmd FileType haskell,lisp,tex,gitcommit setlocal sts=2 sw=2
+    autocmd FileType python setlocal tw=79 cc=+1,-6
 augroup END
 
 augroup detect_language
