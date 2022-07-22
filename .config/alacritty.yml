@@ -211,7 +211,7 @@ schemes:
       focused_match:
         foreground: CellBackground
         background: '#a3be8c'
-      bar:
+      footer_bar:
         background: '#4c566a'
         foreground: '#d8dee9'
     #hints:
@@ -275,7 +275,7 @@ schemes:
       focused_match:
         foreground: CellBackground
         background: '#ffcb6b'
-      bar:
+      footer_bar:
         background: '#ffcb6b'
         foreground: '#1c1f2b'
     #hints:
