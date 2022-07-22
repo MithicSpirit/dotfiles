@@ -307,6 +307,7 @@ floating_layout = layout.Floating(
         Match(wm_class="flameshot"),
         Match(wm_class="yad"),
         Match(wm_class="qalculate-gtk"),
+        Match(title="arena-tracker"),
     ],
     **layout_theme | {"border_focus": COLORS["hl2"]},
 )
@@ -319,7 +320,6 @@ group_names: list[tuple[str, dict]] = [
             "layout": "max",
             "spawn": [
                 "nice -n2 discord-canary",
-                # "nice -n2 discord",
                 "nice -n2 signal-desktop",
                 "nice -n2 element-desktop",
             ],
@@ -331,7 +331,10 @@ group_names: list[tuple[str, dict]] = [
             ],
         },
     ),
-    ("AGND", {"layout": "monadtall", "spawn": ["nice -n5 evolution"]}),
+    ("AGND", {"layout": "monadtall",
+        #"spawn": ["nice -n5 evolution"] # breaks xfce4 if starts this early :/
+        "matches": [Match(wm_class="evolution")],
+        }),
     (
         "CLAS",
         {
@@ -351,7 +354,9 @@ group_names: list[tuple[str, dict]] = [
         "INET",
         {
             "layout": "monadtall",
-            "spawn": ["lbry"],
+            "spawn": [
+                "lbry"
+                ],
             "matches": [
                 Match(wm_class="lbry"),
                 Match(wm_class="fragments"),
@@ -366,6 +371,7 @@ group_names: list[tuple[str, dict]] = [
                 Match(wm_class="lutris"),
                 Match(wm_class="Steam"),
                 Match(wm_class="heroic"),
+                #Match(wm_class="arena-tracker"),
             ],
         },
     ),
@@ -393,7 +399,9 @@ group_names: list[tuple[str, dict]] = [
         "SLAD",
         {
             "layout": "monadtall",
-            "spawn": [],
+            "spawn": [
+                #"nice -n20 salad"
+                ],
             "matches": [
                 Match(wm_class="salad"),
                 Match(wm_class="radeon-profile"),
@@ -403,7 +411,8 @@ group_names: list[tuple[str, dict]] = [
 ]
 if os.environ["REAL_GPU"] == "amd":
     # SLAD group
-    group_names[-1][1]["spawn"].extend(["nice -n20 salad", "radeon-profile"])
+    #group_names[-1][1]["spawn"].extend(["radeon-profile"])
+    pass
 groups = [Group(name, label=f"{name}", **kwargs) for name, kwargs in group_names]
 
 
@@ -721,3 +730,18 @@ def _discover_overlay(win):
     if win.name in {"Discover Text", "Discover Voice"}:
         s = qtile.current_screen
         win.cmd_static(qtile.screens.index(s), s.x, s.y, s.width, s.height)
+
+
+@hook.subscribe.client_new
+def _discover_overlay(win):
+    if win.name == "Arena Tracker":
+        s = qtile.current_screen
+        win.cmd_static(
+            qtile.screens.index(s),
+            s.x + 1688,
+            s.y + 27,
+            248,
+            1004
+        )
+        # win.cmd_set_position_floating(1685,24)
+        # win.cmd_set_size_floating(228,1004)

@@ -19,13 +19,14 @@
 
 	# Daemons
 	/usr/lib/geoclue-2.0/demos/agent &
-	greenclip daemon >/tmp/greenclip.log &
+	greenclip daemon >>/tmp/greenclip.log &
 	flameshot &
 	/usr/lib/xfce-polkit/xfce-polkit &
-	[ "$REAL_GPU" != "none" ] && replay-sorcery &
+	[ "$REAL_GPU" != "none" ] && replay-sorcery >>/tmp/replay-sorcery.log &
 	sxhkd -t 1000 -r /tmp/sxhkd.log &
 	/usr/bin/kdeconnect-indicator &
 	xautolock &
+	systemctl --user restart emacs.service &
 
 	# Misc
 	nm-applet &
@@ -33,9 +34,11 @@
 	xset s 0 0 &
 	xset +dpms dpms 0 0 0 &
 	numlockx on &
-	#wacom margin &
+	# wacom margin &
+	nice -n5 evolution &
 	
 	sleep 2
-	systemctl --user restart dunst.service
+	#systemctl --user restart dunst.service
+	dunst -print >>/tmp/dunst.log &
 	notify-send "Welcome" &
 } >>/tmp/qtile-autostart.log 2>&1 &
