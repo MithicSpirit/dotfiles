@@ -395,24 +395,7 @@ group_names: list[tuple[str, dict]] = [
             ],
         },
     ),
-    (
-        "SLAD",
-        {
-            "layout": "monadtall",
-            "spawn": [
-                #"nice -n20 salad"
-                ],
-            "matches": [
-                Match(wm_class="salad"),
-                Match(wm_class="radeon-profile"),
-            ],
-        },
-    ),
 ]
-if os.environ["REAL_GPU"] == "amd":
-    # SLAD group
-    #group_names[-1][1]["spawn"].extend(["radeon-profile"])
-    pass
 groups = [Group(name, label=f"{name}", **kwargs) for name, kwargs in group_names]
 
 
@@ -673,6 +656,7 @@ NO_SWALLOW_CHILD = {
     Match(wm_class="qutebrowser"),
     Match(wm_class="urxvt"),
     Match(wm_class="Alacritty"),
+    Match(wm_class="dragon-drop"),
 }
 
 
