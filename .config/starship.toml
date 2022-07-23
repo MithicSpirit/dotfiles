@@ -33,7 +33,7 @@ disabled = false
 min_time = 2_500
 format = ' [$duration]($style) [|](bold)'
 style = 'bold yellow'
-show_notifications = true
+show_notifications = false
 min_time_to_notify = 90_000
 disabled = false
 
