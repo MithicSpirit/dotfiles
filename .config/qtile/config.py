@@ -717,7 +717,7 @@ def _discover_overlay(win):
 
 
 @hook.subscribe.client_new
-def _discover_overlay(win):
+def _arena_tracker(win):
     if win.name == "Arena Tracker":
         s = qtile.current_screen
         win.cmd_static(
