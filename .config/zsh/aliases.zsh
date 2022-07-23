@@ -41,7 +41,7 @@ alias \
     ppy='pypy3' \
     ps='procs' \
     radeontop='sudo radeontop -cT' \
-    rm='rmtrash' \
+    rm='rmtrash -I' \
     rmdir='rmdirtrash' \
     rmrm='rm -i' \
     rmrmdir='rmdir' \
