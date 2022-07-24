@@ -25,7 +25,7 @@
 #--map-syntax ".ignore:Git Ignore"
 
 
---tabs=4
+--tabs=8
 --style=numbers,changes
 --theme=base16
 --pager="less --quiet --RAW-CONTROL-CHARS"
