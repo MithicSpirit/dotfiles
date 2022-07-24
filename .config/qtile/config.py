@@ -331,7 +331,7 @@ group_names: list[tuple[str, dict]] = [
             ],
         },
     ),
-    ("AGND", {"layout": "monadtall",
+    ("MAIL", {"layout": "monadtall",
         #"spawn": ["nice -n5 evolution"] # breaks xfce4 if starts this early :/
         "matches": [Match(wm_class="evolution")],
         }),
