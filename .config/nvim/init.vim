@@ -30,7 +30,7 @@ augroup language_customizations
 augroup END
 
 augroup detect_language
-    autocmd BufRead,BufNewFile *.PKGBUILD set ft=PKGBUILD
+    autocmd BufRead,BufNewFile *.PKGBUILD set ft=sh
     autocmd BufRead,BufNewFile */xresources/* set ft=xdefaults
 augroup END
 
