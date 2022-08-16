@@ -1,7 +1,7 @@
 alias -g \
     C='| tee >(xclip -i -sel c) | bat -pp' \
     G='| rg' \
-    P="| $PAGER" \
+    P='| ${=PAGER}' \
     NOP='&>/dev/null'
 
 alias \
@@ -52,6 +52,7 @@ alias \
     ssc='sudo systemctl' \
     su='sudo -i' \
     svi='sudoedit' \
+    swapflush='sudo swapoff -va; sudo swapon -va' \
     ufw='sudo ufw' \
     updb='sudo updatedb' \
     v='bat' \
