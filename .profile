@@ -37,6 +37,7 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export RXVT_SOCKET="$XDG_RUNTIME_DIR/urxvtd"
 export DOT_SAGE="$XDG_CONFIG_HOME/sage"
 export SDL_VIDEO_MINIMIZE_ON_FOCUS_LOSS=0
+export SPACEMACSDIR="$HOME/.config/spacemacs"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export STARSHIP_LOG="error"
 export VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/radeon_icd.i686.json:/usr/share/vulkan/icd.d/radeon_icd.x86_64.json"
