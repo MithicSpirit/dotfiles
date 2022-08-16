@@ -174,7 +174,7 @@ This must be added to `emojify-inhibit-functions' to work."
              sh-mode-hook
              fish-mode-hook)
   (cmd! (setq indent-tabs-mode t)))
-  
+
 
 ;; [e]Vi[l] fixes/tweaks
 (map! :after evil
