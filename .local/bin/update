@@ -243,7 +243,7 @@ function _core_clean
 		packages="$(paru -Ll | rg -v '\[installed\]' | awk '{print $2}')"
 		if [[ -n "$packages" ]]; then
 			echo "$packages"
-			echo -n 'Are you sure you wish to uninstall these packages? '
+			echo -n 'Are you sure you wish to delete these packages? '
 			confirm || return 1
 			xargs paru -Ld <<<"$packages"
 		else
@@ -500,12 +500,12 @@ function _misc_doom_recomp
 	[[ "$sel" =~ '.*vterm.*' ]] && {
 		[[ -n "$text" ]] && echo
 		echo 'Vterm:'
-		emacs -nw --eval='(vterm-module-compile)'
+		emacs --eval='(vterm-module-compile)'
 		text+='vterm '
 	}
 	[[ "$sel" =~ '.*pdf.*' ]] && {
 		echo 'pdf:'
-		emacs -nw --eval='(pdf-tools-install)'
+		emacs --eval='(pdf-tools-install)'
 		text+='pdf '
 	}
 	proceed
