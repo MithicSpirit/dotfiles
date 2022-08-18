@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+echo "-- $PKGBASE --"
 # Reset gpg timer
 GPG_TTY="$(tty)" gpg -o /dev/null --clearsign /dev/null
 
@@ -16,7 +17,7 @@ info_when_match () {
 }
 info_when_match 'linux-xanmod*' \
 	"Xanmod kernel package detected for \`$PKGBASE\`; copying config file..." &&
-	( cp ~/.config/linux-xanmod/myconfig . )
+	( cp -f ~/.config/linux-xanmod/myconfig . )
 info_when_match 'vscodium' \
 	"VSCodium detected for \`$PKGBASE\`; deleting repos..." &&
 	( rm -rf vscode vscodium )
