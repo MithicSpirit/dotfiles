@@ -43,8 +43,8 @@ alias \
     radeontop='sudo radeontop -cT' \
     rm='rmtrash -I' \
     rmdir='rmdirtrash' \
-    rmrm='rm -i' \
-    rmrmdir='rmdir' \
+    rmrm='rm -iv' \
+    rmrmdir='rmdir -pv' \
     sc='systemctl' \
     scim='sc-im' \
     scu='systemctl --user' \
