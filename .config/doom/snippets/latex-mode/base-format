@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: Base Format
+# key: basef
+# uuid: baseformat
+# condition: (and (eq 1 (line-number-at-pos)))
+# --
+\documentclass[11pt]{article}
+\usepackage[USenglish]{babel}
+\usepackage{amsmath,physics,siunitx,graphicx,float,indentfirst,geometry,hyperref,xurl}
+\graphicspath{{media/}}
+\setkeys{Gin}{keepaspectratio,width=\textwidth}
+\geometry{paper=letterpaper,margin=2cm}
+\hypersetup{hidelinks}
+
+\title{$1}
+\author{Prado Cunha, Ricardo}
+
+\begin{document}
+
+\maketitle
+
+$0
+
+\end{document}
