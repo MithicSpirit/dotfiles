@@ -9,7 +9,7 @@ super + a
 super + shift + a
 	pcmanfm
 super + control + a
-	doom everywhere
+	doom +everywhere
 
 super + e
 	visual
@@ -36,11 +36,11 @@ super + ctrl + shift + q
 	dmenu-shutdown
 
 super + s ; super + d
-	nice -n2 discord-canary
+	nice -n5 discord-canary
 super + s ; super + shift + d
-	nice -n2 signal-desktop
+	nice -n5 signal-desktop
 super + s ; super + ctrl + d
-	nice -n2 element-desktop
+	nice -n5 element-desktop
 
 super + s ; super + w
 	onlyoffice
@@ -50,13 +50,11 @@ super + s ; super + ctrl + w
 	nice -n5 teams
 
 super + s ; super + c
-	lbry
+	nice -n5 lbry
 #	"$REAL_BROWSER" --new-window 'https://odysee.com/$/following'
 super + s ; super + shift + c
 	"$REAL_BROWSER" --new-window 'https://www.youtube.com/feed/subscriptions'
 super + s ; super + ctrl + c
-	nice -n5 evolution
-super + s ; super + shift + ctrl + c
 	mpv "$(xclip -out -selection clipboard)"
 
 super + s ; super + f
@@ -90,6 +88,8 @@ shift + XF86AudioMute
 	playerctl play-pause
 any + XF86AudioMute
 	amixer -D pulse -q sset Master toggle
+shift + XF86Audio{Raise,Lower}Volume
+	amixer -D pulse -q sset Master 10%{+,-}
 any + XF86Audio{Raise,Lower}Volume
 	amixer -D pulse -q sset Master 5%{+,-}
 
@@ -104,5 +104,7 @@ super + control + shift + p
 	replay-sorcery save
 
 ## Miscellaneous
+shift + XF86MonBrightness{Up,Down}
+	xbacklight {+,-}18
 any + XF86MonBrightness{Up,Down}
 	xbacklight {+,-}2

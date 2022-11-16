@@ -13,7 +13,7 @@ typeset -A options_=(
 	['7.  Firefox']="firefox"
 	['8.  Brave']="brave-nightly"
 	['9.  Librewolf']="librewolf"
-	['10.  Nyxt']="nyxt"
+	['10. Nyxt']="nyxt"
 	['11. IceCat']="icecat"
 	['12. Vieb']="vieb"
 )

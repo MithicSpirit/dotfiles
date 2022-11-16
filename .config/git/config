@@ -4,6 +4,7 @@
 	signingKey = FEA8F724F2800E40
 [commit]
 	gpgSign = true
+	verbose = true
 [gpg]
 	program = gpg
 [pull]

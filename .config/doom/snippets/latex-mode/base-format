@@ -2,11 +2,16 @@
 # name: Base Format
 # key: basef
 # uuid: baseformat
-# condition: (and (eq 1 (line-number-at-pos)))
+# condition: (eq 1 (line-number-at-pos))
 # --
 \documentclass[11pt]{article}
 \usepackage[USenglish]{babel}
-\usepackage{amsmath,physics,siunitx,graphicx,float,indentfirst,geometry,hyperref,xurl}
+\usepackage{amsmath,amssymb}
+\usepackage{physics,siunitx}
+\usepackage{graphicx,float}
+\usepackage{indentfirst,geometry,microtype}
+\usepackage{verbatim}
+\usepackage{hyperref,xurl}
 \graphicspath{{media/}}
 \setkeys{Gin}{keepaspectratio,width=\textwidth}
 \geometry{paper=letterpaper,margin=2cm}

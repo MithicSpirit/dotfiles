@@ -225,7 +225,7 @@ if os.path.exists("/sys/class/power_supply/BAT1"):
                     "battery": "BAT1",
                     "format": "Bat: {percent:2.0%} {char}",
                     "low_percentage": -1,
-                    "update_interval": 20,
+                    "update_interval": 10,
                     "notify_below": 0.35,
                     "show_short_text": False,
                 },
@@ -282,7 +282,14 @@ layouts = [
         max_ratio=0.74,
         **layout_theme | {"margin": 4},
     ),
-    layout.Max(**layout_theme | {"margin": 0}),
+    layout.Max(
+        **layout_theme
+        | {
+            "margin": 0,
+            "border_width": 2,
+            "border_focus": COLORS["hl2"],
+        }
+    ),
     layout.Stack(num_stacks=2, **layout_theme),
     layout.Tile(shift_windows=True, **layout_theme),
 ]
@@ -319,9 +326,9 @@ group_names: list[tuple[str, dict]] = [
         {
             "layout": "max",
             "spawn": [
-                "nice -n2 discord-canary",
-                "nice -n2 signal-desktop",
-                "nice -n2 element-desktop",
+                # "nice -n2 discord-canary",
+                # "nice -n2 signal-desktop",
+                # "nice -n2 element-desktop",
             ],
             "matches": [
                 Match(wm_class="discord"),
@@ -331,12 +338,25 @@ group_names: list[tuple[str, dict]] = [
             ],
         },
     ),
-    ("MAIL", {"layout": "monadtall",
-        #"spawn": ["nice -n5 evolution"] # breaks xfce4 if starts this early :/
-        "matches": [Match(wm_class="evolution")],
-        }),
     (
-        "CLAS",
+        "MAIL",
+        {
+            "layout": "monadtall",
+            # "spawn": ["nice -n5 evolution"] # breaks xfce4 if starts this early :/
+            "matches": [Match(wm_class="evolution"), Match(wm_class="kmail")],
+        },
+    ),
+    (
+        "AGND",
+        {
+            "layout": "max",
+            "matches": [
+                Match(wm_class="kalendar"),
+            ],
+        },
+    ),
+    (
+        "SCHL",
         {
             "layout": "monadtall",
             "matches": [
@@ -345,18 +365,12 @@ group_names: list[tuple[str, dict]] = [
             ],
         },
     ),
-    (
-        "SCHL",
-        {"layout": "monadtall", "matches": [Match(wm_class="DesktopEditors")]},
-    ),
     ("PRGM", {"layout": "monadtall"}),
     (
         "INET",
         {
             "layout": "monadtall",
-            "spawn": [
-                "lbry"
-                ],
+            # "spawn": ["lbry"],
             "matches": [
                 Match(wm_class="lbry"),
                 Match(wm_class="fragments"),
@@ -371,7 +385,7 @@ group_names: list[tuple[str, dict]] = [
                 Match(wm_class="lutris"),
                 Match(wm_class="Steam"),
                 Match(wm_class="heroic"),
-                #Match(wm_class="arena-tracker"),
+                # Match(wm_class="arena-tracker"),
             ],
         },
     ),
@@ -389,7 +403,7 @@ group_names: list[tuple[str, dict]] = [
         "STAT",
         {
             "layout": "max",
-            "spawn": ["nice -n5 alacritty --class btop-spawn -t btop -e btop"],
+            # "spawn": ["nice -n5 alacritty --class btop-spawn -t btop -e btop"],
             "matches": [
                 Match(wm_class="btop-spawn"),
             ],
@@ -458,7 +472,10 @@ def unfloat_all(qtile):
 @lazy.function
 def unminimize_all(qtile):
     for i in qtile.current_group.windows:
-        i.minimized = False
+        if i.minimized:
+            i.cmd_toggle_minimize()
+            i.minimized = False  # just to be safe
+            i.cmd_focus()
 
 
 keys = [
@@ -642,9 +659,10 @@ mouse = [
 def on_first_startup():
     """
     Begins startup processes like daemons and the compositor. See
-    `./scripts/autostart.sh`.
+    `./autostart.sh`.
     """
-    subprocess.call([f"{CONFIG}/scripts/autostart.sh"])
+    subprocess.call([f"{CONFIG}/autostart.sh"])
+    qtile.groups_map["SCHL"].cmd_toscreen()
 
 
 SWALLOW_PARENT = {
@@ -720,12 +738,6 @@ def _discover_overlay(win):
 def _arena_tracker(win):
     if win.name == "Arena Tracker":
         s = qtile.current_screen
-        win.cmd_static(
-            qtile.screens.index(s),
-            s.x + 1688,
-            s.y + 27,
-            248,
-            1004
-        )
+        win.cmd_static(qtile.screens.index(s), s.x + 1688, s.y + 27, 248, 1004)
         # win.cmd_set_position_floating(1685,24)
         # win.cmd_set_size_floating(228,1004)

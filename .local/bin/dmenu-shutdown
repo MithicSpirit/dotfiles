@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 
-LOCK_SCREEN="betterlockscreen -l -- --ignore-empty-password"
+LOCK_SCREEN="xautolock -locknow"
 typeset -A options_=(
 	['0. Lock']="$LOCK_SCREEN"
-	['1. Log off']="systemctl --user exit"
+	['1. Log off']="systemctl --user exit; killall qtile"
 	['2. Shut down']="systemctl poweroff"
 	['3. Restart']="systemctl reboot"
 	['4. Suspend']="$LOCK_SCREEN & systemctl suspend; wait"

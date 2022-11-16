@@ -1,4 +1,4 @@
-format = """
+format = """\
 $status$cmd_duration$directory\
 $username$hostname\
 $singularity\
@@ -11,7 +11,7 @@ $gcloud\
 $openstack\
 $sudo[❯](bold blue)[❯](bold cyan)[❯](bold green) ${custom.cursor}"""
 
-right_format = """
+right_format = """\
 $python\
 $git_state$git_status$git_branch$hg_branch\
 $jobs$shlvl$memory_usage$battery$time \

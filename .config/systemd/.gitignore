@@ -1,0 +1,7 @@
+/*
+
+!/user/autotrash.service
+!/user/autotrash.timer
+!/user/ssh-agent.service
+
+!/.gitignore

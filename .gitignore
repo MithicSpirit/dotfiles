@@ -1,6 +1,18 @@
-.homegit
+/*
 
-.profile_custom
+!/.Xresources
+!/.clang-format
+!/.config/
+!/.local/
+!/.mbsyncrc
+!/.profile
+!/.ssh/
+!/.zprofile
+!/.zshenv
+!/README.org
 
-.config/emacs
+/.homegit
+/.profile_custom
 **/.git
+
+!/.gitignore

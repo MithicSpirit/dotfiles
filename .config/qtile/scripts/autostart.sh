@@ -12,21 +12,38 @@
 	sleep 2
 	
 	# Appearance
-	picom --experimental-backends &
+	picom &
 	feh --no-fehbg --bg-fill "$HOME/.local/share/backgrounds/selected" &
 	redshift-gtk -l geoclue2 -b 0.95:0.9 -t 6400K:4000K &
 	xrdb ~/.config/xresources/Xresources &
+	#xsettingsd &
 
 	# Daemons
 	/usr/lib/geoclue-2.0/demos/agent &
 	greenclip daemon >>/tmp/greenclip.log &
-	flameshot &
-	/usr/lib/xfce-polkit/xfce-polkit &
+	XDG_CURRENT_DESKTOP="" QT_QPA_PLATFORMTHEME="gtk2" flameshot &
+	#/usr/lib/xfce-polkit/xfce-polkit &
+	/usr/lib/polkit-kde-authentication-agent-1 &
+	kwalletd5 &
+	(sleep 1; /usr/lib/pam_kwallet_init) &
 	[ "$REAL_GPU" != "none" ] && replay-sorcery >>/tmp/replay-sorcery.log &
 	sxhkd -t 1000 -r /tmp/sxhkd.log &
-	/usr/bin/kdeconnect-indicator &
+	XDG_CURRENT_DESKTOP="" QT_QPA_PLATFORMTHEME="gtk2" kdeconnect-indicator &
 	xautolock &
 	systemctl --user restart emacs.service &
+	kded5 &
+	{
+		sleep 1
+		for module in \
+			gtkconfig \
+			ktimezoned \
+			kded_accounts \
+			networkmanagement
+		do
+			echo -n "Loading module $module: "
+			qdbus org.kde.kded5 /kded org.kde.kded5.loadModule "$module"
+		done
+	}&
 
 	# Misc
 	nm-applet &

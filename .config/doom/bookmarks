@@ -18,7 +18,7 @@
  (rear-context-string)
  (position . 1))
 ("School"
- (filename . "~/documents/school/2020-2021/")
+ (filename . "~/documents/school/")
  (front-context-string . "  /home/mithic/d")
  (rear-context-string)
  (position . 1))

@@ -26,33 +26,42 @@ bindkey -e
 
 # Plugins
 MODULES=(
-    "zsh/complist"
-    "zsh/mapfile"
-    "zsh/mathfunc"
-    "zsh/parameter"
-    "zsh/regex"
-    "zsh/termcap"
-    "zsh/terminfo"
-    "zsh/zle"
-    "zsh/zleparameter"
+	"zsh/complist"
+	"zsh/mapfile"
+	"zsh/mathfunc"
+	"zsh/parameter"
+	"zsh/regex"
+	"zsh/termcap"
+	"zsh/terminfo"
+	"zsh/zle"
+	"zsh/zleparameter"
 )
 for i in $MODULES; do zmodload $i; done
 [[ $COLORTERM = *(24bit|truecolor)* ]] || zmodload zsh/nearcolor
 
+safesource() {
+	[[ -r  "$1" ]] && source "$1"
+}
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of zshrc.
+safesource "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
+
 PLUGINPATH="$ZDOTDIR/plugins"
 PLUGINS=(
-    "/usr/share/autojump/autojump.zsh"
-    "$HOME/.autojump/etc/profile.d/autojump.sh"
-    "/usr/share/doc/pkgfile/command-not-found.zsh"
-    "$PLUGINPATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    "$PLUGINPATH/zsh-completions/zsh-completions.plugin.zsh"
-    "$PLUGINPATH/zsh-history-substring-search/zsh-history-substring-search.zsh"
-    "$PLUGINPATH/globalias.zsh"
-    "$PLUGINPATH/fg-keybind.zsh"
-    "$ZDOTDIR/aliases.zsh"
-    "$PLUGINPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+	"/usr/share/autojump/autojump.zsh"
+	"$HOME/.autojump/etc/profile.d/autojump.sh"
+	"/usr/share/doc/pkgfile/command-not-found.zsh"
+	"$PLUGINPATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
+	"$PLUGINPATH/zsh-completions/zsh-completions.plugin.zsh"
+	"$PLUGINPATH/zsh-history-substring-search/zsh-history-substring-search.zsh"
+	"$PLUGINPATH/globalias.zsh"
+	"$PLUGINPATH/fg-keybind.zsh"
+	"$PLUGINPATH/powerlevel10k/powerlevel10k.zsh-theme"
+	"$PLUGINPATH/p10k-themes/automatic.zsh"
+	"$ZDOTDIR/aliases.zsh"
+	"$PLUGINPATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 )
-for i in $PLUGINS; do [[ -f $i ]] && source $i; done
+for i in $PLUGINS; do safesource "$i"; done
 
 # Plugin Config
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -75,10 +84,10 @@ unset ZSH_HIGHLIGHT_STYLES[bracket-level-5]
 
 # Keybinds
 __autoload_bindkey () {
-    local new_func="${@[-1]}"
-    autoload "$new_func"
-    zle -N "$new_func"
-    bindkey "$@"
+	local new_func="${@[-1]}"
+	autoload "$new_func"
+	zle -N "$new_func"
+	bindkey "$@"
 }
 bindkey "^Z" fg
 bindkey "^P" history-substring-search-up
@@ -92,7 +101,8 @@ bindkey -M menuselect "^F" forward-char
 bindkey -M menuselect "^B" backward-char
 
 # Options
-setopt auto_pushd # Push new dirs sonto dirstack automatically
+setopt auto_pushd # Push new dirs onto dirstack automatically
+setopt pushd_minus # Makes `cd -n` behave similarly to `cd -`
 unsetopt flow_control # Allows ^Q and ^S to work
 setopt auto_continue # Automatically CONT disowned jobs
 setopt prompt_sp # Show $PROMPT_EOL_MARK (see below) when last command missing ending EOL
@@ -104,59 +114,60 @@ ZLE_RPROMPT_INDENT=0 # Remove unnecessary padding
 PROMPT_EOL_MARK="$(printf '%%{\033[0m\033[7m\033[1m%%}%%#%%{\033[0m%%}')"
   # ^ reset color before printing prompt_sp (see above)
 unset LINES COLUMNS # Can fix some bugs
-command -v starship &>/dev/null && eval "$(starship init zsh)" # Starship prompt
+#command -v starship &>/dev/null && eval "$(starship init zsh)" # Starship prompt
 __escape_aliases # See globalias
 export TTY
+autoload -Uz bashcompinit && bashcompinit
 
 # Linux TTY
 if [[ "$TERM" = "linux" ]]; then
-    clear () {
+	clear () {
 		## Nord
-        echo -en "\e]P0292E38" # black, bg
-        echo -en "\e]P1BF616A" # darkred
-        echo -en "\e]P2A3BE8C" # darkgreen
+		echo -en "\e]P0292E38" # black, bg
+		echo -en "\e]P1BF616A" # darkred
+		echo -en "\e]P2A3BE8C" # darkgreen
 		echo -en "\e]P3EBCB8B" # brown (darkyellow)
-        echo -en "\e]P481A1C1" # darkblue
-        echo -en "\e]P5B48EAD" # darkmagenta
-        echo -en "\e]P688C0D0" # darkcyan
+		echo -en "\e]P481A1C1" # darkblue
+		echo -en "\e]P5B48EAD" # darkmagenta
+		echo -en "\e]P688C0D0" # darkcyan
 		echo -en "\e]P7F2F5FA" # lightgrey, fg
-        echo -en "\e]P864718B" # darkgrey
-        echo -en "\e]P9C76B74" # red
-        echo -en "\e]PAADC698" # green
-        echo -en "\e]PBF3D599" # yellow
-        echo -en "\e]PC8CA9C6" # blue
-        echo -en "\e]PDBC9AB5" # magenta
-        echo -en "\e]PE93BEBE" # cyan
-        echo -en "\e]PFECEFF4" # white
+		echo -en "\e]P864718B" # darkgrey
+		echo -en "\e]P9C76B74" # red
+		echo -en "\e]PAADC698" # green
+		echo -en "\e]PBF3D599" # yellow
+		echo -en "\e]PC8CA9C6" # blue
+		echo -en "\e]PDBC9AB5" # magenta
+		echo -en "\e]PE93BEBE" # cyan
+		echo -en "\e]PFECEFF4" # white
 		## Palenight
-        #echo -en "\e]P01C1F2B" # black
-        #echo -en "\e]P1FF5370" # darkred
-        #echo -en "\e]P2C3E88D" # darkgreen
+		#echo -en "\e]P01C1F2B" # black
+		#echo -en "\e]P1FF5370" # darkred
+		#echo -en "\e]P2C3E88D" # darkgreen
 		#echo -en "\e]P3FFCB6B" # brown (darkyellow)
-        #echo -en "\e]P482AAFF" # darkblue
-        #echo -en "\e]P5C792EA" # darkmagenta
-        #echo -en "\e]P689DDFF" # darkcyan
-        #echo -en "\e]P7A6ACCD" # lightgrey
-        #echo -en "\e]P8545760" # darkgrey
-        #echo -en "\e]P9FF7E93" # red
-        #echo -en "\e]PAD2EDA9" # green
-        #echo -en "\e]PBFFD890" # yellow
-        #echo -en "\e]PCA1BFFF" # blue
-        #echo -en "\e]PDD5ADEF" # magenta
-        #echo -en "\e]PEA6E5FF" # cyan
-        #echo -en "\e]PFBCC0D9" # white
-        tput clear
-    }
-    clear
+		#echo -en "\e]P482AAFF" # darkblue
+		#echo -en "\e]P5C792EA" # darkmagenta
+		#echo -en "\e]P689DDFF" # darkcyan
+		#echo -en "\e]P7A6ACCD" # lightgrey
+		#echo -en "\e]P8545760" # darkgrey
+		#echo -en "\e]P9FF7E93" # red
+		#echo -en "\e]PAD2EDA9" # green
+		#echo -en "\e]PBFFD890" # yellow
+		#echo -en "\e]PCA1BFFF" # blue
+		#echo -en "\e]PDD5ADEF" # magenta
+		#echo -en "\e]PEA6E5FF" # cyan
+		#echo -en "\e]PFBCC0D9" # white
+		tput clear
+	}
+	clear
 fi
 
 # Emacs vterm
-if [[ "$INSIDE_EMACS" = 'vterm' && -n ${EMACS_VTERM_PATH} &&
-          -f "${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh" ]]; then
-    source "${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh"
-    __clear_vterm="${aliases[clear]}"
-    unalias clear
-    clear () { eval "$__clear_vterm" }
+if [[ "$INSIDE_EMACS" = 'vterm' && -n ${EMACS_VTERM_PATH} && \
+	-r "${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh" ]]; then
+	source "${EMACS_VTERM_PATH}/etc/emacs-vterm-zsh.sh"
+	__clear_vterm="${aliases[clear]}"
+	unalias clear
+	clear () { eval "$__clear_vterm" }
 fi
 
 true # prevent above error codes from affecting prompt

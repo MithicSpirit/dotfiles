@@ -118,6 +118,10 @@
 ;(when (package! lsp-mode) (package! lsp-jedi))
 (package! elpher)
 (package! gnu-apl-mode)
-(package! lilypond
-  :recipe (:host github :repo "lilypond/lilypond" :files ("elisp/*.el")))
+;(package! lilypond
+;  :recipe (:host github :repo "lilypond/lilypond" :files ("elisp/*.el")))
 (package! gitignore-snippets)
+(package! org-xournalpp
+  :recipe (:host gitlab
+           :repo "vherrmann/org-xournalpp"
+           :files ("resources" "*.el")))

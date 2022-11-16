@@ -1,3 +1,5 @@
 #include "rxvt-unicode"
 #include "xterm"
 #include "xautolock"
+
+Xcursor.theme: breeze_cursors

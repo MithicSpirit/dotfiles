@@ -19,7 +19,7 @@
 (setq
  doom-font (font-spec :family "Iosevka Mithic" :size 15)
  doom-variable-pitch-font (font-spec :family "Overpass" :size 16)
- doom-big-font (font-spec :family "Inconsolata" :size 20)
+ doom-big-font (font-spec :family "Inconsolata" :size 30)
  mode-line-font (font-spec :family "Iosevka Mithic" :size 18))
 (setq doom-unicode-font (font-spec :family "Iosevka Mithic"))
 
@@ -38,18 +38,25 @@
 ;  `(line-number-current-line :foreground ,(doom-color 'yellow) :weight bold)
 ;  '(show-paren-match :background nil)
 ;  )
+(after! tex
+  (custom-set-faces!
+    '(font-latex-verbatim-face :slant oblique)
+    '(font-latex-subscript-face :height 1.0)
+    '(font-latex-superscript-face :height 1.0)))
+
 
 ;; Doom modeline
-(setq
- doom-modeline-modal-icon nil
- evil-emacs-state-tag    (propertize "⟨EMACS⟩ ")
- evil-insert-state-tag   (propertize "⟨INSERT⟩")
- evil-motion-state-tag   (propertize "⟨MOTION⟩")
- evil-normal-state-tag   (propertize "⟨NORMAL⟩")
- evil-operator-state-tag (propertize "⟨OPERTR⟩")
- evil-visual-state-tag   (propertize "⟨VISUAL⟩")
- evil-replace-state-tag  (propertize "⟨REPLCE⟩")
- doom-modeline-height 36)
+(after! doom-modeline
+  (setq
+    doom-modeline-modal-icon nil
+    evil-emacs-state-tag    (propertize "⟨EMACS⟩ ")
+    evil-insert-state-tag   (propertize "⟨INSERT⟩")
+    evil-motion-state-tag   (propertize "⟨MOTION⟩")
+    evil-normal-state-tag   (propertize "⟨NORMAL⟩")
+    evil-operator-state-tag (propertize "⟨OPERTR⟩")
+    evil-visual-state-tag   (propertize "⟨VISUAL⟩")
+    evil-replace-state-tag  (propertize "⟨REPLCE⟩")
+    doom-modeline-height 36))
 ;(custom-set-faces! ;doom-palenight:
 ;  '(doom-modeline-bar :background nil)
 ;  `(solaire-mode-line-face :foreground ,(doom-darken 'fg .1)
@@ -92,15 +99,26 @@
 
 This must be added to `emojify-inhibit-functions' to work."
   ;(message "+emojify-ignore-emoji: Ran with (%s) (%s) (%s)" text _beg _end)
-  (if (or
-       (string= text "↕")
-       (string= text "✔")
-       (string= text "✖")
-       (string= text "™")
-       (string= text "▪")
-       (string= text "⚫"))
-      t nil))
-      
+  (or
+   (string= text "↔")
+   (string= text "↕")
+   (string= text "✔")
+   (string= text "✖")
+   (string= text "™")
+   (string= text "▪")
+   (string= text "⚫")
+   (string= text "♣")
+   (string= text "♥")
+   (string= text "♠")
+   (string= text "♦")
+   (string= text "↩")
+   (string= text "↪")
+   (string= text "↖")
+   (string= text "↗")
+   (string= text "↘")
+   (string= text "↙")
+   (string= text "✝")))
+
 (after! emojify
   (setq
    emojify-point-entered-behaviour 'uncover
@@ -111,7 +129,7 @@ This must be added to `emojify-inhibit-functions' to work."
 
 ;; Misc - Appearance
 (setq
- ;; all-the-icons-scale-factor 1.2
+ all-the-icons-scale-factor 1.2
  doom-themes-neotree-enable-variable-pitch nil
  evil-motion-state-cursor 'box
  truncate-string-ellipsis "…"
@@ -122,15 +140,18 @@ This must be added to `emojify-inhibit-functions' to work."
 
 ;;; Utility
 ;; Misc - Utility
+(setq-default
+ fill-column 80)
 (setq
  display-line-numbers-type t
- fill-column 80
  org-agenda-dim-blocked-tasks nil
  org-agenda-tags-column 0
+ org-src-tab-acts-natively nil
  delete-by-moving-to-trash t
  lsp-auto-guess-root t
  lsp-enable-suggest-server-download nil
- browse-url-generic-program "dmenu-browser")
+ lsp-enable-indentation nil
+ browse-url-generic-program "xdg-open")
 (after! persp-mode
   (setq persp-emacsclient-init-frame-behaviour-override "main"))
 
@@ -167,13 +188,20 @@ This must be added to `emojify-inhibit-functions' to work."
 ;; Indentation/Tabs vs. Spaces
 (setq highlight-indent-guides-method 'bitmap
       highlight-indent-guides-responsive 'stack)
-(setq-default indent-tabs-mode nil)
-(add-hook! '(javascript-mode-hook
-             typescript-mode-hook
-             c++-mode-hook
-             sh-mode-hook
-             fish-mode-hook)
-  (cmd! (setq indent-tabs-mode t)))
+(setq-default tab-width 8)
+(setq-hook! '(javascript-mode-hook
+              typescript-mode-hook
+              java-mode-hook
+              c-mode-hook
+              c++-mode-hook
+              sh-mode-hook
+              fish-mode-hook)
+  indent-tabs-mode t)
+(setq-hook! '(LaTeX-mode-hook
+              haskell-mode-hook
+              git-commit-mode-hook)
+  tab-width 2)
+
 
 
 ;; [e]Vi[l] fixes/tweaks
@@ -204,7 +232,8 @@ This must be added to `emojify-inhibit-functions' to work."
   (setq dired-listing-switches "-AlhDF --group-directories-first"))
 (map! :after dired :map dired-mode-map
       :n "h" #'dired-up-directory
-      :n "l" #'dired-find-file)
+      :n "l" #'dired-find-file
+      :n "w" #'browse-url-of-dired-file)
       
 
 ;; LaTeX tweaks and keybinds
@@ -215,7 +244,7 @@ This must be added to `emojify-inhibit-functions' to work."
   (if (and (not force) (string= "''" (buffer-substring (point) (+ 2 (point)))))
       (forward-char 2)
     (TeX-insert-quote force)))
-    
+
 (map! :after tex :map LaTeX-mode-map
       (:localleader
        :desc "LaTeX Preview" "v" #'TeX-view
@@ -230,13 +259,16 @@ This must be added to `emojify-inhibit-functions' to work."
 (setq
  +latex-indent-level-item-continuation 4
  +latex-viewers '(zathura pdf-tools evince  skim sumatrapdf okular)
- font-latex-script-display '((raise -0.3) raise 0.3)
- font-latex-fontify-script-max-level 2)
+ font-latex-script-display '((raise -0.25) raise 0.25)
+ font-latex-fontify-script-max-level 3)
  
 (setq-default TeX-engine 'luatex)
-;(pdf-tools-install 'no-query 'skip-deps)
-;(after! tex (setq tex--prettify-symbols-alist
-;                  (append tex--prettify-symbols-alist '(("\\implies" . ?⇒))))
+(after! tex
+  (setq tex--prettify-symbols-alist
+        (append tex--prettify-symbols-alist '(("\\implies" . ?⇒))))
+  (add-hook! 'LaTeX-mode-hook
+             #'display-fill-column-indicator-mode
+             (auto-fill-mode -1)))
 (after! (tex flycheck lsp-mode)
  (add-hook! 'latex-mode-local-vars-hook :append
    (add-hook! 'flycheck-mode-hook :local
@@ -360,57 +392,57 @@ This must be added to `emojify-inhibit-functions' to work."
 
 ;;; Heavy customization
 ;; School agenda
-;;(defun school-agenda (&optional kill)
-;;  "Open agenda setup for school.
+(defun school-agenda (&optional kill)
+  "Open agenda setup for school.
 
-;;Open tasks and agenda with schedule in a sidebar and the
-;;calendar in a background buffer."
-;;  (interactive
-;;   (list (if (string= (buffer-name (current-buffer)) "*doom*") nil t)))
+Open tasks and agenda with schedule in a sidebar and the
+calendar in a background buffer."
+  (interactive
+   (list (if (string= (buffer-name (current-buffer)) "*doom*") nil t)))
 
-;;  (if kill (call-interactively #'doom/kill-all-buffers))
-;;  (cd org-directory)
-;;  (evil-edit "schedule.org") (read-only-mode)
-;;  (evil-window-vsplit nil "calendar.org")
-;;  (evil-edit "tasks.org") (org-shifttab 2)
-;;  (evil-window-left 1) (evil-window-set-width 39) ;; schedule
-;;  (evil-window-right 1) (evil-window-split) (org-agenda-list) ;; agenda under tasks
-;;  (evil-window-set-height 23)
-;;  (evil-window-left 1)) ;; schedule
+  (if kill (call-interactively #'doom/kill-all-buffers))
+  (cd org-directory)
+  (evil-edit "schedule.org") (read-only-mode)
+  (evil-window-vsplit nil "calendar.org")
+  (evil-edit "tasks.org") (org-shifttab 2)
+  (evil-window-left 1) (evil-window-set-width 39) ;; schedule
+  (evil-window-right 1) (evil-window-split) (org-agenda-list) ;; agenda under tasks
+  (evil-window-set-height 23)
+  (evil-window-left 1)) ;; schedule
 
-;;(defun =school-agenda (&optional reset)
-;;  "Wrapper for `school-agenda' with workspace support.
+(defun =school-agenda (&optional reset)
+  "Wrapper for `school-agenda' with workspace support.
 
-;;Open workspace for `school-agenda', or switch to one if it
-;;already exists. If prefix `reset' is non-`nil', the workspace is
-;;reset (all current buffers/windows are killed)."
-;;  (interactive "P")
-;;  (let ((exists (+workspace-exists-p "*agenda*")))
-;;    (+workspace-switch "*agenda*" t)
-;;    (when (or (not exists) reset)
-;;        (school-agenda reset))))
+Open workspace for `school-agenda', or switch to one if it
+already exists. If prefix `reset' is non-`nil', the workspace is
+reset (all current buffers/windows are killed)."
+  (interactive "P")
+  (let ((exists (+workspace-exists-p "*agenda*")))
+    (+workspace-switch "*agenda*" t)
+    (when (or (not exists) reset)
+        (school-agenda reset))))
 
-;;(map!
-;; :leader :desc "Open school agenda" "o a s" #'=school-agenda
-;; :map doom-leader-notes-map :localleader
-;; :desc "Open school agenda" "S" #'=school-agenda
+(map!
+ :leader :desc "Open school agenda" "o a s" #'=school-agenda
+ :map doom-leader-notes-map :localleader
+ :desc "Open school agenda" "S" #'=school-agenda
 
-;; :leader :desc "Replace current workspace with agenda" "o a S" #'school-agenda
-;; :map doom-leader-notes-map :localleader
-;; :desc "Replace current workspace with agenda" "S" #'school-agenda)
+ :leader :desc "Replace current workspace with agenda" "o a S" #'school-agenda
+ :map doom-leader-notes-map :localleader
+ :desc "Replace current workspace with agenda" "S" #'school-agenda)
 
-;;(map!
-;; :map org-mode-map :after org
-;; :localleader :desc "Set visibility to 2"
-;; "TAB" (cmd! (org-shifttab 2))
-;; :localleader :desc "Set visibility to 2"
-;; "<tab>" (cmd! (org-shifttab 2)))
+(map!
+ :map org-mode-map :after org
+ :localleader :desc "Set visibility to 2"
+ "TAB" (cmd! (org-shifttab 2))
+ :localleader :desc "Set visibility to 2"
+ "<tab>" (cmd! (org-shifttab 2)))
 
-;;(setcar (cdr +doom-dashboard-menu-sections)
-;;        `("Open school agenda" .
-;;          ,(plist-put
-;;            (cdr (assoc "Open org-agenda" +doom-dashboard-menu-sections))
-;;            :action #'=school-agenda)))
+(setcar (cdr +doom-dashboard-menu-sections)
+        `("Open school agenda" .
+          ,(plist-put
+            (cdr (assoc "Open org-agenda" +doom-dashboard-menu-sections))
+            :action #'=school-agenda)))
             
 
 ;; Org time execute
@@ -459,9 +491,21 @@ Takes in a `full-id' of the meeting in the format \"<id>\" or
 
 
 ;; Lilypond
-(use-package! lilypond-mode)
+;(use-package! lilypond-mode)
 
 
 ;; gitignore snippers
-(use-package! gitignore-snippets)
-(after! gitignore-snippets (gitignore-snippets-init))
+(use-package! gitignore-snippets
+  :config (after! gitignore-snippets (gitignore-snippets-init)))
+
+;; org-xournalpp
+(use-package! org-xournalpp
+  :config
+  (add-hook 'org-mode-hook 'org-xournalpp-mode)
+  (setq
+   org-xournalpp-image-type "png"
+   org-xournalpp-template-getter
+        (cmd! (expand-file-name
+               (concat (or (getenv "XDG_TEMPLATES_DIR")
+                           "~/.local/share/templates")
+                       "/Xournalpp-square.xopp")))))

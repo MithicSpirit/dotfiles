@@ -6,7 +6,7 @@ autocmd VimEnter *
 
 " Set some configs
 set nobackup noswapfile lazyredraw
-set mouse=a clipboard+=unnamedplus
+set mouse=nvi clipboard+=unnamedplus
 set noshowmode ignorecase smartcase
 set number cursorline signcolumn=yes:1
 set splitbelow splitright
@@ -16,16 +16,18 @@ set notimeout
 let mapleader=""
 
 set textwidth=80  " tw
-set colorcolumn=+1  " cc
+set colorcolumn=+1,+9  " cc
 set tabstop=8  " ts
 set softtabstop=4  " sts
 set shiftwidth=4  " sw
 set expandtab  " et/noet
 augroup language_customizations
     autocmd FileType
-        \ javascript,typescript,json,c,cpp,sh,zsh
-        \ setlocal noet sts=8 sw=8
-    autocmd FileType haskell,lisp,tex,gitcommit setlocal sts=2 sw=2
+        \ javascript,typescript,json,c,cpp,sh,zsh,java
+        \ setlocal ts=8 sts=8 sw=8 noet
+    autocmd FileType
+        \ haskell,lisp,tex,gitcommit,toml
+        \ setlocal ts=8 sts=2 sw=2 et
     autocmd FileType python setlocal tw=79 cc=+1,-6
 augroup END
 
@@ -45,6 +47,7 @@ call plug#begin()
     Plug 'airblade/vim-gitgutter'
     Plug 'whonore/Coqtail'
     Plug 'editorconfig/editorconfig-vim'
+    Plug 'edwinb/idris2-vim'
 call plug#end()
 
 " Bind keys
@@ -64,6 +67,7 @@ command Wq wq
 " Miscellaneous
 autocmd VimLeave * set guicursor=a:ver20
 let g:tex_flavor = "latex"
+let g:rust_recommended_style = 0
 
 " Terminal
 augroup terminal_options

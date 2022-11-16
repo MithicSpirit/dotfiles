@@ -55,7 +55,8 @@
 	;;treemacs		; a project drawer, like neotree but cooler
 	;;unicode		; extended unicode support for various languages
 	(vc-gutter		; vcs diff in the fringe
-	 +diff-hl)
+	 +diff-hl
+         +pretty)
 	vi-tilde-fringe		; fringe tildes to mark beyond EOB
 	(window-select		; visually switch windows
 	 +numbers)
@@ -83,7 +84,7 @@
 	 +icons)
 	electric		; smarter, keyword-based electric-indent
 	(ibuffer		; interactive buffer management
-	+icons)
+	 +icons)
 	undo			; persistent, smarter undo for your inevitable mistakes
 	vc			; version-control and Emacs, sitting in a tree
 	
@@ -103,7 +104,8 @@
 	:tools
 	;;ansible
 	biblio
-	debugger		; FIXME stepping through code, to help you add bugs
+	(debugger		; FIXME stepping through code, to help you add bugs
+         +lsp)
 	;;direnv
 	;;docker
 	editorconfig		; let someone else argue about tabs vs spaces
@@ -116,7 +118,7 @@
 	 +offline)
 	lsp			; M-x vscode
 	(magit			; a git porcelain for Emacs
-	+forge)
+	 +forge)
 	make			; run make tasks from Emacs
 	;;pass			; password manager for nerds
 	pdf			; pdf enhancements
@@ -143,7 +145,7 @@
 	coq			; proofs-as-programs
 	;;crystal		; ruby at the speed of c
 	;;csharp		; unity, .NET, and mono shenanigans
-	;;data	; config/data formats
+	;;data			; config/data formats
 	;;(dart +flutter)	; paint ui and not much else
 	;;dhall
 	;;elixir		; erlang done right
@@ -162,9 +164,11 @@
 	(haskell		; a language that's lazier than I am
 	 +lsp)
 	;;hy			; readability of scheme w/ speed of python
-	;;idris			;
+	idris			;
 	;;json			; At least it ain't XML
-	;;(java +meghanada)	; the poster child for carpal tunnel syndrome
+	(java 			; the poster child for carpal tunnel syndrome
+	 ;+tree-sitter
+	 +lsp)
 	(javascript		; all(hope(abandon(ye(who(enter(here))))))
 	 +tree-sitter
 	 +lsp)
@@ -173,11 +177,11 @@
 	(latex			; writing papers in Emacs has never been so fun
 	 +latexmk
 	 +lsp)
-	;;lean			; for folks with too much to prove
+	lean			; for folks with too much to prove
 	;;ledger		; an accounting system in Emacs
 	;;lua			; one-based indices? one-based indices
-	;(markdown		; writing docs for people to ignore
-	; +grip)
+	(markdown		; writing docs for people to ignore
+	 +grip)
 	;;nim			; python + lisp at the speed of c
 	;;nix			; I hereby declare "nix geht mehr!"
 	;;ocaml			; an objective camel
@@ -185,7 +189,8 @@
 	 +pretty
 	 +dragndrop
 	 +gnuplot
-	 +jupyter)
+	 +jupyter
+	 +pandoc)
 	;;php			; perl's insecure younger brother
 	;;plantuml		; diagrams for confusing people more
 	;;purescript		; javascript, but functional
@@ -225,13 +230,14 @@
 	;;emms
 	everywhere		; *leave* Emacs!? You must be joking
 	;;irc			; how neckbeards socialize
-	(rss +org)		; emacs as an RSS reader
+	;;(rss +org)		; emacs as an RSS reader
 	;;twitter		; twitter client https://twitter.com/vnought
 	
 	:config
 	;;literate
 	(default +bindings +smartparens))
 
-(setq evil-respect-visual-line-mode t)
-(setq org-directory "~/documents/org/")
-(setq doom-env-allow '("SSH_AUTH_SOCK" "XAUTHORITY"))
+(setq
+	evil-respect-visual-line-mode t
+	org-directory "~/documents/org/"
+	doom-env-allow '("SSH_AUTH_SOCK" "XAUTHORITY" "__MITHIC_RECURSE_INITIALIZED"))

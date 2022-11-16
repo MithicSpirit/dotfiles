@@ -307,7 +307,7 @@ function _core_update
 		[[ -n "$text" ]] && echo
 		echo 'Main:'
 		sudo -v &&
-			nice_ paru -Syyuu --noconfirm --repo ||
+			nice_ paru -Syyuu --repo ||
 			handle_failure
 		text+='repos '
 	}
@@ -388,7 +388,7 @@ function _other_flatpak
 	[[ "$sel" =~ '.*system.*' ]] && {
 		[[ -n "$text" ]] && echo
 		echo 'System:'
-		sudo flatpak update --system
+		sudo -i flatpak update --system
 		proceed
 		text+='system '
 	}
@@ -414,11 +414,13 @@ function _misc
 			'doom' 'Update Doom Emacs' \
 			'vim' 'Update vim-plug plugins' \
 			'proton' 'Update the Steam runner Proton-GE' \
+			'rustup' 'Update Rust toolchains with rustup' \
 		)" || return 1
 		case "$sel" in
 			doom) _misc_doom;;
 			vim) _misc_vim;;
 			proton) _misc_proton;;
+			rustup) _misc_rustup;;
 			*) return 2;;
 		esac
 	done
@@ -451,7 +453,7 @@ function _misc_doom_view
 	(
 		cd ~/.config/emacs || return 2
 		git fetch || return 2
-		git log 'HEAD..@{u}'
+		git log 'HEAD..origin/master'
 	)
 	proceed
 }
@@ -722,6 +724,14 @@ function _misc_proton_restore
 	}
 	[[ -n "$text" ]] || return 2
 	return 0
+}
+
+function _misc_rustup
+{
+	pager "
+	echo 'Running rustup update:'
+	rustup update
+	"
 }
 
 
