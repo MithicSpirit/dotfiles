@@ -96,7 +96,7 @@ command -v git &>/dev/null && alias \
 	gst='git status' \
 	gsts='git stash' \
 	hg='homegit' \
-	hga='homegit add --update' \
+	hga='homegit add' \
 	hgc='homegit commit -m' \
 	hgco='homegit checkout --force' \
 	hgd='homegit diff' \
