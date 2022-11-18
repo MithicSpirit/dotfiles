@@ -157,7 +157,7 @@
 #  Logical      "An example", he said, "would be great".
 #
 
-QuoteStyle = Traditional
+QuoteStyle = Logical
 
 #####################################################################
 #
@@ -165,7 +165,7 @@ QuoteStyle = Traditional
 # intervals are supported.
 #
 
-TabSize = 4
+TabSize = 2
 
 #####################################################################
 #
@@ -175,6 +175,7 @@ TabSize = 4
 
 CmdLine
 {
+  -n1
 }
 
 #####################################################################
