@@ -233,6 +233,7 @@ This must be added to `emojify-inhibit-functions' to work."
 (map! :after dired :map dired-mode-map
       :n "h" #'dired-up-directory
       :n "l" #'dired-find-file
+      :n "L" #'dired-find-file-other-window
       :n "w" #'browse-url-of-dired-file)
       
 
@@ -270,10 +271,11 @@ This must be added to `emojify-inhibit-functions' to work."
              #'display-fill-column-indicator-mode
              (auto-fill-mode -1)))
 (after! (tex flycheck lsp-mode)
- (add-hook! 'latex-mode-local-vars-hook :append
-   (add-hook! 'flycheck-mode-hook :local
-      (setq-local flycheck-checker 'tex-lacheck)
-      (flycheck-add-next-checker 'tex-lacheck 'lsp))))
+  (flycheck-add-next-checker 'tex-chktex 'lsp)
+  (add-hook! 'latex-mode-local-vars-hook :append
+    (add-hook! 'flycheck-mode-hook :local
+       (setq-local flycheck-checker 'tex-chktex))))
+      
 
 
 ;; Writeroom tweaks

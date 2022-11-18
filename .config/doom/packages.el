@@ -125,3 +125,4 @@
   :recipe (:host gitlab
            :repo "vherrmann/org-xournalpp"
            :files ("resources" "*.el")))
+(package! evil-escape :disable t)
