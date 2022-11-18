@@ -1,12 +1,11 @@
 /*
 
 !/applications/dmenu-browser.desktop
-!/backgrounds/**
+!/backgrounds/
 !/gnupg/gpg-agent.conf
 !/gnupg/gpg.conf
-!/icons/arc-custom/**
-!/qalculate/**
-!/setup/**
-!/xfce4/**
+!/icons/arc-custom/
+!/qalculate/
+!/xfce4/
 
 !/.gitignore

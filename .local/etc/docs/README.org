@@ -1,0 +1,31 @@
+#+TITLE: Dotfiles and Configs
+#+AUTHOR: MithicSpirit
+#+PROPERTY: header-args :eval never
+#+ATTR_LATEX: :float multicolumn
+
+The dotfiles (or other forms of configuration) for applications I use or have
+used.
+
+* Install Guide
+(In case I need to restore these and I forget how to)
+#+begin_src sh
+git clone --bare https://github.com/MithicSpirit/dotfiles.git .homegit
+git --git-dir=$HOME/.homegit --work-tree=$HOME checkout --force
+# Restart zsh/fish, set up ssh, register with GitHub and GitLab. After the
+# restart, because of aliases/abbreviations, you may also replace `git
+# --git-dir=$HOME/.homegit --worktree=$HOME' with just `homegit'.
+git --git-dir=$HOME/.homegit --work-tree=$HOME remote add backup git@gitlab.com:MithicSpirit/dotfiles.git
+git --git-dir=$HOME/.homegit --work-tree=$HOME remote set-url origin git@github.com:MithicSpirit/dotfiles.git
+#+end_src
+
+Then, selectively execute scripts in =~/.local/etc/docs/setup=.
+
+* Custom envvars
+The =~/.profile_custom= file is sourced by =~/.profile= if it exists. It is
+intended that this file includes envvars for machine-specific configuration,
+such as information about the GPU.
+
+These are the currently supported custom envvars:
+- =REAL_GPU=: Set to type of GPU if a discrete one exists (or =none= otherwise).
+  - ~archimedes~: =amd=
+  - ~apollonius~: =none=
