@@ -5,3 +5,6 @@ map <BackSpace> scroll full-up
 unmap q
 
 set selection-clipboard "clipboard"
+
+set synctex true
+set synctex-editor-command "emacsclient +%{line} %{input}"
