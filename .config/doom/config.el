@@ -98,7 +98,6 @@
   "Prevents `emojify' from displaying certain emojis.
 
 This must be added to `emojify-inhibit-functions' to work."
-  ;(message "+emojify-ignore-emoji: Ran with (%s) (%s) (%s)" text _beg _end)
   (or
    (string= text "↔")
    (string= text "↕")
@@ -160,7 +159,6 @@ This must be added to `emojify-inhibit-functions' to work."
 (global-hl-todo-mode)
 (add-hook! 'org-agenda-mode-hook #'doom-disable-show-paren-mode-h)
 (add-hook! 'rainbow-mode-hook (hl-line-mode (if rainbow-mode -1 +1)))
-;(add-hook! 'evil-local-mode-hook 'turn-on-undo-tree-mode)
 
 ;; Unbindings
 (map! (:map esc-map
@@ -219,7 +217,6 @@ This must be added to `emojify-inhibit-functions' to work."
 ;; Easier to open org-agenda
 (map! :after org
       :leader :desc "Open 10-day agenda" "o a a" #'org-agenda-list
-
       :map doom-leader-notes-map
       :localleader :desc "Open 10-day agenda"
       "a" #'org-agenda-list)
@@ -324,7 +321,6 @@ This must be added to `emojify-inhibit-functions' to work."
 
 
 ;; Python stuff
-;; (use-package! lsp-jedi)
 (setq-hook! 'python-mode-hook
    +format-with-lsp nil
    +format-with 'black
@@ -481,7 +477,6 @@ Takes in a `full-id' of the meeting in the format \"<id>\" or
 (after! org
   (org-link-set-parameters "zoom"
                            :follow #'org-zoom-open)
-                           
   (org-link-set-parameters "xdg-open"
                            :follow #'browse-url-xdg-open))
 
