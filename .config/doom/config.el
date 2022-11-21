@@ -186,8 +186,6 @@ This must be added to `emojify-inhibit-functions' to work."
 
 
 ;; Indentation/Tabs vs. Spaces
-(setq highlight-indent-guides-method 'bitmap
-      highlight-indent-guides-responsive 'stack)
 (setq-default tab-width 8)
 (setq-hook! '(javascript-mode-hook
               typescript-mode-hook
@@ -271,7 +269,7 @@ This must be added to `emojify-inhibit-functions' to work."
              #'display-fill-column-indicator-mode
              (auto-fill-mode -1)))
 (after! (tex flycheck lsp-mode)
-  (flycheck-add-next-checker 'tex-chktex 'lsp)
+  ;(flycheck-add-next-checker 'tex-chktex 'lsp)
   (add-hook! 'latex-mode-local-vars-hook :append
     (add-hook! 'flycheck-mode-hook :local
        (setq-local flycheck-checker 'tex-chktex))))
@@ -511,3 +509,19 @@ Takes in a `full-id' of the meeting in the format \"<id>\" or
                (concat (or (getenv "XDG_TEMPLATES_DIR")
                            "~/.local/share/templates")
                        "/Xournalpp-square.xopp")))))
+
+
+;; Highlight indent guides
+(defun +highlight-indent-guides--bitmap-thin-line (width height crep zrep)
+  "Defines a solid guide line, two pixels wide.
+Use WIDTH, HEIGHT, CREP, and ZREP as described in
+`highlight-indent-guides-bitmap-function'."
+  (let* ((left 1)
+         (right (- width left 2))
+         (row (append (make-list left zrep)
+                      (make-list 2 crep)
+                      (make-list right zrep))))
+    (make-list height row)))
+(setq highlight-indent-guides-method 'bitmap
+      highlight-indent-guides-bitmap-function #'+highlight-indent-guides--bitmap-thin-line
+      highlight-indent-guides-responsive 'stack)
