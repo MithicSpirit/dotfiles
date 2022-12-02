@@ -16,7 +16,7 @@ set notimeout
 let mapleader=""
 
 set textwidth=80  " tw
-set colorcolumn=+1,+9  " cc
+set colorcolumn=+1,-6  " cc
 set tabstop=8  " ts
 set softtabstop=4  " sts
 set shiftwidth=4  " sw
@@ -28,7 +28,7 @@ augroup language_customizations
     autocmd FileType
         \ haskell,lisp,tex,gitcommit,toml
         \ setlocal ts=8 sts=2 sw=2 et
-    autocmd FileType python setlocal tw=79 cc=+1,-6
+    autocmd FileType python setlocal tw=79
 augroup END
 
 augroup detect_language
