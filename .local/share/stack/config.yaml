@@ -1,0 +1,9 @@
+system-ghc: true
+install-ghc: false
+compiler-check: newer-minor
+skip-ghc-check: true
+ghc-options:
+    "$locals": -Wall
+    "$everything": -dynamic -O2
+
+recommend-stack-upgrade: false

@@ -6,6 +6,7 @@
 !/gnupg/gpg.conf
 !/icons/arc-custom/
 !/qalculate/
+!/stack/
 !/xfce4/
 
 !/.gitignore
