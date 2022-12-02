@@ -18,7 +18,7 @@ git --git-dir=$HOME/.homegit --work-tree=$HOME remote add backup git@gitlab.com:
 git --git-dir=$HOME/.homegit --work-tree=$HOME remote set-url origin git@github.com:MithicSpirit/dotfiles.git
 #+end_src
 
-Then, selectively execute scripts in =~/.local/etc/docs/setup=.
+Then, selectively execute scripts in [[.local/etc/docs/setup]].
 
 * Custom envvars
 The =~/.profile_custom= file is sourced by =~/.profile= if it exists. It is
