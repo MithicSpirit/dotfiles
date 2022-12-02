@@ -73,10 +73,12 @@ nice -n5 lbry >>/tmp/lbry.log 2>&1 &
 nice -n5 $TERMINAL --class btop-spawn -t btop -e btop \
 	>>/tmp/alacritty-btop.log 2>&1 &
 
-sleep 1.0
-akonadictl fsck &
+sleep 2.0
+(akonadictl vacuum; akonadictl fsck) &
+killall dunst &
 dunst -print >>/tmp/dunst.log &
 sleep 0.1
 notify-send "Welcome, $USER!" &
+
 
 } >>/tmp/qtile-autostart.log 2>&1 &
