@@ -666,12 +666,12 @@ def on_first_startup():
 
 
 SWALLOW_PARENT = {
-    Match(wm_class="urxvt"),
     Match(wm_class="Alacritty"),
 }
 NO_SWALLOW_CHILD = {
     Match(title="Event Tester"),
     Match(wm_class="qutebrowser"),
+    Match(wm_class="xterm"),
     Match(wm_class="urxvt"),
     Match(wm_class="Alacritty"),
     Match(wm_class="dragon-drop"),
