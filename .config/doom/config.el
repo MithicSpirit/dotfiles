@@ -251,7 +251,6 @@ This must be added to `emojify-inhibit-functions' to work."
       (:i :desc "Insert the appropriate quotation marks for LaTeX"
        "\"" #'+tex-insert-quote))
        
- 
 (setq
  +latex-indent-level-item-continuation 4
  +latex-viewers '(zathura pdf-tools evince  skim sumatrapdf okular)
@@ -260,11 +259,13 @@ This must be added to `emojify-inhibit-functions' to work."
  
 (setq-default TeX-engine 'luatex)
 (after! tex
-  (setq tex--prettify-symbols-alist
+  (setq TeX-newline-function #'newline-and-indent
+        tex--prettify-symbols-alist
         (append tex--prettify-symbols-alist '(("\\implies" . ?⇒))))
   (add-hook! 'LaTeX-mode-hook
              #'display-fill-column-indicator-mode
-             (auto-fill-mode -1)))
+             #'electric-indent-mode))
+
 (after! (tex flycheck lsp-mode)
   ;(flycheck-add-next-checker 'tex-chktex 'lsp)
   (add-hook! 'latex-mode-local-vars-hook :append
