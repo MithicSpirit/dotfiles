@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Starship Configuration"
+(("Coding"
+ (filename . "~/documents/coding/")
+ (front-context-string . "  /home/mithic/d")
+ (rear-context-string)
+ (position . 1))
+("Starship Configuration"
  (filename . "~/.config/starship.toml")
  (front-context-string . "[character]\nsucc")
  (rear-context-string)
