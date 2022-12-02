@@ -9,6 +9,7 @@ text/x-log=emacs.desktop;
 text/plain=emacs.desktop;
 image/png=gimp.desktop;
 video/quicktime=org.kde.kdenlive.desktop;
+application/pdf=org.pwmt.zathura.desktop;
 
 [Default Applications]
 application/atom+xml=dmenu-browser.desktop
@@ -24,7 +25,7 @@ application/msword-template=org.onlyoffice.desktopeditors.desktop
 application/mxf=vlc.desktop
 application/ogg=vlc.desktop
 application/oxps=org.pwmt.zathura-pdf-mupdf.desktop
-application/pdf=org.pwmt.zathura-pdf-mupdf.desktop
+application/pdf=org.pwmt.zathura.desktop
 application/postscript=org.pwmt.zathura-ps.desktop
 application/prs.plucker=okularApplication_plucker.desktop
 application/rdf+xml=dmenu-browser.desktop
