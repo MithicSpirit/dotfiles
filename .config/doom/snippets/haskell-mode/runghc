@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: runghc shebang
+# key: #!
+# condition: (eq 1 (line-number-at-pos))
+# --
+#!/usr/bin/env runghc
