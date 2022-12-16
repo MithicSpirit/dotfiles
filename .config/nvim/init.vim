@@ -65,7 +65,7 @@ command Q q
 command Wq wq
 
 " Miscellaneous
-autocmd VimLeave * set guicursor=a:ver20
+"autocmd VimLeave * set guicursor=a:ver20
 let g:tex_flavor = "latex"
 let g:rust_recommended_style = 0
 
