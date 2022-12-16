@@ -4,8 +4,8 @@
 # uuid: mlacls
 # condition: (and (eq 1 (line-number-at-pos)))
 # --
-\documentclass[mla8alt,nonotes,plainheadings,microtype]{mla}
-\usepackage{verbatim,newtxmath}
+\documentclass[mla8,plainheadings,microtype]{mla}
+\usepackage{verbatim,newtxmath,cprotect}
 
 \titleformat{\section}[block]{\normalsize\bf}{\thetitle.\enspace}{0pt}{}[]
 \titleformat{\subsection}[block]{\normalsize\bf}{\thetitle.\enspace}{0pt}{}[]
