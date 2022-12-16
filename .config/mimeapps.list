@@ -10,6 +10,8 @@ text/plain=emacs.desktop;
 image/png=gimp.desktop;
 video/quicktime=org.kde.kdenlive.desktop;
 application/pdf=org.pwmt.zathura.desktop;
+video/x-matroska=mpv.desktop;
+application/epub+zip=org.pwmt.zathura.desktop;
 
 [Default Applications]
 application/atom+xml=dmenu-browser.desktop
@@ -104,9 +106,11 @@ x-scheme-handler/mailspring=Mailspring.desktop
 x-scheme-handler/mailto=org.gnome.Evolution.desktop;
 x-scheme-handler/msteams=teams.desktop
 x-scheme-handler/sgnl=signal-desktop.desktop
-x-scheme-handler/signalcaptcha=signal.desktop
+x-scheme-handler/signalcaptcha=signal-desktop.desktop
 x-scheme-handler/tel=org.kde.kdeconnect.handler.desktop;
 x-scheme-handler/trash=xfce4-file-manager.desktop
 x-scheme-handler/logseq=Logseq.desktop
 text/x-log=emacs.desktop
 text/plain=emacs.desktop
+video/x-matroska=mpv.desktop
+application/epub+zip=org.pwmt.zathura.desktop
