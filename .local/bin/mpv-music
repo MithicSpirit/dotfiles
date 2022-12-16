@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+
+__shuffle=1
+__loop=1
+__no_video=1
+
+while [ $# -gt 0 ]; do
+	case "$1" in
+		'--no-shuffle') __shuffle=0 ;;
+		'--no-loop') __loop=0 ;;
+		'--video') __no_video=0 ;;
+		*) break ;;
+	esac
+	shift
+done
+
+if [ $# -eq 0 ]; then
+	set -- -- *
+fi
+
+[ $__shuffle -eq 1 ] && set -- --shuffle "$@"
+[ $__loop -eq 1 ] && set -- --loop-playlist "$@"
+[ $__no_video -eq 1 ] && set -- --no-video "$@"
+
+mpv "$@"

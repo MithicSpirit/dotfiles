@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+neovide "$@" -- -u ~/.config/astronvim_user/loader.vim
