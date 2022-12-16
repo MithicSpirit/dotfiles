@@ -675,6 +675,7 @@ NO_SWALLOW_CHILD = {
     Match(wm_class="urxvt"),
     Match(wm_class="Alacritty"),
     Match(wm_class="dragon-drop"),
+    Match(title="Standard Draw"),
 }
 
 
