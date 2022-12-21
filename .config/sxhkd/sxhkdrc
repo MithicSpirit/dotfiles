@@ -1,24 +1,17 @@
 ## Launch programs
 super + Return
-	"$TERMINAL"
-super + shift + Return
 	dmenu_run -p "Run" >>/tmp/dmenu-run.log
-
-super + a
+super + shift + Return
+	"$TERMINAL"
+super + control + Return
 	"$REAL_BROWSER" >>/tmp/browser.log
-super + shift + a
+super + shift + control + Return
 	pcmanfm
-super + control + a
-	doom +everywhere
 
 super + e
 	visual
 super + shift + e
-	visual ~/documents/coding
-super + ctrl + e
-	visual ~/documents/school
-super + shift + ctrl + e
-	visual -e '(=school-agenda)'
+	doom +everywhere
 
 super + v
 	dmenu-greenclip
