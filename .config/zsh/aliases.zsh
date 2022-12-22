@@ -20,7 +20,7 @@ alias \
 	emacs='devour visual' \
 	eterm='emacs -nw' \
 	ffupload='ffsend upload -vd 20 -e 7d' \
-	ghc='ghc -dynamic -Wall' \
+	ghc='ghc -Wall' \
 	gcc='gcc -Wall -Wextra' \
 	gpp='g++ -Wall -Wextra' \
 	h='history 1' \
