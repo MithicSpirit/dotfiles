@@ -7,29 +7,9 @@
  (front-context-string . "  /home/mithic/d")
  (rear-context-string)
  (position . 1))
-("Starship Configuration"
- (filename . "~/.config/starship.toml")
- (front-context-string . "[character]\nsucc")
- (rear-context-string)
- (position . 1))
-("Fish Configuration"
- (filename . "~/.config/fish/config.fish")
- (front-context-string . "# Basic variable")
- (rear-context-string)
- (position . 1))
-("Zsh Configuration"
- (filename . "~/.zshrc")
- (front-context-string . "#!/usr/bin/env z")
- (rear-context-string)
- (position . 1))
 ("School"
  (filename . "~/documents/school/")
  (front-context-string . "  /home/mithic/d")
- (rear-context-string)
- (position . 1))
-("Qtile Configuration"
- (filename . "~/.config/qtile/config.py")
- (front-context-string . "\"\"\"\nMy custom Qt")
  (rear-context-string)
  (position . 1))
 )
