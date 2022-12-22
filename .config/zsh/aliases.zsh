@@ -104,7 +104,7 @@ command -v git &>/dev/null && alias \
 	hgd='homegit diff' \
 	hgdd='homegit diff --cached' \
 	hgl='homegit pull --ff' \
-	hgp='read -rs && homegit push origin && homegit push backup' \
+	hgp='homegit push origin && homegit push backup' \
 	hgrm='homegit restore --staged' \
 	hgst='homegit status'
 
