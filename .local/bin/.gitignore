@@ -1,1 +1,12 @@
+/cabal*
+/ghc*
+/haddock
+/haskell-language-server*
+/hp2ps
+/hpc
+/hsc2hs
+/runghc
+/runhaskell
+/stack*
+
 !/.gitignore
