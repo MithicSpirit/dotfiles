@@ -28,6 +28,7 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CHKTEXRC="/home/mithic/.config"
 export DEBUGINFOD_URLS="https://debuginfod.elfutils.org/"
 export DIALOGRC="$XDG_CONFIG_HOME/dialogrc"
+export GHCUP_USE_XDG_DIRS=1
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export GOPATH="$HOME/.local/share/go"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
