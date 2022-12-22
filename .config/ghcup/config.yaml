@@ -6,7 +6,7 @@ key-bindings:
   changelog:
     KChar: c
   down:
-    KDown: []
+    KChar: j
   install:
     KChar: i
   quit:
@@ -20,7 +20,7 @@ key-bindings:
   uninstall:
     KChar: u
   up:
-    KUp: []
+    KChar: k
 meta-cache: 300
 no-network: false
 no-verify: false
