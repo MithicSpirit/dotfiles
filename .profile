@@ -9,6 +9,7 @@ export REAL_BROWSER="librewolf"
 export XDG_CURRENT_DESKTOP="KDE"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_BIN_HOME="$HOME/.local/bin"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 [ -r "$XDG_CONFIG_HOME/user-dirs.dirs" ] && . "$XDG_CONFIG_HOME/user-dirs.dirs"
@@ -79,7 +80,7 @@ unset LINES COLUMNS
 if [ -z "$__MITHIC_RECURSE_INITIALIZED" ]; then
 	export __MITHIC_RECURSE_INITIALIZED="true"
 
-	export PATH="$XDG_CONFIG_HOME/emacs/bin:$HOME/.local/bin:$HOME/.local/bin/flatpak:$PATH"
+	export PATH="$XDG_CONFIG_HOME/emacs/bin:$XDG_BIN_HOME:$XDG_BIN_HOME/flatpak:$XDG_DATA_HOME/cabal/bin:$PATH"
 	export INFOPATH="$HOME/.local/info:$INFOPATH"
 	export MANPATH="$HOME/.local/man:/usr/local/man:/usr/share/man:$MANPATH"
 	export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/local/share:/usr/share"
