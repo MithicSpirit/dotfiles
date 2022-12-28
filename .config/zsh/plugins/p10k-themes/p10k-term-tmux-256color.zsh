@@ -1,0 +1,1 @@
+p10k-term-xterm-256color.zsh
