@@ -56,9 +56,9 @@ nnoremap x "_x
 nnoremap ~ g~l
 nnoremap <silent> <ESC> :nohlsearch<CR>
 
-nnoremap <C-w>, <C-w><
-nnoremap <C-w>. <C-w>>
-nnoremap <silent> <C-w>t :split +terminal<CR>
+nnoremap , <
+nnoremap . >
+nnoremap <silent> t :split +terminal<CR>
 
 command W w
 command Q q
