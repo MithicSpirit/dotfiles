@@ -647,7 +647,6 @@ function _misc_proton_restore
 		'Select which games to restore. Only the listed games are supported' \
 		0 0 0 \
 		'warframe' 'Warframe (230410)' 'on' \
-		'gw2' 'Guild Wars 2 (2446403012)' 'on' \
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 
@@ -693,34 +692,6 @@ function _misc_proton_restore
 
 		proceed
 		text+='warframe '
-	}
-	[[ "$sel" =~ '.*gw2.*' ]] && {
-		id=2446403012
-		echo "Guild Wars 2 ($id):"
-		prefix="$compatdata/$id"
-		bak="$backup/$id"
-		mkdir -p "$prefix"
-
-		[[ "$run" == 'yes' ]] && {
-			steam "steam://rungameid/$id"
-			echo "Please confirm when the game is done running."
-			proceed
-			echo "Make sure both steam and the game are closed before proceeding."
-			proceed
-		}
-
-		for dir (
-			'pfx/drive_c/Program Files/Guild Wars 2'
-			'pfx/drive_c/users/steamuser/AppData/Roaming/Guild Wars 2'
-		); do
-			mkdir -p "$prefix/$dir"
-			echo "Restoring \`$dir\` from backup"
-			rm_ "$prefix/$dir"
-			cp -var "$bak/$dir" "$prefix/$dir"
-		done
-
-		proceed
-		text+='gw2 '
 	}
 	[[ -n "$text" ]] || return 2
 	return 0
