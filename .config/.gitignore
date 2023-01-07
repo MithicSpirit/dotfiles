@@ -51,6 +51,7 @@
 !/starship.toml
 !/sxhkd/
 !/systemd/
+!/tmux/
 !/twmn/
 !/user-dirs.dirs
 !/user-dirs.locale
