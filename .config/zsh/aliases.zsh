@@ -106,7 +106,8 @@ command -v git &>/dev/null && alias \
 	hgl='homegit pull --ff' \
 	hgp='homegit push origin && homegit push backup' \
 	hgrm='homegit restore --staged' \
-	hgst='homegit status'
+	hgst='homegit status' \
+	hgs='homegit pull --ff && homegit push origin && homegit push backup'
 
 command -v git &>/dev/null && homegit () {
 		git --git-dir=$HOME/.homegit --work-tree=$HOME $@
