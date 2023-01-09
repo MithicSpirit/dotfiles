@@ -27,6 +27,9 @@
 !/gtk-2.0
 !/gtk-3.0
 !/htop/
+!/kded5rc
+!/kdedefaults/
+!/kdeglobals
 !/latexmk/
 !/linux-xanmod/
 !/mimeapps.list
