@@ -93,7 +93,7 @@ command -v git &>/dev/null && alias \
 	gr='git remote -v' \
 	grm='git restore --staged' \
 	grmrm='git restore' \
-	grecpull='for repo in */; do (cd "$repo" && git fetch); done; wait' \
+	glsf='for repo in */; do (cd "$repo" && git fetch) & done; wait' \
 	gsh='git show' \
 	gst='git status' \
 	gsts='git stash' \
