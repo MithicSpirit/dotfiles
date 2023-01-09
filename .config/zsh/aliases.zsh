@@ -55,6 +55,7 @@ alias \
 	su='sudo -i' \
 	svi='sudoedit' \
 	swapflush='sudo swapoff -va; sudo swapon -va' \
+	tmuxattachall='while tmux attach-session; do done' \
 	ufw='sudo ufw' \
 	updb='sudo updatedb' \
 	v='bat' \
