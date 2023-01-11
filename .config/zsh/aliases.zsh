@@ -2,7 +2,7 @@ alias -g \
 	C='| tee >(xclip -i -sel c) | bat -pp' \
 	G='| rg' \
 	P='| ${=PAGER}' \
-	NOP='&>/dev/null'
+	NOP='&>/dev/null' \
 
 alias \
 	c='cal -3' \
@@ -69,7 +69,7 @@ alias \
 	xsh='exec zsh' \
 	xssh='exec ssh' \
 	xsu='exec sudo -i' \
-	yt='yt-dlp'
+	yt='yt-dlp' \
 
 command -v git &>/dev/null && alias \
 	g='git' \
@@ -108,16 +108,15 @@ command -v git &>/dev/null && alias \
 	hgp='homegit push origin && homegit push backup' \
 	hgrm='homegit restore --staged' \
 	hgst='homegit status' \
-	hgs='homegit pull --ff && homegit push origin && homegit push backup'
+	hgs='homegit pull --ff && homegit push origin && homegit push backup' \
+	homegit='git --git-dir=$HOME/.homegit --work-tree=$HOME' \
 
-command -v git &>/dev/null && homegit () {
-		git --git-dir=$HOME/.homegit --work-tree=$HOME $@
-	}
+GLOBALIAS_IGNORE+=('homegit')
 
 command -v devour &>/dev/null && alias \
 	dev='devour' \
 	dopen='devour xdg-open' \
-	emacs='devour visual'
+	emacs='devour visual' \
 
 command -v pacman &>/dev/null && alias \
 	pac='pacman' \
@@ -137,7 +136,7 @@ command -v pacman &>/dev/null && alias \
 	pacri='pacman -Si' \
 	pacrl='pacman -Sl' \
 	pacrs='pacman -Ss' \
-	pacupg='sudo pacman -Syyu'
+	pacupg='sudo pacman -Syyu' \
 
 command -v paru &>/dev/null && alias \
 	pa='paru' \
@@ -162,7 +161,28 @@ command -v paru &>/dev/null && alias \
 	parl='paru -Sl' \
 	pars='paru -Ss' \
 	pary='paru' \
-	paupg='paru -Syyu'
+	paupg='paru -Syyu' \
+
+
+command -v fasd &>/dev/null &&
+	fasd_cd() {
+		if [ $# -le 1 ]; then
+			fasd "$@"
+		else
+			local _fasd_ret="$(fasd -e 'printf %s' "$@")"
+			[ -z "$_fasd_ret" ] && return 1
+			[ -d "$_fasd_ret" ] && cd "$_fasd_ret" ||
+				printf '%s\n' "$_fasd_ret"
+		fi
+	}
+
+command -v fasd &>/dev/null && alias \
+	j='fasd_cd -d' \
+	jj='fasd_cd -di' \
+	f='fasd -s' \
+	ff='fasd -si' \
+
+GLOBALIAS_IGNORE+=('j' 'jj' 'f' 'ff')
 
 
 command -v python &>/dev/null && command -v ipython &>/dev/null &&

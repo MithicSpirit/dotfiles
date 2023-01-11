@@ -20,6 +20,7 @@ export LC_TIME="C"
 
 export NUM_BUILD_PROCS="10"
 
+export _FASD_DATA="$XDG_DATA_HOME/fasd"
 export AMD_VULKAN_ICD="RADV"
 export BATDIFF_USE_DELTA="true"
 export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"

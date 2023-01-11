@@ -5,13 +5,13 @@ __expand_alias_custom () {
 	local word=${${(Az)LBUFFER}[-1]}
 	if [[ "${LBUFFER[-1]}" != " "  &&
 		"${word[1]}" != '\' &&
-		"$GLOBALIAS_FILTER_VALUES[(Ie)$word]" = 0
+		"$GLOBALIAS_IGNORE[(Ie)$word]" = 0
 		]]; then
 		zle _expand_alias
 		#zle expand-word # don't want non-aliases
 	fi
 }; zle -N expand-alias-custom __expand_alias_custom
-GLOBALIAS_FILTER_VALUES=()
+GLOBALIAS_IGNORE=()
 
 __globalias () {
 	zle expand-alias-custom
@@ -46,6 +46,9 @@ zmodload zsh/parameter
 __escape_aliases() {
 	for name expansion in "${(@kv)aliases}"; do
 		local word=${${(Az)expansion}[1]}
-		[[ -n ${aliases[$word]} ]] && aliases[$name]="\\$expansion"
+		[[ -n ${aliases[$word]} &&
+			"$GLOBALIAS_IGNORE[(Ie)$word]" = 0
+			]] &&
+			aliases[$name]="\\$expansion"
 	done
 }
