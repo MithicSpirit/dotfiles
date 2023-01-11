@@ -98,6 +98,13 @@ command -v git &>/dev/null && alias \
 	gsh='git show' \
 	gst='git status' \
 	gsts='git stash' \
+
+command -v git &>/dev/null &&
+	homegit () {
+		git --git-dir="$HOME/.homegit" --work-tree="$HOME" "$@"
+	}
+
+command -v homegit &>/dev/null && alias \
 	hg='homegit' \
 	hga='homegit add' \
 	hgc='homegit commit -m' \
@@ -109,11 +116,6 @@ command -v git &>/dev/null && alias \
 	hgrm='homegit restore --staged' \
 	hgst='homegit status' \
 	hgs='homegit pull --ff && homegit push origin && homegit push backup' \
-
-command -v git &>/dev/null &&
-	homegit () {
-		git --git-dir="$HOME/.homegit" --work-tree="$HOME" "$@"
-	}
 
 command -v devour &>/dev/null && alias \
 	dev='devour' \
@@ -165,13 +167,14 @@ command -v paru &>/dev/null && alias \
 	pary='paru' \
 	paupg='paru -Syyu' \
 
-
-command -v fasd &>/dev/null && alias \
-	f='fasd -s' \
-	ff='fasd -si' \
-	j='fasd_cd -d' \
-	jj='fasd_cd -di' \
-
+command -v fasd &>/dev/null &&
+	f() {
+		fasd -s "$@"
+	}
+command -v fasd &>/dev/null &&
+	ff() {
+		fasd -si "$@"
+	}
 command -v fasd &>/dev/null &&
 	fasd_cd() {
 		if [ $# -le 1 ]; then
@@ -183,8 +186,15 @@ command -v fasd &>/dev/null &&
 				printf '%s\n' "$_fasd_ret"
 		fi
 	}
+command -v fasd_cd &>/dev/null &&
+	j() {
+		fasd_cd -d "$@"
+	}
 
-GLOBALIAS_IGNORE+=('j' 'jj' 'f' 'ff')
+command -v fasd_cd &>/dev/null &&
+	jj() {
+		fasd -di "$@"
+	}
 
 
 command -v python &>/dev/null && command -v ipython &>/dev/null &&

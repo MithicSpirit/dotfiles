@@ -46,9 +46,6 @@ zmodload zsh/parameter
 __escape_aliases() {
 	for name expansion in "${(@kv)aliases}"; do
 		local word=${${(Az)expansion}[1]}
-		[[ -n ${aliases[$word]} &&
-			"$GLOBALIAS_IGNORE[(Ie)$word]" = 0
-			]] &&
-			aliases[$name]="\\$expansion"
+		[[ -n ${aliases[$word]} ]] && aliases[$name]="\\$expansion"
 	done
 }
