@@ -103,7 +103,6 @@ command -v git &>/dev/null &&
 	homegit () {
 		git --git-dir="$HOME/.homegit" --work-tree="$HOME" "$@"
 	}
-
 command -v homegit &>/dev/null && alias \
 	hg='homegit' \
 	hga='homegit add' \
