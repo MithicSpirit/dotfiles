@@ -109,9 +109,11 @@ command -v git &>/dev/null && alias \
 	hgrm='homegit restore --staged' \
 	hgst='homegit status' \
 	hgs='homegit pull --ff && homegit push origin && homegit push backup' \
-	homegit='git --git-dir=$HOME/.homegit --work-tree=$HOME' \
 
-GLOBALIAS_IGNORE+=('homegit')
+command -v git &>/dev/null &&
+	homegit () {
+		git --git-dir="$HOME/.homegit" --work-tree="$HOME" "$@"
+	}
 
 command -v devour &>/dev/null && alias \
 	dev='devour' \
@@ -164,6 +166,12 @@ command -v paru &>/dev/null && alias \
 	paupg='paru -Syyu' \
 
 
+command -v fasd &>/dev/null && alias \
+	f='fasd -s' \
+	ff='fasd -si' \
+	j='fasd_cd -d' \
+	jj='fasd_cd -di' \
+
 command -v fasd &>/dev/null &&
 	fasd_cd() {
 		if [ $# -le 1 ]; then
@@ -175,12 +183,6 @@ command -v fasd &>/dev/null &&
 				printf '%s\n' "$_fasd_ret"
 		fi
 	}
-
-command -v fasd &>/dev/null && alias \
-	j='fasd_cd -d' \
-	jj='fasd_cd -di' \
-	f='fasd -s' \
-	ff='fasd -si' \
 
 GLOBALIAS_IGNORE+=('j' 'jj' 'f' 'ff')
 
