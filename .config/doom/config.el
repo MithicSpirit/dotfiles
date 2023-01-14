@@ -300,10 +300,10 @@ This must be added to `emojify-inhibit-functions' to work."
   (add-hook! 'vterm-mode-hook
     (evil-emacs-state)
     (show-paren-mode -1)
-    (setq-local evil-emacs-state-cursor '(bar +evil-emacs-cursor-fn)))
-    
+    (setq-local evil-emacs-state-cursor '(box +evil-emacs-cursor-fn)))
   (add-hook! 'vterm-copy-mode-hook
-    (if vterm-copy-mode (evil-motion-state) (evil-emacs-state))))
+    (if vterm-copy-mode (evil-motion-state) (evil-emacs-state)))
+  (setq vterm-shell "tmux new-session -As emacs"))
     
 (setq vterm-always-compile-module t
       vterm-use-vterm-prompt-detection-method t)
