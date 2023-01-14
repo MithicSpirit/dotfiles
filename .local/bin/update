@@ -708,5 +708,7 @@ function _misc_rustup
 
 sleep 0.1
 unset LINES COLUMNS
-[[ -z "$TMUX" ]] && exec tmux new-session "$0" "$@"
+command -v tmux &>/dev/null &&
+	[[ -z "$TMUX" ]] &&
+	exec tmux new-session -As update "$0" "$@"
 exec main
