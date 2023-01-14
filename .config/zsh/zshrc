@@ -48,7 +48,6 @@ safesource "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" 
 
 PLUGINPATH="$ZDOTDIR/plugins"
 PLUGINS=(
-	"$PLUGINPATH/fzf-z/fzf-z.plugin.zsh"
 	"/usr/share/doc/pkgfile/command-not-found.zsh"
 	"$PLUGINPATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
 	"$PLUGINPATH/zsh-completions/zsh-completions.plugin.zsh"
