@@ -32,6 +32,8 @@
   <property name="layoutRightToLeft" value="false"/>
   <property name="layoutBottomToTop" value="false"/>
   <property name="numPairsOffset" value="1"/>
+  <!--The icon theme, allowed values are "disabled", "onDrawOfLastPage", and "onScrollOfLastPage"-->
+  <property name="emptyLastPageAppend" value="disabled"/>
   <property name="presentationMode" value="false"/>
   <!--Which gui elements are hidden if you are in Fullscreen mode, separated by a colon (,)-->
   <property name="fullscreenHideElements" value="mainMenubar"/>
