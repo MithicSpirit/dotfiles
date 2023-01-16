@@ -9,8 +9,8 @@
 --
 -- This config file was generated using the following versions
 -- of Cabal and cabal-install:
--- Cabal library version: 3.4.1.0
--- cabal-install version: 3.4.1.0
+-- Cabal library version: 3.8.1.0
+-- cabal-install version: 3.8.1.0
 
 
 repository hackage.haskell.org
@@ -19,16 +19,15 @@ repository hackage.haskell.org
   -- root-keys:
   -- key-threshold: 3
 
--- default-user-config:
 -- ignore-expiry: False
 -- http-transport:
--- nix: False
+-- nix:
+-- store-dir:
+-- active-repositories:
 -- local-no-index-repo:
 remote-repo-cache: /home/mithic/.local/share/cabal/packages
 -- logs-dir: /home/mithic/.local/share/cabal/logs
-world-file: /home/mithic/.local/share/cabal/world
--- store-dir:
--- active-repositories:
+-- default-user-config:
 -- verbose: 1
 -- compiler: ghc
 -- cabal-file:
@@ -46,8 +45,9 @@ world-file: /home/mithic/.local/share/cabal/world
 -- executable-profiling:
 -- profiling-detail:
 -- library-profiling-detail:
--- optimization: True
+optimization: True
 -- debug-info: False
+-- build-info:
 -- library-for-ghci:
 -- split-sections: False
 -- split-objs: False
@@ -61,6 +61,7 @@ world-file: /home/mithic/.local/share/cabal/world
 -- deterministic:
 -- cid:
 -- extra-lib-dirs:
+-- extra-lib-dirs-static:
 -- extra-framework-dirs:
 extra-prog-path: /home/mithic/.local/share/cabal/bin
 -- instantiate-with:
@@ -73,6 +74,8 @@ extra-prog-path: /home/mithic/.local/share/cabal/bin
 -- response-files:
 -- allow-depending-on-private-libs:
 -- cabal-lib-version:
+-- append:
+-- backup:
 -- constraint:
 -- preference:
 -- solver: modular
@@ -81,6 +84,7 @@ extra-prog-path: /home/mithic/.local/share/cabal/bin
 -- write-ghc-environment-files:
 -- documentation: False
 -- doc-index-file: $datadir/doc/$arch-$os-$compiler/index.html
+-- only-download: False
 -- target-package-db:
 -- max-backjumps: 4000
 -- reorder-goals: False
@@ -104,14 +108,13 @@ build-summary: /home/mithic/.local/share/cabal/logs/build.log
 remote-build-reporting: none
 -- report-planning-failure: False
 -- per-component: True
--- one-shot: False
 -- run-tests:
 jobs: $ncpus
 -- keep-going: False
 -- offline: False
 -- lib: False
 -- package-env:
--- overwrite-policy:
+overwrite-policy: prompt
 -- install-method:
 installdir: /home/mithic/.local/share/cabal/bin
 -- username:
@@ -138,8 +141,9 @@ haddock
 
 init
   -- interactive: False
-  -- cabal-version: 2.4
+  -- cabal-version: 3.0
   -- license:
+  -- extra-doc-file:
   -- tests:
   -- test-dir:
   -- language: Haskell2010
