@@ -2,6 +2,6 @@
 
 !/bin/
 !/share/
-!/etc/
+!/opt/
 
 !/.gitignore
