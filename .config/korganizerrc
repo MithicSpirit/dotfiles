@@ -1,0 +1,123 @@
+[Agenda View]
+Hour Size=12
+
+[Calendar]
+Default Calendar=81
+
+[CollectionTreeView]
+Expansion=
+HorizontalScroll=0
+VerticalScroll=0
+
+[Colors]
+Agenda MarcusBainsLine Line Color=143,188,187
+Todo due today Color=235,203,139
+Todo overdue Color=191,97,106
+Unset Category Color=180,142,173
+
+[DefaultAgendaSideBySideView]
+ColumnTitles=Agenda 1,Agenda 2
+CustomNumberOfColumns=2
+UseCustomCollectionSelection=false
+UseCustomColumnSetup=false
+
+[EmoticonRecentUsed]
+Recents=
+
+[Fonts]
+Agenda MarcusBainsLine Font=Iosevka Mithic,12,-1,5,50,0,0,0,0,0
+Agenda TimeLabels Font=Iosevka Mithic,12,-1,5,50,0,0,0,0,0
+MonthView Font=Overpass,11,-1,5,50,0,0,0,0,0
+
+[General]
+CalendarFilters=
+Current Filter=
+Current View=Agenda
+Range Mode=3
+
+[General View]
+Next X Days=5
+
+[GlobalCollectionSelection]
+Current=x-1
+Selection=c15,c14,c75,c81,c79,c74,c78,c80
+
+[GlobalCollectionView]
+Expansion=
+HorizontalScroll=0
+VerticalScroll=0
+
+[Internal Settings]
+DefaultResourceColorSeed=7
+
+[KFileDialog Settings]
+detailViewIconSize=16
+
+[KOrganizer Geometry]
+Separator1=321,1585
+Separator2=370,0,559,132
+
+[MainWindow]
+RestorePositionForNextInstance=false
+State=AAAA/wAAAAD9AAAAAAAAB3YAAAQtAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAQAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAJABrAG8AcgBnAGEAbgBpAHoAZQByAF8AdABvAG8AbABiAGEAcgEAAAOY/////wAAAAAAAAAAAAAAIABzAGMAaABlAGQAdQBsAGUAXwB0AG8AbwBsAGIAYQByAAAAAAD/////AAAAAAAAAAAAAAAcAGYAaQBsAHQAZQByAF8AdABvAG8AbABiAGEAcgAAAAAA/////wAAAAAAAAAA
+ToolBarsMovable=Disabled
+eDP=eDP
+eDP Height 1920x1200=1170
+eDP Height 1920x1200 eDP=1166
+eDP Height 2240x1400=1356
+eDP Width 1920x1200=1914
+eDP Width 1920x1200 eDP=1910
+eDP Width 2240x1400=2220
+eDP XPosition 1920x1200=3
+eDP XPosition 1920x1200 eDP=3
+eDP XPosition 2240x1400=7
+eDP YPosition 1920x1200=27
+eDP YPosition 1920x1200 eDP=27
+eDP YPosition 2240x1400=31
+
+[Migratekde4]
+Version=1
+
+[Quickview]
+Separator=96,390
+Size=775,600
+
+[Settings]
+DateNavigatorVisible=true
+EventViewerVisible=true
+ResourceViewVisible=true
+TodoViewVisible=false
+
+[Sidebar Todo View]
+ColumnOrder=0,1,2,3,4,5,6,7,8,9
+ColumnVisibility=true,false,false,false,true,true,false,false,false,false
+ColumnWidths=357,0,0,0,109,101,0,0,0,0
+SortAscending=1
+SortColumn=0
+
+[Theming]
+Agenda Holidays Background Color=163,190,140
+
+[Time & Date]
+DayBegins=1752,1,1,7,30,0
+Holidays=us_en-us
+WeekStartDay=6
+WorkingHoursEnd=1752,1,1,19,30,0
+
+[Timescale]
+Timescale Timezones=
+
+[TodoTreeViewStateS]
+Current=i157316
+Expansion=
+HorizontalScroll=0
+Selection=i157316
+VerticalScroll=0
+
+[UiSettings]
+ColorScheme=
+
+[Views]
+Agenda View Tab Index=0
+Separator AgendaView=97,928
+ShownDatesCount=7
