@@ -1,1 +1,1 @@
-.local/etc/docs/README.org
+.local/opt/docs/README.org
