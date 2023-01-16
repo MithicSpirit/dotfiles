@@ -49,15 +49,15 @@ nice -n5 discord-canary >>/tmp/discord.log 2>&1 &
 nice -n5 signal-desktop >>/tmp/signal.log 2>&1 &
 nice -n5 element-desktop >>/tmp/element.log 2>&1 &
 
-nice -n5 kmail >>/tmp/kmail.log 2>&1 &
-nice -n5 kalendar >>/tmp/kalendar.log 2>&1 &
+nice -n5 kmail >>/tmp/akonadi.log 2>&1 &
+nice -n5 korganizer >>/tmp/akonadi.log 2>&1 &
 nice -n5 lbry >>/tmp/lbry.log 2>&1 &
 # shellcheck disable=SC2086
 nice -n5 $TERMINAL --class btop-spawn -t btop -e btop \
 	>>/tmp/alacritty-btop.log 2>&1 &
 
 sleep 2.0
-{akonadictl vacuum; akonadictl fsck} &
+{akonadictl vacuum; akonadictl fsck} >>/tmp/akonadi.log 2>&1 &
 killall dunst &
 dunst -print >>/tmp/dunst.log &
 sleep 0.1

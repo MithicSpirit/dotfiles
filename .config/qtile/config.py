@@ -352,6 +352,7 @@ group_names: list[tuple[str, dict]] = [
             "layout": "max",
             "matches": [
                 Match(wm_class="kalendar"),
+                Match(wm_class="korganizer"),
             ],
         },
     ),
