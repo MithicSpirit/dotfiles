@@ -118,12 +118,16 @@ function _prep_stop
 	sel="$(dialog_ --checklist 'Stop programs' 0 0 0 \
 		'emacs' 'Stop systemd emacs daemon service' 'off' \
 		'replay' 'Stop replay sorcery and -kms systemd service' 'off' \
-		'mailspring' 'Stop mailspring through flatpak' 'off' \
+		'lbry' 'Stop lbry through flatpak' 'off' \
+		'discord' 'Stop discord through flatpak' 'off' \
+		'signal' 'Stop signal' 'off' \
+		'akonadi' 'Stop akonadi server and users' 'off' \
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
 	lcursor
 	text=''
+	function killallme { killall -eiu "$(whoami)" -SIGTERM "$@"; }
 	[[ "$sel" =~ '.*emacs.*' ]] && {
 		[[ -n "$text" ]] && echo
 		echo 'Emacs:'
@@ -132,14 +136,31 @@ function _prep_stop
 	}
 	[[ "$sel" =~ '.*replay.*' ]] && {
 		echo 'Replay sorcery:'
-		killall -eiu "$(whoami)" -SIGINT replay-sorcery
+		killallme replay-sorcery
 		sudo systemctl stop replay-sorcery-kms.service
 		text+='replay '
 	}
-	[[ "$sel" =~ '.*mailspring.*' ]] && {
-		echo 'Mailspring:'
-		flatpak kill com.getmailspring.Mailspring
-		text+='mailspring '
+	[[ "$sel" =~ '.*lbry.*' ]] && {
+		echo 'LBRY:'
+		flatpak kill io.lbry.lbry-app
+		text+='lbry '
+	}
+	[[ "$sel" =~ '.*discord.*' ]] && {
+		echo 'Discord:'
+		flatpak kill com.discordapp.Discord
+		flatpak kill com.discordapp.DiscordCanary
+		text+='discord '
+	}
+	[[ "$sel" =~ '.*signal.*' ]] && {
+		echo 'Signal:'
+		killallme signal-desktop
+		text+='signal '
+	}
+	[[ "$sel" =~ '.*akonadi.*' ]] && {
+		echo 'KMail:'
+		killallme kmail korganizer kalendar kalendarac
+		akonadictl stop
+		text+='akonadi '
 	}
 	proceed
 	[[ -n "$text" ]] || return 2
