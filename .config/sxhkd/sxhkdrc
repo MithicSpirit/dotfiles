@@ -98,6 +98,6 @@ super + control + shift + p
 
 ## Miscellaneous
 shift + XF86MonBrightness{Up,Down}
-	xbacklight {+,-}18
+	for i in $(seq 4); do xbacklight {+,-}2; sleep 0.05; done
 any + XF86MonBrightness{Up,Down}
 	xbacklight {+,-}2
