@@ -6,7 +6,10 @@ typeset -A options_=(
 	['1. Log off']="systemctl --user exit; killall qtile"
 	['2. Shut down']="systemctl poweroff"
 	['3. Restart']="systemctl reboot"
-	['4. Suspend']="$LOCK_SCREEN & systemctl suspend; wait"
+	['4. Hibernate']="systemctl suspend-then-hibernate"
+	['5. Suspend']="systemctl hybrid-sleep"
+	#['4. Suspend']="$LOCK_SCREEN & sleep 1; systemctl hybrid-sleep; wait"
+	#['5. Hibernate']="$LOCK_SCREEN & sleep 1; systemctl suspend-then-hibernate; wait"
 )
 
 prompt="Power"
