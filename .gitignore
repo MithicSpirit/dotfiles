@@ -3,6 +3,7 @@
 !/.Xresources
 !/.clang-format
 !/.config/
+!/.gdbinit
 !/.local/
 !/.mbsyncrc
 !/.profile
