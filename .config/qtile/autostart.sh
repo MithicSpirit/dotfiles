@@ -58,7 +58,10 @@ nice -n5 $TERMINAL --class btop-spawn -t btop -e btop \
 
 sleep 2.0
 {akonadictl vacuum; akonadictl fsck} >>/tmp/akonadi.log 2>&1 &
+
+sleep 3.0
 killall dunst &
+sleep 0.1
 dunst -print >>/tmp/dunst.log &
 sleep 0.1
 notify-send "Welcome, $USER!" &
