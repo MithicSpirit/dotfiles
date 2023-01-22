@@ -24,7 +24,7 @@ alias \
 	gcc='gcc -Wall -Wextra' \
 	gpp='g++ -Wall -Wextra' \
 	h='history 1' \
-	idr='rlwrap idris2' \
+	idr='rlwrap -n idris2' \
 	l='exa -lFbg --git' \
 	lS='exa -laFbgs size --color-scale --group-directories-first' \
 	la='exa -laFbg --git' \
