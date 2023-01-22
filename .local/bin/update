@@ -523,12 +523,12 @@ function _misc_doom_recomp
 	[[ "$sel" =~ '.*vterm.*' ]] && {
 		[[ -n "$text" ]] && echo
 		echo 'Vterm:'
-		emacs --eval='(vterm-module-compile)'
+		emacs -nw --eval='(vterm-module-compile)'
 		text+='vterm '
 	}
 	[[ "$sel" =~ '.*pdf.*' ]] && {
 		echo 'pdf:'
-		emacs --eval='(pdf-tools-install)'
+		emacs -nw --eval='(pdf-tools-install)'
 		text+='pdf '
 	}
 	proceed
