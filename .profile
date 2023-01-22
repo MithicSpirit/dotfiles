@@ -28,7 +28,6 @@ export CABAL_DIR="$XDG_DATA_HOME/cabal"
 export CARGO_BUILD_JOBS="$NUM_BUILD_PROCS"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CHKTEXRC="/home/mithic/.config"
-export DEBUGINFOD_URLS="https://debuginfod.elfutils.org/"
 export DIALOGRC="$XDG_CONFIG_HOME/dialogrc"
 export GHCUP_USE_XDG_DIRS=1
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
@@ -94,6 +93,7 @@ if [ -z "$__MITHIC_RECURSE_INITIALIZED" ]; then
 
 	export MAKEFLAGS=" $MAKEFLAGS -j$NUM_BUILD_PROCS "
 	export CARGO_MAKEFLAGS=" $CARGO_MAKEFLAGS $MAKEFLAGS "
+	export DEBUGINFOD_URLS="https://debuginfod.elfutils.org/ https://debuginfod.archlinux.org/ $DEBUFINFOD_URLS"
 fi
 
 [ -r "$HOME/.profile_custom" ] && . "$HOME/.profile_custom"
