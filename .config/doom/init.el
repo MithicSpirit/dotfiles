@@ -55,7 +55,8 @@
 	;;treemacs		; a project drawer, like neotree but cooler
 	;;unicode		; extended unicode support for various languages
 	(vc-gutter		; vcs diff in the fringe
-	 +diff-hl)
+	 +diff-hl
+	 +pretty)
 	vi-tilde-fringe		; fringe tildes to mark beyond EOB
 	(window-select		; visually switch windows
 	 +numbers)

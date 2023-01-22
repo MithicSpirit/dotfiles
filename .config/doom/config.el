@@ -150,6 +150,8 @@ This must be added to `emojify-inhibit-functions' to work."
  lsp-auto-guess-root t
  lsp-enable-suggest-server-download nil
  lsp-enable-indentation nil
+ lsp-rust-jobs 1
+ ccls-enable-skipped-ranges nil
  browse-url-generic-program "xdg-open")
 (after! persp-mode
   (setq persp-emacsclient-init-frame-behaviour-override "main"))
@@ -224,13 +226,14 @@ This must be added to `emojify-inhibit-functions' to work."
 
 ;; Dired
 (after! dired
-  (setq dired-listing-switches "-AlhDF --group-directories-first"))
+  (setq dired-listing-switches "-AlhDF --group-directories-first")
+  (remove-hook! 'dired-mode-hook #'dired-omit-mode))
 (map! :after dired :map dired-mode-map
       :n "h" #'dired-up-directory
       :n "l" #'dired-find-file
       :n "L" #'dired-find-file-other-window
       :n "w" #'browse-url-of-dired-file)
-      
+
 
 ;; LaTeX tweaks and keybinds
 (defun +tex-insert-quote (force)
@@ -302,8 +305,10 @@ This must be added to `emojify-inhibit-functions' to work."
     (show-paren-mode -1)
     (setq-local evil-emacs-state-cursor '(box +evil-emacs-cursor-fn)))
   (add-hook! 'vterm-copy-mode-hook
-    (if vterm-copy-mode (evil-motion-state) (evil-emacs-state)))
-  (setq vterm-shell "tmux new-session -As emacs"))
+    (if vterm-copy-mode (evil-motion-state) (evil-emacs-state))))
+  ;(setq vterm-shell "tmux new-session -As emacs"))
+
+
     
 (setq vterm-always-compile-module t
       vterm-use-vterm-prompt-detection-method t)
@@ -317,7 +322,7 @@ This must be added to `emojify-inhibit-functions' to work."
       
 
 ;; Larger popups
-(set-popup-rule! "^\\*doom:\\(?:v?term\\|e?shell\\)-popup"
+(set-popup-rule! "*" ;"^\\*doom:\\(?:v?term\\|e?shell\\)-popup"
   :vslot -5 :height 0.4 :select t :modeline nil :quit nil :ttl nil)
 
 
