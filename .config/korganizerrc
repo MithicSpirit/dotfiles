@@ -40,7 +40,7 @@ Next X Days=5
 
 [GlobalCollectionSelection]
 Current=x-1
-Selection=c15,c14,c75,c81,c79,c74,c78,c80
+Selection=c81,c79,c78,c80,c75,c74,c15,c14
 
 [GlobalCollectionView]
 Expansion=
@@ -54,7 +54,7 @@ DefaultResourceColorSeed=7
 detailViewIconSize=16
 
 [KOrganizer Geometry]
-Separator1=321,1585
+Separator1=316,1590
 Separator2=370,0,559,132
 
 [MainWindow]
@@ -69,10 +69,10 @@ eDP Width 1920x1200=1914
 eDP Width 1920x1200 eDP=1910
 eDP Width 2240x1400=2220
 eDP XPosition 1920x1200=3
-eDP XPosition 1920x1200 eDP=3
+eDP XPosition 1920x1200 eDP=0
 eDP XPosition 2240x1400=7
 eDP YPosition 1920x1200=27
-eDP YPosition 1920x1200 eDP=27
+eDP YPosition 1920x1200 eDP=0
 eDP YPosition 2240x1400=31
 
 [Migratekde4]
@@ -119,5 +119,5 @@ ColorScheme=
 
 [Views]
 Agenda View Tab Index=0
-Separator AgendaView=97,928
+Separator AgendaView=96,929
 ShownDatesCount=7
