@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-_copy() { echo -n "$1" | xclip -in -selection clipboard }
+_copy() { echo -n "$@" | xclip -in -selection clipboard }
 
 typeset -A options_=(
 	['0.  New window']="$REAL_BROWSER --new-window"
@@ -25,8 +25,8 @@ num="${#options_}"
 sel="$(sort -n <<<"$entries" | dmenu -bw 3 -c -R -l "$num" -p "$prompt")"
 
 [[ -n "$sel" ]] && {
-	result="${options_[$sel]}" 
-	echo "\n-- $(date) --\n-> \$ $0 $@\n<- \$ $result '$1'" >>/tmp/dmenu-browser.log
-	echo "$result '$1'"
-	eval "$result '$1'" &>>/tmp/dmenu-browser.log &!
+	result="${options_[$sel]}"
+	echo "\n-- $(date) --\n-> \$ $0 $@\n<- \$ $result $@" >>/tmp/dmenu-browser.log
+	echo "$result $@"
+	eval "$result" "$@" &>>/tmp/dmenu-browser.log &!
 }
