@@ -1,4 +1,4 @@
-# ~/.config/betterlockscreenrc
+#!/hint/bash
 
 display_on=0
 span_image=false
@@ -12,7 +12,7 @@ wallpaper_cmd="feh --bg-fill"
 quiet=false
 # i3lockcolor_bin="i3lock-color" # Manually set command for i3lock-color
 
-lockargs+="--ignore-empty-password"
+lockargs+=("--ignore-empty-password" "--keylayout" "0")
 
 insidecolor=00000000
 ringcolor=292d3eff
@@ -39,6 +39,6 @@ layoutcolor=eeffffff
 bgcolor=000000ff
 
 
-locktext="Type password to unlock..."
+locktext="Type password to unlock…"
 time_format="%H:%M:%S"
 font="Overpass"
