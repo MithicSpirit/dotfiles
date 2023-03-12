@@ -21,6 +21,7 @@ export LC_TIME="C"
 export NUM_BUILD_PROCS="10"
 
 export _FASD_DATA="$XDG_DATA_HOME/fasd"
+export AGDA_DIR="$XDG_CONFIG_HOME/agda"
 export AMD_VULKAN_ICD="RADV"
 export BATDIFF_USE_DELTA="true"
 export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
@@ -86,6 +87,7 @@ if [ -z "$__MITHIC_RECURSE_INITIALIZED" ]; then
 	export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/local/share:/usr/share"
 	export XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS:/etc/xdg"
 
+	export DEBUGINFOD_URLS="https://debuginfod.elfutils.org/ https://debuginfod.archlinux.org/ $DEBUFINFOD_URLS"
 	export GRADLE_OPTS=" $GRADLE_OPTS -Dorg.gradle.daemon=false
 		-Dorg.gradle.caching=false -Dorg.gradle.parallel=true
 		-Dorg.gradle.workers.max=$NUM_BUILD_PROCS "
@@ -93,7 +95,6 @@ if [ -z "$__MITHIC_RECURSE_INITIALIZED" ]; then
 
 	export MAKEFLAGS=" $MAKEFLAGS -j$NUM_BUILD_PROCS "
 	export CARGO_MAKEFLAGS=" $CARGO_MAKEFLAGS $MAKEFLAGS "
-	export DEBUGINFOD_URLS="https://debuginfod.elfutils.org/ https://debuginfod.archlinux.org/ $DEBUFINFOD_URLS"
 fi
 
 [ -r "$HOME/.profile_custom" ] && . "$HOME/.profile_custom"
