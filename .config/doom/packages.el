@@ -115,7 +115,6 @@
 ;;   (telephone-line-mode t)
 ;;   )
 
-;(when (package! lsp-mode) (package! lsp-jedi))
 (package! elpher)
 (package! gnu-apl-mode)
 ;(package! lilypond
@@ -126,3 +125,4 @@
            :repo "vherrmann/org-xournalpp"
            :files ("resources" "*.el")))
 (package! evil-escape :disable t)
+(package! mips-mode :pin "75152fc78baa762af4f83602f6cb3c8b9bcebca3")

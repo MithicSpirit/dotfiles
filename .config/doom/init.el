@@ -138,7 +138,8 @@
 	
 	:lang
 	(agda			; types of types of types of types...
-	 +local)
+	 +local
+         +tree-sitter)
 	(cc			; C/C++/Obj-C madness
 	 +tree-sitter
 	 +lsp)
@@ -169,7 +170,6 @@
 	idris			;
 	;;json			; At least it ain't XML
 	(java 			; the poster child for carpal tunnel syndrome
-	 ;+tree-sitter
 	 +lsp)
 	(javascript		; all(hope(abandon(ye(who(enter(here))))))
 	 +tree-sitter
@@ -198,8 +198,7 @@
 	;;purescript		; javascript, but functional
 	(python		; beautiful is better than ugly
 	 +tree-sitter
-	 +lsp
-	 +cython)
+	 +lsp)
 	;;qt			; the 'cutest' gui framework ever
 	;;racket		; a DSL for DSLs
 	;;raku			; the artist formerly known as perl6

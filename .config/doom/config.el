@@ -6,7 +6,7 @@
  user-mail-address "rpc01234@gmail.com")
 (set-language-environment "UTF-8")
 
-;; PATHs
+;; Paths
 (setq
  org-directory "~/documents/org"
  bookmark-default-file "~/.config/doom/bookmarks"
@@ -141,20 +141,20 @@ This must be added to `emojify-inhibit-functions' to work."
 ;; Misc - Utility
 (setq-default
  fill-column 80)
-(setq
- display-line-numbers-type t
- org-agenda-dim-blocked-tasks nil
- org-agenda-tags-column 0
- org-src-tab-acts-natively nil
- delete-by-moving-to-trash t
- lsp-auto-guess-root t
- lsp-enable-suggest-server-download nil
- lsp-enable-indentation nil
- lsp-rust-jobs 1
- ccls-enable-skipped-ranges nil
- browse-url-generic-program "xdg-open")
-(after! persp-mode
-  (setq persp-emacsclient-init-frame-behaviour-override "main"))
+(setq display-line-numbers-type t
+      org-agenda-dim-blocked-tasks nil
+      org-agenda-tags-column 0
+      org-src-tab-acts-natively nil
+      delete-by-moving-to-trash t
+      lsp-auto-guess-root t
+      lsp-enable-suggest-server-download nil
+      lsp-enable-indentation nil
+      lsp-rust-jobs 1
+      ccls-enable-skipped-ranges nil
+      browse-url-generic-program "xdg-open"
+      browse-url-handlers '(("*" . 'browse-url-xdg-open)))
+;(after! persp-mode
+;  (setq persp-emacsclient-init-frame-behaviour-override "main"))
 
 (add-hook! 'text-mode-hook #'auto-fill-mode)
 (add-hook! 'prog-mode-hook #'display-fill-column-indicator-mode)
@@ -258,13 +258,13 @@ This must be added to `emojify-inhibit-functions' to work."
  +latex-indent-level-item-continuation 4
  +latex-viewers '(zathura pdf-tools evince  skim sumatrapdf okular)
  font-latex-script-display '((raise -0.25) raise 0.25)
- font-latex-fontify-script-max-level 3)
- 
+ font-latex-fontify-script-max-level 0)
 (setq-default TeX-engine 'luatex)
+ 
 (after! tex
-  (setq TeX-newline-function #'newline-and-indent
-        tex--prettify-symbols-alist
-        (append tex--prettify-symbols-alist '(("\\implies" . ?⇒))))
+  (setq TeX-newline-function #'newline-and-indent)
+        ;; tex--prettify-symbols-alist
+        ;; (append tex--prettify-symbols-alist '(("\\implies" . ?⇒))))
   (add-hook! 'LaTeX-mode-hook
              #'display-fill-column-indicator-mode
              #'electric-indent-mode))
@@ -526,3 +526,47 @@ Use WIDTH, HEIGHT, CREP, and ZREP as described in
 (setq highlight-indent-guides-method 'bitmap
       highlight-indent-guides-bitmap-function #'+highlight-indent-guides--bitmap-thin-line
       highlight-indent-guides-responsive 'stack)
+
+
+;; Dired dragon-drop
+(after! dired
+  (defcustom +dragon-drop-program "dragon-drop"
+    "The name by which to invoke dragon-drop"
+    :type 'string
+    :group 'dired)
+
+  (defun +dragon-drop-dired-file ()
+    "In Dired, open a file with dragon-drop to drag onto another program."
+    (interactive)
+    (let ((file (dired-get-filename t t)))
+      (if (executable-find +dragon-drop-program)
+          (if file
+              (call-process +dragon-drop-program nil 0 nil
+                            (expand-file-name file))
+            (error "No file on this line"))
+        (error "Executable %s not found" +dragon-drop-program))))
+
+  (map! :map dired-mode-map
+        :n "W" #'+dragon-drop-dired-file))
+
+
+;; Using Tectonic for AUCTeX
+;; (after! tex
+;;   (setq TeX-engine-alist '((tectonic
+;;                              "Tectonic"
+;;                              "tectonic -X compile %T -f plain -p --synctex -Zcontinue-on-errors -Zshell-escape"
+;;                              "tectonic -X compile %T -f latex -p --synctex -Zcontinue-on-errors -Zshell-escape"
+;;                              nil))
+;;         TeX-command "tectonic -X compile %T -f plain -p --synctex -Zcontinue-on-errors -Zshell-escape"
+;;         LaTeX-command "tectonic -X compile %T -f latex -p --synctex -Zcontinue-on-errors -Zshell-escape"
+;;         TeX-process-asynchronous t
+;;         TeX-check-TeX nil)
+;;   (setq-default TeX-engine 'default)
+;;   (let ((tex-list (assoc "TeX" TeX-command-list))
+;;         (latex-list (assoc "LaTeX" TeX-command-list)))
+;;     (setf (cadr tex-list) "%(tex)"
+;;           (cadr latex-list) "%(latex)")))
+
+
+;; mips-mode
+(use-package! mips-mode)
