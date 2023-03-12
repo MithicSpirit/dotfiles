@@ -1,10 +1,56 @@
 map u scroll half-up
 map d scroll half-down
-map p toggle_page_mode
+map p snap_to_page
+map P toggle_page_mode
 map <BackSpace> scroll full-up
 unmap q
 
 set selection-clipboard "clipboard"
+set sandbox none
+set continuous-hist-save true
+set window-title-home-tilde true
+set statusbar-home-tilde true
+
+set recolor-keephue true
+set recolor-reverse-video false
+
+set scroll-step 60
+set scroll-full-overlap 0.15
+set scroll-page-aware true
 
 set synctex true
 set synctex-editor-command "emacsclient +%{line} %{input}"
+
+set dbus-service true
+set dbus-raise-window false
+
+set font "Iosevka Mithic 9"
+set page-padding 2
+set page-cache-size 64
+
+set completion-bg "#3B4252"
+set completion-fg "#ECEFF4"
+set completion-group-bg "#0000FF"
+set completion-group-fg "#FF0000"
+set completion-highlight-bg "#434C5E"
+set completion-highlight-fg "#88C0D0"
+set default-fg "#E5E9F0"
+set default-bg "#2E3440"
+set inputbar-bg "#434C5E"
+set inputbar-fg "#ECEFF4"
+set notification-bg "#3B4252"
+set notification-fg "#88C0D0"
+set notification-error-bg "#3B4252"
+set notification-error-fg "#BF616A"
+set notification-warning-bg "#3B4252"
+set notification-warning-fg "#EBCB8B"
+set statusbar-bg "#3B4252"
+set statusbar-fg "#E5E9F0"
+set highlight-color "#4C566A"
+set highlight-fg "#ECEFF4"
+set highlight-active-color "#88C0D0"
+set highlight-transparency 0.5
+set index-bg "#3B4252"
+set index-fg "#ECEFF4"
+set index-active-bg "#434C5E"
+set index-active-fg "#88C0D0"
