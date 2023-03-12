@@ -35,10 +35,12 @@
   <!--The icon theme, allowed values are "disabled", "onDrawOfLastPage", and "onScrollOfLastPage"-->
   <property name="emptyLastPageAppend" value="disabled"/>
   <property name="presentationMode" value="false"/>
-  <!--Which gui elements are hidden if you are in Fullscreen mode, separated by a colon (,)-->
-  <property name="fullscreenHideElements" value="mainMenubar"/>
-  <!--Which gui elements are hidden if you are in Presentation mode, separated by a colon (,)-->
-  <property name="presentationHideElements" value="mainMenubar,sidebarContents"/>
+  <!--Which GUI elements are shown in default view mode, separated by a colon (,)-->
+  <property name="defaultViewModeAttributes" value="showMenubar,showToolbar,showSidebar"/>
+  <!--Which GUI elements are shown in fullscreen view mode, separated by a colon (,)-->
+  <property name="fullscreenViewModeAttributes" value="goFullscren,showToolbar,showSidebar"/>
+  <!--Which GUI elements are shown in presentation view mode, separated by a colon (,)-->
+  <property name="presentationViewModeAttributes" value="goFullscren,showToolbar"/>
   <!--The cursor icon used with a stylus, allowed values are "none", "dot", "big", "arrow"-->
   <property name="stylusCursorType" value="dot"/>
   <!--The icon theme, allowed values are "iconsColor", "iconsLucide"-->
@@ -56,6 +58,7 @@
   <property name="autoloadMostRecent" value="false"/>
   <property name="autoloadPdfXoj" value="true"/>
   <property name="defaultSaveName" value="%F-Note-%H-%M"/>
+  <property name="defaultPdfExportName" value="%{name}_annotated"/>
   <property name="autosaveEnabled" value="true"/>
   <property name="autosaveTimeout" value="1"/>
   <property name="addHorizontalSpace" value="false"/>
@@ -262,6 +265,12 @@
       <attribute name="style" type="string" value="plain"/>
     </data>
     <data name="playObject">
+      <attribute name="drawingType" type="string" value="default"/>
+    </data>
+    <data name="selectMultiLayerRect">
+      <attribute name="drawingType" type="string" value="default"/>
+    </data>
+    <data name="selectMultiLayerRegion">
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="selectObject">
