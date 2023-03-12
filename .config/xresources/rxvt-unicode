@@ -6,38 +6,39 @@ URxvt*borderLess: False
 URxvt*cursorBlink: True
 URxvt*imLocale: en_US.UTF-8
 URxvt*hold: False
+URxvt*geometry: 80x-1
 
 ! Fonts (my custom build of Iosevka)
-URxvt*font: xft:Iosevka Mithic Book:size=12:antialias=true
-URxvt*boldFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold
-URxvt*italicFont: xft:Iosevka Mithic Book:size=12:antialias=true:italic
-URxvt*boldItalicFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold:italic
+!URxvt*font: xft:Iosevka Mithic Book:size=12:antialias=true
+!URxvt*boldFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold
+!URxvt*italicFont: xft:Iosevka Mithic Book:size=12:antialias=true:italic
+!URxvt*boldItalicFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold:italic
 
 ! Colors: palenight theme
-URxvt*depth: 32 ! Necessary for reduced opacity
+URxvt*depth: 32
 URxvt*intensityStyles: False
-URxvt*background: [90]#242837
-URxvt*foreground: #eeffff
-URxvt*cursorColor: #c792ea
+!URxvt*background: [90]#242837
+!URxvt*foreground: #eeffff
+!URxvt*cursorColor: #c792ea
 
-URxvt*color0: #1c1f2b
-URxvt*color1: #ff5370
-URxvt*color2: #c3e88d
-URxvt*color3: #ffcb6b
-URxvt*color4: #82aaff
-URxvt*color5: #c792ea
-URxvt*color6: #89ddff
-URxvt*color7: #a6accd
-URxvt*color8: #545760
-URxvt*color9: #ff7e93
-URxvt*color10: #d2eda9
-URxvt*color11: #ffd890
-URxvt*color12: #a1bfff
-URxvt*color13: #d5adef
-URxvt*color14: #a6e5ff
-URxvt*color15: #bcc0d9
+!URxvt*color0: #1c1f2b
+!URxvt*color1: #ff5370
+!URxvt*color2: #c3e88d
+!URxvt*color3: #ffcb6b
+!URxvt*color4: #82aaff
+!URxvt*color5: #c792ea
+!URxvt*color6: #89ddff
+!URxvt*color7: #a6accd
+!URxvt*color8: #545760
+!URxvt*color9: #ff7e93
+!URxvt*color10: #d2eda9
+!URxvt*color11: #ffd890
+!URxvt*color12: #a1bfff
+!URxvt*color13: #d5adef
+!URxvt*color14: #a6e5ff
+!URxvt*color15: #bcc0d9
 
-URxvt*fadeColor: #242837
+!URxvt*fadeColor: #242837
 URxvt*scrollColor: #4e5579
 
 ! Scrolling

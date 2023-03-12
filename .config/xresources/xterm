@@ -1,33 +1,33 @@
 ! Fonts (my custom build of Iosevka)
-XTerm*font: xft:Iosevka Mithic Book:size=12:antialias=true
-XTerm*boldFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold
-XTerm*italicFont: xft:Iosevka Mithic Book:size=12:antialias=true:italic
-XTerm*boldItalicFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold:italic
+!XTerm*font: xft:Iosevka Mithic Book:size=12:antialias=true
+!XTerm*boldFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold
+!XTerm*italicFont: xft:Iosevka Mithic Book:size=12:antialias=true:italic
+!XTerm*boldItalicFont: xft:Iosevka Mithic Book:size=12:antialias=true:bold:italic
 
 ! Colors: palenight theme
 XTerm*intensityStyles: False
-XTerm*background: #242837
-XTerm*foreground: #eeffff
-XTerm*cursorColor: #c792ea
+!XTerm*background: #242837
+!XTerm*foreground: #eeffff
+!XTerm*cursorColor: #c792ea
 
-XTerm*color0: #1c1f2b
-XTerm*color1: #ff5370
-XTerm*color2: #c3e88d
-XTerm*color3: #ffcb6b
-XTerm*color4: #82aaff
-XTerm*color5: #c792ea
-XTerm*color6: #89ddff
-XTerm*color7: #a6accd
-XTerm*color8: #545760
-XTerm*color9: #ff7e93
-XTerm*color10: #d2eda9
-XTerm*color11: #ffd890
-XTerm*color12: #a1bfff
-XTerm*color13: #d5adef
-XTerm*color14: #a6e5ff
-XTerm*color15: #bcc0d9
+!XTerm*color0: #1c1f2b
+!XTerm*color1: #ff5370
+!XTerm*color2: #c3e88d
+!XTerm*color3: #ffcb6b
+!XTerm*color4: #82aaff
+!XTerm*color5: #c792ea
+!XTerm*color6: #89ddff
+!XTerm*color7: #a6accd
+!XTerm*color8: #545760
+!XTerm*color9: #ff7e93
+!XTerm*color10: #d2eda9
+!XTerm*color11: #ffd890
+!XTerm*color12: #a1bfff
+!XTerm*color13: #d5adef
+!XTerm*color14: #a6e5ff
+!XTerm*color15: #bcc0d9
 
-XTerm*fadeColor: #242837
+!XTerm*fadeColor: #242837
 XTerm*scrollColor: #4e5579
 
 ! Scrolling

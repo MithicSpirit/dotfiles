@@ -1,0 +1,7 @@
+*.font: xft:Iosevka Mithic:size=12:antialias=true
+*.boldFont: xft:Iosevka Mithic:size=12:antialias=true:bold
+*.italicFont: xft:Iosevka Mithic:size=12:antialias=true:italic
+*.boldItalicFont: xft:Iosevka Mithic:size=12:antialias=true:bold:italic
+
+sxiv.font: xft:Iosevka Mithic:size=2:antialias=true
+emacs.font:

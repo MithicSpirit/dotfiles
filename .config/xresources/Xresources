@@ -1,3 +1,5 @@
+#include "font"
+#include "nordtheme"
 #include "rxvt-unicode"
 #include "xterm"
 #include "xautolock"
