@@ -28,6 +28,9 @@ augroup language_customizations
     autocmd FileType
         \ haskell,lisp,tex,gitcommit,toml
         \ setlocal ts=8 sts=2 sw=2 et
+    autocmd FileType
+        \ asm
+        \ setlocal ts=8 sts=8 sw=8 et
     autocmd FileType python setlocal tw=79
 augroup END
 
@@ -106,5 +109,5 @@ map gs <Plug>(easymotion-prefix)
 command Wsudo w suda://%
 
 " Vim gitgutter
-set updatetime=500
+set updatetime=300
 "let g:gitgutter_terminal_reports_focus=0
