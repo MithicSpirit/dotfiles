@@ -35,34 +35,12 @@ super + s ; super + shift + d
 super + s ; super + ctrl + d
 	nice -n5 element-desktop
 
-super + s ; super + w
-	onlyoffice
-super + s ; super + shift + w
-	nice -n5 zoom
-super + s ; super + ctrl + w
-	nice -n5 teams
-
-super + s ; super + c
-	nice -n5 lbry
-#	"$REAL_BROWSER" --new-window 'https://odysee.com/$/following'
-super + s ; super + shift + c
-	"$REAL_BROWSER" --new-window 'https://www.youtube.com/feed/subscriptions'
-super + s ; super + ctrl + c
-	mpv "$(xclip -out -selection clipboard)"
-
 super + s ; super + f
 	lutris
 super + s ; super + shift + f
 	steam
 super + s ; super + ctrl + f
 	heroic
-
-super + s ; super + v
-	"$REAL_BROWSER" --new-window 'https://music.youtube.com/library/playlists'
-super + s ; super + shift + v
-	nice -n3 nuclear
-super + s ; super + ctrl + v
-	nice -n3 deadbeef
 
 super + s ; super + r
 	nice -n5 "$TERMINAL" -t btop -e btop
@@ -76,8 +54,8 @@ super + s ; super + shift + ctrl + r
 ## Media controls
 any + XF86AudioPlay
 	playerctl play-pause
-shift + XF86AudioMute
 # For keyboards with mute but not playpause
+shift + XF86AudioMute
 	playerctl play-pause
 any + XF86AudioMute
 	amixer -D pulse -q sset Master toggle
@@ -98,6 +76,6 @@ super + control + shift + p
 
 ## Miscellaneous
 shift + XF86MonBrightness{Up,Down}
-	for i in $(seq 4); do xbacklight {+,-}2; sleep 0.05; done
+	xbacklight {+,-}10
 any + XF86MonBrightness{Up,Down}
 	xbacklight {+,-}2
