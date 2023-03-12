@@ -32,3 +32,5 @@
 	autoSetupMerge = true
 [advice]
 	addEmptyPathspec = false
+[push]
+	autoSetupRemote = true
