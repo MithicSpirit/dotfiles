@@ -374,7 +374,6 @@ group_names: list[tuple[str, dict]] = [
             # "spawn": ["lbry"],
             "matches": [
                 Match(wm_class="lbry"),
-                Match(wm_class="fragments"),
             ],
         },
     ),
@@ -680,7 +679,7 @@ NO_SWALLOW_CHILD = {
 }
 
 
-@hook.subscribe.client_new
+#@hook.subscribe.client_new
 def _swallow(window):
     """
     Minimize parent windows (in `SWALLOW_PARENT`) once a child window
@@ -690,7 +689,7 @@ def _swallow(window):
         if i.compare(window):
             return
     pid = window.window.get_net_wm_pid()
-    ppid = psutil.Process(pid).ppid()
+    ppid = pid
     cpids = {
         c.window.get_net_wm_pid(): wid for wid, c in window.qtile.windows_map.items()
     }
@@ -704,13 +703,13 @@ def _swallow(window):
                     if i.compare(parent):
                         window.parent = parent
                         parent.minimized = True
-                        return
                 except AttributeError:
                     continue
+            return
         ppid = psutil.Process(ppid).ppid()
 
 
-@hook.subscribe.client_killed
+#@hook.subscribe.client_killed
 def _unswallow(window):
     """
     Unminimize parent windows once the child window closes.

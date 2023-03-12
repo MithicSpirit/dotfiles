@@ -51,7 +51,7 @@ nice -n5 element-desktop >>/tmp/element.log 2>&1 &
 
 nice -n5 kmail >>/tmp/akonadi.log 2>&1 &
 nice -n5 korganizer >>/tmp/akonadi.log 2>&1 &
-nice -n5 lbry >>/tmp/lbry.log 2>&1 &
+#nice -n5 lbry >>/tmp/lbry.log 2>&1 &
 # shellcheck disable=SC2086
 nice -n5 $TERMINAL --class btop-spawn -t btop -e btop \
 	>>/tmp/alacritty-btop.log 2>&1 &
