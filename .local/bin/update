@@ -4,8 +4,8 @@
 ###########
 ## UTILS ##
 ###########
-function bcursor { echo '\033[2 q' 1>&2 }
-function lcursor { echo '\033[6 q' 1>&2 }
+function bcursor { echo '\033[2 q' 1>&2 }  # force block cursor
+function tcursor { echo '\033[2 q' 1>&2 }  # reset to terminal cursor (manually change)
 function pager { eval "$@" | "${=PAGER:-less}" }
 function now { date -u '+%Y-%m-%d@%H:%M:%S' }
 function nice_ { time nice -n20 "$@" }
@@ -73,13 +73,13 @@ function main
 			'core' 'Update core system packages (pacman/AUR)' \
 			'other' 'Update other packaging systems' \
 			'misc' 'Update non-packages' \
-		)" || { clear -x; lcursor; exit 0 }
+		)" || { clear -x; tcursor; exit 0 }
 		case "$sel" in
 			prep) _prep;;
 			core) _core;;
 			other) _other;;
 			misc) _misc;;
-			*) clear -x; lcursor; exit 2;;
+			*) clear -x; tcursor; exit 2;;
 		esac
 	done
 }
@@ -108,7 +108,7 @@ function _prep
 function _prep_verify
 {
 	clear -x
-	lcursor
+	tcursor
 	sudo -v
 	proceed
 }
@@ -121,11 +121,11 @@ function _prep_stop
 		'lbry' 'Stop lbry through flatpak' 'off' \
 		'discord' 'Stop discord through flatpak' 'off' \
 		'signal' 'Stop signal' 'off' \
-		'akonadi' 'Stop akonadi server and users' 'off' \
+		'akonadi' 'Stop akonadi server and clients' 'off' \
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
-	lcursor
+	tcursor
 	text=''
 	function killallme { killall -eiu "$(whoami)" -SIGTERM "$@"; }
 	[[ "$sel" =~ '.*emacs.*' ]] && {
@@ -185,21 +185,21 @@ function _prep_view
 function _prep_view_btop
 {
 	clear -x
-	lcursor
+	tcursor
 	btop
 	proceed
 }
 function _prep_view_btm
 {
 	clear -x
-	lcursor
+	tcursor
 	btm -b
 	proceed
 }
 function _prep_view_htop
 {
 	clear -x
-	lcursor
+	tcursor
 	htop
 	proceed
 }
@@ -207,7 +207,7 @@ function _prep_view_htop
 function _prep_shell
 {
 	clear -x
-	lcursor
+	tcursor
 	(
 		cd "$HOME" || exit 2
 		exec zsh -i
@@ -251,7 +251,7 @@ function _core_clean
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
-	lcursor
+	tcursor
 	text=''
 	[[ "$sel" =~ ".*orphan.*" ]] && {
 		echo 'Orphans:'
@@ -291,7 +291,7 @@ function _core_view
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
-	lcursor
+	tcursor
 	command=''
 	[[ "$sel" =~ '.*repos.*' ]] && {
 		command+="
@@ -303,7 +303,7 @@ function _core_view
 	[[ "$sel" =~ '.*aur.*' ]] && {
 		command+="
 			echo 'AUR:'
-			paru -Qua --color=always | grep --color=never -v '\[ignored\]'
+			paru -Qu --mode=ap --color=always | grep --color=never -v '\[ignored\]'
 			echo
 		"
 	}
@@ -322,7 +322,7 @@ function _core_update
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
-	lcursor
+	tcursor
 	text=''
 	[[ "$sel" =~ '.*repos.*' ]] && {
 		[[ -n "$text" ]] && echo
@@ -339,7 +339,7 @@ function _core_update
 		}
 		echo 'AUR:'
 		sudo -v &&
-			nice_ paru -Su --aur ||
+			nice_ paru -Syyu --mode=ap ||
 			handle_failure
 		text+='aur '
 	}
@@ -351,7 +351,7 @@ function _core_update
 function _core_local
 {
 	clear -x
-	lcursor
+	tcursor
 	(
 		cd "$HOME/documents/coding/aur" || exit 2
 		exec zsh -i
@@ -362,7 +362,7 @@ function _core_local
 function _core_check
 {
 	clear -x
-	lcursor
+	tcursor
 	pager "
 		echo 'Checking packages:'
 		checkrebuild -v
@@ -374,7 +374,7 @@ function _core_check
 function _core_diff
 {
 	clear -x
-	lcursor
+	tcursor
 	sudo DIFFPROG='nvim -d' pacdiff
 	proceed
 }
@@ -404,7 +404,7 @@ function _other_flatpak
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
-	lcursor
+	tcursor
 	text=''
 	[[ "$sel" =~ '.*system.*' ]] && {
 		[[ -n "$text" ]] && echo
@@ -436,12 +436,14 @@ function _misc
 			'vim' 'Update vim-plug plugins' \
 			'proton' 'Update the Steam runner Proton-GE' \
 			'rustup' 'Update Rust toolchains with rustup' \
+			'ghcup' 'Update GHC and related with ghcup' \
 		)" || return 1
 		case "$sel" in
 			doom) _misc_doom;;
 			vim) _misc_vim;;
 			proton) _misc_proton;;
 			rustup) _misc_rustup;;
+			ghcup) _misc_ghcup;;
 			*) return 2;;
 		esac
 	done
@@ -470,7 +472,7 @@ function _misc_doom
 function _misc_doom_view
 {
 	clear -x
-	lcursor
+	tcursor
 	(
 		cd ~/.config/emacs || return 2
 		git fetch || return 2
@@ -481,7 +483,7 @@ function _misc_doom_view
 function _misc_doom_update
 {
 	clear -x
-	lcursor
+	tcursor
 	(
 		cd ~/.config/emacs || return 2
 		doom upgrade && doom sync -p
@@ -492,7 +494,7 @@ function _misc_doom_update
 function _misc_doom_sync
 {
 	clear -x
-	lcursor
+	tcursor
 	(
 		cd ~/.config/emacs || return 2
 		doom sync
@@ -503,7 +505,7 @@ function _misc_doom_sync
 function _misc_doom_doctor
 {
 	clear -x
-	lcursor
+	tcursor
 	(
 		cd ~/.config/emacs || return 2
 		doom doctor
@@ -518,7 +520,7 @@ function _misc_doom_recomp
 	)" || return 1
 	[[ -n "$sel" ]] || return 1
 	clear -x
-	lcursor
+	tcursor
 	text=''
 	[[ "$sel" =~ '.*vterm.*' ]] && {
 		[[ -n "$text" ]] && echo
@@ -559,7 +561,7 @@ function _misc_vim
 function _misc_vim_backup
 {
 	clear -x
-	lcursor
+	tcursor
 	dir="$HOME/.cache/vim-plug-snapshots"
 	mkdir -p "$dir"
 	nvim "+PlugSnapshot $dir/$(now)"
@@ -568,28 +570,28 @@ function _misc_vim_backup
 function _misc_vim_self
 {
 	clear -x
-	lcursor
+	tcursor
 	nvim '+PlugUpgrade'
 	proceed
 }
 function _misc_vim_update
 {
 	clear -x
-	lcursor
+	tcursor
 	nvim '+PlugInstall --sync | PlugUpdate'
 	proceed
 }
 function _misc_vim_diff
 {
 	clear -x
-	lcursor
+	tcursor
 	nvim '+PlugDiff'
 	proceed
 }
 function _misc_vim_config
 {
 	clear -x
-	lcursor
+	tcursor
 	nvim "$HOME/.config/nvim/init.vim"
 	proceed
 }
@@ -624,7 +626,7 @@ function _misc_proton_backup
 		}
 
 	clear -x
-	lcursor
+	tcursor
 	dir="$HOME/games/bak/steam-prefixes"
 	target="$dir/$(now)"
 	latest="$dir/latest"
@@ -644,14 +646,14 @@ function _misc_proton_backup
 function _misc_proton_protonup
 {
 	clear -x
-	lcursor
+	tcursor
 	protonup
 	proceed
 }
 function _misc_proton_stl
 {
 	clear -x
-	lcursor
+	tcursor
 	(
 		cd "$HOME/.config/steamtinkerlaunch/gamecfgs/id"
 		newver="$(protonup --list | sort -V | tail -n1 | cut -d' ' -f1)"
@@ -686,7 +688,7 @@ function _misc_proton_restore
 	}
 
 	clear -x
-	lcursor
+	tcursor
 	text=''
 	compatdata="$HOME/games/install/steam/steamapps/compatdata"
 	backup="$HOME/games/bak/steam-prefixes/latest"
@@ -726,9 +728,16 @@ function _misc_rustup
 	"
 }
 
+function _misc_ghcup
+{
+	clear -x
+	ghcup tui
+	proceed
+}
+
 
 sleep 0.1
-unset LINES COLUMNS
+unset LINES COLUMNS DISPLAY
 command -v tmux &>/dev/null &&
 	[[ -z "$TMUX" ]] &&
 	exec tmux new-session -As update "$0" "$@"
