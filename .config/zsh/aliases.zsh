@@ -2,7 +2,7 @@ alias -g \
 	C='| tee >(xclip -i -sel c) | bat -pp' \
 	G='| rg' \
 	P='| ${=PAGER}' \
-	NOP='&>/dev/null' \
+	B='&>/dev/null &!' \
 
 alias \
 	c='cal -3' \
@@ -17,7 +17,6 @@ alias \
 	dragon='dragon-drop' \
 	du='dust' \
 	eemacs='emacs' \
-	emacs='devour visual' \
 	eterm='emacs -nw' \
 	ffupload='ffsend upload -vd 20 -e 7d' \
 	ghc='ghc -Wall' \
@@ -25,6 +24,7 @@ alias \
 	gpp='g++ -Wall -Wextra' \
 	h='history 1' \
 	idr='rlwrap -n idris2' \
+	im='imv' \
 	l='exa -lFbg --git' \
 	lS='exa -laFbgs size --color-scale --group-directories-first' \
 	la='exa -laFbg --git' \
@@ -50,7 +50,7 @@ alias \
 	sc='systemctl' \
 	scim='sc-im' \
 	scu='systemctl --user' \
-	sl='sl -ae' \
+	sl='sl -ae -50' \
 	ssc='sudo systemctl' \
 	su='sudo -i' \
 	svi='sudoedit' \
@@ -69,7 +69,9 @@ alias \
 	xsh='exec zsh' \
 	xssh='exec ssh' \
 	xsu='exec sudo -i' \
+	xtm='exec tmux' \
 	yt='yt-dlp' \
+	za='zathura' \
 
 command -v git &>/dev/null && alias \
 	g='git' \
@@ -117,8 +119,10 @@ command -v homegit &>/dev/null && alias \
 	hgs='homegit pull --ff && homegit push origin && homegit push backup' \
 
 command -v devour &>/dev/null && alias \
-	dev='devour' \
+	d='devour' \
+	dim='devour imv' \
 	dopen='devour xdg-open' \
+	dza='devour zathura' \
 	emacs='devour visual' \
 
 command -v pacman &>/dev/null && alias \
@@ -166,14 +170,10 @@ command -v paru &>/dev/null && alias \
 	pary='paru' \
 	paupg='paru -Syyu' \
 
-command -v fasd &>/dev/null &&
-	f() {
-		fasd -s "$@"
-	}
-command -v fasd &>/dev/null &&
-	ff() {
-		fasd -si "$@"
-	}
+command -v fasd &>/dev/null && alias \
+	f='fasd -s' \
+	ff='fasd -si' \
+
 command -v fasd &>/dev/null &&
 	fasd_cd() {
 		if [ $# -le 1 ]; then
@@ -185,15 +185,9 @@ command -v fasd &>/dev/null &&
 				printf '%s\n' "$_fasd_ret"
 		fi
 	}
-command -v fasd_cd &>/dev/null &&
-	j() {
-		fasd_cd -d "$@"
-	}
-
-command -v fasd_cd &>/dev/null &&
-	jj() {
-		fasd -di "$@"
-	}
+command -v fasd_cd &>/dev/null && alias \
+	j='fasd_cd -d' \
+	jj='fasd_cd -di' \
 
 
 command -v python &>/dev/null && command -v ipython &>/dev/null &&
