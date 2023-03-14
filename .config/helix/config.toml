@@ -1,0 +1,11 @@
+theme = "base16_transparent"
+
+[editor]
+cursorline = true
+cursorcolumn = true
+auto-completion = false
+rulers = [81]
+bufferline = "multiple"
+cursor-shape.normal = "block"
+cursor-shape.insert = "bar"
+cursor-shape.select = "block"
