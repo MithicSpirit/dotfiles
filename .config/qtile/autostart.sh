@@ -57,7 +57,10 @@ nice -n5 $TERMINAL --class btop-spawn -t btop -e btop \
 	>>/tmp/alacritty-btop.log 2>&1 &
 
 sleep 2.0
-{akonadictl vacuum; akonadictl fsck} >>/tmp/akonadi.log 2>&1 &
+{
+	akonadictl vacuum
+	akonadictl fsck
+} >>/tmp/akonadi.log 2>&1 &
 
 sleep 3.0
 killall dunst &
