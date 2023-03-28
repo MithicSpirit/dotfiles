@@ -1,0 +1,179 @@
+\RequirePackage[l2tabu,orthodox]{nag}
+
+% \documentclass{mathematics}
+% \title{Homework #}
+% \author{Ricardo Prado Cunha}
+% \begin{document}
+% \maketitle
+% \end{document}
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{math}%
+[2023/03/27 (WIP) Personal package for mathematics typesetting]
+
+\RequirePackage{iftex}
+
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+\RequirePackage{amssymb}
+
+\RequirePackage{mathtools}
+\ifluatex\RequirePackage{lualatex-math}\fi
+\RequirePackage[mathscr]{euscript}
+\RequirePackage{xfrac}
+
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{colormaps}
+\usetikzlibrary{3d}
+\usetikzlibrary{perspective}
+\usetikzlibrary{arrows.meta}
+
+\newtheorem*{thm}{Theorem}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{lem}{Lemma}
+\newtheorem*{dfn}{Definition}
+
+\newcommand\foreign{\emph}
+\newcommand\ie{\foreign{i.e.}}
+\newcommand\eg{\foreign{e.g.}}
+\newcommand\nb{\foreign{N.B.}}
+
+\newcommand\wts[1]{{\indent\indent\footnotesize (\textsc{w.t.s.:} #1)\\\indent}}
+\newcommand\nts[1]{{\indent\indent\footnotesize (\textsc{n.t.s.:} #1)\\\indent}}
+\newcommand\TODO{\textbf{\colorbox{black}{\color{red}TODO}}}
+\newcommand\bls{\baselineskip}
+
+\newcommand\trans{^{\mathsf{T}}}
+\newcommand\compl{^{\mathsf{C}}}
+\DeclareMathOperator\Coord{\mathcal{C}}
+\DeclareMathOperator\Span{Span}
+\DeclareMathOperator\rank{rank}
+\DeclareMathOperator\tr{tr}
+\DeclareMathOperator\id{id}
+\DeclareMathOperator\img{img}
+\DeclareMathOperator\nullity{null}
+
+\DeclareMathOperator\proj{proj}
+\DeclareMathOperator\rej{rej}
+\DeclareMathOperator\refl{refl}
+
+\DeclareMathOperator\Nul{\mathbf{N}}
+\DeclareMathOperator\Col{\mathbf{C}}
+\DeclareMathOperator\Row{\mathbf{R}}
+
+\newcommand\phantomeq{\phantom{{}={}}}
+
+\let\vect\vec % chktex 14
+\let\vec\mathbf
+
+\let\epsilon@tmp\epsilon
+\let\epsilon\varepsilon
+\let\varepsilon\epsilon@tmp
+\let\epsilon@tmp\@undefined
+
+\newlength\nphant@wd
+\newcommand\nphant@do[1]{\settowidth{\nphant@wd}{#1}\hspace*{-\nphant@wd}}
+\newcommand\nphant@math[2]{\nphant@do{$\m@th#1#2$}}
+\DeclareRobustCommand\nphantom[1]{%
+  \ifmmode
+    \mathpalette\nphant@math{#1}%
+  \else
+    \nphant@do{#1}%
+  \fi
+}
+
+\newcommand\wrt@nostar[1]{_{\mathcal{#1}}}
+\newcommand\wrt@star[1]{_{\mathscr{#1}}}
+\newcommand\wrt{\@ifstar{\wrt@star}{\wrt@nostar}}
+
+\newcommand\dd@star[1][]{\mathrm{d}^{#1}\hspace{-1pt}}
+\newcommand\dd@nostar{\,\dd@star}
+\newcommand\dd{\@ifstar{\dd@star}{\dd@nostar}}
+
+\newcommand\dv@nostar[3][]{\frac{\dd@star[#1] #2}{\dd@star #3}}
+\newcommand\dv@star[2][]{\dv@nostar[#1]{}{#2}}
+\newcommand\dv{\@ifstar{\dv@star}{\dv@nostar}}
+
+\newcommand\pdd@star[1][]{\partial^{#1}}
+\newcommand\pdd@nostar{\,\pdd@star}
+\newcommand\pdd{\@ifstar{\pdd@star}{\pdd@nostar}}
+
+\newcommand\pdv@nostar[3][]{\frac{\pdd@star[#1] #2}{\pdd@star #3}}
+\newcommand\pdv@star[2][]{\pdv@nostar[#1]{}{#2}}
+\newcommand\pdv{\@ifstar{\pdv@star}{\pdv@nostar}}
+
+\newcommand\pa@star[1]{(#1)}
+\newcommand\pq@star[1]{\left(#1\right)}
+\newcommand\br@star[1]{[#1]}
+\newcommand\bq@star[1]{\left[#1\right]}
+\newcommand\Br@star[1]{\{#1\}}
+\newcommand\Bq@star[1]{\left\{#1\right\}}
+\newcommand\an@star[1]{\langle#1\rangle}
+\newcommand\aq@star[1]{\left\langle#1\right\rangle}
+\newcommand\ve@star[1]{\vert#1\vert}
+\newcommand\vq@star[1]{\left\vert#1\right\vert}
+\newcommand\Ve@star[1]{\Vert#1\Vert}
+\newcommand\Vq@star[1]{\left\Vert#1\right\Vert}
+\newcommand\fa@star[1]{\lfloor#1\rfloor}
+\newcommand\fq@star[1]{\left\lfloor#1\right\rfloor}
+\newcommand\ca@star[1]{\lceil#1\rceil}
+\newcommand\cq@star[1]{\left\lceil#1\right\rceil}
+\newcommand\ev@star[1]{#1\Big|}
+\newcommand\eq@star[1]{\left.#1\right|}
+
+\newcommand\pa@nostar[1]{{\pa@star{#1}}}
+\newcommand\pq@nostar[1]{{\pq@star{#1}}}
+\newcommand\br@nostar[1]{{\br@star{#1}}}
+\newcommand\bq@nostar[1]{{\bq@star{#1}}}
+\newcommand\Br@nostar[1]{{\Br@star{#1}}}
+\newcommand\Bq@nostar[1]{{\Bq@star{#1}}}
+\newcommand\an@nostar[1]{{\an@star{#1}}}
+\newcommand\aq@nostar[1]{{\aq@star{#1}}}
+\newcommand\ve@nostar[1]{{\ve@star{#1}}}
+\newcommand\vq@nostar[1]{{\vq@star{#1}}}
+\newcommand\Ve@nostar[1]{{\Ve@star{#1}}}
+\newcommand\Vq@nostar[1]{{\Vq@star{#1}}}
+\newcommand\fa@nostar[1]{{\fa@star{#1}}}
+\newcommand\fq@nostar[1]{{\fq@star{#1}}}
+\newcommand\ca@nostar[1]{{\ca@star{#1}}}
+\newcommand\cq@nostar[1]{{\cq@star{#1}}}
+\newcommand\ev@nostar[1]{{\ev@star{#1}}}
+\newcommand\eq@nostar[1]{{\eq@star{#1}}}
+
+\newcommand\pa{\@ifstar{\pa@star}{\pa@nostar}}
+\newcommand\pq{\@ifstar{\pq@star}{\pq@nostar}}
+\newcommand\br{\@ifstar{\br@star}{\br@nostar}}
+\newcommand\bq{\@ifstar{\bq@star}{\bq@nostar}}
+\newcommand\Br{\@ifstar{\Br@star}{\Br@nostar}}
+\newcommand\Bq{\@ifstar{\Bq@star}{\Bq@nostar}}
+\newcommand\an{\@ifstar{\an@star}{\an@nostar}}
+\newcommand\aq{\@ifstar{\aq@star}{\aq@nostar}}
+\newcommand\ve{\@ifstar{\ve@star}{\ve@nostar}}
+\newcommand\vq{\@ifstar{\vq@star}{\vq@nostar}}
+\newcommand\Ve{\@ifstar{\Ve@star}{\Ve@nostar}}
+\newcommand\Vq{\@ifstar{\Vq@star}{\Vq@nostar}}
+\newcommand\fa{\@ifstar{\fa@star}{\fa@nostar}}
+\newcommand\fq{\@ifstar{\fq@star}{\fq@nostar}}
+\newcommand\ca{\@ifstar{\ca@star}{\ca@nostar}}
+\newcommand\cq{\@ifstar{\cq@star}{\cq@nostar}}
+\newcommand\ev{\@ifstar{\ev@star}{\ev@nostar}}
+\newcommand\eq{\@ifstar{\eq@star}{\eq@nostar}}
+
+\newenvironment{smat}{\smallmatrix}{\endsmallmatrix}
+\newenvironment{psmat}{\psmallmatrix}{\endpsmallmatrix}
+\newenvironment{bsmat}{\bsmallmatrix}{\endbsmallmatrix}
+\newenvironment{Bsmat}{\Bsmallmatrix}{\endBsmallmatrix}
+\newenvironment{vsmat}{\vsmallmatrix}{\endvsmallmatrix}
+\newenvironment{Vsmat}{\Vsmallmatrix}{\endVsmallmatrix}
+
+
+% HACK: This has been fixed in `mathtools', but the updated version is not
+% available on Arch yet
+\newcommand\coloneq{\coloneqq}
+\newcommand\eqcolon{\eqqcolon}

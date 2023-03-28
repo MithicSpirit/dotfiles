@@ -1,0 +1,4 @@
+ls-R
+.auctex-auto/
+
+!/.gitignore

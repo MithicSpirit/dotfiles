@@ -57,6 +57,7 @@ export SPACEMACSDIR="$HOME/.config/spacemacs"
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
 export STARSHIP_LOG="error"
+export TEXMFHOME="$XDG_DATA_HOME/texmf"
 export VK_ICD_FILENAMES="/usr/share/vulkan/icd.d/radeon_icd.i686.json:/usr/share/vulkan/icd.d/radeon_icd.x86_64.json"
 export WINEPREFIX="$XDG_DATA_HOME/wine"
 export WINIT_X11_SCALE_FACTOR=1
