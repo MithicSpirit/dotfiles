@@ -29,7 +29,7 @@ telescope.setup({
 			hide_parent_dir = false,
 			collapse_dirs = false,
 			quiet = false,
-			dir_icon = "",
+			dir_icon = "D",
 			dir_icon_hl = "Default",
 			display_stat = { date = true, size = true, mode = true },
 			hijack_netrw = true,
@@ -65,7 +65,7 @@ telescope.setup({
 					["u"] = fb_actions.goto_parent_dir,
 					["~"] = fb_actions.goto_home_dir,
 				},
-      },
+			},
 		},
 		project = {
 			base_dirs = {
