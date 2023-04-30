@@ -8,7 +8,7 @@ vim.opt.mouse = 'nvi'
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.timeout = true
 vim.opt.conceallevel = 2
-vim.opt.guifont = "Iosevka Mithic:h12"
+vim.opt.guifont = 'Iosevka Mithic:h12'
 vim.opt.linespace = 0
 
 vim.opt.ignorecase = true

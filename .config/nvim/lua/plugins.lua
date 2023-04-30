@@ -39,7 +39,6 @@ return require('packer').startup(function(use)
 	--	as = 'nord',
 	--	config = configure('nord'),
 	--}
-
 	use {
 		'catppuccin/nvim',
 		as = 'catppuccin',
@@ -111,10 +110,14 @@ return require('packer').startup(function(use)
 	--	'itchyny/lightline.vim',
 	--	config = configure('lightline'),
 	--}
+	--use {
+	--	'famiu/feline.nvim',
+	--	requires = {'catppuccin/nvim'},
+	--	config = configure('feline'),
 	use {
-		'famiu/feline.nvim',
-		requires = {'catppuccin/nvim'},
-		config = configure('feline'),
+		'nvim-lualine/lualine.nvim',
+		requires = {'catppuccin'},
+		config = configure('lualine'),
 	}
 
 	use {
