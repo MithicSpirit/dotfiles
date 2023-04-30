@@ -200,6 +200,66 @@ font:
 draw_bold_text_with_bright_colors: false
 
 schemes:
+  catppuccin-frappe: &catppuccin-frappe
+    primary:
+        background: "#333743"
+        foreground: "#ECEAF0"
+        dim_foreground: "#ECEAF0"
+        bright_foreground: "#ECEAF0"
+    cursor:
+        text: "#303446"
+        cursor: "#F2D5CF"
+    vi_mode_cursor:
+        text: "#303446"
+        cursor: "#BABBF1"
+    search:
+        matches:
+            foreground: "#303446"
+            background: "#A5ADCE"
+        focused_match:
+            foreground: "#303446"
+            background: "#A6D189"
+        footer_bar:
+            foreground: "#303446"
+            background: "#A5ADCE"
+    hints:
+        start:
+            foreground: "#303446"
+            background: "#E5C890"
+        end:
+            foreground: "#303446"
+            background: "#A5ADCE"
+    selection:
+        text: "#303446"
+        background: "#F2D5CF"
+    normal:
+        black:   "#51576D"
+        red:     "#E78284"
+        green:   "#A6D189"
+        yellow:  "#E5C890"
+        blue:    "#8CAAEE"
+        magenta: "#F4B8E4"
+        cyan:    "#81C8BE"
+        white:   "#B5BFE2"
+    bright:
+        black:   "#626880"
+        red:     "#E78284"
+        green:   "#A6D189"
+        yellow:  "#E5C890"
+        blue:    "#8CAAEE"
+        magenta: "#F4B8E4"
+        cyan:    "#81C8BE"
+        white:   "#A5ADCE"
+    dim:
+        black:   "#51576D"
+        red:     "#E78284"
+        green:   "#A6D189"
+        yellow:  "#E5C890"
+        blue:    "#8CAAEE"
+        magenta: "#F4B8E4"
+        cyan:    "#81C8BE"
+        white:   "#B5BFE2"
+
   nord: &nord
     primary:
       background: '#292e38'
@@ -329,7 +389,7 @@ schemes:
     #indexed_colors: []
     transparent_background_colors: false
 
-colors: *nord
+colors: *catppuccin-frappe
 
 # Bell
 #
@@ -372,7 +432,7 @@ bell:
   #
   command:
     program: paplay
-    args: 
+    args:
     - "/usr/share/sounds/freedesktop/stereo/message.oga"
     - "--volume=8000"
 
@@ -768,6 +828,8 @@ key_bindings:
   - { key: PageDown,  mods: Shift,   mode: ~Alt,        action: ScrollPageDown }
   - { key: Home,      mods: Shift,   mode: ~Alt,        action: ScrollToTop    }
   - { key: End,       mods: Shift,   mode: ~Alt,        action: ScrollToBottom }
+  - { key: Return,    mods: Shift,   mode: ~Vi|~Search, chars: "\x1b[13;2u"    }
+  - { key: Return,    mods: Control, mode: ~Vi|~Search, chars: "\x1b[13;5u"    }
 
   # Vi Mode
   - { key: Space,  mods: Shift|Control, mode: Vi|~Search, action: ScrollToBottom          }
@@ -787,8 +849,8 @@ key_bindings:
   - { key: F,      mods: Control,       mode: Vi|~Search, action: ScrollPageDown          }
   - { key: U,      mods: Control,       mode: Vi|~Search, action: ScrollHalfPageUp        }
   - { key: D,      mods: Control,       mode: Vi|~Search, action: ScrollHalfPageDown      }
-  - { key: U,                           mode: Vi|~Search, action: ScrollHalfPageUp        }#
-  - { key: D,                           mode: Vi|~Search, action: ScrollHalfPageDown      }#
+  - { key: U,                           mode: Vi|~Search, action: ScrollHalfPageUp        }
+  - { key: D,                           mode: Vi|~Search, action: ScrollHalfPageDown      }
   - { key: Y,                           mode: Vi|~Search, action: Copy                    }
   - { key: Y,                           mode: Vi|~Search, action: ClearSelection          }
   - { key: Copy,                        mode: Vi|~Search, action: ClearSelection          }
