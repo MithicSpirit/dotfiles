@@ -9,12 +9,14 @@ super + shift + control + Return
 	pcmanfm
 
 super + e
-	visual
-super + shift + e
-	doom +everywhere
+	neovide
+#super + shift + e
+#	doom +everywhere
 
 super + v
 	dmenu-greenclip
+super + shift + v
+	greenclip-force
 super + shift + space
 	dmenu-xkb
 
@@ -52,9 +54,10 @@ super + s ; super + shift + ctrl + r
 	nice -n5 "$TERMINAL" -t radeontop -e sudo radeontop -cT
 
 ## Media controls
+shift + XF86AudioPlay
+	amixer -D pulse -q sset Master toggle
 any + XF86AudioPlay
 	playerctl play-pause
-# For keyboards with mute but not playpause
 shift + XF86AudioMute
 	playerctl play-pause
 any + XF86AudioMute
@@ -62,7 +65,7 @@ any + XF86AudioMute
 shift + XF86Audio{Raise,Lower}Volume
 	amixer -D pulse -q sset Master 10%{+,-}
 any + XF86Audio{Raise,Lower}Volume
-	amixer -D pulse -q sset Master 5%{+,-}
+	amixer -D pulse -q sset Master 2%{+,-}
 
 ## Screenshot
 super + p
