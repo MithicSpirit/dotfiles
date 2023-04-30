@@ -6,6 +6,29 @@ ctp_feline.setup({
 	assets = {
 		right_separator = '',
 		left_separator = '',
+		mode_icon = "",
+		dir = "",
+		file = "",
+		lsp = {
+			server = "",
+			error = "",
+			warning = "",
+			info = "",
+			hint = "",
+		},
+		git = {
+			branch = "",
+			added = "",
+			changed = "",
+			removed = "",
+		},
+	},
+	sett = {
+		diffs = clrs.mauve,
+		extras = clrs.overlay1,
+		curr_file = clrs.maroon,
+		curr_dir = clrs.flamingo,
+		show_modified = true,
 	},
 	mode_colors = {
 		['n']    = { 'NORMAL', clrs.lavender },
@@ -28,11 +51,7 @@ ctp_feline.setup({
 		['rm']   = { 'MORE  ', clrs.teal },
 		['r?']   = { 'CONFRM', clrs.mauve },
 		['!']    = { 'SHELL ', clrs.green },
-	}
+	},
 })
 
-feline.setup({
-	components = ctp_feline.get(),
-})
-
-feline.winbar.setup()
+feline.setup({ components = ctp_feline.get() })

@@ -66,7 +66,7 @@ vim.api.nvim_create_autocmd('FileType', {
 	group = augroup,
 })
 vim.api.nvim_create_autocmd('FileType', {
-	pattern = {'sh', 'zsh', 'asm', 'lua'},
+	pattern = {'sh', 'zsh', 'asm', 'lua', 'conf'},
 	callback = function()
 		vim.opt_local.softtabstop = 8
 		vim.opt_local.shiftwidth = 8
