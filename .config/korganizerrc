@@ -40,7 +40,7 @@ Next X Days=5
 
 [GlobalCollectionSelection]
 Current=x-1
-Selection=c15,c14,c78,c81,c74,c75,c79,c80
+Selection=c14,c15
 
 [GlobalCollectionView]
 Expansion=
@@ -48,18 +48,25 @@ HorizontalScroll=0
 VerticalScroll=0
 
 [Internal Settings]
-DefaultResourceColorSeed=7
+DefaultResourceColorSeed=11
 
 [KFileDialog Settings]
 detailViewIconSize=16
 
 [KOrganizer Geometry]
-Separator1=316,1590
-Separator2=370,0,559,132
+Separator1=309,1551
+Separator2=353,0,403,257
 
 [MainWindow]
+1866x1166 screen: Window-Maximized=true
+1914x1196 screen: Window-Maximized=true
+1920x1200 screen: Height=1166
+1920x1200 screen: Width=1910
+1920x1200 screen: XPosition=3
+1920x1200 screen: YPosition=27
+2240x1400 screen: Window-Maximized=true
 RestorePositionForNextInstance=false
-State=AAAA/wAAAAD9AAAAAAAAB3YAAAQtAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAQAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAJABrAG8AcgBnAGEAbgBpAHoAZQByAF8AdABvAG8AbABiAGEAcgEAAAOY/////wAAAAAAAAAAAAAAIABzAGMAaABlAGQAdQBsAGUAXwB0AG8AbwBsAGIAYQByAAAAAAD/////AAAAAAAAAAAAAAAcAGYAaQBsAHQAZQByAF8AdABvAG8AbABiAGEAcgAAAAAA/////wAAAAAAAAAA
+State=AAAA/wAAAAD9AAAAAAAAB0oAAAQBAAAABAAAAAQAAAAIAAAACPwAAAABAAAAAgAAAAQAAAAWAG0AYQBpAG4AVABvAG8AbABCAGEAcgEAAAAA/////wAAAAAAAAAAAAAAJABrAG8AcgBnAGEAbgBpAHoAZQByAF8AdABvAG8AbABiAGEAcgEAAANI/////wAAAAAAAAAAAAAAIABzAGMAaABlAGQAdQBsAGUAXwB0AG8AbwBsAGIAYQByAAAAAAD/////AAAAAAAAAAAAAAAcAGYAaQBsAHQAZQByAF8AdABvAG8AbABiAGEAcgAAAAAA/////wAAAAAAAAAA
 ToolBarsMovable=Disabled
 eDP=eDP
 eDP Height 1920x1200=1170
@@ -108,10 +115,10 @@ WorkingHoursEnd=1752,1,1,19,30,0
 Timescale Timezones=
 
 [TodoTreeViewStateS]
-Current=i157316
+Current=x-1
 Expansion=
 HorizontalScroll=0
-Selection=i157316
+Selection=
 VerticalScroll=0
 
 [UiSettings]
@@ -119,5 +126,5 @@ ColorScheme=
 
 [Views]
 Agenda View Tab Index=0
-Separator AgendaView=98,945
+Separator AgendaView=93,884
 ShownDatesCount=7
