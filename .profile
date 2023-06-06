@@ -31,6 +31,7 @@ export _JAVA_AWT_WM_NONREPARENTING="1"
 export AGDA_DIR="$XDG_CONFIG_HOME/agda"
 export AMD_VULKAN_ICD="RADV"
 export BATDIFF_USE_DELTA="true"
+export BEMENU_OPTS="$(tr '\n' ' ' <"$XDG_CONFIG_HOME/bemenu")"
 export CABAL_CONFIG="$XDG_CONFIG_HOME/cabal/config"
 export CABAL_DIR="$XDG_DATA_HOME/cabal"
 export CARGO_BUILD_JOBS="$NUM_BUILD_PROCS"
@@ -94,7 +95,6 @@ if [ -z "$__MITHIC_RECURSE_INITIALIZED" ]; then
 	export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/local/share:/usr/share"
 	export XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS:/etc/xdg"
 
-	export BEMENU_OPTS=" $BEMENU_OPTS $(tr '\n' ' ' <"$XDG_CONFIG_HOME/bemenu") "
 	export DEBUGINFOD_URLS="https://debuginfod.elfutils.org/ https://debuginfod.archlinux.org/ $DEBUGINFOD_URLS"
 	export GRADLE_OPTS=" $GRADLE_OPTS -Dorg.gradle.daemon=false
 		-Dorg.gradle.caching=false -Dorg.gradle.parallel=true
