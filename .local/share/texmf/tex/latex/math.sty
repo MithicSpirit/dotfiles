@@ -9,7 +9,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{math}%
-[2023/03/27 (WIP) Personal package for mathematics typesetting]
+[2023/04/21 (WIP) Personal package for mathematics typesetting]
 
 \RequirePackage{iftex}
 
@@ -19,15 +19,18 @@
 
 \RequirePackage{mathtools}
 \ifluatex\RequirePackage{lualatex-math}\fi
+%\RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}
 \RequirePackage[mathscr]{euscript}
 \RequirePackage{xfrac}
+\RequirePackage{siunitx}
+%\RequirePackage{pdfmsym}
 
 \RequirePackage{tikz}
 \RequirePackage{pgfplots}
 \RequirePackage{graphicx}
 \RequirePackage{xcolor}
 
-\pgfplotsset{compat=1.18}
+\pgfplotsset{compat=1.18, tick scale binop=\times}
 \usepgfplotslibrary{colormaps}
 \usetikzlibrary{3d}
 \usetikzlibrary{perspective}
@@ -38,6 +41,12 @@
 \newtheorem*{prop}{Proposition}
 \newtheorem*{lem}{Lemma}
 \newtheorem*{dfn}{Definition}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{corollary}{Corollary}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{definition}{Definition}
+\newtheorem*{proposition}{Proposition}
 
 \newcommand\foreign{\emph}
 \newcommand\ie{\foreign{i.e.}}
@@ -58,6 +67,7 @@
 \DeclareMathOperator\id{id}
 \DeclareMathOperator\img{img}
 \DeclareMathOperator\nullity{null}
+\DeclareMathOperator\grad{grad}
 
 \DeclareMathOperator\proj{proj}
 \DeclareMathOperator\rej{rej}
@@ -69,13 +79,25 @@
 
 \newcommand\phantomeq{\phantom{{}={}}}
 
-\let\vect\vec % chktex 14
-\let\vec\mathbf
+\let\vect\vec  % chktex 14
+\renewcommand\vec{\mathbf}
+\newcommand\uvec[1]{\hat{\vec{#1}}}
+
+%\let\left@\left  % chktex 43
+%\let\right@\right  % chktex 43
+%\renewcommand\left{\mathopen{}\mathclose\bgroup\left@}  % chktex 43
+%\renewcommand\right{\aftergroup\egroup\right@}  % chktex 43
 
 \let\epsilon@tmp\epsilon
 \let\epsilon\varepsilon
 \let\varepsilon\epsilon@tmp
 \let\epsilon@tmp\@undefined
+
+\let\divsymb\div
+\let\div\relax
+\DeclareMathOperator\div{div}
+\DeclareMathOperator\curl{curl}
+
 
 \newlength\nphant@wd
 \newcommand\nphant@do[1]{\settowidth{\nphant@wd}{#1}\hspace*{-\nphant@wd}}
@@ -127,24 +149,26 @@
 \newcommand\ev@star[1]{#1\Big|}
 \newcommand\eq@star[1]{\left.#1\right|}
 
-\newcommand\pa@nostar[1]{{\pa@star{#1}}}
-\newcommand\pq@nostar[1]{{\pq@star{#1}}}
-\newcommand\br@nostar[1]{{\br@star{#1}}}
-\newcommand\bq@nostar[1]{{\bq@star{#1}}}
-\newcommand\Br@nostar[1]{{\Br@star{#1}}}
-\newcommand\Bq@nostar[1]{{\Bq@star{#1}}}
-\newcommand\an@nostar[1]{{\an@star{#1}}}
-\newcommand\aq@nostar[1]{{\aq@star{#1}}}
-\newcommand\ve@nostar[1]{{\ve@star{#1}}}
-\newcommand\vq@nostar[1]{{\vq@star{#1}}}
-\newcommand\Ve@nostar[1]{{\Ve@star{#1}}}
-\newcommand\Vq@nostar[1]{{\Vq@star{#1}}}
-\newcommand\fa@nostar[1]{{\fa@star{#1}}}
-\newcommand\fq@nostar[1]{{\fq@star{#1}}}
-\newcommand\ca@nostar[1]{{\ca@star{#1}}}
-\newcommand\cq@nostar[1]{{\cq@star{#1}}}
-\newcommand\ev@nostar[1]{{\ev@star{#1}}}
-\newcommand\eq@nostar[1]{{\eq@star{#1}}}
+\newcommand\open@{\mathopen{}\mathclose\bgroup}
+\newcommand\close@{\aftergroup\egroup}
+\newcommand\pa@nostar[1]{\open@{\pa@star{#1}\close@}}
+\newcommand\pq@nostar[1]{\open@{\pq@star{#1}\close@}}
+\newcommand\br@nostar[1]{\open@{\br@star{#1}\close@}}
+\newcommand\bq@nostar[1]{\open@{\bq@star{#1}\close@}}
+\newcommand\Br@nostar[1]{\open@{\Br@star{#1}\close@}}
+\newcommand\Bq@nostar[1]{\open@{\Bq@star{#1}\close@}}
+\newcommand\an@nostar[1]{\open@{\an@star{#1}\close@}}
+\newcommand\aq@nostar[1]{\open@{\aq@star{#1}\close@}}
+\newcommand\ve@nostar[1]{\open@{\ve@star{#1}\close@}}
+\newcommand\vq@nostar[1]{\open@{\vq@star{#1}\close@}}
+\newcommand\Ve@nostar[1]{\open@{\Ve@star{#1}\close@}}
+\newcommand\Vq@nostar[1]{\open@{\Vq@star{#1}\close@}}
+\newcommand\fa@nostar[1]{\open@{\fa@star{#1}\close@}}
+\newcommand\fq@nostar[1]{\open@{\fq@star{#1}\close@}}
+\newcommand\ca@nostar[1]{\open@{\ca@star{#1}\close@}}
+\newcommand\cq@nostar[1]{\open@{\cq@star{#1}\close@}}
+\newcommand\ev@nostar[1]{\open@{\ev@star{#1}\close@}}
+\newcommand\eq@nostar[1]{\open@{\eq@star{#1}\close@}}
 
 \newcommand\pa{\@ifstar{\pa@star}{\pa@nostar}}
 \newcommand\pq{\@ifstar{\pq@star}{\pq@nostar}}
