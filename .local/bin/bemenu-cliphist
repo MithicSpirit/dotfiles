@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+sel=$(cliphist list | bemenu -p Copy -cl 10 -W 0.5)
+if text=$(echo "$sel" | cliphist decode); then
+	echo "$text" | wl-copy
+else
+	echo "$sel" | wl-copy
+fi
