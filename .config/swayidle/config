@@ -1,0 +1,7 @@
+timeout 870 'notify-send -t 30000 -a swayidle "Locking soon"'
+timeout 900 'swaylock -f'
+timeout 960 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
+
+before-sleep 'swaylock -f'
+lock 'swaylock -f'
+idlehint 960
