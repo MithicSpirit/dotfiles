@@ -1,5 +1,12 @@
 #!/usr/bin/env zsh
 
+[[ ! ( -t 1 && -t 2 ) && -n "$TERMINAL" ]] && exec ${=TERMINAL} -e "$0" "$@"
+
+command -v tmux &>/dev/null && [[ -z "$TMUX" ]] &&
+	exec tmux new-session -As update "$0" "$@"
+sleep 0.1
+unset LINES COLUMNS DISPLAY
+trap '' INT
 
 ###########
 ## UTILS ##
@@ -127,7 +134,7 @@ function _prep_stop
 	clear -x
 	tcursor
 	text=''
-	function killallme { killall -eiu "$(whoami)" -SIGTERM "$@"; }
+	function killallme { killall -eiu "$(whoami)" -SIGTERM "$@"; sleep 0.2; }
 	[[ "$sel" =~ '.*emacs.*' ]] && {
 		[[ -n "$text" ]] && echo
 		echo 'Emacs:'
@@ -262,7 +269,12 @@ function _core_clean
 	[[ "$sel" =~ ".*localrepo.*" ]] && {
 		echo 'Local Repo:'
 		packages="$(paru -Ll | rg -v '\[installed\]' | awk '{print $2}')"
-		if [[ -n "$packages" ]]; then
+		if [[ $(echo "$packages" | wc -l) -gt 10 ]]; then
+			echo "$packages"
+			echo 'Too many packages! Please manually confirm and fix.'
+			proceed
+			return 1
+		elif [[ -n "$packages" ]]; then
 			echo "$packages"
 			echo -n 'Are you sure you wish to delete these packages? '
 			confirm || return 1
@@ -457,6 +469,7 @@ function _misc_doom
 			'update' 'Run update (doom upgrade; etc.)' \
 			'sync' 'Sync without updating (doom sync; etc.)' \
 			'doctor' 'Only run doctor without syncing or updating (doom doctor)' \
+			'build' 'Build necessary modules' \
 			'recomp' 'Recompile necessary modules' \
 		)" || return 1
 		case "$sel" in
@@ -464,6 +477,7 @@ function _misc_doom
 			update) _misc_doom_update;;
 			sync) _misc_doom_sync;;
 			doctor) _misc_doom_doctor;;
+			build) _misc_doom_build;;
 			recomp) _misc_doom_recomp;;
 			*) return 2;;
 		esac
@@ -509,6 +523,16 @@ function _misc_doom_doctor
 	(
 		cd ~/.config/emacs || return 2
 		doom doctor
+	)
+	proceed
+}
+function _misc_doom_build
+{
+	clear -x
+	tcursor
+	(
+		cd ~/.config/emacs || return 2
+		doom build -j "$NUM_BUILD_PROCS" -r
 	)
 	proceed
 }
@@ -735,10 +759,4 @@ function _misc_ghcup
 	proceed
 }
 
-
-sleep 0.1
-unset LINES COLUMNS DISPLAY
-command -v tmux &>/dev/null &&
-	[[ -z "$TMUX" ]] &&
-	exec tmux new-session -As update "$0" "$@"
 exec main
