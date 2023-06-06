@@ -5,6 +5,7 @@
 !/.config/
 !/.gdbinit
 !/.local/
+!/.login
 !/.mbsyncrc
 !/.profile
 !/.ssh/
