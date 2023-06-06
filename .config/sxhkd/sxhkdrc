@@ -9,7 +9,7 @@ super + shift + control + Return
 	pcmanfm
 
 super + e
-	neovide
+	sleep 0.5; neovide --nofork
 #super + shift + e
 #	doom +everywhere
 
