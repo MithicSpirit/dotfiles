@@ -2,8 +2,8 @@
 
 echo "-- $PKGBASE --"
 # Reset gpg timer
-GPG_TTY="$(tty)" gpg -o /dev/null --local-user FEA8F724F2800E40 \
-	--clearsign /dev/null
+#GPG_TTY="$(tty)" gpg -o /dev/null --local-user FEA8F724F2800E40 \
+#	--clearsign /dev/null
 
 issue_found=0
 # Automatic issue resolution
