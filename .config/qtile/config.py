@@ -188,7 +188,7 @@ sysinfo_widgets: list[list[tuple]] = [
             {
                 "fmt": "Vol: {}",
                 "device": "pulse",
-                "step": 5,
+                "step": 2,
                 "update_interval": 0.5,
                 "volume_app": "pavucontrol",
             },
