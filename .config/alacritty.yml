@@ -87,7 +87,7 @@ window:
   #title: Alacritty
 
   # Allow terminal applications to change Alacritty's window title.
-  dynamic_title: false
+  dynamic_title: true
 
   # Window class (Linux/BSD only):
   class:
@@ -389,7 +389,7 @@ schemes:
     #indexed_colors: []
     transparent_background_colors: false
 
-colors: *catppuccin-frappe
+colors: *nord
 
 # Bell
 #
