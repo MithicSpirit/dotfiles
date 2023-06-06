@@ -14,12 +14,13 @@
   <property name="zoomStep" value="10"/>
   <property name="zoomStepScroll" value="2"/>
   <property name="displayDpi" value="72"/>
-  <property name="mainWndWidth" value="1900"/>
-  <property name="mainWndHeight" value="1156"/>
+  <property name="mainWndWidth" value="0"/>
+  <property name="mainWndHeight" value="0"/>
   <property name="maximized" value="false"/>
   <property name="showToolbar" value="true"/>
   <property name="showSidebar" value="true"/>
   <property name="sidebarWidth" value="130"/>
+  <property name="sidebarNumberingStyle" value="1"/>
   <property name="sidebarOnRight" value="true"/>
   <property name="scrollbarOnLeft" value="true"/>
   <property name="menubarVisible" value="true"/>
@@ -43,6 +44,8 @@
   <property name="presentationViewModeAttributes" value="goFullscren,showToolbar"/>
   <!--The cursor icon used with a stylus, allowed values are "none", "dot", "big", "arrow"-->
   <property name="stylusCursorType" value="dot"/>
+  <!--The eraser cursor visibility used with a stylus, allowed values are "never", "always", "hover", "touch"-->
+  <property name="eraserVisibility" value="always"/>
   <!--The icon theme, allowed values are "iconsColor", "iconsLucide"-->
   <property name="iconTheme" value="iconsLucide"/>
   <property name="highlightPosition" value="false"/>
@@ -129,7 +132,7 @@
   <property name="latexSettings.sourceViewAutoIndent" value="true"/>
   <property name="latexSettings.sourceViewSyntaxHighlight" value="true"/>
   <property name="latexSettings.sourceViewShowLineNumbers" value="false"/>
-  <property name="font" font="Overpass" size="14"/>
+  <property name="font" font="Overpass" size="12"/>
   <data name="buttonConfig">
     <data name="default">
       <attribute name="color" type="hex" value="ffffffff"/>
@@ -177,6 +180,10 @@
       <attribute name="deviceClass" type="int" value="5"/>
       <attribute name="deviceSource" type="int" value="0"/>
     </data>
+    <data name="Logitech MX Master 3S">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
     <data name="Logitech Wireless Keyboard PID:4023">
       <attribute name="deviceClass" type="int" value="5"/>
       <attribute name="deviceSource" type="int" value="0"/>
@@ -193,6 +200,14 @@
       <attribute name="deviceClass" type="int" value="1"/>
       <attribute name="deviceSource" type="int" value="6"/>
     </data>
+    <data name="MX Master 3S">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
+    <data name="MX Master 3S Mouse">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
+    </data>
     <data name="Wacom One by Wacom S Pen Pen (0)">
       <attribute name="deviceClass" type="int" value="2"/>
       <attribute name="deviceSource" type="int" value="1"/>
@@ -204,6 +219,10 @@
     <data name="Wacom One by Wacom S Pen stylus">
       <attribute name="deviceClass" type="int" value="2"/>
       <attribute name="deviceSource" type="int" value="1"/>
+    </data>
+    <data name="Wayland Pointer">
+      <attribute name="deviceClass" type="int" value="1"/>
+      <attribute name="deviceSource" type="int" value="0"/>
     </data>
   </data>
   <data name="lastUsedPageBgColor">
@@ -277,7 +296,7 @@
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="selectPdfTextLinear">
-      <attribute name="color" type="hex" value="000000"/>
+      <attribute name="color" type="hex" value="ffffff"/>
       <attribute name="drawingType" type="string" value="default"/>
     </data>
     <data name="selectPdfTextRect">
