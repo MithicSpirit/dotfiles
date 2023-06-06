@@ -27,6 +27,9 @@ set dbus-raise-window false
 set font "Iosevka Mithic 9"
 set page-padding 2
 set page-cache-size 64
+set highlight-transparency 0.5
+set statusbar-h-padding 3
+set statusbar-v-padding 1
 
 set completion-bg "#3B4252"
 set completion-fg "#ECEFF4"
@@ -49,7 +52,6 @@ set statusbar-fg "#E5E9F0"
 set highlight-color "#4C566A"
 set highlight-fg "#ECEFF4"
 set highlight-active-color "#88C0D0"
-set highlight-transparency 0.5
 set index-bg "#3B4252"
 set index-fg "#ECEFF4"
 set index-active-bg "#434C5E"
