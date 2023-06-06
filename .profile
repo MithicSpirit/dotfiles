@@ -6,21 +6,28 @@ export TERMINAL="alacritty"
 export BROWSER="dmenu-browser"
 export REAL_BROWSER="librewolf"
 
-export XDG_CURRENT_DESKTOP="KDE"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_BIN_HOME="$HOME/.local/bin"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 [ -r "$XDG_CONFIG_HOME/user-dirs.dirs" ] && . "$XDG_CONFIG_HOME/user-dirs.dirs"
-#export XDG_{DOWNLOAD,DOCUMENTS,MUSIC,PICTURES,VIDEOS,PUBLICSHARE,DESKTOP,TEMPLATES}_DIR
+export XDG_DOWNLOAD_DIR
+export XDG_DOCUMENTS_DIR
+export XDG_MUSIC_DIR
+export XDG_PICTURES_DIR
+export XDG_VIDEOS_DIR
+export XDG_PUBLICSHARE_DIR
+export XDG_DESKTOP_DIR
+export XDG_TEMPLATES_DIR
 
 export LC_MEASUREMENT="C"
 export LC_TIME="C"
 
-export NUM_BUILD_PROCS="10"
+export NUM_BUILD_PROCS="8"
 
 export _FASD_DATA="$XDG_DATA_HOME/fasd"
+export _JAVA_AWT_WM_NONREPARENTING="1"
 export AGDA_DIR="$XDG_CONFIG_HOME/agda"
 export AMD_VULKAN_ICD="RADV"
 export BATDIFF_USE_DELTA="true"
@@ -38,7 +45,6 @@ export GTK_THEME=Arc-Dark
 export GTK_THEME_VARIANT=dark
 export GPG_TTY="$(tty)"
 #export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
-export KDE_SESSION_VERSION=5
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 export MYPY_CACHE_DIR="$XDG_CACHE_HOME/mypy"
 export MOZ_USE_XINPUT2=1
@@ -46,7 +52,7 @@ export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
 export PARALLEL_HOME="$XDG_CONFIG_HOME/parallel"
 export PYTHONINTMAXSTRDIGITS=0
 export PYTHONTRACEMALLOC=1
-#export QT_QPA_PLATFORMTHEME="qt6ct"
+export QT_QPA_PLATFORMTHEME="gtk2"
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export RIPGREP_CONFIG_PATH="$HOME/.config/rg.conf"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
@@ -63,7 +69,7 @@ export WINEPREFIX="$XDG_DATA_HOME/wine"
 export WINIT_X11_SCALE_FACTOR=1
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 #export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
-#export XCURSOR_THEME="breeze_cursors"
+export XCURSOR_THEME="breeze_cursors"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 export PAGER="bat -p --paging=always --theme=ansi"
@@ -88,7 +94,8 @@ if [ -z "$__MITHIC_RECURSE_INITIALIZED" ]; then
 	export XDG_DATA_DIRS="$XDG_DATA_DIRS:/usr/local/share:/usr/share"
 	export XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS:/etc/xdg"
 
-	export DEBUGINFOD_URLS="https://debuginfod.elfutils.org/ https://debuginfod.archlinux.org/ $DEBUFINFOD_URLS"
+	export BEMENU_OPTS=" $BEMENU_OPTS $(tr '\n' ' ' <"$XDG_CONFIG_HOME/bemenu") "
+	export DEBUGINFOD_URLS="https://debuginfod.elfutils.org/ https://debuginfod.archlinux.org/ $DEBUGINFOD_URLS"
 	export GRADLE_OPTS=" $GRADLE_OPTS -Dorg.gradle.daemon=false
 		-Dorg.gradle.caching=false -Dorg.gradle.parallel=true
 		-Dorg.gradle.workers.max=$NUM_BUILD_PROCS "
