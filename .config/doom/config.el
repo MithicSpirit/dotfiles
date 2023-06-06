@@ -151,6 +151,7 @@ This must be added to `emojify-inhibit-functions' to work."
       lsp-enable-indentation nil
       lsp-rust-jobs 1
       ccls-enable-skipped-ranges nil
+      asm-comment-char ?#
       browse-url-generic-program "xdg-open"
       browse-url-handlers '(("*" . 'browse-url-xdg-open)))
 ;(after! persp-mode
@@ -568,5 +569,5 @@ Use WIDTH, HEIGHT, CREP, and ZREP as described in
 ;;           (cadr latex-list) "%(latex)")))
 
 
-;; mips-mode
-(use-package! mips-mode)
+;; typst-mode
+(use-package! typst-mode)

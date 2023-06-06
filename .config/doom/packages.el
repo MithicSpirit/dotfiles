@@ -125,4 +125,4 @@
            :repo "vherrmann/org-xournalpp"
            :files ("resources" "*.el")))
 (package! evil-escape :disable t)
-(package! mips-mode :pin "75152fc78baa762af4f83602f6cb3c8b9bcebca3")
+(package! typst-mode :recipe (:host github :repo "Ziqi-Yang/typst-mode.el"))
