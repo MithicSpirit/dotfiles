@@ -1,0 +1,140 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Iosevka Mithic;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: none;
+    text-shadow: none;
+    transition-duration: 0s;
+    transition: none;
+    color: #eceff4;
+}
+
+window {
+    background: rgba(46, 52, 64, 0.75);
+}
+
+#workspaces button {
+    margin: 0px;
+    padding: 0px 2px;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+}
+#workspaces button.visible {
+    background: rgba(67, 76, 94, 0.5);
+    border-bottom-color: #eceff4;
+}
+#workspaces button.focused {
+    color: #8fbcbb;
+    border-bottom-color: #8fbcbb;
+}
+#workspaces button.urgent {
+    border-bottom-color: #d08770;
+}
+#workspaces button * {
+    color: inherit;
+}
+
+.modules-left > * > :not(#workspaces) {
+    margin: 0px 5px;
+}
+
+#scratchpad {
+    color: #81a1c1;
+}
+
+#mode {
+    font-style: italic;
+    color: #b48ead;
+}
+
+.modules-right > * > * {
+    margin: 4px 5px;
+}
+
+.modules-right > * > :not(#tray) {
+    border-radius: 10px;
+    min-width: 20px;
+    min-height: 20px;
+    padding: 0px 8px;
+    background: #3b4252;
+}
+
+#gamemode {
+    color: #81a1c1;
+}
+#gamemode > image {
+}
+
+#mpris {
+    color: #d8dee9;
+}
+#mpris.playing {
+    color: #81a1c1;
+}
+
+#network {
+    color: #bf616a;
+}
+#network.disabled {
+    color: #d8dee9;
+}
+#network.wifi, #network.ethernet, #network.linked {
+    color: #81a1c1;
+}
+
+#cpu, #memory{
+    color: #a3be8c;
+}
+#cpu.low, #memory.low {
+    color: #ebcb8b;
+}
+#cpu.medium, #memory.medium {
+    color: #d08770;
+}
+#cpu.high, #memory.high {
+    color: #bf616a;
+}
+
+#temperature {
+    color: #a3be8c;
+}
+#temperature.critical {
+    color: #bf616a;
+}
+
+#language {
+    color: #81a1c1;
+}
+
+#pulseaudio {
+    color: #81a1c1;
+}
+#pulseaudio.zero {
+    color: #bf616a;
+}
+#pulseaudio.muted {
+    color: #d8dee9;
+}
+
+#battery.discharging {
+    color: #ebcb8b;
+}
+#battery.discharging.warning {
+    color: #d08770;
+}
+#battery.discharging.critical {
+    color: #bf616a;
+}
+#battery.charging, #battery.plugged {
+    color: #a3be8c;
+}
+
+#clock {
+    color: #81a1c1;
+}
+
+#tray {
+    margin: 0px 15px;
+}
