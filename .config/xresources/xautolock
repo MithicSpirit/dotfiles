@@ -10,9 +10,9 @@ Xautolock*killer: xset dpms force standby
 !Xautolock*notify: 60
 !Xautolock*notifier: notify-send 'Locking soon'
 
-Xautolock*corners: 0+-0
-Xautolock*cornersize: 6
-Xautolock*cornerdelay: 60
-!Xautolock*cornerredelay: 45
+Xautolock*corners: 0+--
+Xautolock*cornersize: 16
+Xautolock*cornerdelay: 10
+Xautolock*cornerredelay: 45
 
 Xautolock*noclose: True
