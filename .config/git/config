@@ -34,3 +34,5 @@
 	addEmptyPathspec = false
 [push]
 	autoSetupRemote = true
+[fetch]
+	parallel = 0
