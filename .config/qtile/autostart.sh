@@ -26,7 +26,7 @@ setbackground &
 
 sleep 0.5
 kded5 &
-systemctl --user restart emacs.service &
+#systemctl --user restart emacs.service &
 xautolock &
 greenclip daemon >>/tmp/greenclip.log &
 tmux -D &
@@ -34,6 +34,7 @@ redshift-gtk -l geoclue2 -b 0.95:0.9 -t 6400K:4000K &
 unkrun kdeconnect-indicator &
 unkrun flameshot &
 [ "$REAL_GPU" != "none" ] && replay-sorcery >>/tmp/replay-sorcery.log &
+#easyeffects --gapplication-service &
 
 sleep 0.5
 for module in \
