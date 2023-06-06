@@ -5,10 +5,10 @@ alias -g \
 	B='&>/dev/null &!' \
 
 alias \
+	..='cd ..' \
 	c='cal -3' \
 	copy='xclip -i -sel c' \
 	cp='cp -ir' \
-	devenv='deactivate' \
 	df='duf' \
 	diff='batdiff' \
 	doomd='doom doctor' \
@@ -42,6 +42,7 @@ alias \
 	pip='python -m pip' \
 	ppy='pypy3' \
 	ps='procs' \
+	r='rifle' \
 	radeontop='sudo radeontop -cT' \
 	rm='rmtrash -I' \
 	rmdir='rmdirtrash -p' \
@@ -57,6 +58,7 @@ alias \
 	swapflush='sudo swapoff -va; sudo swapon -va' \
 	tmuxattachall='while tmux attach-session; do done' \
 	ufw='sudo ufw' \
+	unvenv='deactivate' \
 	updb='sudo updatedb' \
 	v='bat' \
 	venv='source venv/bin/activate' \
@@ -86,7 +88,7 @@ command -v git &>/dev/null && alias \
 	gd='git diff' \
 	gdd='git diff --cached' \
 	gdl='git diff HEAD~' \
-	gf='git fetch' \
+	gf='git fetch --all' \
 	gid='git rev-parse HEAD' \
 	gl='git pull' \
 	gld='git diff HEAD..@{u}' \
@@ -121,6 +123,7 @@ command -v homegit &>/dev/null && alias \
 command -v devour &>/dev/null && alias \
 	d='devour' \
 	dim='devour imv' \
+	dvi='devour neovide --nofork --notabs --' \
 	dopen='devour xdg-open' \
 	dza='devour zathura' \
 	emacs='devour visual' \
@@ -183,6 +186,13 @@ command -v fasd &>/dev/null &&
 			[ -z "$_fasd_ret" ] && return 1
 			[ -d "$_fasd_ret" ] && cd "$_fasd_ret" ||
 				printf '%s\n' "$_fasd_ret"
+		fi
+
+		local ls=${aliases[ls]}
+		if [ -z "$ls" ]; then
+			ls
+		else
+			${=ls}
 		fi
 	}
 command -v fasd_cd &>/dev/null && alias \
