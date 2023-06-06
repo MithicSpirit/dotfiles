@@ -10,6 +10,13 @@ vim.keymap.set('', 'gsF', function()
 	hop.hint_char1({direction = dir.BEFORE_CURSOR})
 end)
 
+vim.keymap.set('', 'gss', function()
+	hop.hint_char2({direction = dir.AFTER_CURSOR})
+end)
+vim.keymap.set('', 'gsS', function()
+	hop.hint_char2({direction = dir.BEFORE_CURSOR})
+end)
+
 vim.keymap.set('', 'gst', function()
 	hop.hint_char1({direction = dir.AFTER_CURSOR, hint_offset = -1})
 end)

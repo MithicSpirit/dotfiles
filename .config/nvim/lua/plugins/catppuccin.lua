@@ -34,12 +34,22 @@ require('catppuccin').setup({
 	},
 	custom_highlights = {},
 	integrations = {
-		cmp = true,
 		gitsigns = true,
-		nvimtree = true,
+		hop = true,
+		markdown = true,
+		mason = true,
+		cmp = true,
+		treesitter = true,
 		telescope = true,
-		notify = false,
-		mini = false,
+		gitgutter = true,
+		vim_sneak = true,
+		dap = {
+			enabled = true,
+			enable_ui = true,
+		},
+		native_lsp = {
+			enabled = true,
+		},
 	},
 })
 

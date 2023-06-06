@@ -6,10 +6,11 @@ vim.opt.showmode = false
 vim.opt.termguicolors = false
 vim.opt.mouse = 'nvi'
 vim.opt.clipboard = 'unnamedplus'
-vim.opt.timeout = true
 vim.opt.conceallevel = 2
 vim.opt.guifont = 'Iosevka Mithic:h12'
 vim.opt.linespace = 0
+vim.opt.timeout = false
+vim.opt.cursorline = true
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -21,14 +22,14 @@ vim.opt.undodir = (os.getenv('XDG_CACHE_HOME')
 	.. (os.getenv('NVIM_APPNAME') or 'nvim') .. '/undodir'
 vim.opt.undofile = true
 
-vim.opt.scrolloff = 4
+vim.opt.scrolloff = 6
 vim.opt.number = true
 vim.opt.relativenumber = false
 
 vim.opt.listchars = {
 	tab = '> ',
 	nbsp = '_',
-	trail = '.',
+	trail = '⏹',
 	lead = '|',
 	leadmultispace = '|   ',
 	extends = '$',
@@ -40,7 +41,6 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 
 vim.opt.textwidth = 80
-vim.opt.cursorline = true
 vim.opt.colorcolumn = '+1'
 vim.opt.wrap = false
 
@@ -54,7 +54,7 @@ vim.g.tex_flavor = 'latex'
 vim.g.rust_recommended_style = 0
 
 
-local augroup = vim.api.nvim_create_augroup('mithic', {})
+local augroup = vim.api.nvim_create_augroup('mithic-set', {})
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = {'c', 'cpp', 'java', 'javascript', 'typescript', 'json'},
 	callback = function()
@@ -75,7 +75,7 @@ vim.api.nvim_create_autocmd('FileType', {
 	group = augroup,
 })
 vim.api.nvim_create_autocmd('FileType', {
-	pattern = {'haskell', 'lisp', 'tex', 'gitcommit', 'toml'},
+	pattern = {'haskell', 'lisp', 'tex', 'gitcommit', 'toml', 'markdown'},
 	callback = function()
 		vim.opt_local.softtabstop = 2
 		vim.opt_local.shiftwidth = 2
@@ -83,21 +83,41 @@ vim.api.nvim_create_autocmd('FileType', {
 	end,
 	group = augroup,
 })
+--[[ vim.api.nvim_create_autocmd('FileType', {
+	pattern = {'tex','markdown','text'},
+	callback = function()
+		vim.opt.textwidth = 0
+		vim.opt.colorcolumn = 81
+		vim.opt.wrap = true
+		vim.opt.linebreak = true
+		vim.opt.breakindent = true
+	end,
+	group = augroup,
+}) ]]
 vim.api.nvim_create_autocmd('FileType', {
-	pattern = {'python'},
+	pattern = 'python',
 	callback = function()
 		vim.opt_local.textwidth = 79
 	end,
 	group = augroup,
 })
+vim.api.nvim_create_autocmd('FileType', {
+	pattern = {'lean', 'lean3'},
+	callback = function()
+		vim.opt_local.softtabstop = 2
+		vim.opt_local.shiftwidth = 2
+		vim.opt_local.textwidth = 100
+	end,
+	group = augroup,
+})
 
-vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
+--[[ vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
 	pattern = '*PKGBUILD*',
 	callback = function()
 		vim.opt_local.filetype = 'sh'
 	end,
 	group = augroup,
-})
+}) ]]
 vim.api.nvim_create_autocmd({'BufRead', 'BufNewFile'}, {
 	pattern = '*/xresources/*',
 	callback = function()

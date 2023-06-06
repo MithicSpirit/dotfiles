@@ -26,25 +26,21 @@ local cmp_mappings = lsp.defaults.cmp_mappings {
 }
 lsp.setup_nvim_cmp({mapping = cmp_mappings})
 
-lsp.on_attach(function(client, buffer)
-	local opts = {buffer = buffer, remap = false}
-
-	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-	vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
-	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
-	vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-	vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-end)
+lsp.on_attach(require('plugins.lsp.on_attach'))
 
 lsp.setup_servers({
 	'clangd',
 	'digestif',  -- LaTeX
-	'hls',  -- Haskell
+	--'hls',  -- Haskell
 	'idris2_lsp',
 	'lua_ls',
 	'pylsp',
+	--'rust_analyzer',
+})
+lsp.skip_server_setup({
+	'hls',  -- Haskell
 	'rust_analyzer',
+	'lean-language-server',  -- Lean 3
 })
 lsp.nvim_workspace()
 

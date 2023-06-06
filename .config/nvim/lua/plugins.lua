@@ -1,14 +1,18 @@
-local ensure_packer = function()
+local function ensure_packer()
 	local fn = vim.fn
-	local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+	local install_path = fn.stdpath('data')
+		.. '/site/pack/packer/start/packer.nvim'
 	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+		fn.system({
+			'git', 'clone', '--depth', '1',
+			'https://github.com/wbthomason/packer.nvim',
+			install_path
+		})
 		vim.cmd "packadd packer.nvim"
 		return true
 	end
 	return false
 end
-
 local packer_bootstrap = ensure_packer()
 
 local function configure(name)
@@ -21,15 +25,17 @@ return require('packer').startup(function(use)
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.1',
 		requires = {
-			{'nvim-lua/plenary.nvim'},  -- dep
-			{'natecraddock/telescope-zf-native.nvim'},  -- better matching
-			{'nvim-telescope/telescope-file-browser.nvim'},
-			{  -- project jumping
+			{ 'nvim-lua/plenary.nvim' }, -- dep
+			{ 'natecraddock/telescope-zf-native.nvim' }, -- better matching
+			{ 'nvim-telescope/telescope-file-browser.nvim' },
+			{
+				-- project jumping
 				'nvim-telescope/telescope-project.nvim',
-				requires = {'airblade/vim-rooter'}
+				--requires = {'airblade/vim-rooter'}
 			},
-			{'luc-tielen/telescope_hoogle'},
-			{'xiyaowong/telescope-emoji.nvim'},
+			{ 'luc-tielen/telescope_hoogle' },
+			{ 'xiyaowong/telescope-emoji.nvim' },
+			{ 'nvim-telescope/telescope-dap.nvim' }
 		},
 		config = configure('telescope'),
 	}
@@ -42,6 +48,7 @@ return require('packer').startup(function(use)
 	use {
 		'catppuccin/nvim',
 		as = 'catppuccin',
+		after = 'nvim-dap',
 		config = configure('catppuccin'),
 	}
 
@@ -50,6 +57,11 @@ return require('packer').startup(function(use)
 		run = vim.cmd.TSUpdate,
 		config = configure('treesitter'),
 	}
+	use {
+		'nvim-treesitter/nvim-treesitter-textobjects',
+		after = 'nvim-treesitter',
+		requires = 'nvim-treesitter/nvim-treesitter',
+	}
 
 
 	use {
@@ -57,19 +69,15 @@ return require('packer').startup(function(use)
 		branch = 'v2.x',
 		requires = {
 			'neovim/nvim-lspconfig',
-			'williamboman/mason.nvim',
+			'mason.nvim',
 			'williamboman/mason-lspconfig.nvim',
 			'hrsh7th/nvim-cmp',
 			'hrsh7th/cmp-nvim-lsp',
 			'l3mon4d3/luasnip',
 			-- special language support
-			--{'simrat39/rust-tools.nvim'},
-			--{
-			--	'mrcjkb/haskell-tools.nvim',
-			--	requires = {'nvim-lua/plenary.nvim'},
-			--	branch = '1.x.x',
-			--	config = configure('haskell-tools'),
-			--},
+			'rust-tools.nvim',
+			'haskell-tools.nvim',
+			'telescope.nvim', -- for some keybinds
 		},
 		config = configure('lsp'),
 	}
@@ -77,6 +85,16 @@ return require('packer').startup(function(use)
 	use {
 		'williamboman/mason.nvim',
 		run = function() pcall(vim.cmd.MasonUpdate) end,
+	}
+
+	use {
+		'mfussenegger/nvim-dap',
+		requires = {
+			'rcarriga/nvim-dap-ui',
+			'telescope.nvim',
+			'telescope-dap.nvim',
+		},
+		config = configure('dap'),
 	}
 
 	use {
@@ -92,7 +110,7 @@ return require('packer').startup(function(use)
 
 	use {
 		'tpope/vim-surround',
-		requires = {'tpope/vim-repeat'},
+		requires = { 'tpope/vim-repeat' },
 	}
 
 	use {
@@ -102,9 +120,17 @@ return require('packer').startup(function(use)
 	}
 
 	use {
+		'justinmk/vim-sneak',
+		requires = { 'tpope/vim-repeat' },
+		config = configure('sneak'),
+	}
+
+	use {
 		'mbbill/undotree',
 		config = configure('undotree'),
 	}
+
+	use 'chrisbra/Colorizer'
 
 	--use {
 	--	'itchyny/lightline.vim',
@@ -116,7 +142,8 @@ return require('packer').startup(function(use)
 	--	config = configure('feline'),
 	use {
 		'nvim-lualine/lualine.nvim',
-		requires = {'catppuccin'},
+		requires = { 'catppuccin' },
+		after = { 'catppuccin' },
 		config = configure('lualine'),
 	}
 
@@ -125,13 +152,49 @@ return require('packer').startup(function(use)
 		config = configure('vimtex'),
 	}
 
+	--use {
+	--	'airblade/vim-rooter',
+	--	config = configure('rooter'),
+	--}
+
 	use {
-		'airblade/vim-rooter',
-		config = configure('rooter'),
+		'tpope/vim-fugitive',
+		config = configure('fugitive'),
+	}
+
+	use {
+		'lewis6991/gitsigns.nvim',
+		config = configure('gitsigns'),
+	}
+
+	use {
+		'numToStr/Comment.nvim',
+		config = configure('comment'),
+	}
+
+	use 'tpope/vim-sleuth'
+
+	use {
+		'simrat39/rust-tools.nvim',
+		config = configure('rust-tools'),
+	}
+
+	use {
+		'mrcjkb/haskell-tools.nvim',
+		requires = { 'nvim-lua/plenary.nvim' },
+		branch = '1.x.x',
+		config = configure('haskell-tools'),
+	}
+	use {
+		'Julian/lean.nvim',
+		requires = {
+			'neovim/nvim-lspconfig',
+			'nvim-lua/plenary.nvim'
+		},
+		config = configure('lean')
 	}
 
 	use 'edwinb/idris2-vim'
-	use 'editorconfig/editorconfig-vim'
 
 
 	if packer_bootstrap then
