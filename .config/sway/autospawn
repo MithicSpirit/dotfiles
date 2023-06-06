@@ -1,0 +1,18 @@
+exec {
+    lxpolkit
+    dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+    /usr/lib/geoclue-2.0/demos/agent
+    swayidle -w
+    wl-paste --watch cliphist store
+    gammastep-indicator
+    dunst
+    kdeconnect-indicator
+    xsettingsd
+    $TERMINAL --class btop-spawn -t btop -e btop
+    korganizer
+    kmail
+    discord-canary
+    signal-desktop
+    element-desktop
+}
+# vi: set ft=swayconfig

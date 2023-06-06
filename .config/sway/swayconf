@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+#swaymsg "seat * xcursor_theme $XCURSOR_THEME $XCURSOR_SIZE"
+# ^ (doesn't work due to bug)

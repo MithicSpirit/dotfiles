@@ -1,0 +1,12 @@
+for_window {
+    [app_id="LibreWolf" title="^Picture-in-Picture$"] floating enable, sticky enable
+
+    # autostart
+    [app_id="btop-spawn"] move window to workspace 1
+    [app_id="org.kde.korganizer"] move window to workspace 2
+    [app_id="org.kde.kmail2"] move window to workspace 3
+    [class="discord"] move window to workspace 4
+    [class="Signal"] move window to workspace 5
+    [class="Element"] move window to workspace 6
+}
+# vi: set ft=swayconfig

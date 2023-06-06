@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+swaynag -t error -m 'Power options' \
+	-Z 'Suspend' 'sleep 1; systemctl hybrid-sleep' \
+	-Z 'Hibernate' 'sleep 1; systemctl suspend-then-hibernate' \
+	-Z 'Exit Sway' 'swaymsg exit' \
+	-Z 'Reload Sway' 'swaymsg reload' \
+	-Z 'Lock' 'sleep 1; killall -USR1 swayidle' \
+	-s 'Cancel'

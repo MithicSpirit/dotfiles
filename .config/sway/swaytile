@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+coproc swaymsg -mrt subscribe '["window"]'
+pid=$!
+
+while ps -p $pid >/dev/null; do
+	read -rspt 5 event_json || continue
+	echo $event_json >>/tmp/swaytile.log
+	[[ $(echo $event_json | jq -r '.change') == "focus" ]] || continue
+	cid=$(echo $event_json | jq -r '.container.id')
+	tree_json=$(swaymsg -rt get_tree)
+	echo $tree_json >>/tmp/swaytile.log
+	[[ $(echo $tree_json | \
+		jq -r "..|objects|select(.nodes|arrays|any(.id == $cid))|.layout") \
+		!= "tabbed" ]] || continue
+	swaymsg "[con_id=$cid] split vertical , layout tabbed"
+done
