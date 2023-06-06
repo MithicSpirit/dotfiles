@@ -1,0 +1,90 @@
+#!/usr/bin/env zsh
+
+riverctl map normal Super+Shift Return spawn $TERMINAL
+riverctl map normal Super Return spawn dmenu_run
+
+riverctl map normal Super+Shift X close
+riverctl map normal Super+Control+Shift X exit
+
+riverctl map normal Super J focus-view next
+riverctl map normal Super K focus-view previous
+riverctl map normal Super+Shift J swap next
+riverctl map normal Super+Shift K swap previous
+
+for i in $(seq 1 9); do
+    riverctl map normal Super $i focus-output $i
+    riverctl map normal Super+Shift $i send-to-output $i
+done
+
+riverctl map-pointer normal Super BTN_LEFT move-view
+riverctl map-pointer normal Super BTN_RIGHT resize-view
+riverctl map-pointer normal Super BTN_MIDDLE toggle-float
+
+riverctl map normal Super F toggle-fullscreen
+
+riverctl declare-mode passthrough
+riverctl map normal Super+Control+Shift+Alt Print enter-mode passthrough
+riverctl map passthrough Super+Control+Shift+Alt Print enter-mode normal
+
+for mode in normal locked; do
+    riverctl map $mode None XF86Eject spawn 'eject -T'
+
+    riverctl map $mode None  XF86AudioRaiseVolume spawn 'amixer -D pulse -q sset Master 2%+'
+    riverctl map $mode None  XF86AudioLowerVolume spawn 'amixer -D pulse -q sset Master 2%-'
+    riverctl map $mode Shift XF86AudioRaiseVolume spawn 'amixer -D pulse -q sset Master 10%+'
+    riverctl map $mode Shift XF86AudioLowerVolume spawn 'amixer -D pulse -q sset Master 10%-'
+    riverctl map $mode None  XF86AudioMute        spawn 'amixer -D pulse -q sset Master toggle'
+    riverctl map $mode Shift XF86AudioMedia       spawn 'amixer -D pulse -q sset Master toggle'
+    riverctl map $mode Shift XF86AudioPlay        spawn 'amixer -D pulse -q sset Master toggle'
+
+    riverctl map $mode None  XF86AudioMedia spawn 'playerctl play-pause'
+    riverctl map $mode None  XF86AudioPlay  spawn 'playerctl play-pause'
+    riverctl map $mode Shift XF86AudioMute  spawn 'playerctl play-pause'
+    riverctl map $mode None  XF86AudioPrev  spawn 'playerctl previous'
+    riverctl map $mode None  XF86AudioNext  spawn 'playerctl next'
+
+    riverctl map $mode None  XF86MonBrightnessUp   spawn 'xbacklight +2'
+    riverctl map $mode None  XF86MonBrightnessDown spawn 'xbacklight -2'
+    riverctl map $mode Shift XF86MonBrightnessUp   spawn 'xbacklight +10'
+    riverctl map $mode Shift XF86MonBrightnessDown spawn 'xbacklight -10'
+done
+
+riverctl background-color 0x2e3440
+riverctl border-color-focused 0x8fbcbb
+riverctl border-color-unfocused 0x3b4252
+riverctl border-color-urgent 0xd08770
+riverctl border-width 3
+
+riverctl set-repeat 50 300
+riverctl keyboard-layout -variant ',,phonetic' \
+    -options 'grp:win_space_toggle,compose:rctrl,caps:escape_shifted_capslock,lv3:ralt_switch' \
+    'us,gr,il'
+riverctl input '*' accel-profile flat
+
+for mouse in 'pointer-1133-45108-Logitech_MX_Master_3S'; do
+    riverctl input $mouse accel-profile flat
+    riverctl input $mouse pointer-accel -0.91
+done
+
+# Make certain views start floating
+riverctl float-filter-add app-id float
+riverctl float-filter-add title 'popup title with spaces'
+
+# Super+H and Super+L to decrease/increase the main ratio of rivertile(1)
+riverctl map normal Super H send-layout-cmd rivertile 'main-ratio -0.05'
+riverctl map normal Super L send-layout-cmd rivertile 'main-ratio +0.05'
+
+# Super+Shift+H and Super+Shift+L to increment/decrement the main count of rivertile(1)
+riverctl map normal Super+Shift H send-layout-cmd rivertile 'main-count +1'
+riverctl map normal Super+Shift L send-layout-cmd rivertile 'main-count -1'
+
+# Super+{Up,Right,Down,Left} to change layout orientation
+riverctl map normal Super Up    send-layout-cmd rivertile 'main-location top'
+riverctl map normal Super Right send-layout-cmd rivertile 'main-location right'
+riverctl map normal Super Down  send-layout-cmd rivertile 'main-location bottom'
+riverctl map normal Super Left  send-layout-cmd rivertile 'main-location left'
+
+# Set the default layout generator to be rivertile and start it.
+# River will send the process group of the init executable SIGTERM on exit.
+riverctl default-layout rivertile
+rivertile -view-padding 6 -outer-padding 6 &
