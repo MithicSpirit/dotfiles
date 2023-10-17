@@ -9,11 +9,13 @@ vim.keymap.set('n', 'x', '"_x')
 vim.keymap.set('n', '~', 'g~l')
 vim.keymap.set('n', '<ESC>', function()
 	vim.cmd.nohlsearch()
-	vim.cmd.diffupdate()
+	--vim.cmd.diffupdate() (causes issues in command mode)
 	vim.cmd.mode()
 end)
 vim.keymap.set('n', 'gQ', "mzgggqG'z")
+vim.keymap.set('n', 'ZQ', vim.cmd.cquit)
 vim.keymap.set('n', '<leader>s', vim.cmd.write)
+vim.keymap.set('n', '<leader>E', function() vim.cmd('! "%:p"') end)
 
 vim.keymap.set('n', '<C-W>,', '<C-w><')
 vim.keymap.set('n', '<C-W>.', '<C-w>>')
@@ -35,40 +37,40 @@ vim.keymap.set('n', '<Tab>', vim.cmd.bnext)
 vim.keymap.set('n', '<S-Tab>', vim.cmd.bprevious)
 vim.keymap.set('n', '<leader><Tab>', '<C-^>')
 vim.keymap.set('n', '<leader><S-Tab>', function()
-	vim.cmd([[
-let btarget = bufnr('%')
-if btarget < 0
-    call s:Warn('No buffer to delete')
-else
-    " Numbers of windows that view target buffer which we will delete.
-    let wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == btarget')
-    let wcurrent = winnr()
-    for w in wnums
-        execute w.'wincmd w'
-        let prevbuf = bufnr('#')
-        if prevbuf > 0 && buflisted(prevbuf) && prevbuf != btarget
-            buffer #
-        else
-            bprevious
-        endif
-        if btarget == bufnr('%')
-            " Numbers of listed buffers which are not the target to be deleted.
-            let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val) && v:val != btarget')
-            " Listed, not target, and not displayed.
-            let bhidden = filter(copy(blisted), 'bufwinnr(v:val) < 0')
-            " Take the first buffer, if any (could be more intelligent).
-            let bjump = (bhidden + blisted + [-1])[0]
-            if bjump > 0
-                execute 'buffer '.bjump
-            else
-                execute 'enew'
-            endif
-        endif
-    endfor
-    execute 'bdelete'.' '.btarget
-    execute wcurrent.'wincmd w' 
-endif]])
+	if vim.opt_local.modified:get() then
+		vim.api.nvim_err_writeln('E89: No write since last change for buffer')
+		return
+	end
+	local curr_buf = vim.api.nvim_get_current_buf()
+	local command = 'bdelete ' .. curr_buf
+
+	local buffers = {}
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.api.nvim_buf_is_loaded(buf) then
+			table.insert(buffers, buf)
+		end
+	end
+
+	if #buffers == 1 then
+		vim.cmd(command)
+		return
+	end
+
+	local nextbuf
+	for i, buf in ipairs(buffers) do
+		if buf == curr_buf then
+			nextbuf = buffers[(i - 1 + 1) % #buffers + 1]
+			break
+		end
+	end
+
+	vim.api.nvim_set_current_buf(nextbuf)
+	vim.cmd(command)
 end)
+
+vim.api.nvim_create_user_command('Cdfile', function()
+	vim.api.nvim_set_current_dir(vim.fn.expand('%:p:h'))
+end, {desc = 'cd to the parent of the current file', force=false})
 
 
 local augroup = vim.api.nvim_create_augroup('mithic-map', {})
@@ -76,7 +78,7 @@ vim.api.nvim_create_autocmd('FileType', {
 	-- TODO: use a snippet
 	pattern = 'tex',
 	callback = function()
-		vim.keymap.set('i', '"', "''", {buffer = true})
+		vim.keymap.set('i', '"', "``", {buffer = true})
 	end,
 	group = augroup,
 })

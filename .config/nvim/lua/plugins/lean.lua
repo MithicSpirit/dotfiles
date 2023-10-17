@@ -1,10 +1,13 @@
 local on_attach = require('plugins.lsp.on_attach')
 require('lean').setup{
-	lsp = {on_attach = on_attach},
-	lsp3 = {on_attach = on_attach},
+	lsp = {
+		on_attach = on_attach,
+		--cmd = {'lake', '--old', 'serve', '--', '--threads=8'},
+	},
+	lsp3 = {on_attach = on_attach,},
 	lean3 = {mouse_events = false},
 	ft = {
-		default = 'lean3',
+		default = 'lean',
 		nomodifiable = nil
 	},
 

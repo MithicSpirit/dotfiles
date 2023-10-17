@@ -1,4 +1,4 @@
-return function(_, buffer)
+return function (_, buffer)
 	local opts = {buffer = buffer}
 
 	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
@@ -7,6 +7,7 @@ return function(_, buffer)
 	vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, opts)
 	vim.keymap.set('n', 'gQ', vim.lsp.buf.format, opts)
 	vim.keymap.set('n', '<leader>la', vim.lsp.buf.code_action, opts)
+	vim.keymap.set('n', '<leader>lc', vim.lsp.codelens.run, opts)
 	vim.keymap.set('n', '<leader>lr', vim.lsp.buf.rename, opts)
 
 	vim.keymap.set('', '[d', vim.diagnostic.goto_prev, opts)

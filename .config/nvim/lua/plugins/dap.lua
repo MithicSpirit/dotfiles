@@ -1,54 +1,53 @@
 local dap = require('dap')
 
-local dbg_leader = '<leader>d'
+local function dbg_nmap(key, command)
+	vim.keymap.set('n',  '<leader>d' .. key, command)
+end
 
-vim.keymap.set('n', dbg_leader .. 'r', dap.restart)
-vim.keymap.set('n', dbg_leader .. 'R', dap.terminate)
-vim.keymap.set('n', dbg_leader .. 'o', dap.repl.toggle)
+dbg_nmap('r', dap.restart)
+dbg_nmap('R', dap.terminate)
+dbg_nmap('o', dap.repl.toggle)
 
-vim.keymap.set('n', dbg_leader .. 'c', dap.continue)
-vim.keymap.set('n', dbg_leader .. 'C', dap.run_to_cursor)
-vim.keymap.set('n', dbg_leader .. 's', dap.step_over)
-vim.keymap.set('n', dbg_leader .. 'S', dap.step_back)
-vim.keymap.set('n', dbg_leader .. 'i', dap.step_into)
-vim.keymap.set('n', dbg_leader .. 'I', dap.step_out)
+dbg_nmap('c', dap.continue)
+dbg_nmap('C', dap.run_to_cursor)
+dbg_nmap('s', dap.step_over)
+dbg_nmap('S', dap.step_back)
+dbg_nmap('i', dap.step_into)
+dbg_nmap('I', dap.step_out)
 
-vim.keymap.set('n', dbg_leader .. 'bb', dap.toggle_breakpoint)
-vim.keymap.set('n', dbg_leader .. 'bs', dap.set_breakpoint)
-vim.keymap.set('n', dbg_leader .. 'bD', dap.clear_breakpoints)
-vim.keymap.set('n', dbg_leader .. 'bp', function()
+dbg_nmap('bb', dap.toggle_breakpoint)
+dbg_nmap('bs', dap.set_breakpoint)
+dbg_nmap('bD', dap.clear_breakpoints)
+dbg_nmap('bp', function()
 	dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
 end)
 
 local telescope_dap = require('telescope').extensions.dap
-vim.keymap.set('n', dbg_leader .. 'd', telescope_dap.commands)
-vim.keymap.set('n', dbg_leader .. 'v', telescope_dap.variables)
-vim.keymap.set('n', dbg_leader .. 'f', telescope_dap.variables)
-vim.keymap.set('n', dbg_leader .. 'bl', telescope_dap.list_breakpoints)
+dbg_nmap('d', telescope_dap.commands)
+dbg_nmap('v', telescope_dap.variables)
+dbg_nmap('f', telescope_dap.variables)
+dbg_nmap('bl', telescope_dap.list_breakpoints)
 
 
 local dapui = require('dapui')
 dapui.setup({
-	-- Set icons to characters that are more likely to work in every terminal.
-	--    Feel free to remove or use ones that you like more! :)
-	--    Don't feel like these are good choices.
 	icons = { expanded = 'v', collapsed = '>', current_frame = '*' },
 	controls = {
 		icons = {
 			pause = '||',
-			play = '>',
-			step_into = '→',
-			step_over = '↓',
-			step_out = '←',
-			step_back = '↑',
+			play = '|>',
+			step_into = '->',
+			step_over = '\\/',
+			step_out = '<-',
+			step_back = '/\\',
 			run_last = '>>',
-			terminate = '⏹',
-			disconnect = ":(", -- )
+			terminate = '[]',
+			disconnect = '<>',
 		},
 	},
 })
 
-vim.keymap.set('n', dbg_leader .. 'u', dapui.toggle)
+dbg_nmap('u', dapui.toggle)
 dap.listeners.after.event_initialized['dapui_config'] = dapui.open
 dap.listeners.before.event_terminated['dapui_config'] = dapui.close
 dap.listeners.before.event_exited['dapui_config'] = dapui.close

@@ -56,7 +56,7 @@ require('lualine').setup({
 				hide_filename_extension = false,
 				use_mode_colors = true,
 				max_length = function()
-					return vim.o.columns  * 0.8
+					return vim.o.columns * 0.8
 				end,
 				show_modified_status = true,
 				symbols = {
@@ -98,30 +98,24 @@ require('lualine').setup({
 
 
 -- override normal binding to use lualine indices instead
-vim.keymap.set('n', '<Tab>', function()
-	local cur_bufpos = lualine_buffers.bufnr2pos[vim.fn.bufnr()]
-	local next_bufnr = lualine_buffers.bufpos2nr[cur_bufpos + 1]
-		or lualine_buffers.bufpos2nr[1]
-	if next_bufnr == nil then
-		vim.cmd.bnext()
-		return
-	end
-	vim.api.nvim_set_current_buf(next_bufnr)
-end)
-vim.keymap.set('n', '<S-Tab>', function()
-	local cur_bufpos = lualine_buffers.bufnr2pos[vim.fn.bufnr()]
-	local prev_bufnr = lualine_buffers.bufpos2nr[cur_bufpos - 1]
-		or lualine_buffers.bufpos2nr[#lualine_buffers.bufpos2nr]
-	if prev_bufnr == nil then
-		vim.cmd.bprevious()
-		return
-	end
-	vim.api.nvim_set_current_buf(prev_bufnr)
-end)
+vim.keymap.set('n', '<Tab>', function() lualine_buffers.buf_move_rel(1) end)
+vim.keymap.set('n', '<S-Tab>', function() lualine_buffers.buf_move_rel(-1) end)
 vim.keymap.set('n', '<leader><Tab>', function()
 	if vim.v.count > 0 then
-		lualine_buffers.buffer_jump(vim.v.count, '!')
-	elseif not pcall(function() vim.cmd.edit('#') end) then
+		if not pcall(function()
+			lualine_buffers.buffer_jump(vim.v.count)
+		end) then
+			vim.api.nvim_err_writeln(
+				'Error: Unable to jump buffer position out of range'
+			)
+		end
+		return
+	end
+
+	local command = vim.api.nvim_replace_termcodes(
+		'<C-^>', true, true, true
+	)
+	if not pcall(function() vim.cmd.normal(command) end) then
 		vim.api.nvim_err_writeln('E23: No alternate file')
 	end
 end)

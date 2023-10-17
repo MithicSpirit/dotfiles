@@ -28,4 +28,23 @@ function lualine_buffers:buffers()
 	return buffers
 end
 
+local function wrap_index(list, index)
+	local wrapped = ((index - 1) % #list) + 1
+	return list[wrapped]
+end
+
+function lualine_buffers.buf_move_rel(offset)
+	local cur_bufpos = lualine_buffers.bufnr2pos[vim.fn.bufnr()]
+
+	local bufpos2nr = lualine_buffers.bufpos2nr
+	local next_bufnr = cur_bufpos
+		and wrap_index(lualine_buffers.bufpos2nr, cur_bufpos + offset)
+
+	if next_bufnr == nil then
+		vim.cmd.bnext()
+	else
+		vim.api.nvim_set_current_buf(next_bufnr)
+	end
+end
+
 return lualine_buffers

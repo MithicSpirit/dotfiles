@@ -26,7 +26,7 @@ rt.setup({
 		},
 
 		crate_graph = {
-			backend = 'x11',
+			backend = 'svgz',
 			output = nil,
 			full = true,
 		},

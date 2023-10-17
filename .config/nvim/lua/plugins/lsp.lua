@@ -30,20 +30,31 @@ lsp.on_attach(require('plugins.lsp.on_attach'))
 
 lsp.setup_servers({
 	'clangd',
-	'digestif',  -- LaTeX
-	--'hls',  -- Haskell
 	'idris2_lsp',
 	'lua_ls',
 	'pylsp',
-	--'rust_analyzer',
 })
 lsp.skip_server_setup({
 	'hls',  -- Haskell
 	'rust_analyzer',
 	'lean-language-server',  -- Lean 3
+	'ltex',  -- Spelling/grammar
 })
-lsp.nvim_workspace()
+
+local lspconfig = require('lspconfig')
+lspconfig.lua_ls.setup(lsp.nvim_lua_ls({
+	telemetry = {enable = false}
+}))
+lspconfig.texlab.setup({
+	settings = {
+		texlab = {
+			chktex = {
+				onOpenAndSave = true,
+				onEdit = true,
+			},
+		}
+	}
+})
 
 lsp.setup()
-
 cmp.setup({ completion = {autocomplete = false} })

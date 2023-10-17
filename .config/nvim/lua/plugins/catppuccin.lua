@@ -2,7 +2,7 @@ require('catppuccin').setup({
 	flavour = 'frappe',
 	transparent_background = not vim.g.neovide,
 	show_end_of_buffer = true,
-	term_colors = true,
+	term_colors = false,
 	dim_inactive = {
 		enabled = false,
 		shade = 'dark',
@@ -38,7 +38,9 @@ require('catppuccin').setup({
 		hop = true,
 		markdown = true,
 		mason = true,
+		neogit = true,
 		cmp = true,
+		treesitter_context = false,
 		treesitter = true,
 		telescope = true,
 		gitgutter = true,
