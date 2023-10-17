@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-feh --no-fehbg --bg-fill "$HOME/.local/share/backgrounds/selected"

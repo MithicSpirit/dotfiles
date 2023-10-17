@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-
-focus="$(xdotool getactivewindow)"
-flameshot gui "$@"
-[ "$focus" = "$(xdotool getactivewindow)" ] && xdotool windowfocus "$focus"

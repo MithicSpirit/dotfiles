@@ -29,14 +29,14 @@ function contrast_colour {
     # 6x6x6 colour cube = 16 + 36*R + 6*G + B  # Where RGB are [0..5]
     # See http://stackoverflow.com/a/27165165/5353461
 
-    # r=$(( (colour-16) / 36 ))
+    r=$(( (colour-16) / 36 ))
     g=$(( ((colour-16) % 36) / 6 ))
-    # b=$(( (colour-16) % 6 ))
+    b=$(( (colour-16) % 6 ))
 
     # If luminance is bright, print number in black, white otherwise.
     # Green contributes 587/1000 to human perceived luminance - ITU R-REC-BT.601
-    (( g > 2)) && printf "0" || printf "15"
-    return
+    #(( g > 2)) && printf "0" || printf "15"
+    #return
 
     # Uncomment the below for more precise luminance calculations
 
@@ -44,8 +44,8 @@ function contrast_colour {
     # # See https://www.w3.org/TR/AERT#color-contrast
     # # and http://www.itu.int/rec/R-REC-BT.601
     # # Luminance is in range 0..5000 as each value is 0..5
-    # luminance=$(( (r * 299) + (g * 587) + (b * 114) ))
-    # (( $luminance > 2500 )) && printf "0" || printf "15"
+    luminance=$(( (r * 299) + (g * 587) + (b * 114) ))
+    (( luminance > 2500 )) && printf "0" || printf "15"
 }
 
 # Print a coloured block with the number of that colour
@@ -90,7 +90,9 @@ function print_blocks {
     done
 }
 
-print_run 0 16 # The first 16 colours are spread over the whole spectrum
+print_run 0 8 # The first 8 colours are spread over the whole spectrum
+printf "\n"
+print_run 8 8 # The second 8 colours are repeats of the first 8, but brighter
 printf "\n"
 print_blocks 16 231 6 6 3 # 6x6x6 colour cube between 16 and 231 inclusive
 print_blocks 232 255 12 2 1 # Not 50, but 24 Shades of Grey

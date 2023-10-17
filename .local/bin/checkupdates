@@ -106,12 +106,12 @@ while :; do
 done
 
 # check if messages are to be printed using color
-if [[ -t 2 && $USE_COLOR != "n" ]]; then
+if [[ $USE_COLOR != "n" ]]; then
 	colorize
-	PACMAN_USE_COLOR="always"
+	pacman_use_color="always"
 else
 	unset ALL_OFF BOLD BLUE GREEN RED YELLOW
-	PACMAN_USE_COLOR="never"
+	pacman_use_color="never"
 fi
 
 if ! type -P fakeroot >/dev/null; then
@@ -136,7 +136,7 @@ if (( ${SYNC} )); then
 	    die 'Cannot fetch updates'
 	fi
 fi
-mapfile -t updates < <(pacman -Qu --dbpath "$CHECKUPDATES_DB" --color "$PACMAN_USE_COLOR" 2> /dev/null | grep -v '\[.*\]')
+mapfile -t updates < <(pacman -Qu --dbpath "$CHECKUPDATES_DB" --color "$pacman_use_color" 2> /dev/null | grep -v '\[.*\]')
 
 if (( ${#updates[@]} )); then
 	printf '%s\n' "${updates[@]}"

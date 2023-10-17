@@ -1,8 +1,0 @@
-#!/usr/bin/env sh
-
-# shellcheck disable=SC2015
-systemctl --user start emacs.service &&
-	emacsclient -c "$@" || (
-	notify-send "Failed to start Emacs"
-	echo "Failed to start Emacs"
-)

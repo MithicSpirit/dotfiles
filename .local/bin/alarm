@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
-termdown --no-figlet -aBc 5 $@ &&
+termdown --no-figlet -aBc 5 "$@" &&
 	(
-	notify-send "Alarm for $@ complete"
-	while true; do 
+	notify-send "Alarm for $* complete"
+	while true; do
 		paplay /usr/share/sounds/freedesktop/stereo/alarm-clock-elapsed.oga
 	done
 )

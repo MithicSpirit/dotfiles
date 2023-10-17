@@ -3,12 +3,18 @@
 __shuffle=1
 __loop=1
 __no_video=1
+__set_af=1
+__set_ytdl=1
+__set_volume=1
 
 while [ $# -gt 0 ]; do
 	case "$1" in
 		'--no-shuffle') __shuffle=0 ;;
 		'--no-loop') __loop=0 ;;
 		'--video') __no_video=0 ;;
+		'--default-af') __set_af=0 ;;
+		'--default-ytdl') __set_ytdl=0 ;;
+		'--default-volume') __set_volume=1 ;;
 		*) break ;;
 	esac
 	shift
@@ -20,6 +26,10 @@ fi
 
 [ $__shuffle -eq 1 ] && set -- --shuffle "$@"
 [ $__loop -eq 1 ] && set -- --loop-playlist "$@"
-[ $__no_video -eq 1 ] && set -- --no-video "$@"
+[ $__no_video -eq 1 ] && set -- --vid=no --sid=no "$@"
+#[ $__set_af -eq 1 ] && set -- --af-toggle=loudnorm --af-toggle=dynaudnorm "$@"
+[ $__set_af -eq 1 ] && set -- --af-append=dynaudnorm=f=1000:g=181:m=100:r=1.0:c=true:b=false:o=0.3 "$@"
+[ $__set_ytdl -eq 1 ] && set -- --ytdl-format=bestaudio "$@"
+[ $__set_volume -eq 1 ] && set -- --volume=58 "$@"
 
-mpv "$@"
+exec mpv "$@"

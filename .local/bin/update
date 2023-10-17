@@ -13,7 +13,7 @@ trap '' INT
 ###########
 function bcursor { echo '\033[2 q' 1>&2 }  # force block cursor
 function tcursor { echo '\033[2 q' 1>&2 }  # reset to terminal cursor (manually change)
-function pager { eval "$@" | "${=PAGER:-less}" }
+function pager { eval "$@" 2>&1 | "${=PAGER:-less}" }
 function now { date -u '+%Y-%m-%d@%H:%M:%S' }
 function nice_ { time nice -n20 "$@" }
 function dialog_ { bcursor; dialog "$@" 3>&1 1>&2 2>&3 }

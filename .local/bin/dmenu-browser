@@ -1,29 +1,32 @@
 #!/usr/bin/env zsh
 
-_copy() { echo -n "$@" | xclip -in -selection clipboard }
+_copy() { printf '%s' "$*" | wl-copy }
 
 typeset -A options_=(
-	['0.  New window']="$REAL_BROWSER --new-window"
-	['1.  Current window']="$REAL_BROWSER"
-	['2.  Copy to clipboard']="_copy"
-	['3.  xdg-open']="xdg-open"
-	['4.  mpv']="mpv"
-	['5.  Qutebrowser']="qutebrowser"
-	['6.  Tor Browser']="torbrowser-launcher"
-	['7.  Chromium']="chromium"
-	['8.  Firefox']="firefox"
-	['9.  Brave']="brave-nightly"
-	['10. Librewolf']="librewolf"
-	['11. Nyxt']="nyxt"
-	['12. IceCat']="icecat"
-	['13. Vieb']="vieb"
+	['0.  New window']='librewolf --new-window'
+	['1.  Current window']='librewolf'
+	['2.  Copy to clipboard']='_copy'
+	['3.  xdg-open']='xdg-open'
+	['4.  mpv']='mpv --quiet --pause'
+	['5.  Qutebrowser']='qutebrowser'
+	['6.  Tor Browser']='torbrowser-launcher'
+	['7.  Chromium']='chromium'
+	['8.  Chromium (Incognito)']='chromium --incognito'
+	['9.  Firefox']='firefox'
+	['10. Brave']='brave-nightly'
+	['11. Librewolf']='librewolf'
+	['12. Nyxt']='nyxt'
+	['13. IceCat']='icecat'
+	['14. Vieb']='vieb'
 )
 
 prompt="Browser"
 entries="${(@kF)options_}"
 num="${#options_}"
 
-sel="$(sort -n <<<"$entries" | dmenu -bw 3 -c -R -l "$num" -p "$prompt")"
+sel="$(sort -n <<<"$entries" | bemenu -p "$prompt" -cl "$num" -W 0.3 -C)"
+
+#env >/tmp/second.env
 
 [[ -n "$sel" ]] && {
 	result="${options_[$sel]}"
