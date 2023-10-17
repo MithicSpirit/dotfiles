@@ -8,7 +8,8 @@
 [gpg]
 	program = gpg
 [pull]
-	rebase = false
+	rebase = true
+	ff = only
 [init]
 	defaultBranch = main
 [github]
@@ -32,7 +33,7 @@
 	autoSetupMerge = true
 [advice]
 	addEmptyPathspec = false
-[push]
-	autoSetupRemote = true
 [fetch]
 	parallel = 0
+[alias]
+	hub = !gh
