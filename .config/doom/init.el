@@ -1,6 +1,6 @@
 ;;; init.el -*- lexical-binding: t; -*-
 
-;; Last updated: 63b0ebeda781561b0c2b0c2128901e43d46b7092
+;; Last updated: 9245a347a4c2e11341eedef2e62ab23510131305
 
 ;; This file controls what Doom modules are enabled and what order they load
 ;; in. Remember to run 'doom sync' after modifying it!
@@ -64,8 +64,7 @@
 	zen			; distraction-free coding or writing
 	
 	:editor
-	(evil +everywhere	; come to the dark side, we have cookies
-	 +everywhere)
+	(evil +everywhere)	; come to the dark side, we have cookies
 	file-templates		; auto-snippets for empty files
 	fold			; (nigh) universal code folding
 	format			; automated prettiness
@@ -103,6 +102,7 @@
 	
 	:tools
 	;;ansible
+	;;collab
 	biblio
 	(debugger		; FIXME stepping through code, to help you add bugs
          +lsp)
@@ -229,7 +229,7 @@
 	:app
 	calendar
 	;;emms
-	everywhere		; *leave* Emacs!? You must be joking
+	;;everywhere		; *leave* Emacs!? You must be joking
 	;;irc			; how neckbeards socialize
 	;;(rss +org)		; emacs as an RSS reader
 	;;twitter		; twitter client https://twitter.com/vnought
