@@ -1,0 +1,19 @@
+blur enable
+blur_xray disable
+blur_passes 2
+blur_radius 3
+
+corner_radius 0
+
+shadows disable
+shadows_on_csd disable
+
+layer_effects "waybar" blur enable
+
+default_dim_inactive 0.08
+dim_inactive_colors.unfocused #2e3440a0
+dim_inactive_colors.urgent #bf616aa0
+
+titlebar_separator enable
+
+# vi: set ft=swayconfig

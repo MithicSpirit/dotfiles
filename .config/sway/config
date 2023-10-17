@@ -19,24 +19,24 @@ output eDP-1 {
     scale 1.2
 }
 
-#exec $confdir/swaytile
-
 input * {
     xkb_layout us,gr,il
     xkb_variant ,,phonetic
-    xkb_options grp:win_space_toggle,compose:rctrl,caps:escape_shifted_capslock,lv3:ralt_switch
+    xkb_options grp:win_space_toggle,compose:rctrl,lv3:ralt_switch
     #misc:apl
     accel_profile flat
     tool_mode * absolute
 }
 input type:touchpad {
-    click_method clickfinger
-    #drag enabled
+    click_method button_areas
     dwt enabled
     tap enabled
     tap_button_map lrm
     natural_scroll enabled
+    events disabled_on_external_mouse
 }
+input type:touch events disabled
+
 seat * xcursor_theme breeze_cursors 24
 
 workspace_layout tabbed
@@ -45,148 +45,6 @@ xwayland force
 floating_modifier $mod normal
 focus_follows_mouse yes
 focus_wrapping yes
-bindsym --no-repeat {
-    $mod+Return exec bemenu-run -p Run --no-exec | \
-        xargs -I{} swaymsg exec -- {} ">/dev/null 2>/dev/null"
-    $mod+Shift+Return exec $TERMINAL
-    $mod+Control+Return exec $BROWSER
-    $mod+Control+Shift+Return exec neovide
-
-    $mod+$left focus left
-    $mod+$down focus down
-    $mod+$up focus up
-    $mod+$right focus right
-
-    $mod+Shift+$left move left
-    $mod+Shift+$down move down
-    $mod+Shift+$up move up
-    $mod+Shift+$right move right
-
-    # Move to workspace
-    $mod+grave workspace 0:`
-    $mod+1 workspace 1
-    $mod+2 workspace 2
-    $mod+3 workspace 3
-    $mod+4 workspace 4
-    $mod+5 workspace 5
-    $mod+6 workspace 6
-    $mod+7 workspace 7
-    $mod+8 workspace 8
-    $mod+9 workspace 9
-    $mod+0 workspace 10:0
-    $mod+q workspace 11:q
-    $mod+w workspace 12:w
-    $mod+e workspace 13:e
-    $mod+r workspace 14:r
-    $mod+a workspace 15:a
-    $mod+s workspace 16:s
-    $mod+d workspace 17:d
-    $mod+f workspace 18:f
-    # Move focused container to workspace (and follow)
-    $mod+Shift+grave move container to workspace 0:` ; workspace 0:`
-    $mod+Shift+1 move container to workspace 1 ; workspace 1
-    $mod+Shift+2 move container to workspace 2 ; workspace 2
-    $mod+Shift+3 move container to workspace 3 ; workspace 3
-    $mod+Shift+4 move container to workspace 4 ; workspace 4
-    $mod+Shift+5 move container to workspace 5 ; workspace 5
-    $mod+Shift+6 move container to workspace 6 ; workspace 6
-    $mod+Shift+7 move container to workspace 7 ; workspace 7
-    $mod+Shift+8 move container to workspace 8 ; workspace 8
-    $mod+Shift+9 move container to workspace 9 ; workspace 9
-    $mod+Shift+0 move container to workspace 10:0 ; workspace 10:0
-    $mod+Shift+q move container to workspace 11:q ; workspace 11:q
-    $mod+Shift+w move container to workspace 12:w ; workspace 12:w
-    $mod+Shift+e move container to workspace 13:e ; workspace 13:e
-    $mod+Shift+r move container to workspace 14:r ; workspace 14:r
-    $mod+Shift+a move container to workspace 15:a ; workspace 15:a
-    $mod+Shift+s move container to workspace 16:s ; workspace 16:s
-    $mod+Shift+d move container to workspace 17:d ; workspace 17:d
-    $mod+Shift+f move container to workspace 18:f ; workspace 18:f
-    # Move focused container to workspace (and don't follow)
-    $mod+Control+grave move container to workspace 0:`
-    $mod+Control+1 move container to workspace 1
-    $mod+Control+2 move container to workspace 2
-    $mod+Control+3 move container to workspace 3
-    $mod+Control+4 move container to workspace 4
-    $mod+Control+5 move container to workspace 5
-    $mod+Control+6 move container to workspace 6
-    $mod+Control+7 move container to workspace 7
-    $mod+Control+8 move container to workspace 8
-    $mod+Control+9 move container to workspace 9
-    $mod+Control+0 move container to workspace 10:0
-    $mod+Control+q move container to workspace 11:q
-    $mod+Control+w move container to workspace 12:w
-    $mod+Control+e move container to workspace 13:e
-    $mod+Control+r move container to workspace 14:r
-    $mod+Control+a move container to workspace 15:a
-    $mod+Control+s move container to workspace 16:s
-    $mod+Control+d move container to workspace 17:d
-    $mod+Control+f move container to workspace 18:f
-
-    $mod+Tab layout toggle tabbed split
-    $mod+Shift+Tab split toggle
-    $mod+Control+Tab layout toggle split
-    $mod+Control+Shift+Tab exec bemenu -p swaymsg </dev/null | xargs swaymsg
-
-    $mod+z fullscreen toggle
-    $mod+Shift+z floating toggle
-    $mod+Control+z focus mode_toggle
-    $mod+Control+Shift+z fullscreen toggle global
-
-    $mod+Shift+x kill
-    --release $mod+Control+x exec 'sleep 1; killall -USR1 swayidle'
-    $mod+Control+Shift+x exec $confdir/swaypower
-
-    $mod+c sticky toggle
-    $mod+Shift+c inhibit_idle visible
-    $mod+Control+c inhibit_idle open
-    $mod+Control+Shift+c [title=""] inhibit_idle none
-
-    $mod+v exec bemenu-cliphist
-    $mod+Shift+v exec cliphist list | bemenu -p Delete -cl 10 -W 0.5 | cliphist delete
-    $mod+Control+Shift+v exec 'wl-copy </dev/null; cliphist wipe'
-
-    $mod+i scratchpad show
-    $mod+Shift+i move scratchpad
-    $mod+Control+i floating disable
-    # ^ disabling floating removes from scratchpad
-
-    $mod+o focus parent
-    $mod+Shift+o focus child
-
-    $mod+p exec grimshot --notify --cursor save screen "$XDG_PICTURES_DIR/screenshots/$(date +%Y-%m-%d_%H-%M-%S.%N).png"
-    $mod+Shift+p exec grimshot --notify copy area
-    $mod+Control+p exec grimshot --notify save active "$XDG_PICTURES_DIR/screenshots/$(date +%Y-%m-%d_%H-%M-%S.%N.png)"
-    $mod+Control+Shift+p exec grimshot --notify copy window
-
-    XF86AudioPlay exec playerctl play-pause
-    Shift+XF86AudioPlay exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    Shift+XF86AudioMute exec playerctl play-pause
-    XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
-    XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
-    Shift+XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
-    Shift+XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
-
-    # xbacklight is actually acpilight, so it works on Wayland
-    XF86MonBrightnessUp exec xbacklight +2
-    XF86MonBrightnessDown exec xbacklight -2
-    Shift+XF86MonBrightnessUp exec xbacklight +10
-    Shift+XF86MonBrightnessDown exec xbacklight -10
-
-    Mod1+Control+Shift+Mod4+Insert mode passthrough
-}
-
-mode passthrough {
-    bindsym --no-repeat Mod1+Control+Shift+Mod4+Insert mode default
-}
-
-bindsym {
-    $mod+Control+$left resize shrink width 10px
-    $mod+Control+$down resize grow height 10px
-    $mod+Control+$up resize shrink height 10px
-    $mod+Control+$right resize grow width 10px
-}
 
 bar {
     swaybar_command waybar
@@ -197,7 +55,7 @@ client.focused #88c0d0 #3b4252 #88c0d0 #81a1c1 #88c0d0
 client.focused_inactive #2e3440 #2e3440 #88c0d0 #81a1c1 #2e3440
 client.focused_tab_title #3b4252 #3b4252 #eceff4 #81a1c1 #3b4252
 client.unfocused #2e3440 #2e3440 #eceff4 #81a1c1 #2e3440
-client.urgent #2e3440 #2e3440 #d08770 #81a1c1 #2e3440
+client.urgent #d08770 #2e3440 #d08770 #81a1c1 #2e3440
 
 default_border normal 2
 default_floating_border normal 2
@@ -212,9 +70,11 @@ gaps outer 2
 smart_borders on
 smart_gaps on
 
+include $confdir/bindings
 include $confdir/autospawn
 include $confdir/overrides
-
+#include $confdir/swayfx
 exec_always $confdir/swayconf
+#exec $confdir/swaytile
 
 include /etc/sway/config.d/*

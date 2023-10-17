@@ -1,0 +1,167 @@
+bindsym --no-repeat --inhibited {
+    $mod+Return exec bemenu-run -p Run --no-exec | \
+        xargs -I{} swaymsg exec -- {} ">/dev/null 2>/dev/null"
+    $mod+Shift+Return exec $TERMINAL
+    $mod+Control+Return exec $BROWSER
+
+    $mod+$left focus left
+    $mod+$down focus down
+    $mod+$up focus up
+    $mod+$right focus right
+
+    $mod+Shift+$left move left
+    $mod+Shift+$down move down
+    $mod+Shift+$up move up
+    $mod+Shift+$right move right
+
+    # Move to workspace
+    $mod+grave workspace 0:`
+    $mod+1 workspace 1
+    $mod+2 workspace 2
+    $mod+3 workspace 3
+    $mod+4 workspace 4
+    $mod+5 workspace 5
+    $mod+6 workspace 6
+    $mod+7 workspace 7
+    $mod+8 workspace 8
+    $mod+9 workspace 9
+    $mod+0 workspace 10:0
+    $mod+q workspace 11:q
+    $mod+w workspace 12:w
+    $mod+e workspace 13:e
+    $mod+r workspace 14:r
+    $mod+a workspace 15:a
+    $mod+s workspace 16:s
+    $mod+d workspace 17:d
+    $mod+f workspace 18:f
+    # Move focused container to workspace (and follow)
+    $mod+Shift+grave move container to workspace 0:` ; workspace 0:`
+    $mod+Shift+1 move container to workspace 1 ; workspace 1
+    $mod+Shift+2 move container to workspace 2 ; workspace 2
+    $mod+Shift+3 move container to workspace 3 ; workspace 3
+    $mod+Shift+4 move container to workspace 4 ; workspace 4
+    $mod+Shift+5 move container to workspace 5 ; workspace 5
+    $mod+Shift+6 move container to workspace 6 ; workspace 6
+    $mod+Shift+7 move container to workspace 7 ; workspace 7
+    $mod+Shift+8 move container to workspace 8 ; workspace 8
+    $mod+Shift+9 move container to workspace 9 ; workspace 9
+    $mod+Shift+0 move container to workspace 10:0 ; workspace 10:0
+    $mod+Shift+q move container to workspace 11:q ; workspace 11:q
+    $mod+Shift+w move container to workspace 12:w ; workspace 12:w
+    $mod+Shift+e move container to workspace 13:e ; workspace 13:e
+    $mod+Shift+r move container to workspace 14:r ; workspace 14:r
+    $mod+Shift+a move container to workspace 15:a ; workspace 15:a
+    $mod+Shift+s move container to workspace 16:s ; workspace 16:s
+    $mod+Shift+d move container to workspace 17:d ; workspace 17:d
+    $mod+Shift+f move container to workspace 18:f ; workspace 18:f
+    # Move focused container to workspace (and don't follow)
+    $mod+Control+grave move container to workspace 0:`
+    $mod+Control+1 move container to workspace 1
+    $mod+Control+2 move container to workspace 2
+    $mod+Control+3 move container to workspace 3
+    $mod+Control+4 move container to workspace 4
+    $mod+Control+5 move container to workspace 5
+    $mod+Control+6 move container to workspace 6
+    $mod+Control+7 move container to workspace 7
+    $mod+Control+8 move container to workspace 8
+    $mod+Control+9 move container to workspace 9
+    $mod+Control+0 move container to workspace 10:0
+    $mod+Control+q move container to workspace 11:q
+    $mod+Control+w move container to workspace 12:w
+    $mod+Control+e move container to workspace 13:e
+    $mod+Control+r move container to workspace 14:r
+    $mod+Control+a move container to workspace 15:a
+    $mod+Control+s move container to workspace 16:s
+    $mod+Control+d move container to workspace 17:d
+    $mod+Control+f move container to workspace 18:f
+    # Move all windows (and follow)
+    $mod+Control+Shift+grave rename workspace to 0:`
+    $mod+Control+Shift+1 rename workspace to 1
+    $mod+Control+Shift+2 rename workspace to 2
+    $mod+Control+Shift+3 rename workspace to 3
+    $mod+Control+Shift+4 rename workspace to 4
+    $mod+Control+Shift+5 rename workspace to 5
+    $mod+Control+Shift+6 rename workspace to 6
+    $mod+Control+Shift+7 rename workspace to 7
+    $mod+Control+Shift+8 rename workspace to 8
+    $mod+Control+Shift+9 rename workspace to 9
+    $mod+Control+Shift+0 rename workspace to 10:0
+    $mod+Control+Shift+q rename workspace to 11:q
+    $mod+Control+Shift+w rename workspace to 12:w
+    $mod+Control+Shift+e rename workspace to 13:e
+    $mod+Control+Shift+r rename workspace to 14:r
+    $mod+Control+Shift+a rename workspace to 15:a
+    $mod+Control+Shift+s rename workspace to 16:s
+    $mod+Control+Shift+d rename workspace to 17:d
+    $mod+Control+Shift+f rename workspace to 18:f
+
+    $mod+Tab layout toggle tabbed split
+    $mod+Shift+Tab split toggle
+    $mod+Control+Tab layout toggle split
+    $mod+Control+Shift+Tab exec bemenu -p swaymsg </dev/null | xargs swaymsg
+
+    $mod+z fullscreen toggle
+    $mod+Shift+z floating toggle
+    $mod+Control+z fullscreen toggle global
+
+    $mod+Shift+x kill
+    $mod+Control+x exec 'loginctl lock-session'
+    $mod+Control+Shift+x exec $confdir/swaypower
+
+    $mod+c sticky toggle
+    $mod+Shift+c inhibit_idle visible
+    $mod+Control+c inhibit_idle open
+    $mod+Control+Shift+c [title=""] inhibit_idle none
+
+    $mod+v exec bemenu-cliphist
+    $mod+Shift+v exec cliphist list | bemenu -p Delete -cl 10 -W 0.5 | cliphist delete
+    $mod+Control+Shift+v exec 'wl-copy -c; cliphist wipe'
+
+    $mod+u exec =
+    $mod+Shift+u exec neovide
+    $mod+Control+u exec pcmanfm
+
+    $mod+i scratchpad show
+    $mod+Shift+i move scratchpad
+    $mod+Control+i floating disable
+    # ^ disabling floating removes from scratchpad
+
+    $mod+o focus parent
+    $mod+Shift+o focus child
+    $mod+Control+o focus mode_toggle
+
+    $mod+p exec grimshot --notify --cursor save screen "$XDG_PICTURES_DIR/screenshots/$(date +%Y-%m-%d_%H-%M-%S.%N).png"
+    $mod+Shift+p exec grimshot --notify copy area
+    $mod+Control+p exec grimshot --notify copy window
+    $mod+Control+Shift+p exec grimshot --notify save active "$XDG_PICTURES_DIR/screenshots/$(date +%Y-%m-%d_%H-%M-%S.%N.png)"
+
+    $mod+backslash input type:touchpad events toggle disabled_on_external_mouse disabled
+    $mod+Shift+backslash input type:touchpad events enabled
+
+    XF86AudioPlay exec playerctl play-pause
+    Shift+XF86AudioPlay exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    Shift+XF86AudioMute exec playerctl play-pause
+    XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
+    XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
+    Shift+XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+    Shift+XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+
+    # xbacklight is actually acpilight, so it works on Wayland
+    XF86MonBrightnessUp exec xbacklight +2
+    XF86MonBrightnessDown exec xbacklight -2
+    Shift+XF86MonBrightnessUp exec xbacklight +10
+    Shift+XF86MonBrightnessDown exec xbacklight -10
+
+    Mod1+Control+Shift+Mod4+Insert mode passthrough
+}
+
+mode passthrough bindsym --no-repeat Mod1+Control+Shift+Mod4+Insert mode default
+
+bindsym --inhibited {
+    $mod+Control+$left resize shrink width 10px
+    $mod+Control+$down resize grow height 10px
+    $mod+Control+$up resize shrink height 10px
+    $mod+Control+$right resize grow width 10px
+}
+# vi: set ft=swayconfig

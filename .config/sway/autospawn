@@ -9,8 +9,9 @@ exec {
     kdeconnect-indicator
     xsettingsd
     $TERMINAL --class btop-spawn -t btop -e btop
-    korganizer
-    kmail
+    #korganizer
+    #kmail
+    thunderbird
     discord-canary
     signal-desktop
     element-desktop
