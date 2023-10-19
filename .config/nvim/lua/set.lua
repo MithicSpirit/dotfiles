@@ -44,6 +44,8 @@ vim.opt.shiftwidth = 4
 vim.opt.softtabstop = -1  -- stay in sync with 'sw'
 vim.opt.expandtab = true
 
+vim.g.loaded_node_provider = 0
+vim.g.loaded_perl_provider = 0
 
 vim.g.tex_flavor = 'latex'
 vim.g.zig_fmt_autosave = 0

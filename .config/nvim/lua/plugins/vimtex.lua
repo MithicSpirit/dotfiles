@@ -10,6 +10,7 @@ vim.g.vimtex_indent_enabled = 1
 vim.g.vimtex_indent_bib_enabled = 1
 vim.g.vimtex_indent_tikz_commands = 1
 vim.g.vimtex_indent_on_ampersands = 0
+vim.g.vimtex_indent_delims = {close_indented = 1}
 
 vim.g.vimtex_syntax_enabled = 1
 vim.g.vimtex_syntax_conceal = {

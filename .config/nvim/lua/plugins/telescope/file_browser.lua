@@ -6,7 +6,7 @@ return {
 	grouped = false,
 	files = true,
 	add_dirs = true,
-	depth = 2,
+	depth = 1,
 	auto_depth = false,
 	select_buffer = true,
 	hidden = true,
