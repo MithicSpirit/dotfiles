@@ -6,7 +6,7 @@
     (or opts {})))
 
 {1 :nvim-lualine/lualine.nvim
- :lazy false
+ :event :UIEnter
  :opts
    #{:options
        {:icons_enabled false

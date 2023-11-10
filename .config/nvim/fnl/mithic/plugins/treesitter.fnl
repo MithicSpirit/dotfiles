@@ -1,5 +1,6 @@
 [{1 "nvim-treesitter/nvim-treesitter"
-  :lazy false
+  ; :lazy false
+  :event [:BufReadPre :BufNewFile]
   :build #((. (require :nvim-treesitter.install) :update) {:with_sync true})
   :main :nvim-treesitter.configs
   :opts
@@ -19,13 +20,15 @@
 
 
  {1 "nvim-treesitter/nvim-treesitter-textobjects"
-  :lazy false
+  ; :lazy false
+  :event [:BufReadPre :BufNewFile]
   :priority 25
   :main :nvim-treesitter.configs
   :opts
     {:textobjects
        {:select
           {:enable true :lookahead true :include_surrounding_whitespace false
+           :disable [:latex]
            :keymaps {"aa" "@parameter.outer" "ia" "@parameter.inner"
                      "af" "@function.outer" "if" "@function.inner"
                      "ac" "@class.outer" "ic" "@class.inner"}
@@ -41,7 +44,8 @@
 
 
  {1 "nvim-treesitter/nvim-treesitter-context"
-  :lazy false
+  ; :lazy false
+  :event [:BufReadPre :BufNewFile]
   :priority 25
   :opts
     {:enable true

@@ -18,6 +18,7 @@
         :gitgutter true
         :gitsigns true
         :hop true
+        :indent_blankline {:enabled true}
         :markdown true
         :mason true
         :native_lsp {:enabled true}

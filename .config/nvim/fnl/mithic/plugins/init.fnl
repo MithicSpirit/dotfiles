@@ -30,6 +30,16 @@
           ["t" "<Plug>Sneak_t"]
           ["T" "<Plug>Sneak_T"]]}
 
+ {1 "lukas-reineke/indent-blankline.nvim"
+  :event [:BufReadPre :BufNewFile]
+  :config
+    #(do
+       ((. (require :lazy) :load) {:plugins [:nvim-treesitter]})
+       (vim.api.nvim_create_augroup :mithic-lc-lms {})
+       (vim.opt_local.listchars:remove [:lead :leadmultispace])
+       (vim.opt_global.listchars:remove [:lead :leadmultispace])
+       ((. (require :ibl) :setup)))}
+
 
  {1 "mbbill/undotree"
   :keys [["<leader>u" vim.cmd.UndotreeToggle]]}

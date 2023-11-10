@@ -1,6 +1,7 @@
 [{1 "hrsh7th/nvim-cmp"
   :dependencies ["saadparwaiz1/cmp_luasnip" "hrsh7th/cmp-nvim-lsp"]
-  :lazy false
+  ; :lazy false
+  :event [:BufReadPre :BufNewFile]
   :config #(let [cmp (require :cmp)
                  luasnip (require :luasnip)]
             (cmp.setup
@@ -25,7 +26,7 @@
                   "<S-Tab>" (cmp.mapping
                              (fn [fallback]
                                (if (cmp.visible) (cmp.select_prev_item)
-                                   (luasnip.jumpable (- 1)) (luasnip.jump (- 1))
+                                   (luasnip.jumpable -1) (luasnip.jump -1)
                                    (fallback)))
                              [:i :s])
                   "<C-n>" (cmp.mapping

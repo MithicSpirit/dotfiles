@@ -1,6 +1,9 @@
 (var lsp_setting
  {:texlab
-   {:settings {:texlab {:chktex {:onOpenAndSave true :onEdit true}}}}
+   {:settings {:texlab {:chktex {:onOpenAndSave true :onEdit true}
+                        :build {:auxDirectory "build"
+                                :logDirectory "build"}
+                        :auxDirectory "build"}}}
   :pylsp
    {:settings {:pylsp {:plugins {:autopep8 {:enabled false}
                                   :mccabe {:enabled false}
@@ -9,7 +12,8 @@
                                   :yapf {:enabled false}}}}}
   :ltex
    {:settings {:ltex {:latex {:environments {:numcases :ignore
-                                             :subnumcases :ignore}}}}}})
+                                             :subnumcases :ignore}
+                              :commands {"\\noeqref{}" :ignore}}}}}})
 
 (local global_lsp [:clangd :idris2_lsp])
 
@@ -26,7 +30,8 @@
 
 [{1 "neovim/nvim-lspconfig"
   :dependencies ["hrsh7th/cmp-nvim-lsp"]
-  :lazy false
+  ; :lazy false
+  :event [:BufReadPre :BufNewFile]
   :priority 300
   :config #(each [_ lsp (ipairs global_lsp)] (lsp_setup lsp))}
 
@@ -45,6 +50,7 @@
 
  {1 "icewind/ltex-client.nvim"
   :dependencies ["neovim/nvim-lspconfig"]
+  :enabled false
   :name :ltex-client
   :init #(lsp_config :ltex
           {:on_attach #((. (require :lazy) :load) {:plugins [:ltex-client]})})
@@ -125,13 +131,15 @@
 
  {1 "williamboman/mason.nvim"
   :build #(vim.cmd.MasonUpdate)
-  :lazy false
+  ; :lazy false
+  :event [:BufReadPre :BufNewFile]
   :priority 500
   :config true
   :keys [["<leader>M" #((. (require :mason.ui) :open))]]}
 
  {1 "williamboman/mason-lspconfig.nvim"
-  :lazy false
+  ; :lazy false
+  :event [:BufReadPre :BufNewFile]
   :priority 400
   :dependencies ["williamboman/mason.nvim" "neovim/nvim-lspconfig"]
   :config #(let [mlsp (require :mason-lspconfig)]

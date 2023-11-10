@@ -4,13 +4,13 @@
 
 (set vim.opt.showmode false)
 (set vim.opt.termguicolors false)
-(set vim.opt.mouse :nvi)
-(set vim.opt.clipboard :unnamedplus)
+(set vim.opt.mouse :nv)
 (set vim.opt.conceallevel 2)
 (set vim.opt.guifont "Iosevka Mithic:h12:#e-antialias:#h-full")
 (set vim.opt.linespace 0)
 (set vim.opt.timeout false)
 (set vim.opt.cursorline true)
+(set vim.opt.allowrevins true)
 (vim.opt.path:append "**")
 
 (set vim.opt.spelllang :en_us)
@@ -23,6 +23,7 @@
 
 (set vim.opt.undodir (.. (vim.fn.stdpath :cache) "/undodir"))
 (set vim.opt.undofile true)
+(set vim.opt.undolevels (^ 2 15))
 
 (set vim.opt.scrolloff 6)
 (set vim.opt.sidescrolloff 6)
@@ -40,7 +41,7 @@
 
 (set vim.opt.tabstop 8)
 (set vim.opt.shiftwidth 4)
-(set vim.opt.softtabstop (- 1))  ; stay in sync with sw
+(set vim.opt.softtabstop -1)  ; stay in sync with sw
 (set vim.opt.expandtab true)
 
 (set vim.g.loaded_node_provider 0)
@@ -80,10 +81,16 @@
 (vim.keymap.set :n "ZQ" vim.cmd.cquit)
 
 (vim.keymap.set :n "<leader>s" vim.cmd.write)
-(vim.keymap.set :n "<leader>E" #(vim.cmd "w | ! \"%:p\""))
+(vim.keymap.set :n "<leader>E"
+  #(do (vim.cmd.write) (vim.cmd "13split +terminal\\ %:p")))
 (vim.keymap.set :n "<leader>t" #(vim.cmd "19split +terminal"))
 
-;(vim.keymap.set :n "gQ" "mzgggqG'z")
+(vim.keymap.set [:n :v] "<leader>y" "\"+y" {:remap true})
+(vim.keymap.set [:n :v] "<leader>Y" "\"+Y" {:remap true})
+(vim.keymap.set :n "<leader><C-Y>" #(vim.fn.setreg "+" (vim.fn.getreg "")))
+(vim.keymap.set [:n :v] "<leader>p" "\"+p" {:remap true})
+(vim.keymap.set [:n :v] "<leader>P" "\"+P" {:remap true})
+
 (vim.keymap.set :n "gQ"
   #(let [c (vim.api.nvim_win_get_cursor 0)]
      (vim.cmd "normal! gggqG")
@@ -91,18 +98,23 @@
 (vim.keymap.set :n "<C-W>," "<C-w><")
 (vim.keymap.set :n "<C-W>." "<C-w>>")
 (vim.keymap.set :t "<C-\\><C-\\>" "<C-\\><C-n>")
-(vim.keymap.set :v "J" ":move '>+1<CR>gv")
-(vim.keymap.set :v "K" ":move '<-2<CR>gv")
-(vim.keymap.set :v ">" :>gv)
-(vim.keymap.set :v "<" :<gv)
+(vim.keymap.set :v "J" ":move '>+1<CR>gv" {:silent true})
+(vim.keymap.set :v "K" ":move '<-2<CR>gv" {:silent true})
+(vim.keymap.set :v ">" ">gv")
+(vim.keymap.set :v "<" "<gv")
 (vim.keymap.set :n "<C-d>" "<C-d>zz")
 (vim.keymap.set :n "<C-u>" "<C-u>zz")
 (vim.keymap.set :n "n" "nzz")
 (vim.keymap.set :n "N" "Nzz")
 
+(vim.keymap.set :i "<C-h>" "<C-g>u<C-w><C-g>u")
+
 (vim.keymap.set :n "<leader>ld" vim.diagnostic.open_float)
 (vim.keymap.set "" "[d" vim.diagnostic.goto_prev)
 (vim.keymap.set "" "]d" vim.diagnostic.goto_next)
+
+(vim.keymap.set "" "s" "<Nop>")
+(vim.keymap.set "" "S" "<Nop>")
 
 (vim.keymap.set :n "<Tab>" vim.cmd.bnext)
 (vim.keymap.set :n "<S-Tab>" vim.cmd.bprevious)

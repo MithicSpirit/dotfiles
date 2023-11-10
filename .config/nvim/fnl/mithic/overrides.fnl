@@ -47,7 +47,9 @@
 (vim.api.nvim_create_autocmd :FileType
  {:pattern :tex
   ; TODO: use a snippet
-  :callback #(vim.keymap.set :i "\"" "``" {:buffer true})
+  :callback
+    #(do (vim.keymap.set :i "\"" "``" {:buffer true})
+         (vim.keymap.set :i "$" "\\(" {:buffer true}))
   :group augroup})
 
 (vim.api.nvim_create_autocmd :LspAttach

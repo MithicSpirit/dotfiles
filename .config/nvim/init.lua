@@ -56,7 +56,7 @@ for _, lang in ipairs({'lua', 'fnl'}) do
 end
 
 require('lazy').setup({
-	defaults = { lazy = false },
+	defaults = { lazy = true },
 	spec = plugins,
 	concurrency = vim.loop.available_parallelism(),
 	install = {

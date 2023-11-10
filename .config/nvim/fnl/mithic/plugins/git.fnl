@@ -4,7 +4,8 @@
 
 
  {1 "lewis6991/gitsigns.nvim"
-  :lazy false
+  ; :lazy false
+  :event :UIEnter
   :opts
     {:signs
        {:add {:text "+"} :change {:text "~"} :changedelete {:text "="}
@@ -47,5 +48,4 @@
      :popup {:kind :split}
      :preview_buffer {:kind :auto}
      :rebase_editor {:kind :auto}
-     :reflog_view {:kind :auto}
-     }}]
+     :reflog_view {:kind :auto}}}]
