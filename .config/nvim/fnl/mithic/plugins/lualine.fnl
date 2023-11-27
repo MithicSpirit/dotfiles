@@ -2,7 +2,7 @@
 
 (fn no-sep [name opts]
   (vim.tbl_deep_extend :force
-    {1 name :padding {:left 1 :right 0} :separator {:left "" :right ""}}
+    {1 name :padding {:left 1 :right 0} :separator ""}
     (or opts {})))
 
 {1 :nvim-lualine/lualine.nvim

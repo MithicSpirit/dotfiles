@@ -13,7 +13,8 @@
   :ltex
    {:settings {:ltex {:latex {:environments {:numcases :ignore
                                              :subnumcases :ignore}
-                              :commands {"\\noeqref{}" :ignore}}}}}})
+                              :commands {"\\noeqref{}" :ignore
+                                         "\\mathtoolsset{}" :ignore}}}}}})
 
 (local global_lsp [:clangd :idris2_lsp])
 
@@ -58,7 +59,7 @@
 
 
  {1 "mrcjkb/haskell-tools.nvim"
-  :dependencies ["neovim/nvim-lspconfig" "nvim-lua/plenary.nvim"]
+  :dependencies ["neovim/nvim-lspconfig"]
   :ft [:haskell :lhaskell :cabal :cabalproject]
   :init #(do
           (set vim.g.haskell_tools
@@ -92,6 +93,7 @@
  {1 "Julian/lean.nvim"
   :dependencies ["neovim/nvim-lspconfig" "nvim-lua/plenary.nvim"]
   :event ["BufReadPre *.lean" "BufNewFile *.lean"]
+  :ft [:lean :lean3]
   :opts
      {:abbreviations {:enable true :extra {} :leader "\\"}
       :ft {:default :lean :nomodifiable nil}
@@ -105,6 +107,38 @@
       :mappings true
       :progress_bars {:enable true :priority 10}
       :stderr {:enable true :height 8 :on_lines nil}}}
+
+
+ {1 "isovector/cornelis"
+  :dependencies ["kana/vim-textobj-user" "neovimhaskell/nvim-hs.vim"]
+  :event ["BufReadPre *.agda" "BufNewFile *.agda"
+          "BufReadPre *.lagda" "BufNewFile *.lagda"
+          "BufReadPre *.lagda.*" "BufNewFile *.lagda.*"]
+  :ft :agda
+  :cmd [:CornelisLoad]
+  :config
+    #(let [augroup (vim.api.nvim_create_augroup :mithic-cornelis {})]
+       (vim.api.nvim_create_autocmd :FileType
+         {:pattern :agda
+          :callback
+            #(let [opts {:buffer true}]
+               (vim.keymap.set :n "<localleader>l" vim.cmd.CornelisLoad opts)
+               (vim.keymap.set :n "<localleader>r" vim.cmd.CornelisRefine opts)
+               (vim.keymap.set :n "<localleader>d" vim.cmd.CornelisMakeCase opts)
+               (vim.keymap.set :n "<localleader>," vim.cmd.CornelisTypeContext opts)
+               (vim.keymap.set :n "<localleader>." vim.cmd.CornelisTypeContextInfer opts)
+               (vim.keymap.set :n "<localleader>n" vim.cmd.CornelisSolve opts)
+               (vim.keymap.set :n "<localleader>a" vim.cmd.CornelisAuto opts)
+               (vim.keymap.set :n "<localleader>[" vim.cmd.CornelisPrevGoal opts)
+               (vim.keymap.set :n "<localleader>]" vim.cmd.CornelisNextGoal opts)
+               (vim.keymap.set :n "gd" vim.cmd.CornelisGoToDefinition opts)
+               (vim.keymap.set :n "<C-A>" vim.cmd.CornelisInc opts)
+               (vim.keymap.set :n "<C-X>" vim.cmd.CornelisDec opts))
+          :group augroup})
+       (vim.api.nvim_create_autocmd :BufWritePost
+         {:pattern ["*.agda" "*.lagda"]
+          :callback #(vim.cmd.CornelisLoad)
+          :group augroup}))}
 
 
  {1 "simrat39/rust-tools.nvim"

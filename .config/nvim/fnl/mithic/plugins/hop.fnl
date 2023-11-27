@@ -1,8 +1,11 @@
 (fn hop [typ dir opts]
-  #((. (require :hop) typ)
-    (vim.tbl_deep_extend :force
-      {:direction (. (require :hop.hint) :HintDirection dir)}
-      (or opts {}))))
+  #(let [cole vim.o.conceallevel]
+     (set vim.opt.conceallevel 0)
+     ((. (require :hop) typ)
+      (vim.tbl_deep_extend :force
+        {:direction (. (require :hop.hint) :HintDirection dir)}
+        (or opts {})))
+     (set vim.opt.conceallevel cole)))
 
 [{1 "smoka7/hop.nvim"
   :config true

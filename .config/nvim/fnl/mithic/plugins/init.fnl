@@ -16,7 +16,8 @@
          {1 "<C-S>" 2 "<Plug>Isurround" :mode :i}]}
 
  {1 "tpope/vim-characterize"
-  :keys [["gA" "<Plug>(characterize)"]]}
+  :keys [["gA" "<Plug>(characterize)"]]
+  :cmd [:Characterize]}
 
  {1 "tpope/vim-commentary"
   :keys [{1 "gc" :mode [:x :n :o]}]
@@ -26,7 +27,7 @@
  {1 "justinmk/vim-sneak"
    :init #(tset vim.g :sneak#use_ic_scs 1)
    :keys [["f" "<Plug>Sneak_f"]
-          ["F" "<Plug>Sneaf_F"]
+          ["F" "<Plug>Sneak_F"]
           ["t" "<Plug>Sneak_t"]
           ["T" "<Plug>Sneak_T"]]}
 
@@ -38,11 +39,21 @@
        (vim.api.nvim_create_augroup :mithic-lc-lms {})
        (vim.opt_local.listchars:remove [:lead :leadmultispace])
        (vim.opt_global.listchars:remove [:lead :leadmultispace])
-       ((. (require :ibl) :setup)))}
+       ((. (require :ibl) :setup)
+        {:indent {:char "│" :tab_char "┃"
+                  ; :highlight [:RainbowRed :RainbowOrange :RainbowYellow
+                  ;             :RainbowGreen :RainbowBlue :RainbowViolet]
+                  :highlight [:RainbowRed :RainbowYellow :RainbowBlue
+                              :RainbowOrange :RainbowViolet :RainbowGreen]}
+         :scope {:char "▎" :show_start false :show_end false}}))}
 
 
  {1 "mbbill/undotree"
-  :keys [["<leader>u" vim.cmd.UndotreeToggle]]}
+  :keys [["<leader>u" vim.cmd.UndotreeToggle]]
+  :cmd [:UndotreeToggle]
+  :config
+    #(do (set vim.g.undotree_SetFocusWhenToggle 1)
+         (set vim.g.undotree_ShortIndicators 1))}
 
  {1 "chrisbra/Colorizer"
   :cmd [:ColorHighlight :ColorClear :RGB2Term :HSL2RGB :Term2RGB :ColorContrast

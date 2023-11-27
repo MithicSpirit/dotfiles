@@ -136,5 +136,15 @@
   {:desc "cd to the parent of the current file" :force false})
 
 
+;; Whitespace cleanup
+(vim.api.nvim_create_autocmd :BufWritePre
+  {:callback
+   #(let [c (vim.api.nvim_win_get_cursor 0)]
+      (vim.cmd "%substitute/ \\+$//e")
+      (pcall #(vim.api.nvim_win_set_cursor 0 c))
+      nil)
+   :group (vim.api.nvim_create_augroup :mithic-whitespace {})})
+
+
 (require (.. ... :.overrides))
 (require (.. ... :.misc))

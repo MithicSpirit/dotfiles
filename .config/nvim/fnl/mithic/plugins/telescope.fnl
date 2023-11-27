@@ -9,6 +9,7 @@
   :cmd [:Telescope]
   :config #(let [telescope (require :telescope)
                  fb-actions (require (.. _this :.fb_actions))]
+            ((. (require :lazy) :load) {:plugins [:nvim-treesitter]})
             (telescope.setup
                {:extensions
                  {:file_browser
@@ -21,6 +22,7 @@
                     :select_buffer true
                     :hidden true
                     :respect_gitignore false
+                    :no_ignore true
                     :follow_symlinks true
                     :collapse_dirs false
                     :dir_icon "D"

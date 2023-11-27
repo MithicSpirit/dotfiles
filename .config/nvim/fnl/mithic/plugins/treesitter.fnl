@@ -1,6 +1,7 @@
 [{1 "nvim-treesitter/nvim-treesitter"
   ; :lazy false
   :event [:BufReadPre :BufNewFile]
+  :cmd [:TSUpdate]
   :build #((. (require :nvim-treesitter.install) :update) {:with_sync true})
   :main :nvim-treesitter.configs
   :opts

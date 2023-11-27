@@ -18,7 +18,9 @@
         :gitgutter true
         :gitsigns true
         :hop true
-        :indent_blankline {:enabled true}
+        :indent_blankline {:enabled true
+                           :scope_color :teal
+                           :colored_indent_levels true}
         :markdown true
         :mason true
         :native_lsp {:enabled true}
