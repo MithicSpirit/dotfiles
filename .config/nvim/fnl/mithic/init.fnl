@@ -11,6 +11,7 @@
 (set vim.opt.timeout false)
 (set vim.opt.cursorline true)
 (set vim.opt.allowrevins true)
+(set vim.opt.tildeop true)
 (vim.opt.path:append "**")
 
 (set vim.opt.spelllang :en_us)
@@ -55,6 +56,8 @@
 (set vim.g.python_recommended_style 0)
 (set vim.g.rust_recommended_style 0)
 
+(set _G.border "rounded")
+
 (set vim.opt.listchars
    {:extends "$" :lead "|" :nbsp "~" :precedes "$" :tab "> " :trail "⏹"})
 (set vim.opt.list true)
@@ -76,14 +79,15 @@
 
 (vim.keymap.set :n "Y" :y$)
 (vim.keymap.set :n "x" "\"_x")
-(vim.keymap.set :n "~" "g~l")
+(vim.keymap.set :n "~~" "g~l")
 (vim.keymap.set :n "<Esc>" #(do (vim.cmd.nohlsearch) (vim.cmd.mode)))
 (vim.keymap.set :n "ZQ" vim.cmd.cquit)
 
 (vim.keymap.set :n "<leader>s" vim.cmd.write)
 (vim.keymap.set :n "<leader>E"
   #(do (vim.cmd.write) (vim.cmd "13split +terminal\\ %:p")))
-(vim.keymap.set :n "<leader>t" #(vim.cmd "19split +terminal"))
+(vim.keymap.set :n "<leader>t" #(do (vim.cmd "19split +terminal")
+                                    (vim.cmd.startinsert)))
 
 (vim.keymap.set [:n :v] "<leader>y" "\"+y" {:remap true})
 (vim.keymap.set [:n :v] "<leader>Y" "\"+Y" {:remap true})
@@ -116,10 +120,8 @@
 (vim.keymap.set "" "s" "<Nop>")
 (vim.keymap.set "" "S" "<Nop>")
 
-(vim.keymap.set :n "<Tab>" vim.cmd.bnext)
-(vim.keymap.set :n "<S-Tab>" vim.cmd.bprevious)
-(vim.keymap.set :n "<leader><Tab>" "<C-^>")
-(vim.keymap.set :n "<leader><S-Tab>"
+(vim.keymap.set :n "<Tab>" "<C-^>")
+(vim.keymap.set :n "<S-Tab>"
   #(if (vim.opt_local.modified:get)
        (vim.api.nvim_err_writeln "E89: No write since last change for buffer")
      (let [curr-buf (vim.api.nvim_get_current_buf)]
@@ -130,6 +132,8 @@
          (set last-2buf last-buf) (set last-buf buf))
        (when last-2buf (vim.api.nvim_set_current_buf last-buf))
        (vim.cmd (.. "bdelete " curr-buf)))))
+(vim.keymap.set :n "<leader><Tab>" vim.cmd.bnext)
+(vim.keymap.set :n "<leader><S-Tab>" vim.cmd.bprevious)
 
 (vim.api.nvim_create_user_command :Cdfile
   #(vim.api.nvim_set_current_dir (vim.fn.expand "%:p:h"))

@@ -23,3 +23,9 @@
   (set vim.g.neovide_cursor_animate_in_insert_mode true)
   (set vim.g.neovide_cursor_animate_switch_to_command_line true)
   (set vim.g.neovide_cursor_unfocued_outline_width 0.11))
+
+
+;; Popup border
+(vim.diagnostic.config {:float {:border _G.border}})
+(each [name handler (pairs vim.lsp.handlers)]
+  (tset vim.lsp.handlers name (vim.lsp.with handler {:border _G.border})))

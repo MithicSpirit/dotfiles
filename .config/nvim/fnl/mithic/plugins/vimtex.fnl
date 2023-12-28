@@ -1,7 +1,6 @@
 [{1 "lervag/vimtex"
   :ft [:tex]
-  :event ["BufReadPre *.cls" "BufNewFile *.cls"
-          "BufReadPre *.tikz" "BufNewFile *.tikz"]
+  :event ["BufReadPre *.cls,*.tikz" "BufNewFile *.cls,*.tikz"]
   :cmd [:VimtexInverseSearch]
   :config #(do
             (set vim.g.vimtex_enabled 1)

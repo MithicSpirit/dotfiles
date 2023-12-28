@@ -19,7 +19,7 @@
 
 (vim.api.nvim_create_autocmd :FileType
   {:pattern [:haskell :lisp :tex :gitcommit :toml :markdown :lean :lean3
-             :fennel]
+             :fennel :idris :idris2 :agda]
    :callback #(do
                (set vim.opt_local.shiftwidth 2)
                (set vim.opt_local.expandtab true))
@@ -97,5 +97,6 @@
   {:callback #(vim.highlight.on_yank) :group augroup})
 
 (vim.api.nvim_create_autocmd :TermOpen
- {:callback #(do (set vim.opt_local.number false) (vim.cmd :startinsert))
+ {:callback #(do (set vim.opt_local.number false)
+                 (set vim.opt_local.relativenumber false))
   :group augroup})

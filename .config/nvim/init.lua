@@ -66,6 +66,7 @@ require('lazy').setup({
 	ui = {
 		size = { width = 0.8, height = 0.8 },
 		wrap = true,
+		border = _G.border,
 		pills = true,
 		browser = vim.env.BROWSER,
 	},

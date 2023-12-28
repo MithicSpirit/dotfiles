@@ -1,9 +1,9 @@
 (var lsp_setting
  {:texlab
-   {:settings {:texlab {:chktex {:onOpenAndSave true :onEdit true}
-                        :build {:auxDirectory "build"
-                                :logDirectory "build"}
-                        :auxDirectory "build"}}}
+   {:settings {:texlab {:chktex {:onOpenAndSave true :onEdit true}}}}
+                        ; :build {:auxDirectory "build"
+                        ;         :logDirectory "build"}
+                        ; :auxDirectory "build"}}}
   :pylsp
    {:settings {:pylsp {:plugins {:autopep8 {:enabled false}
                                   :mccabe {:enabled false}
@@ -14,7 +14,10 @@
    {:settings {:ltex {:latex {:environments {:numcases :ignore
                                              :subnumcases :ignore}
                               :commands {"\\noeqref{}" :ignore
-                                         "\\mathtoolsset{}" :ignore}}}}}})
+                                         "\\mathtoolsset{}" :ignore}}
+                      :ltex-ls {:logLevel :config}
+                      :completionEnabled true
+                      :checkFrequency :edit}}}})
 
 (local global_lsp [:clangd :idris2_lsp])
 
@@ -34,7 +37,10 @@
   ; :lazy false
   :event [:BufReadPre :BufNewFile]
   :priority 300
-  :config #(each [_ lsp (ipairs global_lsp)] (lsp_setup lsp))}
+  :config
+  #(do
+     (each [_ lsp (ipairs global_lsp)] (lsp_setup lsp))
+     (tset (require :lspconfig.ui.windows) :default_options :border _G.border))}
 
 
  {1 "folke/neodev.nvim"
@@ -111,9 +117,8 @@
 
  {1 "isovector/cornelis"
   :dependencies ["kana/vim-textobj-user" "neovimhaskell/nvim-hs.vim"]
-  :event ["BufReadPre *.agda" "BufNewFile *.agda"
-          "BufReadPre *.lagda" "BufNewFile *.lagda"
-          "BufReadPre *.lagda.*" "BufNewFile *.lagda.*"]
+  :event ["BufReadPre *.agda,*.lagda,*.lagda.*"
+          "BufNewFile *.agda,*.lagda,*.lagda.*"]
   :ft :agda
   :cmd [:CornelisLoad]
   :config
@@ -168,7 +173,7 @@
   ; :lazy false
   :event [:BufReadPre :BufNewFile]
   :priority 500
-  :config true
+  :config {:ui {:border _G.border}}
   :keys [["<leader>M" #((. (require :mason.ui) :open))]]}
 
  {1 "williamboman/mason-lspconfig.nvim"

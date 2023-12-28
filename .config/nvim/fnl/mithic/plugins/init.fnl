@@ -40,12 +40,12 @@
        (vim.opt_local.listchars:remove [:lead :leadmultispace])
        (vim.opt_global.listchars:remove [:lead :leadmultispace])
        ((. (require :ibl) :setup)
-        {:indent {:char "│" :tab_char "┃"
+        {:indent {:char "▏" :tab_char "║"
                   ; :highlight [:RainbowRed :RainbowOrange :RainbowYellow
                   ;             :RainbowGreen :RainbowBlue :RainbowViolet]
                   :highlight [:RainbowRed :RainbowYellow :RainbowBlue
                               :RainbowOrange :RainbowViolet :RainbowGreen]}
-         :scope {:char "▎" :show_start false :show_end false}}))}
+         :scope {:char "▍" :show_start false :show_end false}}))}
 
 
  {1 "mbbill/undotree"
@@ -69,6 +69,5 @@
   :ft :coq}
 
  {1 "edwinb/idris2-vim"
-  :event ["BufReadPre *.idr" "BufNewFile *.idr"
-          "BufReadPre *.lidr" "BufNewFile *.lidr"]
+  :event ["BufReadPre *.idr,*.lidr" "BufNewFile *.idr,*.lidr"]
   :ft [:idris2 :lidris2]}]
