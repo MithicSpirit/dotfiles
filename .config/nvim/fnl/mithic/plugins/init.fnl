@@ -7,6 +7,9 @@
  {1 "tpope/vim-rsi"
   :lazy false}
 
+ {1 "tpope/vim-repeat"
+  :lazy false}
+
  {1 "tpope/vim-surround"
   :dependencies ["tpope/vim-repeat"]
   :init #(set vim.g.surround_no_insert_mappings 0)

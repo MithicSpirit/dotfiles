@@ -1,4 +1,6 @@
 [{1 "mikesmithgh/kitty-scrollback.nvim"
-  :enabled false  ; requires nvim v0.10
+  :enabled true
   :cmd [:KittyScrollbackGenerateKittens :KittyScrollbackCheckHealth]
-  :config true}]
+  :event "User KittyScrollbackLaunch"
+  :config true
+  :opts {:status_window {:enabled false}}}]

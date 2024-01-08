@@ -1,9 +1,6 @@
 (var lsp_setting
  {:texlab
    {:settings {:texlab {:chktex {:onOpenAndSave true :onEdit true}}}}
-                        ; :build {:auxDirectory "build"
-                        ;         :logDirectory "build"}
-                        ; :auxDirectory "build"}}}
   :pylsp
    {:settings {:pylsp {:plugins {:autopep8 {:enabled false}
                                   :mccabe {:enabled false}
@@ -173,7 +170,7 @@
   ; :lazy false
   :event [:BufReadPre :BufNewFile]
   :priority 500
-  :config {:ui {:border _G.border}}
+  :opts {:ui {:border _G.border}}
   :keys [["<leader>M" #((. (require :mason.ui) :open))]]
   :cmd [:Mason]}
 

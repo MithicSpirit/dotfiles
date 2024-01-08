@@ -6,6 +6,7 @@
   :dependencies ["nvim-lua/plenary.nvim"
                  "natecraddock/telescope-zf-native.nvim"
                  "nvim-telescope/telescope-file-browser.nvim"]
+  :lazy false
   :cmd [:Telescope]
   :config #(let [telescope (require :telescope)
                  fb-actions (require (.. _this :.fb_actions))]
@@ -28,7 +29,7 @@
                     :dir_icon "D"
                     :dir_icon_hl :Default
                     :display_stat {:date true :mode true :size true}
-                    :hijack_netrw false
+                    :hijack_netrw true
                     :use_fd true
                     :git_status true
                     :hide_parent_dir false
