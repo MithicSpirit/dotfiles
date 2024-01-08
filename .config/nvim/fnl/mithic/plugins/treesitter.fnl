@@ -2,7 +2,8 @@
   ; :lazy false
   :event [:BufReadPre :BufNewFile]
   :cmd [:TSUpdate]
-  :build #((. (require :nvim-treesitter.install) :update) {:with_sync true})
+  ; :build #((. (require :nvim-treesitter.install) :update) {:with_sync true})
+  :build ":TSUpdate"
   :main :nvim-treesitter.configs
   :opts
     {:ensure_installed [:lua :fennel :vim :vimdoc :query]

@@ -71,13 +71,13 @@
           (set vim.g.haskell_tools
              {:tools
                 {:codeLens {:autoRefresh true}
-                 :dap {:cmd ["haskell-debug-adapter"]}
                  :definition {:hoogle_signature_fallback true}
                  :hoogle {:mode :auto}
                  :hover {:auto_focus false
                          :enable true
                          :stylize_markdown false}
                  :repl {:auto_focus true :handler :builtin}}
+              :dap {:cmd ["haskell-debug-adapter"]}
               :hls
                 {:default_settings
                    {:haskell {:checkProject true
@@ -174,7 +174,8 @@
   :event [:BufReadPre :BufNewFile]
   :priority 500
   :config {:ui {:border _G.border}}
-  :keys [["<leader>M" #((. (require :mason.ui) :open))]]}
+  :keys [["<leader>M" #((. (require :mason.ui) :open))]]
+  :cmd [:Mason]}
 
  {1 "williamboman/mason-lspconfig.nvim"
   ; :lazy false

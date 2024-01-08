@@ -111,6 +111,7 @@
 (vim.keymap.set :n "n" "nzz")
 (vim.keymap.set :n "N" "Nzz")
 
+(vim.keymap.set :i "<C-Bs>" "<C-h>" {:remap true})
 (vim.keymap.set :i "<C-h>" "<C-g>u<C-w><C-g>u")
 
 (vim.keymap.set :n "<leader>ld" vim.diagnostic.open_float)
