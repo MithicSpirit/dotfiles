@@ -1,8 +1,7 @@
 \RequirePackage[l2tabu,orthodox]{nag}
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{labs}%
-[2023/04/18 (WIP) Personal package for physics labs]
+\ProvidesClass{labs}[Personal package for (physics) labs]
 
 \LoadClass[11pt]{article}
 
@@ -21,16 +20,17 @@
 
 \geometry{paper=letterpaper,margin=3.5cm}
 
-\newcommand\maketoc{\clearpage\tableofcontents\clearpage\newcommand\sectionbreak{\clearpage}}
-\newcommand\makebib{\clearpage\printbibliography[heading=bibintoc]\@ifstar{}{\appendix}}
+\newcommand{\sectionbreak}{}
 
-\sisetup{
-  retain-explicit-decimal-marker=true,
-  retain-zero-uncertainty,
-  uncertainty-mode=separate,
-  table-alignment-mode=format
-}
+\newcommand{\maketoc}{\tableofcontents\clearpage%
+  \@ifstar{\renewcommand\sectionbreak{\clearpage}}{}}
+\newcommand{\makeappendix}{\clearpage\appendix%
+  \@ifstar{}{\renewcommand\sectionbreak{\clearpage}}}
+\newcommand{\makebib}{\clearpage\printbibliography[heading=bibintoc]%
+  \@ifstar{}{\makeappendix}}
+
+\mathtoolsset{showonlyrefs,showmanualtags}
 
 \pgfplotsset{enlargelimits=true}
 
-\setminted{breaklines=true}
+\setminted{breaklines=true,linenos=true}

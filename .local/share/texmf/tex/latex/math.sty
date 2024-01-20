@@ -9,7 +9,7 @@
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{math}%
-[2023/04/21 (WIP) Personal package for mathematics typesetting]
+[2023/09/25 (WIP) Personal package for mathematics typesetting]
 
 \RequirePackage{iftex}
 
@@ -21,173 +21,219 @@
 \ifluatex\RequirePackage{lualatex-math}\fi
 %\RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}
 \RequirePackage[mathscr]{euscript}
+\RequirePackage{stmaryrd}
 \RequirePackage{xfrac}
 \RequirePackage{siunitx}
+\RequirePackage{cases}
+\RequirePackage{interval}
 %\RequirePackage{pdfmsym}
 
 \RequirePackage{tikz}
 \RequirePackage{pgfplots}
 \RequirePackage{graphicx}
 \RequirePackage{xcolor}
+\RequirePackage{caption}
 
-\pgfplotsset{compat=1.18, tick scale binop=\times}
+\pgfplotsset{compat=newest, tick scale binop=\times}
 \usepgfplotslibrary{colormaps}
 \usetikzlibrary{3d}
 \usetikzlibrary{perspective}
 \usetikzlibrary{arrows.meta}
 
-\newtheorem*{thm}{Theorem}
-\newtheorem*{cor}{Corollary}
-\newtheorem*{prop}{Proposition}
-\newtheorem*{lem}{Lemma}
-\newtheorem*{dfn}{Definition}
+\sisetup{
+  retain-explicit-decimal-marker=true,
+  retain-zero-uncertainty,
+  uncertainty-mode=separate,
+  list-final-separator={,\text{ and }},
+  table-alignment-mode=format,
+}
+\DeclareSIUnit\clight{\text{\ensuremath{c}}}
 
-\newtheorem*{theorem}{Theorem}
-\newtheorem*{corollary}{Corollary}
-\newtheorem*{lemma}{Lemma}
-\newtheorem*{definition}{Definition}
-\newtheorem*{proposition}{Proposition}
+\intervalconfig{soft open fences}
 
-\newcommand\foreign{\emph}
-\newcommand\ie{\foreign{i.e.}}
-\newcommand\eg{\foreign{e.g.}}
-\newcommand\nb{\foreign{N.B.}}
+\theoremstyle{definition}
 
-\newcommand\wts[1]{{\indent\indent\footnotesize (\textsc{w.t.s.:} #1)\\\indent}}
-\newcommand\nts[1]{{\indent\indent\footnotesize (\textsc{n.t.s.:} #1)\\\indent}}
-\newcommand\TODO{\textbf{\colorbox{black}{\color{red}TODO}}}
-\newcommand\bls{\baselineskip}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{law}[theorem]{Law}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{conjecture}[theorem]{Conjecture}
 
-\newcommand\trans{^{\mathsf{T}}}
-\newcommand\compl{^{\mathsf{C}}}
-\DeclareMathOperator\Coord{\mathcal{C}}
-\DeclareMathOperator\Span{Span}
-\DeclareMathOperator\rank{rank}
-\DeclareMathOperator\tr{tr}
-\DeclareMathOperator\id{id}
-\DeclareMathOperator\img{img}
-\DeclareMathOperator\nullity{null}
-\DeclareMathOperator\grad{grad}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{law*}{Law}
+\newtheorem*{conjecture*}{Conjecture}
 
-\DeclareMathOperator\proj{proj}
-\DeclareMathOperator\rej{rej}
-\DeclareMathOperator\refl{refl}
+\newenvironment{proof*}[1][\proofname]%
+{\begin{proof}[#1]\renewcommand{\qedsymbol}{}}%
+{\end{proof}}
 
-\DeclareMathOperator\Nul{\mathbf{N}}
-\DeclareMathOperator\Col{\mathbf{C}}
-\DeclareMathOperator\Row{\mathbf{R}}
+\newcommand{\foreign}{\emph}
+\renewcommand{\foreignlanguage}[1]{\foreign}
+\newcommand{\etc}{\foreignlanguage{latin}{etc.}}
+\newcommand{\ie}{\foreignlanguage{latin}{i.e.}}
+\newcommand{\eg}{\foreignlanguage{latin}{e.g.}}
+\newcommand{\nb}{\foreignlanguage{latin}{N.B.}}
+\newcommand{\cf}{\foreignlanguage{latin}{cf.}}
 
-\newcommand\phantomeq{\phantom{{}={}}}
+\newcommand{\p}[1]{\mathrlap{\,#1}}
 
-\let\vect\vec  % chktex 14
-\renewcommand\vec{\mathbf}
-\newcommand\uvec[1]{\hat{\vec{#1}}}
+\newcommand{\trans}{^{\mathsf{T}}}
+\newcommand{\compl}{^{\mathsf{C}}}
 
-%\let\left@\left  % chktex 43
-%\let\right@\right  % chktex 43
-%\renewcommand\left{\mathopen{}\mathclose\bgroup\left@}  % chktex 43
-%\renewcommand\right{\aftergroup\egroup\right@}  % chktex 43
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\erf}{erf}
 
-\let\epsilon@tmp\epsilon
-\let\epsilon\varepsilon
-\let\varepsilon\epsilon@tmp
-\let\epsilon@tmp\@undefined
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\nullity}{null}
 
-\let\divsymb\div
-\let\div\relax
-\DeclareMathOperator\div{div}
-\DeclareMathOperator\curl{curl}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\img}{img}
+\DeclareMathOperator{\inv}{inv}
 
+\DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\rej}{rej}
+\DeclareMathOperator{\refl}{refl}
+
+\let\left@\left  % chktex 43
+\let\right@\right  % chktex 43
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\left@}  % chktex 43
+\renewcommand{\right}{\aftergroup\egroup\right@}  % chktex 43
+
+\let\phantom@nostar\phantom  % chktex 1
+\newcommand{\phantom@star}[1]{\phantom@nostar{{}#1{}}}
+\renewcommand{\phantom}{\@ifstar{\phantom@star}{\phantom@nostar}}
+\newcommand{\phantomeq}{\phantom*{=}}
+
+\let\qedhere@nostar\qedhere
+\renewcommand{\qedhere}{\@ifstar{\\&\notag\qedhere@nostar}{\qedhere@nostar}}
+
+\let\sqrt@nostar\sqrt  % chktex 1
+\newcommand{\sqrt@star}[1]{\sqrt@nostar{\textstyle{#1}}}
+\renewcommand{\sqrt}{\@ifstar{\sqrt@star}{\sqrt@nostar}}
 
 \newlength\nphant@wd
-\newcommand\nphant@do[1]{\settowidth{\nphant@wd}{#1}\hspace*{-\nphant@wd}}
-\newcommand\nphant@math[2]{\nphant@do{$\m@th#1#2$}}
-\DeclareRobustCommand\nphantom[1]{%
-  \ifmmode
+\newcommand{\nphant@do}[1]{\settowidth{\nphant@wd}{#1}\hspace*{-\nphant@wd}}
+\newcommand{\nphant@math}[2]{\nphant@do{$\m@th#1#2$}}
+\DeclareRobustCommand{\nphantom}[1]{%
+  \ifmmode  % chktex 1
     \mathpalette\nphant@math{#1}%
   \else
     \nphant@do{#1}%
   \fi
 }
 
-\newcommand\wrt@nostar[1]{_{\mathcal{#1}}}
-\newcommand\wrt@star[1]{_{\mathscr{#1}}}
-\newcommand\wrt{\@ifstar{\wrt@star}{\wrt@nostar}}
+\newcommand{\wrt@nostar}[1]{_{\mathcal{#1}}}
+\newcommand{\wrt@star}[1]{_{\mathscr{#1}}}
+\newcommand{\wrt}{\@ifstar{\wrt@star}{\wrt@nostar}}
 
-\newcommand\dd@star[1][]{\mathrm{d}^{#1}\hspace{-1pt}}
-\newcommand\dd@nostar{\,\dd@star}
-\newcommand\dd{\@ifstar{\dd@star}{\dd@nostar}}
+\newcommand{\dd}[1][]{\operatorname{d}^{#1}\hspace{-0.5ex}}
+\newcommand{\pdd}[1][]{\operatorname{\partial}^{#1}\hspace{-0.5ex}}
+\newcommand{\dde}[1][]{\operatorname{\delta}^{#1}\hspace{-0.5ex}}
+\newcommand{\Dde}[1][]{\operatorname{\Delta}^{#1}\hspace{-0.5ex}}
+\newcommand{\Nde}[1][]{\operatorname{\nabla}^{#1}\hspace{-0.5ex}}
 
-\newcommand\dv@nostar[3][]{\frac{\dd@star[#1] #2}{\dd@star #3}}
-\newcommand\dv@star[2][]{\dv@nostar[#1]{}{#2}}
-\newcommand\dv{\@ifstar{\dv@star}{\dv@nostar}}
+\newcommand{\dv@nostar}[3][]{\frac{\dd[#1] #2}{\dd #3}}  % chktex 1
+\newcommand{\dv@star}[2][]{\dv@nostar[#1]{}{#2}}
+\newcommand{\dv}{\@ifstar{\dv@star}{\dv@nostar}}
 
-\newcommand\pdd@star[1][]{\partial^{#1}}
-\newcommand\pdd@nostar{\,\pdd@star}
-\newcommand\pdd{\@ifstar{\pdd@star}{\pdd@nostar}}
+\newcommand{\pdv@nostar}[3][]{\frac{\pdd[#1] #2}{\pdd #3}}  % chktex 1
+\newcommand{\pdv@star}[2][]{\pdv@nostar[#1]{}{#2}}
+\newcommand{\pdv}{\@ifstar{\pdv@star}{\pdv@nostar}}
 
-\newcommand\pdv@nostar[3][]{\frac{\pdd@star[#1] #2}{\pdd@star #3}}
-\newcommand\pdv@star[2][]{\pdv@nostar[#1]{}{#2}}
-\newcommand\pdv{\@ifstar{\pdv@star}{\pdv@nostar}}
+% \newcommand{\dd@star}[1][]{\mathrm{d}^{#1}\hspace{-1pt}}
+% \newcommand{\dd@nostar}{\,\dd@star}
+% \newcommand{\dd}{\@ifstar{\dd@star}{\dd@nostar}}
 
-\newcommand\pa@star[1]{(#1)}
-\newcommand\pq@star[1]{\left(#1\right)}
-\newcommand\br@star[1]{[#1]}
-\newcommand\bq@star[1]{\left[#1\right]}
-\newcommand\Br@star[1]{\{#1\}}
-\newcommand\Bq@star[1]{\left\{#1\right\}}
-\newcommand\an@star[1]{\langle#1\rangle}
-\newcommand\aq@star[1]{\left\langle#1\right\rangle}
-\newcommand\ve@star[1]{\vert#1\vert}
-\newcommand\vq@star[1]{\left\vert#1\right\vert}
-\newcommand\Ve@star[1]{\Vert#1\Vert}
-\newcommand\Vq@star[1]{\left\Vert#1\right\Vert}
-\newcommand\fa@star[1]{\lfloor#1\rfloor}
-\newcommand\fq@star[1]{\left\lfloor#1\right\rfloor}
-\newcommand\ca@star[1]{\lceil#1\rceil}
-\newcommand\cq@star[1]{\left\lceil#1\right\rceil}
-\newcommand\ev@star[1]{#1\Big|}
-\newcommand\eq@star[1]{\left.#1\right|}
+% \newcommand{\dv@nostar}[3][]{\frac{\dd@star[#1] #2}{\dd@star #3^{#1}}}
+% \newcommand{\dv@star}[2][]{\dv@nostar[#1]{}{#2}}
+% \newcommand{\dv}{\@ifstar{\dv@star}{\dv@nostar}}
 
-\newcommand\open@{\mathopen{}\mathclose\bgroup}
-\newcommand\close@{\aftergroup\egroup}
-\newcommand\pa@nostar[1]{\open@{\pa@star{#1}\close@}}
-\newcommand\pq@nostar[1]{\open@{\pq@star{#1}\close@}}
-\newcommand\br@nostar[1]{\open@{\br@star{#1}\close@}}
-\newcommand\bq@nostar[1]{\open@{\bq@star{#1}\close@}}
-\newcommand\Br@nostar[1]{\open@{\Br@star{#1}\close@}}
-\newcommand\Bq@nostar[1]{\open@{\Bq@star{#1}\close@}}
-\newcommand\an@nostar[1]{\open@{\an@star{#1}\close@}}
-\newcommand\aq@nostar[1]{\open@{\aq@star{#1}\close@}}
-\newcommand\ve@nostar[1]{\open@{\ve@star{#1}\close@}}
-\newcommand\vq@nostar[1]{\open@{\vq@star{#1}\close@}}
-\newcommand\Ve@nostar[1]{\open@{\Ve@star{#1}\close@}}
-\newcommand\Vq@nostar[1]{\open@{\Vq@star{#1}\close@}}
-\newcommand\fa@nostar[1]{\open@{\fa@star{#1}\close@}}
-\newcommand\fq@nostar[1]{\open@{\fq@star{#1}\close@}}
-\newcommand\ca@nostar[1]{\open@{\ca@star{#1}\close@}}
-\newcommand\cq@nostar[1]{\open@{\cq@star{#1}\close@}}
-\newcommand\ev@nostar[1]{\open@{\ev@star{#1}\close@}}
-\newcommand\eq@nostar[1]{\open@{\eq@star{#1}\close@}}
+% \newcommand{\pdd@star}[1][]{\partial^{#1}\hspace{-1pt}}
+% \newcommand{\pdd@nostar}{\,\pdd@star}
+% \newcommand{\pdd}{\@ifstar{\pdd@star}{\pdd@nostar}}
 
-\newcommand\pa{\@ifstar{\pa@star}{\pa@nostar}}
-\newcommand\pq{\@ifstar{\pq@star}{\pq@nostar}}
-\newcommand\br{\@ifstar{\br@star}{\br@nostar}}
-\newcommand\bq{\@ifstar{\bq@star}{\bq@nostar}}
-\newcommand\Br{\@ifstar{\Br@star}{\Br@nostar}}
-\newcommand\Bq{\@ifstar{\Bq@star}{\Bq@nostar}}
-\newcommand\an{\@ifstar{\an@star}{\an@nostar}}
-\newcommand\aq{\@ifstar{\aq@star}{\aq@nostar}}
-\newcommand\ve{\@ifstar{\ve@star}{\ve@nostar}}
-\newcommand\vq{\@ifstar{\vq@star}{\vq@nostar}}
-\newcommand\Ve{\@ifstar{\Ve@star}{\Ve@nostar}}
-\newcommand\Vq{\@ifstar{\Vq@star}{\Vq@nostar}}
-\newcommand\fa{\@ifstar{\fa@star}{\fa@nostar}}
-\newcommand\fq{\@ifstar{\fq@star}{\fq@nostar}}
-\newcommand\ca{\@ifstar{\ca@star}{\ca@nostar}}
-\newcommand\cq{\@ifstar{\cq@star}{\cq@nostar}}
-\newcommand\ev{\@ifstar{\ev@star}{\ev@nostar}}
-\newcommand\eq{\@ifstar{\eq@star}{\eq@nostar}}
+% \newcommand{\pdv@nostar}[3][]{\frac{\pdd@star[#1] #2}{\pdd@star #3^{#1}}}
+% \newcommand{\pdv@star}[2][]{\pdv@nostar[#1]{}{#2}}
+% \newcommand{\pdv}{\@ifstar{\pdv@star}{\pdv@nostar}}
+
+% \newcommand{\dde@star}[1][]{\delta^{#1}\hspace{-1pt}}
+% \newcommand{\dde@nostar}{\,\dde@star}
+% \newcommand{\dde}{\@ifstar{\dde@star}{\dde@nostar}}
+
+% \newcommand{\Dde@star}[1][]{\Delta^{#1}\hspace{-1pt}}
+% \newcommand{\Dde@nostar}{\,\Dde@star}
+% \newcommand{\Dde}{\@ifstar{\Dde@star}{\Dde@nostar}}
+
+% \newcommand{\Nde@star}[1][]{\nabla^{#1}\hspace{-1pt}}
+% \newcommand{\Nde@nostar}{\,\Nde@star}
+% \newcommand{\Nde}{\@ifstar{\Nde@star}{\Nde@nostar}}
+
+\newcommand{\pa@star}[1]{(#1)}
+\newcommand{\pq@star}[1]{\left(#1\right)}
+\newcommand{\br@star}[1]{[#1]}
+\newcommand{\bq@star}[1]{\left[#1\right]}
+\newcommand{\Br@star}[1]{\{#1\}}
+\newcommand{\Bq@star}[1]{\left\{#1\right\}}
+\newcommand{\an@star}[1]{\langle#1\rangle}
+\newcommand{\aq@star}[1]{\left\langle#1\right\rangle}
+\newcommand{\ve@star}[1]{\vert#1\vert}
+\newcommand{\vq@star}[1]{\left\vert#1\right\vert}
+\newcommand{\Ve@star}[1]{\Vert#1\Vert}
+\newcommand{\Vq@star}[1]{\left\Vert#1\right\Vert}
+\newcommand{\fa@star}[1]{\lfloor#1\rfloor}
+\newcommand{\fq@star}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ca@star}[1]{\lceil#1\rceil}
+\newcommand{\cq@star}[1]{\left\lceil#1\right\rceil}
+\newcommand{\ev@star}[1]{#1\Big|}
+\newcommand{\eq@star}[1]{\left.#1\right|}
+
+\newcommand{\open@}{\mathopen{}\mathclose\bgroup}
+\newcommand{\close@}{\aftergroup\egroup}
+\newcommand{\pa@nostar}[1]{\open@{\pa@star{#1}\close@}}
+\newcommand{\pq@nostar}[1]{\open@{\pq@star{#1}\close@}}
+\newcommand{\br@nostar}[1]{\open@{\br@star{#1}\close@}}
+\newcommand{\bq@nostar}[1]{\open@{\bq@star{#1}\close@}}
+\newcommand{\Br@nostar}[1]{\open@{\Br@star{#1}\close@}}
+\newcommand{\Bq@nostar}[1]{\open@{\Bq@star{#1}\close@}}
+\newcommand{\an@nostar}[1]{\open@{\an@star{#1}\close@}}
+\newcommand{\aq@nostar}[1]{\open@{\aq@star{#1}\close@}}
+\newcommand{\ve@nostar}[1]{\open@{\ve@star{#1}\close@}}
+\newcommand{\vq@nostar}[1]{\open@{\vq@star{#1}\close@}}
+\newcommand{\Ve@nostar}[1]{\open@{\Ve@star{#1}\close@}}
+\newcommand{\Vq@nostar}[1]{\open@{\Vq@star{#1}\close@}}
+\newcommand{\fa@nostar}[1]{\open@{\fa@star{#1}\close@}}
+\newcommand{\fq@nostar}[1]{\open@{\fq@star{#1}\close@}}
+\newcommand{\ca@nostar}[1]{\open@{\ca@star{#1}\close@}}
+\newcommand{\cq@nostar}[1]{\open@{\cq@star{#1}\close@}}
+\newcommand{\ev@nostar}[1]{\open@{\ev@star{#1}\close@}}
+\newcommand{\eq@nostar}[1]{\open@{\eq@star{#1}\close@}}
+
+\newcommand{\pa}{\@ifstar{\pa@star}{\pa@nostar}}
+\newcommand{\pq}{\@ifstar{\pq@star}{\pq@nostar}}
+\newcommand{\br}{\@ifstar{\br@star}{\br@nostar}}
+\newcommand{\bq}{\@ifstar{\bq@star}{\bq@nostar}}
+\newcommand{\Br}{\@ifstar{\Br@star}{\Br@nostar}}
+\newcommand{\Bq}{\@ifstar{\Bq@star}{\Bq@nostar}}
+\newcommand{\an}{\@ifstar{\an@star}{\an@nostar}}
+\newcommand{\aq}{\@ifstar{\aq@star}{\aq@nostar}}
+\newcommand{\ve}{\@ifstar{\ve@star}{\ve@nostar}}
+\newcommand{\vq}{\@ifstar{\vq@star}{\vq@nostar}}
+\newcommand{\Ve}{\@ifstar{\Ve@star}{\Ve@nostar}}
+\newcommand{\Vq}{\@ifstar{\Vq@star}{\Vq@nostar}}
+\newcommand{\fa}{\@ifstar{\fa@star}{\fa@nostar}}
+\newcommand{\fq}{\@ifstar{\fq@star}{\fq@nostar}}
+\newcommand{\ca}{\@ifstar{\ca@star}{\ca@nostar}}
+\newcommand{\cq}{\@ifstar{\cq@star}{\cq@nostar}}
+\newcommand{\ev}{\@ifstar{\ev@star}{\ev@nostar}}
+\newcommand{\eq}{\@ifstar{\eq@star}{\eq@nostar}}
 
 \newenvironment{smat}{\smallmatrix}{\endsmallmatrix}
 \newenvironment{psmat}{\psmallmatrix}{\endpsmallmatrix}
@@ -196,8 +242,6 @@
 \newenvironment{vsmat}{\vsmallmatrix}{\endvsmallmatrix}
 \newenvironment{Vsmat}{\Vsmallmatrix}{\endVsmallmatrix}
 
-
-% HACK: This has been fixed in `mathtools', but the updated version is not
-% available on Arch yet
-\newcommand\coloneq{\coloneqq}
-\newcommand\eqcolon{\eqqcolon}
+\renewcommand{\implies}{\@ifstar{\Rightarrow}{\Longrightarrow}}
+\renewcommand{\impliedby}{\@ifstar{\Leftarrow}{\Longleftarrow}}
+\renewcommand{\iff}{\@ifstar{\Leftrightarrow}{\Longleftrightarrow}}
