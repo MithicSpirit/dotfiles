@@ -28,4 +28,4 @@
 --tabs=8
 --style=numbers,changes
 --theme=base16
---pager="less --quiet --RAW-CONTROL-CHARS"
+--pager="less --quiet --RAW-CONTROL-CHARS --mouse"
