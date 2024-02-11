@@ -1,4 +1,5 @@
 [{1 "nvim-treesitter/nvim-treesitter"
+  :version false
   ; :lazy false
   :event [:BufReadPre :BufNewFile]
   :cmd [:TSUpdate]
@@ -6,7 +7,7 @@
   :build ":TSUpdate"
   :main :nvim-treesitter.configs
   :opts
-    {:ensure_installed [:lua :fennel :vim :vimdoc :query]
+    {:ensure_installed [:lua :fennel :vim :vimdoc :query :markdown_inline]
      :sync_install true
      :auto_install true
      :ignore_install [:verilog]
@@ -22,6 +23,7 @@
 
 
  {1 "nvim-treesitter/nvim-treesitter-textobjects"
+  :version false
   ; :lazy false
   :event [:BufReadPre :BufNewFile]
   :priority 25
@@ -37,7 +39,7 @@
            :selection_modes {"@parameter.outer" "v" "@parameter.inner" "v"
                              "@function.outer" "V" "@function.inner" "V"
                              "@class.outer" "V" "@class.inner" "V"}}
-        :move {:enable true :set_jumps true
+        :move {:enable true :set_jumps true :disable [:latex]
                :goto_next_end {"][" "@function.outer"}
                :goto_next_start {"]]" "@function.outer"}
                :goto_previous_end {"[]" "@function.outer"}
@@ -46,7 +48,9 @@
 
 
  {1 "nvim-treesitter/nvim-treesitter-context"
+  :version false
   ; :lazy false
+  :enabled false
   :event [:BufReadPre :BufNewFile]
   :priority 25
   :opts
@@ -57,4 +61,4 @@
      :multiline_threshold 16
      :trim_scope :outer
      :mode :topline
-     :separator "-"}}]
+     :separator "─"}}]

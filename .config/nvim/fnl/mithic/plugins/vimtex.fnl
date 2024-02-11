@@ -39,4 +39,9 @@
             (set vim.g.vimtex_view_automatic 1)
             (set vim.g.vimtex_view_method :zathura_simple)
 
-            (set vim.g.vimtex_format_enabled 1))}]
+            (set vim.g.vimtex_format_enabled 1)
+
+            (vim.api.nvim_create_autocmd :FileType
+             {:pattern :tex
+              :callback #(vim.opt.iskeyword:remove ":")
+              :group (vim.api.nvim_create_augroup :mithic-vimtex {})}))}]

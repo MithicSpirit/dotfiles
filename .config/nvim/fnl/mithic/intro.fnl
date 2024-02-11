@@ -59,7 +59,7 @@
 
 
 (when (and (= (vim.fn.argc) 0) (not (string.find vim.o.shortmess "I")))
-  (vim.api.nvim_create_autocmd "UIEnter"
+  (vim.api.nvim_create_autocmd :UIEnter
    {:callback #(when (runtime-cond) (display))
     :group (vim.api.nvim_create_augroup :mithic-intro {})
     :once true})

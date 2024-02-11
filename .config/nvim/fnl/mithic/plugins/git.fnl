@@ -1,6 +1,7 @@
 [{1 "tpope/vim-fugitive"
   :cmd [:Git]
-  :keys [["<leader>g" ":Git "]]}
+  :keys [["<leader>g" ":Git "] ; TODO: use <leader>g for gitsigns instead
+         ["<leader>g" ":Git<Cr>"]]}
 
 
  {1 "lewis6991/gitsigns.nvim"
@@ -31,6 +32,7 @@
 
  {1 "NeogitOrg/neogit"
   :keys [["<leader>G" #((. (require :neogit) :open))]]
+  :enabled false
   :opts
     {:disable_insert_on_commit true
      :filewatcher {:enabled true :interval 1000}

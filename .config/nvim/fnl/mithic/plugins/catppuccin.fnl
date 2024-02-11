@@ -31,6 +31,5 @@
         :vim_sneak true}
      :styles {:comments [:italic]
               :conditionals [:italic]
-              :loops [:italic]
-              :types [:bold]}}
+              :loops [:italic]}}
   :init #(vim.cmd.colorscheme :catppuccin)}]

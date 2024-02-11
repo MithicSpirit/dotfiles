@@ -74,8 +74,8 @@
 ;; Keybinds
 (set vim.g.mapleader " ")
 (set vim.g.maplocalleader "\\")
-(vim.keymap.set :n "<leader>" "<Nop>")
-(vim.keymap.set :n "<localleader>" "<Nop>")
+(vim.keymap.set "" "<leader>" "<Nop>")
+(vim.keymap.set "" "<localleader>" "<Nop>")
 
 (vim.keymap.set :n "Y" :y$)
 (vim.keymap.set :n "x" "\"_x")
@@ -139,16 +139,6 @@
 (vim.api.nvim_create_user_command :Cdfile
   #(vim.api.nvim_set_current_dir (vim.fn.expand "%:p:h"))
   {:desc "cd to the parent of the current file" :force false})
-
-
-;; Whitespace cleanup
-(vim.api.nvim_create_autocmd :BufWritePre
-  {:callback
-   #(let [c (vim.api.nvim_win_get_cursor 0)]
-      (vim.cmd "%substitute/ \\+$//e")
-      (pcall #(vim.api.nvim_win_set_cursor 0 c))
-      nil)
-   :group (vim.api.nvim_create_augroup :mithic-whitespace {})})
 
 
 (require (.. ... :.overrides))
