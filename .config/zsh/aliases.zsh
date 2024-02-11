@@ -1,5 +1,5 @@
 alias -g \
-	C='| tee >(xclip -i -sel c) | bat -pp' \
+	C='| tee >(wl-copy) | bat -pp' \
 	G='| rg' \
 	P='| ${=PAGER}' \
 	B='&>/dev/null &!' \
@@ -7,14 +7,14 @@ alias -g \
 alias \
 	..='cd ..' \
 	c='cal -3' \
-	copy='xclip -i -sel c' \
+	copy='wl-copy' \
 	cp='cp -ir' \
 	df='duf' \
 	diff='batdiff' \
 	doomd='doom doctor' \
 	dooms='doom sync; doom doctor' \
 	doomup='doom upgrade; doom sync -p; doom doctor' \
-	dragon='dragon-drop' \
+	drag='dragon-drop' \
 	du='dust' \
 	eemacs='emacs' \
 	eterm='emacs -nw' \
@@ -25,19 +25,13 @@ alias \
 	h='history 1' \
 	idr='rlwrap -n idris2' \
 	im='imv' \
-	l='exa -lFbg --git' \
-	lS='exa -laFbgs size --color-scale --group-directories-first' \
-	la='exa -laFbg --git' \
-	ldot='exa -laFbgd .*' \
 	ln='ln -si' \
-	lr='exa -laFbgR' \
-	ls='exa' \
 	matrix='cmatrix -ab' \
 	md='mkdir -p' \
 	mv='mv -i' \
 	open='xdg-open' \
 	pacdiff='sudo DIFFPROG="nvim -d" pacdiff' \
-	paste='xclip -o -sel c' \
+	paste='wl-paste' \
 	pping='prettyping' \
 	pip='python -m pip' \
 	ppy='pypy3' \
@@ -63,6 +57,7 @@ alias \
 	v='bat' \
 	venv='source venv/bin/activate' \
 	vi="$EDITOR" \
+	vid='neovide --notabs --' \
 	vidiff='nvim -d' \
 	visudo='sudo --preserve-env=EDITOR visudo' \
 	xalarm='exec alarm' \
@@ -75,6 +70,14 @@ alias \
 	yt='yt-dlp' \
 	za='zathura' \
 
+command -v exa &>/dev/null && alias \
+	l='exa -lbg --git' \
+	lS='exa -labgs size --color-scale --group-directories-first' \
+	la='exa -labg --git' \
+	ldot='exa -labgd .*' \
+	lr='exa -labgR' \
+	ls='exa' \
+
 command -v git &>/dev/null && alias \
 	g='git' \
 	ga='git add' \
@@ -84,24 +87,23 @@ command -v git &>/dev/null && alias \
 	gba='git branch --all' \
 	gc='git commit' \
 	gcl='git clone' \
-	gco='git checkout' \
 	gd='git diff' \
 	gdd='git diff --cached' \
 	gdl='git diff HEAD~' \
 	gf='git fetch --all' \
+	gg='git log' \
 	gid='git rev-parse HEAD' \
-	gl='git pull' \
+	gl='git merge --ff-only @{u}' \
 	gld='git diff HEAD..@{u}' \
-	glg='git log' \
-	gllg='git log HEAD..@{u}' \
+	glg='git log HEAD..@{u}' \
+	glsf='for repo in */; do (cd "$repo" && [[ -e .git ]] && git fetch --all) & done; wait' \
 	gp='git push' \
 	gr='git remote -v' \
 	grm='git restore --staged' \
-	grmrm='git restore' \
-	glsf='for repo in */; do (cd "$repo" && git fetch) & done; wait' \
-	gsh='git show' \
-	gst='git status' \
-	gsts='git stash' \
+	gst='git stash -ku' \
+	gsw='git switch' \
+	gt='git status' \
+	gw='git show' \
 
 command -v git &>/dev/null &&
 	homegit () {
@@ -111,14 +113,13 @@ command -v homegit &>/dev/null && alias \
 	hg='homegit' \
 	hga='homegit add' \
 	hgc='homegit commit -m' \
-	hgco='homegit checkout --force' \
 	hgd='homegit diff' \
 	hgdd='homegit diff --cached' \
-	hgl='homegit pull --ff' \
+	hgl='homegit pull --ff-only' \
 	hgp='homegit push origin && homegit push backup' \
 	hgrm='homegit restore --staged' \
-	hgst='homegit status' \
-	hgs='homegit pull --ff && homegit push origin && homegit push backup' \
+	hgsw='homegit switch' \
+	hgt='homegit status' \
 
 command -v devour &>/dev/null && alias \
 	d='devour' \
@@ -177,6 +178,9 @@ command -v fasd &>/dev/null && alias \
 	f='fasd -s' \
 	ff='fasd -si' \
 
+command -v makepkg &>/dev/null && alias \
+	makesrcinfo='makepkg --printsrcinfo >.SRCINFO' \
+
 command -v fasd &>/dev/null &&
 	fasd_cd() {
 		if [ $# -le 1 ]; then
@@ -210,7 +214,7 @@ command -v python &>/dev/null && command -v ipython &>/dev/null &&
 	}
 
 command -v xdg-open &>/dev/null &&
-	xopen () { 
+	xopen () {
 		xdg-open "$@"&
 		disown && exit 0
 	}

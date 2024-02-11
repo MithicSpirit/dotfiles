@@ -90,8 +90,10 @@ __autoload_bindkey () {
 	bindkey "$@"
 }
 bindkey "^Z" fg
+# TODO: bindkey "^D" exit
 bindkey "^P" history-substring-search-up
 bindkey "^N" history-substring-search-down
+bindkey "^H" backward-kill-word
 bindkey "^[p" up-line-or-history
 bindkey "^[n" down-line-or-history
 __autoload_bindkey "^[e" edit-command-line
