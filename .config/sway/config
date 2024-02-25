@@ -16,14 +16,14 @@ output * {
 }
 output eDP-1 {
     mode 2240x1400@60Hz
-    scale 1.2
+    scale 1.200428725
+    # mode 1920x1200@60Hz
 }
 
 input * {
     xkb_layout us,gr,il
     xkb_variant ,,phonetic
     xkb_options grp:win_space_toggle,compose:rctrl,lv3:ralt_switch
-    #misc:apl
     accel_profile flat
     tool_mode * absolute
 }
@@ -33,7 +33,6 @@ input type:touchpad {
     tap enabled
     tap_button_map lrm
     natural_scroll enabled
-    events disabled_on_external_mouse
 }
 input type:touch events disabled
 
@@ -73,7 +72,7 @@ smart_gaps on
 include $confdir/bindings
 include $confdir/autospawn
 include $confdir/overrides
-#include $confdir/swayfx
+include $confdir/swayfx
 exec_always $confdir/swayconf
 #exec $confdir/swaytile
 

@@ -1,8 +1,9 @@
 for_window {
     # autosticky
-    [app_id="LibreWolf" title="^Picture-in-Picture$"] floating enable, sticky enable
     [app_id="dragon-drop" title="dragon"] floating enable, sticky enable
+    [class="net-runelite-client-RuneLite" title="Picture in Picture"] floating enable, sticky enable
     # autofloat
+    [app_id="LibreWolf" title="^Picture-in-Picture$"] floating enable
     [class="awakened-poe-trade"] floating enable
     [app_id="qalculate-gtk"] floating enable
     [app_id="xdg-desktop-portal"] floating enable
@@ -13,6 +14,7 @@ for_window {
     #[app_id="org.kde.kmail2"] move window to workspace 3
     [app_id="thunderbird"] move window to workspace 2
     [class="Signal"] move window to workspace 3
+    [app_id="discord"] move window to workspace 4
     [class="discord"] move window to workspace 4
     [class="Element"] move window to workspace 5
 

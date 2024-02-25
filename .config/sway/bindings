@@ -1,4 +1,4 @@
-bindsym --no-repeat --inhibited {
+bindsym --no-repeat --inhibited --to-code {
     $mod+Return exec bemenu-run -p Run --no-exec | \
         xargs -I{} swaymsg exec -- {} ">/dev/null 2>/dev/null"
     $mod+Shift+Return exec $TERMINAL
@@ -8,11 +8,6 @@ bindsym --no-repeat --inhibited {
     $mod+$down focus down
     $mod+$up focus up
     $mod+$right focus right
-
-    $mod+Shift+$left move left
-    $mod+Shift+$down move down
-    $mod+Shift+$up move up
-    $mod+Shift+$right move right
 
     # Move to workspace
     $mod+grave workspace 0:`
@@ -118,8 +113,7 @@ bindsym --no-repeat --inhibited {
     $mod+Control+Shift+v exec 'wl-copy -c; cliphist wipe'
 
     $mod+u exec =
-    $mod+Shift+u exec neovide
-    $mod+Control+u exec pcmanfm
+    $mod+Shift+u exec pcmanfm
 
     $mod+i scratchpad show
     $mod+Shift+i move scratchpad
@@ -135,30 +129,39 @@ bindsym --no-repeat --inhibited {
     $mod+Control+p exec grimshot --notify copy window
     $mod+Control+Shift+p exec grimshot --notify save active "$XDG_PICTURES_DIR/screenshots/$(date +%Y-%m-%d_%H-%M-%S.%N.png)"
 
-    $mod+backslash input type:touchpad events toggle disabled_on_external_mouse disabled
-    $mod+Shift+backslash input type:touchpad events enabled
+    $mod+backslash input type:touchpad events toggle enabled disabled; seat * hide_cursor 0
+    $mod+Shift+backslash seat * cursor set 0 0; seat * hide_cursor 1
 
     XF86AudioPlay exec playerctl play-pause
+    --locked XF86AudioPlay exec playerctl --all-players pause
     Shift+XF86AudioPlay exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
     Shift+XF86AudioMute exec playerctl play-pause
+    --locked Shift+XF86AudioMute exec playerctl --all-players pause
     XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
     XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
     Shift+XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
     Shift+XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
 
     # xbacklight is actually acpilight, so it works on Wayland
-    XF86MonBrightnessUp exec xbacklight +2
-    XF86MonBrightnessDown exec xbacklight -2
-    Shift+XF86MonBrightnessUp exec xbacklight +10
-    Shift+XF86MonBrightnessDown exec xbacklight -10
+    --locked {
+        XF86MonBrightnessUp exec xbacklight +2
+        XF86MonBrightnessDown exec xbacklight -2
+        Shift+XF86MonBrightnessUp exec xbacklight +10
+        Shift+XF86MonBrightnessDown exec xbacklight -10
+    }
 
     Mod1+Control+Shift+Mod4+Insert mode passthrough
 }
 
-mode passthrough bindsym --no-repeat Mod1+Control+Shift+Mod4+Insert mode default
+mode passthrough bindsym --no-repeat --to-code Mod1+Control+Shift+Mod4+Insert mode default
 
-bindsym --inhibited {
+bindsym --inhibited --to-code {
+    $mod+Shift+$left move left
+    $mod+Shift+$down move down
+    $mod+Shift+$up move up
+    $mod+Shift+$right move right
+
     $mod+Control+$left resize shrink width 10px
     $mod+Control+$down resize grow height 10px
     $mod+Control+$up resize shrink height 10px

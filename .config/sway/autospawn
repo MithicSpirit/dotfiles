@@ -1,6 +1,6 @@
 exec {
-    lxpolkit
     dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+    lxpolkit
     /usr/lib/geoclue-2.0/demos/agent
     swayidle -w
     wl-paste --watch cliphist store
@@ -8,11 +8,12 @@ exec {
     dunst
     kdeconnect-indicator
     xsettingsd
-    $TERMINAL --class btop-spawn -t btop -e btop
-    #korganizer
-    #kmail
+    $TERMINAL --class btop-spawn --title btop -e btop
+    # korganizer
+    # kmail
     thunderbird
-    discord-canary
+    discord
+    # discord-canary
     signal-desktop
     element-desktop
 }
