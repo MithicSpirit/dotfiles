@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+if [ -n "$BROWSER" ]; then
+	"$BROWSER" "$(wl-paste)"
+else
+	xdg-open "$(wl-paste)"
+fi

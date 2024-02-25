@@ -1,13 +1,19 @@
 #!/usr/bin/env zsh
 
-_copy() { printf '%s' "$*" | wl-copy }
+[[ "$#" -gt 0 ]]
+EMPTY="$?"
+
+notify() { [[ "$EMPTY" -eq 0 ]] && notify-send -a "Dmenu Browser" "$@" }
+
+_copy() { printf '%s' "$*" | exec wl-copy }
+_mpv() { exec mpv --quiet --pause "$@" }
 
 typeset -A options_=(
 	['0.  New window']='librewolf --new-window'
 	['1.  Current window']='librewolf'
 	['2.  Copy to clipboard']='_copy'
 	['3.  xdg-open']='xdg-open'
-	['4.  mpv']='mpv --quiet --pause'
+	['4.  mpv']='_mpv'
 	['5.  Qutebrowser']='qutebrowser'
 	['6.  Tor Browser']='torbrowser-launcher'
 	['7.  Chromium']='chromium'
@@ -16,21 +22,23 @@ typeset -A options_=(
 	['10. Brave']='brave-nightly'
 	['11. Librewolf']='librewolf'
 	['12. Nyxt']='nyxt'
-	['13. IceCat']='icecat'
-	['14. Vieb']='vieb'
+	['13. Vieb']='vieb'
 )
 
-prompt="Browser"
-entries="${(@kF)options_}"
-num="${#options_}"
+notify_id="$(notify -p "URL" "$*")"
 
-sel="$(sort -n <<<"$entries" | bemenu -p "$prompt" -cl "$num" -W 0.3 -C)"
+sel="$(sort -n <<<"${(@kF)options_}" |
+	bemenu -p 'Browser' -cl "${#options_}" -W 0.3 -C)"
 
-#env >/tmp/second.env
-
-[[ -n "$sel" ]] && {
-	result="${options_[$sel]}"
-	echo "\n-- $(date) --\n-> \$ $0 $@\n<- \$ $result $@" >>/tmp/dmenu-browser.log
-	echo "$result $@"
+if [[ -n "$sel" ]] && result="${options_[$sel]}" && [[ -n "$result" ]]; then
+	notify -t 3000 -e "--replace-id=$notify_id" 'Opening' "$result $*"
+	echo "\n-- $(date) --\n-> \$ $0 $@\n<- \$ $result $*" \
+		>>/tmp/dmenu-browser.log
+	printf '%s' "$result $*"
 	"${=result}" "$@" &>>/tmp/dmenu-browser.log &!
-}
+else
+	notify -t 1000 -e "--replace-id=$notify_id" 'Cancelled'
+	echo "\n-- $(date) --\n-> \$ $0 $@\n<- Cancelled" \
+		>>/tmp/dmenu-browser.log
+	exit 1
+fi

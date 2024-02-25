@@ -30,6 +30,6 @@ fi
 #[ $__set_af -eq 1 ] && set -- --af-toggle=loudnorm --af-toggle=dynaudnorm "$@"
 [ $__set_af -eq 1 ] && set -- --af-append=dynaudnorm=f=1000:g=181:m=100:r=1.0:c=true:b=false:o=0.3 "$@"
 [ $__set_ytdl -eq 1 ] && set -- --ytdl-format=bestaudio "$@"
-[ $__set_volume -eq 1 ] && set -- --volume=58 "$@"
+[ $__set_volume -eq 1 ] && set -- --volume=54 "$@"
 
 exec mpv "$@"
