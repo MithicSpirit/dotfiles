@@ -111,6 +111,7 @@ setopt prompt_sp  # Show $PROMPT_EOL_MARK (see below) when last command missing 
 setopt hist_reduce_blanks  # Remove unnecessary blank lines from history
 
 # Misc
+autoload -Uz bashcompinit && bashcompinit
 WORDCHARS="_-.~=!#$%^()<>&|"
 ZLE_RPROMPT_INDENT=0  # Remove unnecessary padding
 PROMPT_EOL_MARK="$(printf '%%{\033[0m\033[7m\033[1m%%}%%#%%{\033[0m%%}')"
@@ -121,7 +122,6 @@ command -v fasd &>/dev/null &&
 	eval "$(fasd --init zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install)"
 __escape_aliases  # See globalias
 export TTY
-autoload -Uz bashcompinit && bashcompinit
 
 # Linux TTY
 if [[ "$TERM" = "linux" ]]; then

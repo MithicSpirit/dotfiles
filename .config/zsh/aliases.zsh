@@ -55,7 +55,7 @@ alias \
 	unvenv='deactivate' \
 	updb='sudo updatedb' \
 	v='bat' \
-	venv='source venv/bin/activate' \
+	venv='source .venv/bin/activate' \
 	vi="$EDITOR" \
 	vid='neovide --notabs --' \
 	vidiff='nvim -d' \
@@ -89,7 +89,6 @@ command -v git &>/dev/null && alias \
 	gcl='git clone' \
 	gd='git diff' \
 	gdd='git diff --cached' \
-	gdl='git diff HEAD~' \
 	gf='git fetch --all' \
 	gg='git log' \
 	gid='git rev-parse HEAD' \
@@ -98,6 +97,7 @@ command -v git &>/dev/null && alias \
 	glg='git log HEAD..@{u}' \
 	glsf='for repo in */; do (cd "$repo" && [[ -e .git ]] && git fetch --all) & done; wait' \
 	gp='git push' \
+	gpf='git push --force-with-lease' \
 	gr='git remote -v' \
 	grm='git restore --staged' \
 	gst='git stash -ku' \
