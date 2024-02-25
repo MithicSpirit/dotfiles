@@ -1,16 +1,21 @@
 [{1 "tpope/vim-sleuth"
-  :lazy false}
+  :lazy false
+  :version false}
 
  {1 "tpope/vim-eunuch"
-  :lazy false}
+  :lazy false
+  :version false}
 
  {1 "tpope/vim-rsi"
-  :lazy false}
+  :lazy false
+  :version false}
 
  {1 "tpope/vim-repeat"
-  :lazy false}
+  :lazy false
+  :version false}
 
  {1 "tpope/vim-surround"
+  :version false
   :dependencies ["tpope/vim-repeat"]
   :init #(set vim.g.surround_no_insert_mappings 0)
   :keys [ "ds" "cs" "cS" "ys" "yS" "yss" "ySs" "ySS"
@@ -19,10 +24,12 @@
          {1 "<C-S>" 2 "<Plug>Isurround" :mode :i}]}
 
  {1 "tpope/vim-characterize"
+  :version false
   :keys [["gA" "<Plug>(characterize)"]]
   :cmd [:Characterize]}
 
  {1 "tpope/vim-commentary"
+  :version false
   :keys [{1 "gc" :mode [:x :n :o]}]
   :cmd [:Commentary]}
 

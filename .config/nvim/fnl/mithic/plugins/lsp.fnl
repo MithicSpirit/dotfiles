@@ -1,32 +1,42 @@
 (var lsp_setting
- {:texlab
-   {:settings {:texlab {:chktex {:onOpenAndSave true :onEdit true}}}}
-  :pylsp
-   {:settings {:pylsp {:plugins {:autopep8 {:enabled false}
-                                 :mccabe {:enabled false}
-                                 :pycodestyle {:enabled false}
-                                 :pyflakes {:enabled false}
-                                 :yapf {:enabled false}}}}}
-  :ltex
-   {:settings {:ltex {:latex {:environments {:numcases :ignore
-                                             :subnumcases :ignore}
-                              :commands {"\\noeqref{}" :ignore
-                                         "\\mathtoolsset{}" :ignore
-                                         "\\titleformat{}{}{}{}{}" :ignore
-                                         "\\titleformat{}[]{}{}{}{}" :ignore
-                                         "\\RequirePackage[]{}" :ignore
-                                         "\\ProvidesClass{}[]" :ignore
-                                         "\\texorpdfstring{}" :ignore
-                                         "\\foreign{}" :ignore
-                                         "\\etc" :ignore
-                                         "\\ie" :ignore
-                                         "\\eg" :ignore
-                                         "\\nb" :ignore
-                                         "\\cf" :ignore
-                                         "\\afsoc" :ignore}}
-                      :ltex-ls {:logLevel :config}
-                      :completionEnabled true
-                      :checkFrequency :edit}}}})
+  {:fennel_language_server
+     {:settings {:fennel {:workspace
+                            {:library (vim.api.nvim_list_runtime_paths)}
+                          :diagnostics {:globals [:vim]}}}}
+   :lua_ls
+     {:settings {:Lua {:workspace
+                         {:library (vim.api.nvim_list_runtime_paths)}
+                       :diagnostics {:globals [:vim]}}}}
+   :texlab
+     {:settings {:texlab {:chktex {:onOpenAndSave true :onEdit true}}}}
+   :pylsp
+     {:settings {:pylsp {:plugins {:autopep8 {:enabled false}
+                                   :mccabe {:enabled false}
+                                   :pycodestyle {:enabled false}
+                                   :pyflakes {:enabled false}
+                                   :yapf {:enabled false}}}}}
+   :ltex
+     {:settings {:ltex {:latex {:environments {:numcases :ignore
+                                               :subnumcases :ignore}
+                                :commands {"\\noeqref{}" :ignore
+                                           "\\mathtoolsset{}" :ignore
+                                           "\\titleformat{}{}{}{}{}" :ignore
+                                           "\\titleformat{}[]{}{}{}{}" :ignore
+                                           "\\RequirePackage[]{}" :ignore
+                                           "\\ProvidesClass{}[]" :ignore
+                                           "\\texorpdfstring{}{}" :ignore
+                                           "\\foreign{}" :ignore
+                                           "\\etc" :ignore
+                                           "\\ie" :ignore
+                                           "\\eg" :ignore
+                                           "\\nb" :ignore
+                                           "\\cf" :ignore
+                                           "\\afsoc" :ignore}}
+                        :ltex-ls {:logLevel :config}
+                        :completionEnabled true
+                        :checkFrequency :edit}}}
+   :zls
+     {:settings {:zig {:zls {:enableAutofix false}}}}})
 
 (local global_lsp [:clangd :idris2_lsp])
 

@@ -24,10 +24,10 @@ if not vim.loop.fs_stat(hotpotpath) then
 	})
 end
 
-vim.opt.runtimepath:prepend({hotpotpath, lazypath})
+vim.opt.runtimepath:prepend({ hotpotpath, lazypath })
 require('hotpot').setup({
 	provide_require_fennel = true,
-	macros = {env = "_COMPILER"},
+	macros = { env = "_COMPILER" },
 })
 
 
@@ -35,22 +35,20 @@ local config_namespace = 'mithic'
 require(config_namespace)
 
 
-local plugins = {{
+local plugins = { {
 	"rktjmp/hotpot.nvim",
 	lazy = false,
 	priority = 2000,
 	config = false,
-}}
+} }
 
-for _, lang in ipairs({'lua', 'fnl'}) do
-	local plugins_path = vim.fn.stdpath('config')
-		.. "/" .. lang .. "/" .. config_namespace .. "/plugins"
+for _, lang in ipairs({ 'lua', 'fnl' }) do
+	local plugins_path = vim.fn.stdpath('config') .. "/" .. lang .. "/"
+	    .. config_namespace .. "/plugins"
 	for file in vim.fs.dir(plugins_path) do
 		file = file:match("^(.*)%." .. lang .. "$")
 		if file then
-			plugins[#plugins + 1] = require(
-				config_namespace .. '.plugins.' .. file
-			)
+			plugins[#plugins + 1] = require(config_namespace .. '.plugins.' .. file)
 		end
 	end
 end
@@ -64,7 +62,7 @@ require('lazy').setup({
 	concurrency = vim.loop.available_parallelism(),
 	install = {
 		missing = true,
-		colorscheme = {'catppuccin', 'default'},
+		colorscheme = { 'catppuccin', 'default' },
 	},
 	ui = {
 		size = { width = 0.8, height = 0.8 },
@@ -75,7 +73,7 @@ require('lazy').setup({
 	},
 	diff = { cmd = "git" },
 	checker = {
-		enabled = true,
+		enabled = false,
 		concurrency = 1,
 		notify = false,
 		frequency = 3600,

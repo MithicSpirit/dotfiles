@@ -59,17 +59,14 @@
 (set _G.border "rounded")
 
 (set vim.opt.listchars
-   {:extends "$" :lead "|" :nbsp "~" :precedes "$" :tab "> " :trail "⏹"})
+   {:extends "$"
+    :lead "|"
+    :leadmultispace "|   "
+    :nbsp "~"
+    :precedes "$"
+    :tab "> "
+    :trail "⏹"})
 (set vim.opt.list true)
-(fn update-listchars-leadmultispace []
-  (vim.opt_local.listchars:append
-    {:leadmultispace (.. "|" (string.rep " " (- vim.bo.shiftwidth 1)))})
-  (vim.opt_global.listchars:append
-    {:leadmultispace (.. "|" (string.rep " " (- vim.go.shiftwidth 1)))}))
-(update-listchars-leadmultispace)
-(vim.api.nvim_create_autocmd [:OptionSet :BufWinEnter]
-  {:callback update-listchars-leadmultispace
-   :group (vim.api.nvim_create_augroup :mithic-lc-lms {})})
 
 ;; Keybinds
 (set vim.g.mapleader " ")
@@ -86,8 +83,8 @@
 (vim.keymap.set :n "<leader>s" vim.cmd.write)
 (vim.keymap.set :n "<leader>E"
   #(do (vim.cmd.write) (vim.cmd "13split +terminal\\ %:p")))
-(vim.keymap.set :n "<leader>t" #(do (vim.cmd "19split +terminal")
-                                    (vim.cmd.startinsert)))
+(vim.keymap.set :n "<leader>t"
+  #(do (vim.cmd "19split +terminal") (vim.cmd.startinsert)))
 
 (vim.keymap.set [:n :v] "<leader>y" "\"+y" {:remap true})
 (vim.keymap.set [:n :v] "<leader>Y" "\"+Y" {:remap true})
@@ -121,25 +118,9 @@
 (vim.keymap.set "" "s" "<Nop>")
 (vim.keymap.set "" "S" "<Nop>")
 
-(vim.keymap.set :n "<Tab>" "<C-^>")
-(vim.keymap.set :n "<S-Tab>"
-  #(if (vim.opt_local.modified:get)
-       (vim.api.nvim_err_writeln "E89: No write since last change for buffer")
-     (let [curr-buf (vim.api.nvim_get_current_buf)]
-       (var last-2buf nil)
-       (var last-buf nil)
-       (each [_ buf (ipairs (vim.api.nvim_list_bufs))
-                &until (= last-2buf curr-buf)]
-         (set last-2buf last-buf) (set last-buf buf))
-       (when last-2buf (vim.api.nvim_set_current_buf last-buf))
-       (vim.cmd (.. "bdelete " curr-buf)))))
-(vim.keymap.set :n "<leader><Tab>" vim.cmd.bnext)
-(vim.keymap.set :n "<leader><S-Tab>" vim.cmd.bprevious)
-
 (vim.api.nvim_create_user_command :Cdfile
   #(vim.api.nvim_set_current_dir (vim.fn.expand "%:p:h"))
   {:desc "cd to the parent of the current file" :force false})
-
 
 (require (.. ... :.overrides))
 (require (.. ... :.misc))

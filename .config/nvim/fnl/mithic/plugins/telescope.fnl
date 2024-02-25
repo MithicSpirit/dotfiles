@@ -87,7 +87,6 @@
        ["<leader><C-p>" (builtin :registers)]
        ["<leader>h" (builtin :help_tags)]
        ["<leader>'" (builtin :marks)]
-       ["<leader>lD" (builtin :diagnostics)]
        ["<leader>."
         #(let [telescope (require :telescope)]
            (telescope.extensions.file_browser.file_browser))]

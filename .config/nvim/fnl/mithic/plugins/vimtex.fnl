@@ -1,4 +1,5 @@
 [{1 "lervag/vimtex"
+  :version false
   :ft [:tex]
   :event ["BufReadPre *.cls,*.tikz" "BufNewFile *.cls,*.tikz"]
   :cmd [:VimtexInverseSearch]

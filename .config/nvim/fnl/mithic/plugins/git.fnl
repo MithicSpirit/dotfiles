@@ -1,7 +1,7 @@
 [{1 "tpope/vim-fugitive"
-  :cmd [:Git]
-  :keys [["<leader>g" ":Git "] ; TODO: use <leader>g for gitsigns instead
-         ["<leader>g" ":Git<Cr>"]]}
+  :version false
+  :cmd [:Git :G]
+  :keys [["<leader>g" ":Git "]]} ; TODO: use <leader>g for gitsigns instead
 
 
  {1 "lewis6991/gitsigns.nvim"

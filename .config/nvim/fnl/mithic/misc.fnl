@@ -31,6 +31,18 @@
   (tset vim.lsp.handlers name (vim.lsp.with handler {:border _G.border})))
 
 
+;; Adjust lc-lms by sw
+(fn update-listchars-leadmultispace []
+  (vim.opt_local.listchars:append
+    {:leadmultispace (.. "|" (string.rep " " (- vim.bo.shiftwidth 1)))})
+  (vim.opt_global.listchars:append
+    {:leadmultispace (.. "|" (string.rep " " (- vim.go.shiftwidth 1)))}))
+(update-listchars-leadmultispace)
+(vim.api.nvim_create_autocmd [:OptionSet :BufWinEnter]
+  {:callback update-listchars-leadmultispace
+   :group (vim.api.nvim_create_augroup :mithic-lc-lms {})})
+
+
 ;; Whitespace cleanup
 (vim.api.nvim_create_autocmd :BufWritePre
   {:callback
@@ -40,3 +52,52 @@
       (pcall #(vim.api.nvim_win_set_cursor 0 c))
       nil)
    :group (vim.api.nvim_create_augroup :mithic-whitespace {})})
+
+
+;; Jump to last position
+(vim.api.nvim_create_autocmd :BufRead
+  {:callback
+     #(vim.api.nvim_create_autocmd :FileType
+        {:callback
+           #(when (and (~= vim.o.ft :gitcommit)
+                       (~= vim.o.ft :gitrebase)
+                       (<= 0 (vim.fn.line "'\"") (vim.fn.line "$"))
+                       (= 1 (vim.fn.line ".")))
+              (vim.cmd "normal! g'\""))
+         :buffer 0
+         :once true})
+   :group (vim.api.nvim_create_augroup :mithic-lastpos {})})
+
+
+;; New scratch buffer
+(vim.keymap.set :n "<leader>b"
+  #(do
+     (fn get-scratch [buffers index]
+       (if (< index 1) (let [buf (vim.api.nvim_create_buf false false)]
+                         (vim.api.nvim_buf_set_option buf :buftype :nofile)
+                         (vim.api.nvim_buf_set_option buf :swapfile false)
+                         (vim.api.nvim_buf_set_option buf :filetype :text)
+                         (vim.api.nvim_buf_set_name buf "/scratch")
+                         buf)
+           (= (vim.api.nvim_buf_get_name (. buffers index)) "/scratch") index
+           (get-scratch buffers (- index 1))))
+
+     (let [bufs (vim.api.nvim_list_bufs)]
+       (vim.api.nvim_win_set_buf 0 (get-scratch bufs (# bufs))))))
+
+
+;; Buffer movement keybinds
+(vim.keymap.set :n "<Tab>" "<C-^>")
+(vim.keymap.set :n "<S-Tab>"
+  #(if (vim.opt_local.modified:get)
+       (vim.api.nvim_err_writeln "E89: No write since last change for buffer")
+     (let [curr-buf (vim.api.nvim_get_current_buf)]
+       (var last-2buf nil)
+       (var last-buf nil)
+       (each [_ buf (ipairs (vim.api.nvim_list_bufs))
+                &until (= last-2buf curr-buf)]
+         (set last-2buf last-buf) (set last-buf buf))
+       (when last-2buf (vim.api.nvim_set_current_buf last-buf))
+       (vim.cmd (.. "bdelete " curr-buf)))))
+(vim.keymap.set :n "<leader><Tab>" vim.cmd.bnext)
+(vim.keymap.set :n "<leader><S-Tab>" vim.cmd.bprevious)
